@@ -23,7 +23,7 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
       </div>
       
       {/* Content */}
-      <div className="relative z-10 hero-content animate-fade-in text-center lg:text-left lg:max-w-4xl lg:mx-0 lg:ml-6">
+      <div className="relative z-10 hero-content animate-fade-in text-center lg:text-left container-wide">
         <h1 className="hero-title">
           {headline}
         </h1>
