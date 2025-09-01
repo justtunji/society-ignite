@@ -44,17 +44,11 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            {logoUrl ? (
-              <img 
-                src={logoUrl} 
-                alt={siteName}
-                className="h-8 w-auto"
-              />
-            ) : (
-              <div className="text-xl font-medium text-foreground">
-                {siteName}
-              </div>
-            )}
+            <img 
+              src="/lovable-uploads/9071cb07-b6a6-474a-8089-4c0309c824c6.png" 
+              alt={siteName}
+              className="h-10 w-auto"
+            />
           </div>
 
           {/* Desktop Navigation */}
