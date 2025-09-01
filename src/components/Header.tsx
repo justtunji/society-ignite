@@ -47,7 +47,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
             <img 
               src="/lovable-uploads/9071cb07-b6a6-474a-8089-4c0309c824c6.png" 
               alt={siteName}
-              className="h-10 w-auto"
+              className="h-10 w-auto bg-transparent"
             />
           </div>
 
@@ -59,7 +59,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
                 href={item.url}
                 target={item.external ? "_blank" : undefined}
                 rel={item.external ? "noopener noreferrer" : undefined}
-                className="text-foreground hover:text-accent transition-colors font-medium"
+                className="text-foreground hover:text-foreground transition-colors font-medium relative hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:right-0 hover:after:h-0.5 hover:after:bg-black"
               >
                 {item.label}
               </a>
@@ -111,7 +111,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
               href={item.url}
               target={item.external ? "_blank" : undefined}
               rel={item.external ? "noopener noreferrer" : undefined}
-              className="block text-foreground hover:text-accent transition-colors font-medium"
+              className="block text-foreground hover:text-foreground transition-colors font-medium relative hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:right-0 hover:after:h-0.5 hover:after:bg-black"
               onClick={() => setIsOpen(false)}
             >
               {item.label}

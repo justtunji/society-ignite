@@ -23,21 +23,21 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
       </div>
       
       {/* Content */}
-      <div className="relative z-10 hero-content animate-fade-in">
+      <div className="relative z-10 hero-content animate-fade-in text-center lg:text-left lg:max-w-4xl lg:mx-0 lg:ml-8">
         <h1 className="hero-title">
           {headline}
         </h1>
         {subheadline && (
-          <p className="hero-subtitle max-w-2xl mx-auto">
+          <p className="hero-subtitle max-w-2xl mx-auto lg:mx-0">
             {subheadline}
           </p>
         )}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mt-8">
           <Button 
             asChild 
             size="lg"
-            variant="accent"
-            className="group"
+            variant="outline"
+            className="group border-white text-white hover:bg-white hover:text-primary"
           >
             <a href={ctaUrl}>
               {ctaLabel}
