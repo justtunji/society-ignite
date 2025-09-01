@@ -23,7 +23,7 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
       </div>
       
       {/* Content */}
-      <div className="relative z-10 hero-content animate-fade-in text-center lg:text-left lg:max-w-4xl lg:mx-0 lg:ml-8">
+      <div className="relative z-10 hero-content animate-fade-in text-center lg:text-left lg:max-w-4xl lg:mx-0 lg:ml-6">
         <h1 className="hero-title">
           {headline}
         </h1>
@@ -36,8 +36,7 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
           <Button 
             asChild 
             size="lg"
-            variant="outline"
-            className="group border-white text-white hover:bg-white hover:text-primary"
+            className="group bg-white text-black hover:bg-white/90"
           >
             <a href={ctaUrl}>
               {ctaLabel}
