@@ -48,6 +48,7 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
             asChild 
             variant="outline"
             size="lg"
+            className="border-white text-white hover:bg-white hover:text-primary"
           >
             <a href="/about">
               Learn More
