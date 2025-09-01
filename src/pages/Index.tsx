@@ -45,7 +45,7 @@ const Index = () => {
     const fetchSiteSettings = async () => {
       try {
         const { data, error } = await supabase
-          .from('site_settings')
+          .from('public_site_settings')
           .select('*')
           .single();
 

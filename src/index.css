@@ -62,6 +62,7 @@ Clean, minimal, academic aesthetic with generous whitespace
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
+  :root {
     /* Academic brand gradients */
     --gradient-hero: linear-gradient(135deg, hsl(0 0% 0% / 0.95), hsl(0 0% 15% / 0.9));
     --gradient-accent: linear-gradient(45deg, hsl(43 96% 56%), hsl(43 96% 66%));

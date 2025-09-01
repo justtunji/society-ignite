@@ -727,10 +727,92 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_site_settings: {
+        Row: {
+          accent_color: string | null
+          address: string | null
+          captcha_provider: string | null
+          captcha_site_key: string | null
+          contact_email: string | null
+          contact_phone: string | null
+          created_at: string | null
+          favicon_url: string | null
+          font_body: string | null
+          font_heading: string | null
+          footer_blurb: string | null
+          hero_cta_label: string | null
+          hero_cta_url: string | null
+          hero_headline: string | null
+          hero_subheadline: string | null
+          id: string | null
+          is_mega_menu: boolean | null
+          logo_url: string | null
+          newsletter_position: string | null
+          newsletter_provider: string | null
+          og_image_url: string | null
+          partner_carousel_pause_on_hover: boolean | null
+          partner_carousel_speed: number | null
+          primary_color: string | null
+          secondary_color: string | null
+          seo_default_description: string | null
+          seo_default_title: string | null
+          show_instagram_feed: boolean | null
+          show_linkedin_feed: boolean | null
+          show_partner_carousel: boolean | null
+          show_promotions_section: boolean | null
+          site_name: string | null
+          social_instagram: string | null
+          social_linkedin: string | null
+          social_x: string | null
+          tagline: string | null
+          updated_at: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
-      [_ in never]: never
+      get_public_site_settings: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          accent_color: string
+          address: string
+          captcha_provider: string
+          captcha_site_key: string
+          contact_email: string
+          contact_phone: string
+          created_at: string
+          favicon_url: string
+          font_body: string
+          font_heading: string
+          footer_blurb: string
+          hero_cta_label: string
+          hero_cta_url: string
+          hero_headline: string
+          hero_subheadline: string
+          id: string
+          is_mega_menu: boolean
+          logo_url: string
+          newsletter_position: string
+          newsletter_provider: string
+          og_image_url: string
+          partner_carousel_pause_on_hover: boolean
+          partner_carousel_speed: number
+          primary_color: string
+          secondary_color: string
+          seo_default_description: string
+          seo_default_title: string
+          show_instagram_feed: boolean
+          show_linkedin_feed: boolean
+          show_partner_carousel: boolean
+          show_promotions_section: boolean
+          site_name: string
+          social_instagram: string
+          social_linkedin: string
+          social_x: string
+          tagline: string
+          updated_at: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
