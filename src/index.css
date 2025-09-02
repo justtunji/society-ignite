@@ -61,6 +61,10 @@ Clean, minimal, academic aesthetic with generous whitespace
 
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+    #lovable-badge {
+    display: none !important;
+  }
+}
 
   :root {
     /* Academic brand gradients */
