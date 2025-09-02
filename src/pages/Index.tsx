@@ -31,7 +31,7 @@ interface SiteSettings {
 const Index = () => {
   const [siteSettings, setSiteSettings] = useState<SiteSettings>({
     site_name: 'Society of Black Academics',
-    hero_headline: 'Driving Inclusive Change In Higher Education Sector',
+    hero_headline: 'Driving Inclusive Change\nIn Higher Education Sector',
     hero_subheadline: 'Join a community of scholars, researchers, and educators committed to advancing diversity and excellence in academia.',
     hero_cta_label: 'Join the Network',
     hero_cta_url: '/contact',
