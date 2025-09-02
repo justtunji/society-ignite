@@ -25,7 +25,12 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
       {/* Content */}
       <div className="relative z-10 hero-content animate-fade-in text-center lg:text-left container-wide">
         <h1 className="hero-title">
-          {headline}
+          {headline.replace('In Higher Education Sector', 'In Higher Education\nSector').split('\n').map((line, index) => (
+            <span key={index}>
+              {line}
+              {index === 0 && <br />}
+            </span>
+          ))}
         </h1>
         {subheadline && (
           <p className="hero-subtitle max-w-2xl mx-auto lg:mx-0">
