@@ -45,7 +45,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
           {/* Logo */}
           <div className="flex items-center space-x-3">
             <img 
-              src="/lovable-uploads/9071cb07-b6a6-474a-8089-4c0309c824c6.png" 
+              src="/lovable-uploads/logo@2x.png" 
               alt={siteName}
               className="h-10 w-auto bg-transparent"
             />
