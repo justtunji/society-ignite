@@ -130,9 +130,6 @@ Clean, minimal, academic aesthetic with generous whitespace
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-    #lovable-badge {
-    display: none !important;
-  }
 
 }
 
@@ -264,5 +261,11 @@ Clean, minimal, academic aesthetic with generous whitespace
     .animate-fade-in {
       animation: none;
     }
+  }
+}
+@layer base {
+  /* ...the rest of your base...*/
+  #lovable-badge {
+    display: none !important;
   }
 }
