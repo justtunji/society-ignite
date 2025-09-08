@@ -20,7 +20,7 @@ export const PartnerCarousel = ({ speed = 60, pauseOnHover = true }: PartnerCaro
   // Sample partner data - in production this would come from Supabase
   useEffect(() => {
     setPartners([
-      { id: '1', name: 'Harvard University', logo_url: 'https://logos-world.net/wp-content/uploads/2021/09/Harvard-Logo.png', website_url: 'https://harvard.edu', target_blank: true, order_index: 1 },
+      { id: '1', name: 'Nuffield Foundation', logo_url: 'https://societyofblackacademics.com/wp-content/uploads/2025/07/Nuffield_Foundation.png', website_url: 'https://www.nuffieldfoundation.org/', target_blank: true, order_index: 1 },
       { id: '2', name: 'Stanford University', logo_url: 'https://identity.stanford.edu/wp-content/uploads/sites/3/2020/07/block-s-right.png', website_url: 'https://stanford.edu', target_blank: true, order_index: 2 },
       { id: '3', name: 'MIT', logo_url: 'https://web.mit.edu/graphicidentity/logo/logo.svg', website_url: 'https://mit.edu', target_blank: true, order_index: 3 },
       { id: '4', name: 'Yale University', logo_url: 'https://yaleidentity.yale.edu/sites/default/files/Y%20logo.svg', website_url: 'https://yale.edu', target_blank: true, order_index: 4 },
