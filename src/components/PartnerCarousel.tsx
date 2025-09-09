@@ -1,5 +1,17 @@
 import { useEffect, useState } from 'react';
 
+// Import partner logos
+import nuffieldLogo from '@/assets/partners/nuffield-foundation.png';
+import sbiaLogo from '@/assets/partners/sbia.png';
+import perrettLaverLogo from '@/assets/partners/perrett-laver.png';
+import gatenbySandersonLogo from '@/assets/partners/gatenby-sanderson.png';
+import hbsLogo from '@/assets/partners/hbs.png';
+import ulLogo from '@/assets/partners/ul.png';
+import abgLogo from '@/assets/partners/abg.png';
+import knowledgeBridgeLogo from '@/assets/partners/knowledge-bridge.png';
+import cabsLogo from '@/assets/partners/cabs.png';
+import kbsLogo from '@/assets/partners/kbs.png';
+
 interface Partner {
   id: string;
   name: string;
@@ -20,12 +32,16 @@ export const PartnerCarousel = ({ speed = 60, pauseOnHover = true }: PartnerCaro
   // Sample partner data - in production this would come from Supabase
   useEffect(() => {
     setPartners([
-      { id: '1', name: 'Nuffield Foundation', logo_url: 'https://societyofblackacademics.com/wp-content/uploads/2025/07/Nuffield_Foundation.png', website_url: 'https://www.nuffieldfoundation.org/', target_blank: true, order_index: 1 },
-      { id: '2', name: 'Stanford University', logo_url: 'https://identity.stanford.edu/wp-content/uploads/sites/3/2020/07/block-s-right.png', website_url: 'https://stanford.edu', target_blank: true, order_index: 2 },
-      { id: '3', name: 'MIT', logo_url: 'https://web.mit.edu/graphicidentity/logo/logo.svg', website_url: 'https://mit.edu', target_blank: true, order_index: 3 },
-      { id: '4', name: 'Yale University', logo_url: 'https://yaleidentity.yale.edu/sites/default/files/Y%20logo.svg', website_url: 'https://yale.edu', target_blank: true, order_index: 4 },
-      { id: '5', name: 'Princeton University', logo_url: 'https://communications.princeton.edu/sites/default/files/styles/full_node/public/images/2022/02/princeton-university-shield.png', website_url: 'https://princeton.edu', target_blank: true, order_index: 5 },
-      { id: '6', name: 'Columbia University', logo_url: 'https://columbia.edu/content/themes/custom/columbia/assets/img/columbia-crown.svg', website_url: 'https://columbia.edu', target_blank: true, order_index: 6 },
+      { id: '1', name: 'University of Edinburgh Business School', logo_url: hbsLogo, website_url: 'https://www.business-school.ed.ac.uk/', target_blank: true, order_index: 1 },
+      { id: '2', name: 'Chartered Association of Business Schools', logo_url: cabsLogo, website_url: 'https://charteredabs.org/', target_blank: true, order_index: 2 },
+      { id: '3', name: 'King\'s College London Business School', logo_url: kbsLogo, website_url: 'https://www.kcl.ac.uk/business', target_blank: true, order_index: 3 },
+      { id: '4', name: 'Scottish Black Academics Interest Group', logo_url: sbiaLogo, website_url: 'https://www.sbia.business-school.ed.ac.uk/', target_blank: true, order_index: 4 },
+      { id: '5', name: 'Perrett Laver', logo_url: perrettLaverLogo, website_url: 'https://www.perrettlaver.com/', target_blank: true, order_index: 5 },
+      { id: '6', name: 'Nuffield Foundation', logo_url: nuffieldLogo, website_url: 'https://www.nuffieldfoundation.org/', target_blank: true, order_index: 6 },
+      { id: '7', name: 'Gatenby Sanderson', logo_url: gatenbySandersonLogo, website_url: 'https://www.gatenbysanderson.com/', target_blank: true, order_index: 7 },
+      { id: '8', name: 'University of Leicester School of Business', logo_url: ulLogo, website_url: 'https://le.ac.uk/school-of-business', target_blank: true, order_index: 8 },
+      { id: '9', name: 'Nottingham University Business School', logo_url: abgLogo, website_url: 'https://www.nottingham.ac.uk/business/', target_blank: true, order_index: 9 },
+      { id: '10', name: 'Knowledge Bridge', logo_url: knowledgeBridgeLogo, website_url: 'https://www.knowledge-bridge.co.uk/', target_blank: true, order_index: 10 }
     ]);
   }, []);
 

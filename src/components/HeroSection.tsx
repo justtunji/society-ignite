@@ -32,19 +32,17 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
             </span>
           ))}
         </h1>
-        {subheadline && (
-          <p className="hero-subtitle max-w-2xl mx-auto lg:mx-0">
-            {subheadline}
-          </p>
-        )}
+        <p className="hero-subtitle max-w-2xl mx-auto lg:mx-0">
+          The Society of Black Academics (SBA) provides a supportive community where Black Academics and Aspiring Scholars connect, share insights, and strengthen their career paths.
+        </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mt-8">
           <Button 
             asChild 
             size="lg"
             className="group bg-white text-black hover:bg-white/90"
           >
-            <a href={ctaUrl}>
-              {ctaLabel}
+            <a href="/join-us">
+              Become a Member
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </a>
           </Button>

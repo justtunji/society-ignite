@@ -4,6 +4,8 @@ import { HeroSection } from "@/components/HeroSection";
 import { PartnerCarousel } from "@/components/PartnerCarousel";
 import { PromotionsSection } from "@/components/PromotionsSection";
 import { FeaturedPrograms } from "@/components/FeaturedPrograms";
+import { NuffieldAnnouncement } from "@/components/NuffieldAnnouncement";
+import { PastEventsSection } from "@/components/PastEventsSection";
 import { NewsletterSection } from "@/components/NewsletterSection";
 import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
@@ -90,6 +92,10 @@ const Index = () => {
         {siteSettings.show_promotions_section && (
           <PromotionsSection />
         )}
+
+        <NuffieldAnnouncement />
+
+        <PastEventsSection />
 
         <FeaturedPrograms />
 
