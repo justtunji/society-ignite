@@ -13,7 +13,7 @@ export const NuffieldAnnouncement = () => {
                 <img 
                   src="https://societyofblackacademics.com/wp-content/uploads/2025/07/Master-RGB-DarkGreen-002-300x212.png"
                   alt="Nuffield Foundation Logo"
-                  className="h-24 mb-6"
+                  className="h-48 mb-6"
                 />
               </div>
               <div className="space-y-6">
