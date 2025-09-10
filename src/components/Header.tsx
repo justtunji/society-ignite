@@ -24,14 +24,12 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
   // Sample navigation - in production this would come from Supabase
   useEffect(() => {
     setNavigationItems([
-      { id: '1', label: 'About', url: '/about', external: false, cta_style: false, visible: true },
-      { id: '2', label: 'Programs', url: '/programs', external: false, cta_style: false, visible: true },
-      { id: '3', label: 'Events', url: '/events', external: false, cta_style: false, visible: true },
-      { id: '4', label: 'Resources', url: '/resources', external: false, cta_style: false, visible: true },
-      { id: '5', label: 'Gallery', url: '/gallery', external: false, cta_style: false, visible: true },
-      { id: '6', label: 'Blog', url: '/blog', external: false, cta_style: false, visible: true },
-      { id: '7', label: 'Contact', url: '/contact', external: false, cta_style: false, visible: true },
-      { id: '8', label: 'Donate', url: '/donate', external: false, cta_style: true, visible: true },
+      { id: '1', label: 'Home', url: '/', external: false, cta_style: false, visible: true },
+      { id: '2', label: 'About Us', url: '/about', external: false, cta_style: false, visible: true },
+      { id: '3', label: 'Resources', url: '/resources', external: false, cta_style: false, visible: true },
+      { id: '4', label: 'Gallery', url: '/gallery', external: false, cta_style: false, visible: true },
+      { id: '5', label: 'Contact Us', url: '/contact', external: false, cta_style: false, visible: true },
+      { id: '6', label: 'Join Us', url: '/join-us', external: false, cta_style: true, visible: true },
     ]);
   }, []);
 
