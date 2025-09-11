@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Handshake } from "lucide-react";
 import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
+import aboutHero from "@/assets/about-hero.jpg";
 
 const About = () => {
   useEffect(() => {
@@ -78,14 +79,23 @@ const About = () => {
       
       <main className="pt-16">
         {/* Hero Section */}
-        <section className="section-padding bg-gradient-to-b from-background to-muted/20">
-          <div className="container-wide">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="heading-xl mb-6">About Us</h1>
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                The Society of Black Academics (SBA) was formed due to the under-representation of Black academics at the Professorial and Senior Leadership levels in UK Universities.
-              </p>
-            </div>
+        <section className="relative min-h-[60vh] flex items-center justify-center">
+          {/* Background Image with Overlay */}
+          <div className="absolute inset-0">
+            <img 
+              src={aboutHero} 
+              alt="About Society of Black Academics"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-primary/80"></div>
+          </div>
+          
+          {/* Content */}
+          <div className="relative z-10 text-center text-white container-wide animate-fade-in">
+            <h1 className="hero-title mb-6">About Us</h1>
+            <p className="hero-subtitle max-w-3xl mx-auto">
+              The Society of Black Academics (SBA) was formed due to the under-representation of Black academics at the Professorial and Senior Leadership levels in UK Universities.
+            </p>
           </div>
         </section>
 

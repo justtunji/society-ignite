@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 // Import icons for resources page
 import { BookOpen, Download, ExternalLink, FileText, Video, Link as LinkIcon } from "lucide-react";
+import resourcesHero from "@/assets/resources-hero.jpg";
 
 const Resources = () => {
   useEffect(() => {
@@ -124,14 +125,26 @@ const Resources = () => {
       
       <main className="pt-16">
         {/* Hero Section */}
-        <section className="section-padding bg-gradient-to-b from-background to-muted/20">
-          <div className="container-wide">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="heading-xl mb-6">Resources</h1>
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                Access our curated collection of resources designed to support Black academics at every stage of their career journey.
-              </p>
+        <section className="relative min-h-[60vh] flex items-center justify-center">
+          {/* Background Image with Overlay */}
+          <div className="absolute inset-0">
+            <img 
+              src={resourcesHero} 
+              alt="Academic Resources and Learning"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-primary/80"></div>
+          </div>
+          
+          {/* Content */}
+          <div className="relative z-10 text-center text-white container-wide animate-fade-in">
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <BookOpen className="h-12 w-12 animate-pulse-slow" />
+              <h1 className="hero-title">Resources</h1>
             </div>
+            <p className="hero-subtitle max-w-3xl mx-auto">
+              Access our curated collection of resources designed to support Black academics at every stage of their career journey.
+            </p>
           </div>
         </section>
 

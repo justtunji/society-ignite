@@ -12,6 +12,7 @@ import { Check, Users, GraduationCap, Briefcase, School, Handshake } from "lucid
 import { supabase } from "@/integrations/supabase/client";
 import { StripePaymentForm } from "@/components/StripePaymentForm";
 import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
+import joinUsHero from "@/assets/join-us-hero.jpg";
 
 const JoinUs = () => {
   const { toast } = useToast();
@@ -162,20 +163,32 @@ const JoinUs = () => {
       
       <main className="pt-16">
         {/* Hero Section */}
-        <section className="section-padding bg-gradient-to-b from-background to-muted/20">
-          <div className="container-wide">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="heading-xl mb-6">Become a Member</h1>
-              <p className="text-xl text-muted-foreground leading-relaxed mb-8">
-                Join our community of scholars, researchers, and educators committed to driving inclusive change in higher education.
-              </p>
-              <div className="max-w-md mx-auto">
-                <img 
-                  src="https://societyofblackacademics.com/wp-content/uploads/2023/08/SBA-Logo.jpg"
-                  alt="Society of Black Academics Logo"
-                  className="w-full h-auto rounded-lg shadow-lg"
-                />
-              </div>
+        <section className="relative min-h-[60vh] flex items-center justify-center">
+          {/* Background Image with Overlay */}
+          <div className="absolute inset-0">
+            <img 
+              src={joinUsHero} 
+              alt="Join Society of Black Academics"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-primary/80"></div>
+          </div>
+          
+          {/* Content */}
+          <div className="relative z-10 text-center text-white container-wide animate-fade-in">
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <Users className="h-12 w-12 animate-pulse-slow" />
+              <h1 className="hero-title">Become a Member</h1>
+            </div>
+            <p className="hero-subtitle max-w-3xl mx-auto mb-8">
+              Join our community of scholars, researchers, and educators committed to driving inclusive change in higher education.
+            </p>
+            <div className="max-w-md mx-auto">
+              <img 
+                src="https://societyofblackacademics.com/wp-content/uploads/2023/08/SBA-Logo.jpg"
+                alt="Society of Black Academics Logo"
+                className="w-full h-auto rounded-lg shadow-lg animate-fade-in"
+              />
             </div>
           </div>
         </section>

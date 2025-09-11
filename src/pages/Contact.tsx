@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Mail, Phone, MapPin, Send, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import contactHero from "@/assets/contact-hero.jpg";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -92,14 +93,26 @@ const Contact = () => {
       
       <main className="pt-16">
         {/* Hero Section */}
-        <section className="section-padding bg-gradient-to-b from-background to-muted/20">
-          <div className="container-wide">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="heading-xl mb-6">Get in Touch</h1>
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                We'd love to hear from you. Whether you have questions about membership, partnerships, or want to get involved, we're here to help.
-              </p>
+        <section className="relative min-h-[60vh] flex items-center justify-center">
+          {/* Background Image with Overlay */}
+          <div className="absolute inset-0">
+            <img 
+              src={contactHero} 
+              alt="Contact Society of Black Academics"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-primary/80"></div>
+          </div>
+          
+          {/* Content */}
+          <div className="relative z-10 text-center text-white container-wide animate-fade-in">
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <Mail className="h-12 w-12 animate-bounce-soft" />
+              <h1 className="hero-title">Get in Touch</h1>
             </div>
+            <p className="hero-subtitle max-w-3xl mx-auto">
+              We'd love to hear from you. Whether you have questions about membership, partnerships, or want to get involved, we're here to help.
+            </p>
           </div>
         </section>
 

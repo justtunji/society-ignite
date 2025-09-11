@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Camera } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import galleryHero from "@/assets/gallery-hero.jpg";
 
 const Gallery = () => {
   useEffect(() => {
@@ -73,14 +74,26 @@ const Gallery = () => {
       
       <main className="pt-16">
         {/* Hero Section */}
-        <section className="section-padding bg-gradient-to-b from-background to-muted/20">
-          <div className="container-wide">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="heading-xl mb-6">Gallery</h1>
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                Explore moments from our past events, conferences, and community gatherings that showcase the vibrant spirit of the Society of Black Academics.
-              </p>
+        <section className="relative min-h-[60vh] flex items-center justify-center">
+          {/* Background Image with Overlay */}
+          <div className="absolute inset-0">
+            <img 
+              src={galleryHero} 
+              alt="Gallery of Academic Events"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-primary/80"></div>
+          </div>
+          
+          {/* Content */}
+          <div className="relative z-10 text-center text-white container-wide animate-fade-in">
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <Camera className="h-12 w-12 animate-bounce-soft" />
+              <h1 className="hero-title">Gallery</h1>
             </div>
+            <p className="hero-subtitle max-w-3xl mx-auto">
+              Explore moments from our past events, conferences, and community gatherings that showcase the vibrant spirit of the Society of Black Academics.
+            </p>
           </div>
         </section>
 
