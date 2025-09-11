@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { FileText, Video, Link as LinkIcon, Download } from "lucide-react";
+import { BookOpen, Download, ExternalLink, FileText, Video, Link as LinkIcon } from "lucide-react";
 
 const Resources = () => {
   useEffect(() => {

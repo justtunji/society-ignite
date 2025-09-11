@@ -8,8 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import { Badge } from "@/components/ui/badge";
-import { Check, Users, GraduationCap, Briefcase, School } from "lucide-react";
+import { Check, Users, GraduationCap, Briefcase, School, Handshake } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { StripePaymentForm } from "@/components/StripePaymentForm";
+import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
 
 const JoinUs = () => {
   const { toast } = useToast();
@@ -324,6 +326,9 @@ const JoinUs = () => {
           </div>
         </section>
 
+        {/* Stripe Payment Section */}
+        <StripePaymentForm />
+
         {/* Partners & Sponsors Section */}
         <section className="section-padding bg-muted/20" id="part_spon">
           <div className="container-wide">
@@ -332,12 +337,12 @@ const JoinUs = () => {
               <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
                 Let's Create Impact together! Ready to team up with us? Fill out this quick registration form to explore exciting sponsorship and partnership possibilities. Join forces for success!
               </p>
-              <a
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-primary text-primary-foreground hover:bg-primary/90 h-10 py-2 px-4"
-              >
-                Partner With Us
-              </a>
+              <PartnerSponsorDialog>
+                <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
+                  <Handshake className="mr-2 h-5 w-5" />
+                  Partner With Us
+                </Button>
+              </PartnerSponsorDialog>
             </div>
           </div>
         </section>

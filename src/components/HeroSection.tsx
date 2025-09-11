@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Handshake } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
+import { PartnerSponsorDialog } from "./PartnerSponsorDialog";
 
 interface HeroSectionProps {
   headline: string;
@@ -46,16 +47,16 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </a>
           </Button>
-          <Button 
-            asChild 
-            variant="outline"
-            size="lg"
-            className="border-white text-white hover:bg-white hover:text-primary"
-          >
-            <a href="/about">
-              Learn More
-            </a>
-          </Button>
+          <PartnerSponsorDialog>
+            <Button 
+              variant="outline"
+              size="lg"
+              className="border-white text-white hover:bg-white hover:text-primary group"
+            >
+              <Handshake className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
+              Become a Partner & Sponsor
+            </Button>
+          </PartnerSponsorDialog>
         </div>
       </div>
     </section>

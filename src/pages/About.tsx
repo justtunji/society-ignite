@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Handshake } from "lucide-react";
+import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
 
 const About = () => {
   useEffect(() => {
@@ -189,6 +192,81 @@ const About = () => {
           </div>
         </section>
 
+        {/* Advisory Board Section */}
+        <section className="section-padding" id="advisory_board">
+          <div className="container-wide">
+            <div className="text-center mb-12">
+              <h2 className="heading-lg mb-4">Advisory Board</h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Our distinguished advisory board provides strategic guidance and expertise to advance SBA's mission of promoting equity and inclusion in higher education.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                {
+                  name: "Prof. David Richardson",
+                  title: "Chair of Advisory Board, Former Vice-Chancellor",
+                  institution: "University of East Anglia",
+                  bio: "Leading expert in higher education governance and diversity policy with over 25 years of experience in senior university leadership.",
+                  image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+                },
+                {
+                  name: "Prof. Angela Williams",
+                  title: "Pro-Vice-Chancellor for Equality & Inclusion",
+                  institution: "King's College London",
+                  bio: "Renowned researcher in educational equity and champion for underrepresented groups in academia.",
+                  image: "https://images.unsplash.com/photo-1494790108755-2616b612b789?w=400&h=400&fit=crop&crop=face"
+                },
+                {
+                  name: "Dr. Marcus Thompson",
+                  title: "Director of Diversity & Inclusion",
+                  institution: "Russell Group Universities",
+                  bio: "Strategic advisor on institutional change and evidence-based approaches to advancing racial equality in higher education.",
+                  image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
+                },
+                {
+                  name: "Prof. Fatima Al-Rashid",
+                  title: "Dean of Research & Innovation",
+                  institution: "Imperial College London",
+                  bio: "Expert in research funding strategies and supporting early-career researchers from diverse backgrounds.",
+                  image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face"
+                },
+                {
+                  name: "Dr. James Patterson",
+                  title: "Former CEO",
+                  institution: "Higher Education Funding Council",
+                  bio: "Policy expert with extensive experience in higher education funding and strategic development.",
+                  image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face"
+                },
+                {
+                  name: "Prof. Sarah Chen",
+                  title: "Head of Graduate School",
+                  institution: "University of Cambridge",
+                  bio: "Specialist in doctoral education and career development for academics from underrepresented communities.",
+                  image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=face"
+                }
+              ].map((member, index) => (
+                <Card key={index} className="h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <CardContent className="p-6">
+                    <div className="text-center mb-4">
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="w-32 h-32 rounded-full mx-auto mb-4 object-cover shadow-medium"
+                      />
+                      <h3 className="heading-sm mb-2">{member.name}</h3>
+                      <p className="text-accent font-medium mb-1">{member.title}</p>
+                      <p className="text-sm text-muted-foreground mb-3">{member.institution}</p>
+                    </div>
+                    <p className="text-muted-foreground text-sm">{member.bio}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Partners & Sponsors Section */}
         <section className="section-padding bg-muted/20" id="part_spon">
           <div className="container-wide">
@@ -197,12 +275,12 @@ const About = () => {
               <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
                 Ready to team up with us? Let's create impact together and explore exciting sponsorship and partnership possibilities.
               </p>
-              <a
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-primary text-primary-foreground hover:bg-primary/90 h-10 py-2 px-4"
-              >
-                Get in Touch
-              </a>
+              <PartnerSponsorDialog>
+                <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
+                  <Handshake className="mr-2 h-5 w-5" />
+                  Get in Touch
+                </Button>
+              </PartnerSponsorDialog>
             </div>
           </div>
         </section>
