@@ -772,6 +772,48 @@ export type Database = {
         }
         Relationships: []
       }
+      team_members_public: {
+        Row: {
+          bio: string | null
+          created_at: string | null
+          id: string | null
+          image_url: string | null
+          is_featured: boolean | null
+          linkedin_url: string | null
+          name: string | null
+          order_index: number | null
+          title: string | null
+          twitter_url: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string | null
+          id?: string | null
+          image_url?: string | null
+          is_featured?: boolean | null
+          linkedin_url?: string | null
+          name?: string | null
+          order_index?: number | null
+          title?: string | null
+          twitter_url?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string | null
+          id?: string | null
+          image_url?: string | null
+          is_featured?: boolean | null
+          linkedin_url?: string | null
+          name?: string | null
+          order_index?: number | null
+          title?: string | null
+          twitter_url?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       get_public_site_settings: {
@@ -813,6 +855,22 @@ export type Database = {
           social_linkedin: string
           social_x: string
           tagline: string
+          updated_at: string
+        }[]
+      }
+      get_public_team_members: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          bio: string
+          created_at: string
+          id: string
+          image_url: string
+          is_featured: boolean
+          linkedin_url: string
+          name: string
+          order_index: number
+          title: string
+          twitter_url: string
           updated_at: string
         }[]
       }
