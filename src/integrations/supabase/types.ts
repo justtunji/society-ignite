@@ -869,6 +869,22 @@ export type Database = {
           updated_at: string
         }[]
       }
+      get_public_team_members: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          bio: string
+          created_at: string
+          id: string
+          image_url: string
+          is_featured: boolean
+          linkedin_url: string
+          name: string
+          order_index: number
+          title: string
+          twitter_url: string
+          updated_at: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
