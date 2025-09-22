@@ -212,9 +212,20 @@ const JoinUs = () => {
         <section className="section-padding bg-muted/20">
           <div className="container-wide">
             <h2 className="heading-lg mb-8 text-center">Levels of Membership</h2>
-            <p className="text-lg text-muted-foreground text-center mb-12 max-w-3xl mx-auto">
+            <p className="text-lg text-muted-foreground text-center mb-8 max-w-3xl mx-auto">
               Membership of the Society of Black Academics is divided into four key levels:
             </p>
+            
+            {/* Membership Levels Visual */}
+            <div className="flex justify-center mb-12">
+              <div className="max-w-2xl">
+                <img 
+                  src="/src/assets/membership-levels.jpg"
+                  alt="SBA Membership Levels Diagram showing Academic and Scholar Membership, Executive Leader Membership, Industry Practitioner Membership, and Student Membership"
+                  className="w-full h-auto rounded-lg shadow-lg animate-fade-in"
+                />
+              </div>
+            </div>
             
             <div className="grid lg:grid-cols-2 gap-8">
               {membershipLevels.map((level, index) => (
