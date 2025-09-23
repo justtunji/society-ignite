@@ -7,51 +7,67 @@ import { CreditCard, Check, Star, Crown, Zap } from "lucide-react";
 
 const membershipPlans = [
   {
-    id: 'basic',
-    name: 'Academic Member',
-    price: 25,
+    id: 'student',
+    name: 'Student Membership (SM)',
+    price: 15,
     interval: 'year',
-    description: 'Perfect for early career researchers and PhD students',
+    description: 'For current postgraduate students enrolled in Masters (MSc, MPhil) or PhD programs',
     icon: Star,
     features: [
-      'Access to all SBA events',
-      'Networking opportunities',
-      'Career development resources',
-      'Mentorship program access',
-      'Monthly newsletter'
+      'Engagement with senior academics',
+      'Career guidance and mentorship',
+      'Community knowledge sharing',
+      'Academic career preparation',
+      'Access to all SBA events'
     ],
     popular: false
   },
   {
-    id: 'professional',
-    name: 'Professional Member',
+    id: 'academic',
+    name: 'Academic and Scholar Membership (ASM)',
     price: 50,
     interval: 'year',
-    description: 'Ideal for established academics and practitioners',
-    icon: Crown,
+    description: 'For scholars at all levels from early career researcher (ECR) stage to senior academics',
+    icon: CreditCard,
     features: [
-      'All Academic Member benefits',
+      'Career development opportunities',
+      'Networking with junior and senior academics',
+      'Mentorship and leadership development',
+      'Access to professional guidance',
       'Priority event booking',
-      'Exclusive workshops',
-      'Leadership development programs',
-      'Direct mentorship matching',
-      'Annual conference discount'
+      'Exclusive workshops'
     ],
     popular: true
   },
   {
-    id: 'institutional',
-    name: 'Institutional Member',
-    price: 200,
+    id: 'industry',
+    name: 'Industry Practitioner Membership (IPM)',
+    price: 75,
     interval: 'year',
-    description: 'For departments and organizations',
+    description: 'For non-academic professionals wanting to transition into academia',
     icon: Zap,
     features: [
-      'All Professional Member benefits',
-      'Up to 5 individual memberships',
-      'Custom training programs',
-      'Partnership opportunities',
-      'Brand visibility at events',
+      'Academic transition guidance',
+      'Knowledge exchange opportunities',
+      'Collaborative learning experiences',
+      'Professional network access',
+      'Industry-academia networking'
+    ],
+    popular: false
+  },
+  {
+    id: 'executive',
+    name: 'Executive Leader Membership (ELM)',
+    price: 150,
+    interval: 'year',
+    description: 'For current directors, managers, and leaders within the Higher Education sector',
+    icon: Crown,
+    features: [
+      'Leadership development insights',
+      'Understanding diverse staff challenges',
+      'Strategic guidance on inclusion',
+      'Executive networking opportunities',
+      'Senior leadership forums',
       'Annual strategic consultation'
     ],
     popular: false
@@ -103,15 +119,16 @@ export const StripePaymentForm = () => {
   };
 
   return (
-    <div className="mt-12">
-      <div className="text-center mb-8">
-        <h3 className="text-2xl font-semibold mb-3">Complete Your Membership</h3>
-        <p className="text-muted-foreground">
-          Choose a membership plan to unlock exclusive benefits and support our mission
-        </p>
-      </div>
+    <section className="section-padding">
+      <div className="container-wide">
+        <div className="text-center mb-12">
+          <h2 className="heading-lg mb-4">Complete Your Membership</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Choose a membership plan to unlock exclusive benefits and support our mission. Secure payment powered by Stripe.
+          </p>
+        </div>
 
-      <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {membershipPlans.map((plan) => {
           const Icon = plan.icon;
           return (
@@ -175,14 +192,15 @@ export const StripePaymentForm = () => {
             </Card>
           );
         })}
-      </div>
+        </div>
 
-      <div className="mt-8 text-center text-sm text-muted-foreground">
-        <p>Secure payment powered by Stripe. Cancel anytime.</p>
-        <p className="mt-2">
-          Questions about membership? <a href="/contact" className="text-accent hover:underline">Contact us</a>
-        </p>
+        <div className="mt-8 text-center text-sm text-muted-foreground">
+          <p>Secure payment powered by Stripe. Cancel anytime.</p>
+          <p className="mt-2">
+            Questions about membership? <a href="/contact" className="text-accent hover:underline">Contact us</a>
+          </p>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
