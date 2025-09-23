@@ -9,6 +9,7 @@ const membershipPlans = [
   {
     id: 'student',
     name: 'Student Membership (SM)',
+    abbreviation: 'SM',
     price: 15,
     interval: 'year',
     description: 'For current postgraduate students enrolled in Masters (MSc, MPhil) or PhD programs',
@@ -25,6 +26,7 @@ const membershipPlans = [
   {
     id: 'academic',
     name: 'Academic and Scholar Membership (ASM)',
+    abbreviation: 'ASM',
     price: 50,
     interval: 'year',
     description: 'For scholars at all levels from early career researcher (ECR) stage to senior academics',
@@ -42,6 +44,7 @@ const membershipPlans = [
   {
     id: 'industry',
     name: 'Industry Practitioner Membership (IPM)',
+    abbreviation: 'IPM',
     price: 75,
     interval: 'year',
     description: 'For non-academic professionals wanting to transition into academia',
@@ -58,6 +61,7 @@ const membershipPlans = [
   {
     id: 'executive',
     name: 'Executive Leader Membership (ELM)',
+    abbreviation: 'ELM',
     price: 150,
     interval: 'year',
     description: 'For current directors, managers, and leaders within the Higher Education sector',
@@ -184,7 +188,7 @@ export const StripePaymentForm = () => {
                   ) : (
                     <>
                       <CreditCard className="w-4 h-4 mr-2" />
-                      Choose {plan.name}
+                      Choose {plan.abbreviation}
                     </>
                   )}
                 </Button>
