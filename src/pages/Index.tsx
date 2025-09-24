@@ -7,7 +7,6 @@ import { FeaturedPrograms } from "@/components/FeaturedPrograms";
 import { NuffieldAnnouncement } from "@/components/NuffieldAnnouncement";
 import { PastEventsSection } from "@/components/PastEventsSection";
 import { NewsletterSection } from "@/components/NewsletterSection";
-import { PrioritySection } from "@/components/PrioritySection";
 import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -75,15 +74,13 @@ const Index = () => {
         siteName={siteSettings.site_name}
       />
       
-      <main className="header-spacing">
+      <main>
         <HeroSection
           headline={siteSettings.hero_headline}
           subheadline={siteSettings.hero_subheadline}
           ctaLabel={siteSettings.hero_cta_label}
           ctaUrl={siteSettings.hero_cta_url}
         />
-
-        <PrioritySection />
 
         {siteSettings.show_partner_carousel && (
           <PartnerCarousel 
@@ -92,11 +89,11 @@ const Index = () => {
           />
         )}
 
-        <NuffieldAnnouncement />
-
         {siteSettings.show_promotions_section && (
           <PromotionsSection />
         )}
+
+        <NuffieldAnnouncement />
 
         <PastEventsSection />
 

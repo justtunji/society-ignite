@@ -9,31 +9,31 @@ Clean, minimal, academic aesthetic with generous whitespace
 
 @layer base {
   :root {
-    /* Core brand colors - inspired by Nuffield Foundation */
+    /* Core brand colors - Black & White theme */
     --background: 0 0% 100%; /* Pure white */
-    --foreground: 41 21% 20%; /* Dark gray-green */
+    --foreground: 0 0% 0%; /* Pure black */
 
     --card: 0 0% 100%; /* White cards */
-    --card-foreground: 41 21% 20%; /* Dark text on cards */
+    --card-foreground: 0 0% 0%; /* Black text on cards */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 41 21% 20%;
+    --popover-foreground: 0 0% 0%;
 
-    /* Primary: Dark teal similar to Nuffield */
-    --primary: 183 25% 25%; /* Dark teal */
+    /* Primary: Black */
+    --primary: 0 0% 0%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Light teal/green backgrounds */
-    --secondary: 160 30% 95%;
-    --secondary-foreground: 41 21% 20%;
+    /* Secondary: Light gray for subtle backgrounds */
+    --secondary: 0 0% 97%;
+    --secondary-foreground: 0 0% 0%;
 
-    /* Muted: Subtle grays with green tint */
-    --muted: 160 15% 96%;
-    --muted-foreground: 41 21% 45%;
+    /* Muted: Subtle grays */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    /* Accent: Bright teal for CTAs similar to Nuffield's green */
-    --accent: 160 84% 39%; /* Teal green */
-    --accent-foreground: 0 0% 100%;
+    /* Accent: Gold for CTAs and highlights */
+    --accent: 43 96% 56%; /* #FFD166 */
+    --accent-foreground: 0 0% 0%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
@@ -64,10 +64,10 @@ Clean, minimal, academic aesthetic with generous whitespace
     
 
   :root {
-    /* Modern brand gradients inspired by Nuffield */
-    --gradient-hero: linear-gradient(135deg, hsl(183 25% 25% / 0.95), hsl(183 35% 35% / 0.9));
-    --gradient-accent: linear-gradient(45deg, hsl(160 84% 39%), hsl(160 84% 49%));
-    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(160 30% 98%));
+    /* Academic brand gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 0% / 0.95), hsl(0 0% 15% / 0.9));
+    --gradient-accent: linear-gradient(45deg, hsl(43 96% 56%), hsl(43 96% 66%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 98%));
 
     /* Shadows */
     --shadow-soft: 0 1px 3px 0 hsl(0 0% 0% / 0.1), 0 1px 2px 0 hsl(0 0% 0% / 0.06);
@@ -231,11 +231,6 @@ Clean, minimal, academic aesthetic with generous whitespace
   /* Content sections */
   .section-padding {
     @apply py-16 md:py-24;
-  }
-
-  /* Header spacing */
-  .header-spacing {
-    @apply pt-20; /* Account for fixed header height */
   }
 
   .container-narrow {
