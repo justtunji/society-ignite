@@ -39,14 +39,17 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="container-wide">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+        <div className="flex items-center justify-between h-20">
+          {/* Logo and Site Name */}
           <div className="flex items-center space-x-3">
             <img 
               src="/lovable-uploads/logo@2x.png" 
               alt={siteName}
-              className="h-10 w-auto bg-transparent"
+              className="h-12 w-auto"
             />
+            <span className="text-lg font-semibold text-foreground hidden sm:block">
+              {siteName}
+            </span>
           </div>
 
           {/* Desktop Navigation */}
@@ -57,7 +60,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
                 href={item.url}
                 target={item.external ? "_blank" : undefined}
                 rel={item.external ? "noopener noreferrer" : undefined}
-                className="text-foreground hover:text-foreground transition-colors font-medium relative hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:right-0 hover:after:h-0.5 hover:after:bg-black"
+                className="text-foreground hover:text-primary transition-colors font-medium text-sm uppercase tracking-wide"
               >
                 {item.label}
               </a>
@@ -70,8 +73,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
               <Button
                 key={item.id}
                 asChild
-                variant="default"
-                className="btn-accent"
+                className="bg-accent text-accent-foreground hover:bg-accent/90"
               >
                 <a
                   href={item.url}
@@ -109,7 +111,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
               href={item.url}
               target={item.external ? "_blank" : undefined}
               rel={item.external ? "noopener noreferrer" : undefined}
-              className="block text-foreground hover:text-foreground transition-colors font-medium relative hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:right-0 hover:after:h-0.5 hover:after:bg-black"
+              className="block text-foreground hover:text-primary transition-colors font-medium text-sm uppercase tracking-wide"
               onClick={() => setIsOpen(false)}
             >
               {item.label}
@@ -119,8 +121,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
             <Button
               key={item.id}
               asChild
-              variant="default"
-              className="btn-accent w-full"
+              className="bg-accent text-accent-foreground hover:bg-accent/90 w-full"
             >
               <a
                 href={item.url}
