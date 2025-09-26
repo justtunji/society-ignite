@@ -57,8 +57,7 @@ export const NuffieldAnnouncement = () => {
         <div className="text-center mt-8">
           <PartnerSponsorDialog>
           <Button asChild size="lg" variant="outline">
-            <a>Become a Partner & Sponsor
-</a>
+            Become a Partner & Sponsor
           </Button>
           </PartnerSponsorDialog>
         </div>
