@@ -56,11 +56,10 @@ export const NuffieldAnnouncement = () => {
         
         <div className="text-center mt-8">
           <PartnerSponsorDialog>
-                <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                  <Handshake className="mr-2 h-5 w-5" />
-                  Get in Touch
-                </Button>
-              </PartnerSponsorDialog>
+          <Button asChild size="lg" variant="outline">
+            Become a Partner & Sponsor
+          </Button>
+          </PartnerSponsorDialog>
         </div>
       </div>
     </section>
