@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ExternalLink } from "lucide-react";
-import { PartnerSponsorDialog } from "./PartnerSponsorDialog";
 
 export const NuffieldAnnouncement = () => {
   return (
@@ -55,11 +54,11 @@ export const NuffieldAnnouncement = () => {
         </Card>
         
         <div className="text-center mt-8">
-          <PartnerSponsorDialog>
           <Button asChild size="lg" variant="outline">
-            Become a Partner & Sponsor
+            <a href="/about#part_spon">
+              Become a Partner & Sponsor
+            </a>
           </Button>
-          </PartnerSponsorDialog>
         </div>
       </div>
     </section>
