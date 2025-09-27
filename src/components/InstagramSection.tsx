@@ -1,6 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Instagram, ExternalLink, Heart, MessageCircle } from "lucide-react";
-import { useState } from "react";
+import sba1 from "@/assets/images/gallery/sba1.jpeg";
+import sba2 from "@/assets/images/gallery/sba2.jpeg";
+import sba4 from "@/assets/images/gallery/sba4.jpeg";
+import sba5 from "@/assets/images/gallery/sba5.jpeg";
+import sba6 from "@/assets/images/gallery/sba6.jpeg";
+import sba8 from "@/assets/images/gallery/sba8.jpeg";
 
 interface InstagramPost {
   id: string;
@@ -17,7 +22,7 @@ export const InstagramSection = () => {
   const instagramPosts: InstagramPost[] = [
     {
       id: '1',
-      image: '/src/assets/images/gallery/sba1.jpeg',
+      image: sba1,
       caption: 'Empowering Black academics through networking and professional development. Join our community today! 🎓 #BlackAcademics #HigherEducation',
       likes: '127',
       comments: '23',
@@ -26,7 +31,7 @@ export const InstagramSection = () => {
     },
     {
       id: '2',
-      image: '/src/assets/images/gallery/sba2.jpeg',
+      image: sba2,
       caption: 'Celebrating excellence in research and scholarship. Our members continue to break barriers and create change. ✨ #Research #Academic',
       likes: '89',
       comments: '15',
@@ -35,7 +40,7 @@ export const InstagramSection = () => {
     },
     {
       id: '3',
-      image: '/src/assets/images/gallery/sba4.jpeg',
+      image: sba4,
       caption: 'Building bridges and fostering collaboration across institutions. Together we rise! 🤝 #Community #Collaboration',
       likes: '156',
       comments: '31',
@@ -44,7 +49,7 @@ export const InstagramSection = () => {
     },
     {
       id: '4',
-      image: '/src/assets/images/gallery/sba5.jpeg',
+      image: sba5,
       caption: 'Inspiring the next generation of Black academics and scholars. The future is bright! 🌟 #NextGeneration #Inspiration',
       likes: '203',
       comments: '42',
@@ -53,7 +58,7 @@ export const InstagramSection = () => {
     },
     {
       id: '5',
-      image: '/src/assets/images/gallery/sba6.jpeg',
+      image: sba6,
       caption: 'Knowledge sharing and mentorship at its finest. Building a stronger academic community. 📚 #Mentorship #Knowledge',
       likes: '98',
       comments: '18',
@@ -62,7 +67,7 @@ export const InstagramSection = () => {
     },
     {
       id: '6',
-      image: '/src/assets/images/gallery/sba8.jpeg',
+      image: sba8,
       caption: 'Professional development and career advancement opportunities for our members. Always growing! 🚀 #ProfessionalDevelopment',
       likes: '134',
       comments: '27',
