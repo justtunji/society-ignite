@@ -1,54 +1,77 @@
 import { Play } from "lucide-react";
+import { useState } from "react";
 
 interface VideoEvent {
   id: string;
   title: string;
   videoId: string;
+  category: string;
 }
 
 export const PastEventsSection = () => {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  
   const pastEvents: VideoEvent[] = [
     {
       id: '1',
       title: 'Impactful Research and Scholarship (Part 1)',
-      videoId: '4JttSPOHnLU'
+      videoId: '4JttSPOHnLU',
+      category: 'research'
     },
     {
       id: '2', 
       title: 'Entering the academic market and progressing on the job',
-      videoId: '3m2pFRVPqd8'
+      videoId: '3m2pFRVPqd8',
+      category: 'career'
     },
     {
       id: '3',
       title: 'SBA Student Spotlight | Rebecca Davis',
-      videoId: 'ILv2WvgxnA8'
+      videoId: 'ILv2WvgxnA8',
+      category: 'networking'
     },
     {
       id: '4',
       title: 'Black British Literature Masters Programme',
-      videoId: '5PVqaAIEhe0'
+      videoId: '5PVqaAIEhe0',
+      category: 'research'
     },
     {
       id: '5',
       title: 'Academic Leadership and Career Development',
-      videoId: '4JttSPOHnLU'
+      videoId: '4JttSPOHnLU',
+      category: 'career'
     },
     {
       id: '6',
       title: 'Building Inclusive Research Environments',
-      videoId: '3m2pFRVPqd8'
+      videoId: '3m2pFRVPqd8',
+      category: 'research'
     },
     {
       id: '7',
       title: 'Networking and Professional Development',
-      videoId: 'ILv2WvgxnA8'
+      videoId: 'ILv2WvgxnA8',
+      category: 'networking'
     },
     {
       id: '8',
       title: 'Research Excellence and Impact',
-      videoId: '5PVqaAIEhe0'
+      videoId: '5PVqaAIEhe0',
+      category: 'research'
     }
   ];
+
+  const categories = [
+    { id: 'all', label: 'All Events' },
+    { id: 'research', label: 'Research' },
+    { id: 'career', label: 'Career Development' },
+    { id: 'networking', label: 'Networking' }
+  ];
+
+  const filteredEvents = selectedCategory === 'all' 
+    ? pastEvents.slice(0, 4)
+    : pastEvents.filter(event => event.category === selectedCategory).slice(0, 4);
 
   return (
     <section className="section-padding bg-gradient-to-br from-background via-muted/20 to-background">
@@ -68,9 +91,26 @@ export const PastEventsSection = () => {
           </p>
         </div>
 
-        {/* Videos Grid */}
+        {/* Category Filter */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setSelectedCategory(category.id)}
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
+                selectedCategory === category.id
+                  ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25'
+                  : 'bg-card text-muted-foreground hover:bg-primary/10 hover:text-primary border border-border'
+              }`}
+            >
+              {category.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Videos Grid - Single Row, 4 Videos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {pastEvents.map((event, index) => (
+          {filteredEvents.map((event, index) => (
             <div 
               key={event.id} 
               className="group animate-fade-in"

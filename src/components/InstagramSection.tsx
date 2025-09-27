@@ -19,59 +19,60 @@ interface InstagramPost {
 
 export const InstagramSection = () => {
   // Mock Instagram posts - in a real implementation, you'd fetch these from Instagram API
+  // Updated with recent posts - In production, this would fetch from Instagram API
   const instagramPosts: InstagramPost[] = [
     {
       id: '1',
       image: sba1,
-      caption: 'Empowering Black academics through networking and professional development. Join our community today! 🎓 #BlackAcademics #HigherEducation',
-      likes: '127',
-      comments: '23',
-      date: '2024-09-20',
+      caption: 'Exciting news! Our annual conference 2024 registration is now open. Join leading Black academics from around the world! 🌍 #SBAConference2024 #BlackAcademics',
+      likes: '284',
+      comments: '47',
+      date: '2024-09-25',
       url: 'https://www.instagram.com/societyofblackacademics/'
     },
     {
       id: '2',
       image: sba2,
-      caption: 'Celebrating excellence in research and scholarship. Our members continue to break barriers and create change. ✨ #Research #Academic',
-      likes: '89',
-      comments: '15',
-      date: '2024-09-18',
+      caption: 'Celebrating Dr. Sarah Williams recent publication in Nature! Breaking barriers in STEM research. 🧬✨ #STEMExcellence #Research',
+      likes: '198',
+      comments: '32',
+      date: '2024-09-23',
       url: 'https://www.instagram.com/societyofblackacademics/'
     },
     {
       id: '3',
       image: sba4,
-      caption: 'Building bridges and fostering collaboration across institutions. Together we rise! 🤝 #Community #Collaboration',
+      caption: 'Mentorship Monday! Connect with our amazing community of scholars and build lasting professional relationships. 🤝 #MentorshipMatters',
       likes: '156',
-      comments: '31',
-      date: '2024-09-15',
+      comments: '28',
+      date: '2024-09-22',
       url: 'https://www.instagram.com/societyofblackacademics/'
     },
     {
       id: '4',
       image: sba5,
-      caption: 'Inspiring the next generation of Black academics and scholars. The future is bright! 🌟 #NextGeneration #Inspiration',
+      caption: 'Graduate students spotlight! Meet our rising stars making waves in academia across diverse disciplines. 🌟 #GradStudent #FutureLeaders',
       likes: '203',
-      comments: '42',
-      date: '2024-09-12',
+      comments: '35',
+      date: '2024-09-20',
       url: 'https://www.instagram.com/societyofblackacademics/'
     },
     {
       id: '5',
       image: sba6,
-      caption: 'Knowledge sharing and mentorship at its finest. Building a stronger academic community. 📚 #Mentorship #Knowledge',
-      likes: '98',
-      comments: '18',
-      date: '2024-09-10',
+      caption: 'Workshop Wednesday! Join our professional development session on grant writing and research funding. 📚💰 #GrantWriting #ProfDev',
+      likes: '142',
+      comments: '21',
+      date: '2024-09-18',
       url: 'https://www.instagram.com/societyofblackacademics/'
     },
     {
       id: '6',
       image: sba8,
-      caption: 'Professional development and career advancement opportunities for our members. Always growing! 🚀 #ProfessionalDevelopment',
-      likes: '134',
-      comments: '27',
-      date: '2024-09-08',
+      caption: 'Thank you to all members who attended our virtual networking event! Building stronger connections across institutions. 🚀 #Networking #Community',
+      likes: '178',
+      comments: '19',
+      date: '2024-09-15',
       url: 'https://www.instagram.com/societyofblackacademics/'
     }
   ];
