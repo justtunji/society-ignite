@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ExternalLink } from "lucide-react";
 import { PartnerSponsorDialog } from "./PartnerSponsorDialog";
+import doitnownowLogo from "@/assets/partners/doitnownow-logo.png";
 
 export const DoItNowNowPartnership = () => {
   return (
@@ -12,11 +13,11 @@ export const DoItNowNowPartnership = () => {
             <div className="grid lg:grid-cols-2 gap-8 items-center">
               <div className="order-2 lg:order-1">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="bg-gradient-to-br from-primary to-blue-600 p-3 rounded-2xl">
+                  <div className="bg-white p-3 rounded-2xl shadow-lg">
                     <img 
-                      src="https://societyofblackacademics.com/wp-content/uploads/2025/09/DINN-e1757661440414-150x150.png"
+                      src={doitnownowLogo}
                       alt="Do It Now Now Logo"
-                      className="h-12 w-12 object-contain filter brightness-0 invert"
+                      className="h-12 w-12 object-contain"
                     />
                   </div>
                   <div>
@@ -74,18 +75,18 @@ export const DoItNowNowPartnership = () => {
               </div>
               <div className="order-1 lg:order-2">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-indigo-600/20 rounded-3xl rotate-3"></div>
-                  <div className="relative bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl p-8 text-white">
+                  <div className="absolute inset-0 bg-white/10 rounded-3xl rotate-3 shadow-lg"></div>
+                  <div className="relative bg-white rounded-3xl p-8 shadow-lg border">
                     <div className="text-center space-y-4">
-                      <div className="w-24 h-24 mx-auto bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                      <div className="w-24 h-24 mx-auto bg-gray-50 rounded-full flex items-center justify-center">
                         <img 
-                          src="https://societyofblackacademics.com/wp-content/uploads/2025/09/DINN-e1757661440414-150x150.png"
+                          src={doitnownowLogo}
                           alt="Do It Now Now Logo"
-                          className="h-16 w-16 object-contain filter brightness-0 invert"
+                          className="h-16 w-16 object-contain"
                         />
                       </div>
-                      <h3 className="text-xl font-medium">Empowering Black Communities</h3>
-                      <p className="text-blue-100 text-sm leading-relaxed">
+                      <h3 className="text-xl font-medium text-foreground">Empowering Black Communities</h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
                         Social mobility • Financial inclusion • Entrepreneurship • Authentic opportunity creation
                       </p>
                     </div>
