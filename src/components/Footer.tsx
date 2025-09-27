@@ -34,10 +34,11 @@ export const Footer = ({
   ];
 
   const socialLinks = [
-    { name: 'X (Twitter)', href: socialX, icon: '𝕏' },
-    { name: 'LinkedIn', href: socialLinkedin, icon: 'in' },
-    { name: 'Instagram', href: socialInstagram, icon: '📷' },
-  ].filter(link => link.href);
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/society-of-black-academics/', icon: 'in' },
+    { name: 'YouTube', href: 'https://www.youtube.com/channel/UC2mDgBLZlUUjipwEHVZuy-w', icon: '📺' },
+    { name: 'Instagram', href: 'https://www.instagram.com/societyofblackacademics/', icon: '📷' },
+    { name: 'X (Twitter)', href: 'https://twitter.com/SocietyBlackAca', icon: '𝕏' },
+  ];
 
   return (
     <footer className="bg-primary text-primary-foreground">

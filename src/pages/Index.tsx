@@ -3,7 +3,8 @@ import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { PartnerCarousel } from "@/components/PartnerCarousel";
 import { PromotionsSection } from "@/components/PromotionsSection";
-import { FeaturedPrograms } from "@/components/FeaturedPrograms";
+import { HEPIReportSection } from "@/components/HEPIReportSection";
+import { DoItNowNowPartnership } from "@/components/DoItNowNowPartnership";
 import { NuffieldAnnouncement } from "@/components/NuffieldAnnouncement";
 import { PastEventsSection } from "@/components/PastEventsSection";
 import { NewsletterSection } from "@/components/NewsletterSection";
@@ -95,9 +96,11 @@ const Index = () => {
 
         <NuffieldAnnouncement />
 
-        <PastEventsSection />
+        <DoItNowNowPartnership />
 
-        <FeaturedPrograms />
+        <HEPIReportSection />
+
+        <PastEventsSection />
 
         <NewsletterSection />
       </main>

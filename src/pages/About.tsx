@@ -215,61 +215,45 @@ const About = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 {
-                  name: "Prof. David Richardson",
-                  title: "Chair of Advisory Board, Former Vice-Chancellor",
-                  institution: "University of East Anglia",
-                  bio: "Leading expert in higher education governance and diversity policy with over 25 years of experience in senior university leadership.",
-                  image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+                  name: "Professor Sally Everett",
+                  title: "Vice Dean, Education, Deputy Dean (interim)",
+                  institution: "King's Business School",
+                  bio: "Professor Sally Everett is Vice Dean, Education, Deputy Dean (interim), and Professor of Business Education at King's Business School. She is also the academic lead for Inclusive Education at King's College London and a National Teaching Fellow (2017).",
+                  image: "https://aheconferencedotcom1.files.wordpress.com/2022/03/sally-everett-small.jpg"
                 },
                 {
-                  name: "Prof. Angela Williams",
-                  title: "Pro-Vice-Chancellor for Equality & Inclusion",
-                  institution: "King's College London",
-                  bio: "Renowned researcher in educational equity and champion for underrepresented groups in academia.",
-                  image: "https://images.unsplash.com/photo-1494790108755-2616b612b789?w=400&h=400&fit=crop&crop=face"
+                  name: "Professor Kevin Ibeh",
+                  title: "Professor of Marketing and International Business",
+                  institution: "Birkbeck, University of London",
+                  bio: "Kevin Ibeh, PhD, FCIM, FRSA, is Professor of Marketing and International Business and Pro Vice Chancellor (International) at Birkbeck, University of London. He is considered a leading authority on emerging African Multinational Enterprises.",
+                  image: "https://societyofblackacademics.com/wp-content/uploads/2023/09/Professor-Kevin-Ibeh.jpeg"
                 },
                 {
-                  name: "Dr. Marcus Thompson",
-                  title: "Director of Diversity & Inclusion",
-                  institution: "Russell Group Universities",
-                  bio: "Strategic advisor on institutional change and evidence-based approaches to advancing racial equality in higher education.",
-                  image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
-                },
-                {
-                  name: "Prof. Fatima Al-Rashid",
-                  title: "Dean of Research & Innovation",
-                  institution: "Imperial College London",
-                  bio: "Expert in research funding strategies and supporting early-career researchers from diverse backgrounds.",
-                  image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face"
-                },
-                {
-                  name: "Dr. James Patterson",
-                  title: "Former CEO",
-                  institution: "Higher Education Funding Council",
-                  bio: "Policy expert with extensive experience in higher education funding and strategic development.",
-                  image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face"
-                },
-                {
-                  name: "Prof. Sarah Chen",
-                  title: "Head of Graduate School",
-                  institution: "University of Cambridge",
-                  bio: "Specialist in doctoral education and career development for academics from underrepresented communities.",
-                  image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=face"
+                  name: "Professor (Associate) Gillian Stokes",
+                  title: "Associate Professor of Inclusive Social Research",
+                  institution: "UCL Social Research Institute",
+                  bio: "Gillian is an Associate Professor of Inclusive Social Research at the UCL Social Research Institute, University College London (UCL). She is also a qualified herbal practitioner and medical ethnobotanist with experience coaching both staff and students.",
+                  image: "https://societyofblackacademics.com/wp-content/uploads/2023/09/9-2.jpeg"
                 }
               ].map((member, index) => (
-                <Card key={index} className="h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                  <CardContent className="p-6">
-                    <div className="text-center mb-4">
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        className="w-32 h-32 rounded-full mx-auto mb-4 object-cover shadow-medium"
-                      />
-                      <h3 className="heading-sm mb-2">{member.name}</h3>
-                      <p className="text-accent font-medium mb-1">{member.title}</p>
-                      <p className="text-sm text-muted-foreground mb-3">{member.institution}</p>
+                <Card key={index} className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-2 animate-fade-in rounded-3xl overflow-hidden border-2 border-transparent hover:border-primary/20" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <CardContent className="p-8">
+                    <div className="text-center mb-6">
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-xl opacity-50"></div>
+                        <img
+                          src={member.image}
+                          alt={member.name}
+                          className="relative w-36 h-36 rounded-full mx-auto mb-6 object-cover shadow-2xl border-4 border-white dark:border-gray-800"
+                        />
+                      </div>
+                      <h3 className="heading-sm mb-3 text-xl font-medium">{member.name}</h3>
+                      <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-3 mb-3">
+                        <p className="text-primary font-medium text-sm">{member.title}</p>
+                        <p className="text-xs text-muted-foreground mt-1">{member.institution}</p>
+                      </div>
                     </div>
-                    <p className="text-muted-foreground text-sm">{member.bio}</p>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{member.bio}</p>
                   </CardContent>
                 </Card>
               ))}
