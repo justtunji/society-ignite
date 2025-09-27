@@ -129,6 +129,13 @@ export const PastEventsSection = () => {
                     className="rounded-xl transform transition-transform duration-500 group-hover:scale-[1.02]"
                   />
                 </div>
+                
+                {/* Video Title */}
+                <div className="p-3">
+                  <h3 className="text-sm font-medium text-foreground line-clamp-2 leading-tight">
+                    {event.title}
+                  </h3>
+                </div>
               </div>
             </div>
           ))}
