@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Handshake } from "lucide-react";
-import heroImage from "@/assets/hero-image.jpg";
+import heroImage from "@/assets/images/hero-image.jpg";
 import { PartnerSponsorDialog } from "./PartnerSponsorDialog";
 
 interface HeroSectionProps {

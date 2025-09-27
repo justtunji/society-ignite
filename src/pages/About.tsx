@@ -5,7 +5,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Handshake } from "lucide-react";
 import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
-import aboutHero from "@/assets/about-hero.jpg";
+import aboutHero from "@/assets/images/about-hero.jpg";
+import sbaLogo from "@/assets/logos/sba-logo.png";
+import sbaContacto from "@/assets/images/sba-contacto.jpg";
+import drAdeOyedijo from "@/assets/images/team/dr-ade-oyedijo.jpeg";
+import drMercyDenedo from "@/assets/images/team/dr-mercy-denedo.jpg";
+import drBolaBabajide from "@/assets/images/team/dr-bola-babajide.jpg";
+import stevenIorfa from "@/assets/images/team/steven-iorfa.jpeg";
+import julietOcheja from "@/assets/images/team/juliet-ocheja.jpeg";
+import formal2 from "@/assets/images/team/formal-2.jpeg";
+import drOpeoluwaAiyenitaju from "@/assets/images/team/dr-opeoluwa-aiyenitaju.jpeg";
+import professorKevinIbeh from "@/assets/images/team/professor-kevin-ibeh.jpeg";
+import teamMember9 from "@/assets/images/team/team-member-9.jpeg";
 
 const About = () => {
   useEffect(() => {
@@ -27,55 +38,55 @@ const About = () => {
       name: "Dr. Ade Oyedijo",
       title: "Founder & Director",
       bio: "Dr Oyedijo is a Scholar who is currently based at the University of Leicester School of Business where he lectures in Operations and Supply Chain Management. Ade founded SBA and overseas its current activities.",
-      image: "https://societyofblackacademics.com/wp-content/uploads/2023/06/Dr-Ade-Oyedijo-e1687520059154.jpeg",
+      image: drAdeOyedijo,
       linkedin: "https://www.linkedin.com/in/ade-oyedijo-25986260/?originalSubdomain=uk"
     },
     {
       name: "Dr. Mercy Denedo",
       title: "Project Manager",
       bio: "Dr. Denedo is an Assistant Professor in Accounting at Durham University. She manages all SBA's projects and she also assists in the planning of SBA's annual conferences.",
-      image: "https://societyofblackacademics.com/wp-content/uploads/2023/06/Dr-Mercy-Denedo.jpg",
+      image: drMercyDenedo,
       linkedin: "https://www.linkedin.com/in/mercy-denedo-68071135/?originalSubdomain=uk"
     },
     {
       name: "Dr. Bola Babajide",
       title: "Partnerships & External Engagement Manager",
       bio: "Dr. Babajide is a Senior Lecturer in Accounting and Finance at De Montfort University. She is responsible for SBA's partnerships and external engagement activities.",
-      image: "https://societyofblackacademics.com/wp-content/uploads/2023/06/Dr-Bola-Babajide.jpg",
+      image: drBolaBabajide,
       linkedin: "https://www.linkedin.com/in/bola-o-babajide-64124352/?originalSubdomain=uk"
     },
     {
       name: "Steven Iorfa",
       title: "Operations & Events Manager",
       bio: "Steven looks after SBA's events and coordinates its operational activities. He is a doctoral researcher at the University of Portsmouth, looking at sustainability transitions in food systems.",
-      image: "https://societyofblackacademics.com/wp-content/uploads/2023/09/Steven-Iorfa-e1693896382495.jpeg",
+      image: stevenIorfa,
       linkedin: "https://www.linkedin.com/in/steven-kator-iorfa-138641116/"
     },
     {
       name: "Juliet Ocheja",
       title: "Company Secretary",
       bio: "Juliet is a qualified lawyer with extensive experience in a variety of fields, including the public sector, oil and gas, finance, and energy. She assists SBA and offers guidance on compliance and regulatory matters.",
-      image: "https://societyofblackacademics.com/wp-content/uploads/2023/06/Juliet-Ocheja.jpeg",
+      image: julietOcheja,
       linkedin: "https://www.linkedin.com/in/juliet-ocheja-66952362/?originalSubdomain=uk"
     },
     {
       name: "Oyebola Toyese",
       title: "Marketing Manager",
       bio: "Oyebola Toyese is a specialist and consultant in branding, marketing, communications, and business growth. She provides support on SBA's marketing and branding approach.",
-      image: "https://societyofblackacademics.com/wp-content/uploads/2023/06/Formal-2.jpeg",
+      image: formal2,
       linkedin: "https://www.linkedin.com/in/oyebolatoyese/?originalSubdomain=uk"
     },
     {
       name: "Dr Opeoluwa Aiyenitaju",
       title: "Education Manager",
       bio: "Dr. Ope is an enthusiastic academic. She lectures in Business Information Systems at Manchester Metropolitan University. Additionally, she takes an integral role in SBA's student outreach initiative and holds the role of Education & Engagement Manager.",
-      image: "https://societyofblackacademics.com/wp-content/uploads/2023/08/Dr-Opeoluwa-Aiyenitaju-.jpeg"
+      image: drOpeoluwaAiyenitaju
     }
   ];
 
   return (
     <div className="min-h-screen">
-      <Header logoUrl="/lovable-uploads/logo@2x.png" siteName="Society of Black Academics" />
+      <Header logoUrl={sbaLogo} siteName="Society of Black Academics" />
       
       <main className="pt-16">
         {/* Hero Section */}
@@ -116,7 +127,7 @@ const About = () => {
               </div>
               <div>
                 <img 
-                  src="https://societyofblackacademics.com/wp-content/uploads/2023/08/sba-contacto-1024x512.jpg"
+                  src={sbaContacto}
                   alt="Society of Black Academics team meeting"
                   className="rounded-lg shadow-lg w-full"
                 />
@@ -219,21 +230,21 @@ const About = () => {
                   title: "Vice Dean, Education, Deputy Dean (interim)",
                   institution: "King's Business School",
                   bio: "Professor Sally Everett is Vice Dean, Education, Deputy Dean (interim), and Professor of Business Education at King's Business School. She is also the academic lead for Inclusive Education at King's College London and a National Teaching Fellow (2017).",
-                  image: "https://aheconferencedotcom1.files.wordpress.com/2022/03/sally-everett-small.jpg"
+                  image: "https://aheconferencedotcom1.files.wordpress.com/2022/03/sally-everett-small.jpg" // Keep external URL as fallback
                 },
                 {
                   name: "Professor Kevin Ibeh",
                   title: "Professor of Marketing and International Business",
                   institution: "Birkbeck, University of London",
                   bio: "Kevin Ibeh, PhD, FCIM, FRSA, is Professor of Marketing and International Business and Pro Vice Chancellor (International) at Birkbeck, University of London. He is considered a leading authority on emerging African Multinational Enterprises.",
-                  image: "https://societyofblackacademics.com/wp-content/uploads/2023/09/Professor-Kevin-Ibeh.jpeg"
+                  image: professorKevinIbeh
                 },
                 {
                   name: "Professor (Associate) Gillian Stokes",
                   title: "Associate Professor of Inclusive Social Research",
                   institution: "UCL Social Research Institute",
                   bio: "Gillian is an Associate Professor of Inclusive Social Research at the UCL Social Research Institute, University College London (UCL). She is also a qualified herbal practitioner and medical ethnobotanist with experience coaching both staff and students.",
-                  image: "https://societyofblackacademics.com/wp-content/uploads/2023/09/9-2.jpeg"
+                  image: teamMember9
                 }
               ].map((member, index) => (
                 <Card key={index} className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-2 animate-fade-in rounded-3xl overflow-hidden border-2 border-transparent hover:border-primary/20" style={{ animationDelay: `${index * 0.1}s` }}>

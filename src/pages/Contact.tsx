@@ -9,7 +9,8 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Mail, Phone, MapPin, Send, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import contactHero from "@/assets/contact-hero.jpg";
+import contactHero from "@/assets/images/contact-hero.jpg";
+import sbaLogo from "@/assets/logos/sba-logo.png";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -89,7 +90,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen">
-      <Header logoUrl="/lovable-uploads/logo@2x.png" siteName="Society of Black Academics" />
+      <Header logoUrl={sbaLogo} siteName="Society of Black Academics" />
       
       <main className="pt-16">
         {/* Hero Section */}

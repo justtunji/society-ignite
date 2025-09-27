@@ -5,7 +5,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 // Import icons for resources page
 import { BookOpen, Download, ExternalLink, FileText, Video, Link as LinkIcon } from "lucide-react";
-import resourcesHero from "@/assets/resources-hero.jpg";
+import resourcesHero from "@/assets/images/resources-hero.jpg";
+import sbaLogo from "@/assets/logos/sba-logo.png";
 
 const Resources = () => {
   useEffect(() => {
@@ -121,7 +122,7 @@ const Resources = () => {
 
   return (
     <div className="min-h-screen">
-      <Header logoUrl="/lovable-uploads/logo@2x.png" siteName="Society of Black Academics" />
+      <Header logoUrl={sbaLogo} siteName="Society of Black Academics" />
       
       <main className="pt-16">
         {/* Hero Section */}

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import sbaLogo from "@/assets/logos/sba-logo.png";
 
 interface NavigationItem {
   id: string;
@@ -43,7 +44,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
           {/* Logo */}
           <div className="flex items-center space-x-3">
             <img 
-              src="/lovable-uploads/logo@2x.png" 
+              src={logoUrl || sbaLogo} 
               alt={siteName}
               className="h-10 w-auto bg-transparent"
             />

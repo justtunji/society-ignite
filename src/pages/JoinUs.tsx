@@ -12,7 +12,10 @@ import { Check, Users, GraduationCap, Briefcase, School, Handshake } from "lucid
 import { supabase } from "@/integrations/supabase/client";
 import { StripePaymentForm } from "@/components/StripePaymentForm";
 import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
-import joinUsHero from "@/assets/join-us-hero.jpg";
+import joinUsHero from "@/assets/images/join-us-hero.jpg";
+import sbaLogo from "@/assets/logos/sba-logo.png";
+import sbaLogoSquare from "@/assets/logos/sba-logo-square.jpg";
+import membershipLevelsImage from "@/assets/images/membership-levels.jpg";
 
 const JoinUs = () => {
   const { toast } = useToast();
@@ -159,7 +162,7 @@ const JoinUs = () => {
 
   return (
     <div className="min-h-screen">
-      <Header logoUrl="/lovable-uploads/logo@2x.png" siteName="Society of Black Academics" />
+      <Header logoUrl={sbaLogo} siteName="Society of Black Academics" />
       
       <main className="pt-16">
         {/* Hero Section */}
@@ -185,7 +188,7 @@ const JoinUs = () => {
             </p>
             <div className="max-w-md mx-auto">
               <img 
-                src="https://societyofblackacademics.com/wp-content/uploads/2023/08/SBA-Logo.jpg"
+                src={sbaLogoSquare}
                 alt="Society of Black Academics Logo"
                 className="w-full h-auto rounded-lg shadow-lg animate-fade-in"
               />
@@ -220,7 +223,7 @@ const JoinUs = () => {
             <div className="flex justify-center mb-12">
               <div className="max-w-2xl">
                 <img 
-                  src="/src/assets/membership-levels.jpg"
+                  src={membershipLevelsImage}
                   alt="SBA Membership Levels Diagram showing Academic and Scholar Membership, Executive Leader Membership, Industry Practitioner Membership, and Student Membership"
                   className="w-full h-auto rounded-lg shadow-lg animate-fade-in"
                 />

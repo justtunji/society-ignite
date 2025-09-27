@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ExternalLink } from "lucide-react";
 import { PartnerSponsorDialog } from "./PartnerSponsorDialog";
+import nuffieldLogo from "@/assets/logos/nuffield-logo.png";
 
 export const NuffieldAnnouncement = () => {
   return (
@@ -12,7 +13,7 @@ export const NuffieldAnnouncement = () => {
             <div className="grid lg:grid-cols-2 gap-8 items-center">
               <div>
                 <img 
-                  src="https://societyofblackacademics.com/wp-content/uploads/2025/07/Master-RGB-DarkGreen-002-300x212.png"
+                  src={nuffieldLogo}
                   alt="Nuffield Foundation Logo"
                   className="h-48 mb-6"
                 />

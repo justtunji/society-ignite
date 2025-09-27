@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ExternalLink, FileText } from "lucide-react";
+import hepiReportCover from "@/assets/images/hepi-report-cover.png";
 
 export const HEPIReportSection = () => {
   return (
@@ -23,7 +24,7 @@ export const HEPIReportSection = () => {
                 <div className="grid md:grid-cols-2 h-full">
                   <div className="relative">
                     <img 
-                      src="https://societyofblackacademics.com/wp-content/uploads/2024/08/Unblocking-the-Pipeline-SM-3-1024x1024.png"
+                      src={hepiReportCover}
                       alt="Unblocking the Pipeline Report Cover"
                       className="w-full h-full object-cover"
                     />

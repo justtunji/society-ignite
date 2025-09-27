@@ -3,7 +3,17 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Camera } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import galleryHero from "@/assets/gallery-hero.jpg";
+import galleryHero from "@/assets/images/gallery-hero.jpg";
+import sbaLogo from "@/assets/logos/sba-logo.png";
+import sba1 from "@/assets/images/gallery/sba1.jpeg";
+import sba2 from "@/assets/images/gallery/sba2.jpeg";
+import sba4 from "@/assets/images/gallery/sba4.jpeg";
+import sba5 from "@/assets/images/gallery/sba5.jpeg";
+import sba6 from "@/assets/images/gallery/sba6.jpeg";
+import sba8 from "@/assets/images/gallery/sba8.jpeg";
+import sbaEvent3 from "@/assets/images/gallery/sba-event-3.jpeg";
+import sbaEvent6 from "@/assets/images/gallery/sba-event-6.jpeg";
+import sbaEvent8 from "@/assets/images/gallery/sba-event-8.jpeg";
 
 const Gallery = () => {
   useEffect(() => {
@@ -22,47 +32,47 @@ const Gallery = () => {
 
   const galleryImages = [
     {
-      src: "https://societyofblackacademics.com/wp-content/uploads/2025/07/SBA1.jpeg",
+      src: sba1,
       title: "4th Annual SBA conference hosted by The University of Bristol",
       caption: "Bringing together academics and professionals for networking and knowledge sharing"
     },
     {
-      src: "https://societyofblackacademics.com/wp-content/uploads/2025/07/SBA2.jpeg",
+      src: sba2,
       title: "Joint workshop with Higher Education Policy Institute (HEPI) and GatenbySanderson",
       caption: "Exploring why there are so few Black Professors"
     },
     {
-      src: "https://societyofblackacademics.com/wp-content/uploads/2025/07/SBA4.jpeg",
+      src: sba4,
       title: "President and Vice Chancellor of University of Bristol, Professor Evelyn Welch",
       caption: "Giving a Keynote Address at the 2024 SBA conference hosted by Bristol University"
     },
     {
-      src: "https://societyofblackacademics.com/wp-content/uploads/2025/07/SBA5.jpeg",
+      src: sba5,
       title: "SBA Conference 2024 hosted by University of Bristol",
       caption: "Engaging discussions and professional development sessions"
     },
     {
-      src: "https://societyofblackacademics.com/wp-content/uploads/2025/07/SBA6.jpeg",
+      src: sba6,
       title: "3rd Annual SBA Conference hosted by the University of Leicester",
       caption: "Building community and advancing careers in higher education"
     },
     {
-      src: "https://societyofblackacademics.com/wp-content/uploads/2025/07/SBA8.jpeg",
+      src: sba8,
       title: "3rd Annual SBA Conference hosted by the University of Leicester",
       caption: "Collaborative workshops and networking opportunities"
     },
     {
-      src: "https://societyofblackacademics.com/wp-content/uploads/2023/09/3-1.jpeg",
+      src: sbaEvent3,
       title: "SBA Workshop Session",
       caption: "Interactive discussions on career development and progression"
     },
     {
-      src: "https://societyofblackacademics.com/wp-content/uploads/2023/09/6-1.jpeg",
+      src: sbaEvent6,
       title: "Conference Networking",
       caption: "Building professional relationships and community connections"
     },
     {
-      src: "https://societyofblackacademics.com/wp-content/uploads/2023/09/8-1.jpeg",
+      src: sbaEvent8,
       title: "Panel Discussion",
       caption: "Expert insights on diversity and inclusion in higher education"
     }
@@ -70,7 +80,7 @@ const Gallery = () => {
 
   return (
     <div className="min-h-screen">
-      <Header logoUrl="/lovable-uploads/logo@2x.png" siteName="Society of Black Academics" />
+      <Header logoUrl={sbaLogo} siteName="Society of Black Academics" />
       
       <main className="pt-16">
         {/* Hero Section */}
