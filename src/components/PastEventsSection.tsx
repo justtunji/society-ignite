@@ -37,6 +37,66 @@ export const PastEventsSection = () => {
       date: 'February 2024',
       views: '1.8K',
       category: 'career'
+    },
+    {
+      id: '3',
+      title: 'SBA Student Spotlight | Rebecca Davis',
+      videoId: 'ILv2WvgxnA8',
+      duration: '8:45',
+      description: 'Meet Rebecca, the new SBA Student Rep and Doctoral Candidate at UC Santa Cruz',
+      date: 'September 2024',
+      views: '234',
+      category: 'networking'
+    },
+    {
+      id: '4',
+      title: 'Black British Literature Masters Programme',
+      videoId: '5PVqaAIEhe0',
+      duration: '12:30',
+      description: 'Students discuss the MA in Black British Literature course at Goldsmiths University',
+      date: 'February 2024',
+      views: '567',
+      category: 'research'
+    },
+    {
+      id: '5',
+      title: 'Academic Leadership and Career Development',
+      videoId: '4JttSPOHnLU',
+      duration: '45:20',
+      description: 'Leadership strategies and career advancement for Black academics in higher education',
+      date: 'January 2024',
+      views: '1.2K',
+      category: 'career'
+    },
+    {
+      id: '6',
+      title: 'Building Inclusive Research Environments',
+      videoId: '3m2pFRVPqd8',
+      duration: '38:15',
+      description: 'Creating supportive and inclusive spaces for diverse scholars in academic research',
+      date: 'December 2023',
+      views: '890',
+      category: 'research'
+    },
+    {
+      id: '7',
+      title: 'Networking and Professional Development',
+      videoId: 'ILv2WvgxnA8',
+      duration: '52:10',
+      description: 'Building professional networks and developing career advancement strategies',
+      date: 'November 2023',
+      views: '1.5K',
+      category: 'networking'
+    },
+    {
+      id: '8',
+      title: 'Research Excellence and Impact',
+      videoId: '5PVqaAIEhe0',
+      duration: '41:30',
+      description: 'Strategies for achieving research excellence and maximizing academic impact',
+      date: 'October 2023',
+      views: '2.3K',
+      category: 'research'
     }
   ];
 
@@ -87,7 +147,7 @@ export const PastEventsSection = () => {
         </div>
 
         {/* Videos Grid */}
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
           {filteredEvents.map((event, index) => (
             <div 
               key={event.id} 

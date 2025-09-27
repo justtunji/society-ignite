@@ -7,6 +7,7 @@ import { HEPIReportSection } from "@/components/HEPIReportSection";
 import { DoItNowNowPartnership } from "@/components/DoItNowNowPartnership";
 import { NuffieldAnnouncement } from "@/components/NuffieldAnnouncement";
 import { PastEventsSection } from "@/components/PastEventsSection";
+import { InstagramSection } from "@/components/InstagramSection";
 import { NewsletterSection } from "@/components/NewsletterSection";
 import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
@@ -101,6 +102,8 @@ const Index = () => {
         <HEPIReportSection />
 
         <PastEventsSection />
+
+        <InstagramSection />
 
         <NewsletterSection />
       </main>
