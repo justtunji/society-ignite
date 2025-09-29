@@ -26,20 +26,20 @@ export const PastEventsSection = () => {
     },
     {
       id: '3',
-      title: 'SBA Student Spotlight | Rebecca Davis',
-      videoId: 'ILv2WvgxnA8',
+      title: '4th Annual Conference of SBA 2024 at University of Bristol',
+      videoId: 'DW0vzXlfDc',
       category: 'networking'
     },
     {
       id: '4',
-      title: 'Black British Literature Masters Programme',
-      videoId: '5PVqaAIEhe0',
+      title: 'Impactful Research and Scholarship (Part 2)',
+      videoId: 'pOzIB12iz9s',
       category: 'research'
     },
     {
       id: '5',
-      title: 'Academic Leadership and Career Development',
-      videoId: '4JttSPOHnLU',
+      title: '3rd Annual Conference of the Society of Black Academics',
+      videoId: 'mSao58lLKzA',
       category: 'career'
     },
     {
