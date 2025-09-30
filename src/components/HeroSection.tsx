@@ -24,7 +24,7 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
       </div>
       
       {/* Content */}
-      <div className="relative z-10 hero-content text-left container mx-auto px-4 lg:px-12">
+      <div className="relative z-10 hero-content text-center container mx-auto px-4 lg:px-12">
         <div className="animate-slide-up">
           <h1 className="hero-title font-display">
             <span className="inline-block animate-fade-in stagger-1">
