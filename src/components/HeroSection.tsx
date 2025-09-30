@@ -20,7 +20,7 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
           alt="Society of Black Academics"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-primary/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/85 to-indigo-600/40"></div>
       </div>
       
       {/* Content */}

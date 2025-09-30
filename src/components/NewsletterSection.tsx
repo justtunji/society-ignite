@@ -66,12 +66,12 @@ export const NewsletterSection = () => {
   }
 
   return (
-    <section className="section-padding bg-secondary/30">
+    <section className="section-padding bg-gradient-to-br from-emerald-50 via-background to-teal-50">
       <div className="container-narrow">
-        <Card>
+        <Card className="border-2 border-emerald-200/50 shadow-lg">
           <CardHeader className="text-center">
-            <div className="mx-auto h-12 w-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-              <Mail className="h-6 w-6 text-accent" />
+            <div className="mx-auto h-12 w-12 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-lg flex items-center justify-center mb-4">
+              <Mail className="h-6 w-6 text-emerald-600" />
             </div>
             <CardTitle className="text-2xl font-medium">
               Stay Connected

@@ -74,15 +74,15 @@ export const PastEventsSection = () => {
     : pastEvents.filter(event => event.category === selectedCategory).slice(0, 4);
 
   return (
-    <section className="section-padding bg-gradient-to-br from-background via-muted/20 to-background">
+    <section className="section-padding bg-gradient-to-br from-coral-50 via-background to-indigo-50">
       <div className="container-wide">
         {/* Header Section */}
         <div className="text-center mb-16 animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-coral-100 to-indigo-100 text-coral-700 rounded-full text-sm font-medium mb-6">
             <Play className="h-4 w-4" />
             Video Library
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 bg-gradient-to-r from-coral-600 via-primary to-indigo-600 bg-clip-text text-transparent">
             Our Past Events
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">

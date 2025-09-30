@@ -38,7 +38,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
   const ctaItems = navigationItems.filter(item => item.visible && item.cta_style);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm">
       <div className="container-wide">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}

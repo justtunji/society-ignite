@@ -5,10 +5,10 @@ import hepiReportCover from "@/assets/images/hepi-report-cover.png";
 
 export const HEPIReportSection = () => {
   return (
-    <section className="section-padding bg-gradient-to-br from-background via-muted/20 to-background">
+    <section className="section-padding bg-gradient-to-br from-purple-50 via-background to-teal-50">
       <div className="container-wide">
         <div className="text-center mb-12 animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-teal-100 text-purple-700 rounded-full text-sm font-medium mb-6">
             <FileText className="h-4 w-4" />
             Research & Impact
           </div>
@@ -23,7 +23,7 @@ export const HEPIReportSection = () => {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Report Feature */}
           <div className="lg:col-span-2 animate-slide-in-left">
-            <Card className="overflow-hidden border-2 border-primary/20 shadow-xl bg-gradient-to-br from-card via-card to-primary/5 hover-lift hover-glow">
+            <Card className="overflow-hidden border-2 border-purple-200 shadow-xl bg-gradient-to-br from-card via-purple-50/30 to-teal-50/30 hover-lift hover-glow">
               <CardContent className="p-0">
                 <div className="grid md:grid-cols-2 h-full">
                   <div className="relative overflow-hidden">
