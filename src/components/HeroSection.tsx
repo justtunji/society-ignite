@@ -26,13 +26,14 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
       {/* Content */}
       <div className="relative z-10 hero-content text-center lg:text-left container-wide">
         <div className="animate-slide-up">
-          <h1 className="hero-title">
-            {headline.split('\n').map((line, index) => (
-              <span key={index} className={`inline-block animate-fade-in stagger-${index + 1}`}>
-                {line}
-                {index === 0 && <br />}
-              </span>
-            ))}
+          <h1 className="hero-title font-display">
+            <span className="inline-block animate-fade-in stagger-1">
+              Driving Inclusive Change In
+            </span>
+            <br />
+            <span className="inline-block animate-fade-in stagger-2">
+              Higher Education Sector
+            </span>
           </h1>
         </div>
         <div className="animate-slide-up stagger-2">

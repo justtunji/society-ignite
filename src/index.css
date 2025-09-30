@@ -329,7 +329,7 @@ Clean, minimal, academic aesthetic with generous whitespace
   }
 
   .animate-fade-in {
-    animation: fade-in 0.6s ease-out;
+    animation: fade-in 1.2s ease-out;
   }
 
   .animate-slide-up {
@@ -356,11 +356,11 @@ Clean, minimal, academic aesthetic with generous whitespace
     animation: pulse-glow 3s ease-in-out infinite;
   }
 
-  /* Staggered animations */
-  .stagger-1 { animation-delay: 0.1s; }
-  .stagger-2 { animation-delay: 0.2s; }
-  .stagger-3 { animation-delay: 0.3s; }
-  .stagger-4 { animation-delay: 0.4s; }
+  /* Staggered animations - slower fade-in */
+  .stagger-1 { animation-delay: 0.2s; }
+  .stagger-2 { animation-delay: 0.6s; }
+  .stagger-3 { animation-delay: 1.0s; }
+  .stagger-4 { animation-delay: 1.4s; }
 
   /* Organic shapes and soft design utilities */
   .organic-shape {

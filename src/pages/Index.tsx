@@ -85,27 +85,43 @@ const Index = () => {
         />
 
         {siteSettings.show_partner_carousel && (
-          <PartnerCarousel 
-            speed={siteSettings.partner_carousel_speed}
-            pauseOnHover={siteSettings.partner_carousel_pause_on_hover}
-          />
+          <section className="bg-secondary/5">
+            <PartnerCarousel 
+              speed={siteSettings.partner_carousel_speed}
+              pauseOnHover={siteSettings.partner_carousel_pause_on_hover}
+            />
+          </section>
         )}
 
         {siteSettings.show_promotions_section && (
-          <PromotionsSection />
+          <section className="bg-background">
+            <PromotionsSection />
+          </section>
         )}
 
-        <NuffieldAnnouncement />
+        <section className="bg-muted/30">
+          <NuffieldAnnouncement />
+        </section>
 
-        <DoItNowNowPartnership />
+        <section className="bg-background">
+          <DoItNowNowPartnership />
+        </section>
 
-        <HEPIReportSection />
+        <section className="bg-primary/5">
+          <HEPIReportSection />
+        </section>
 
-        <PastEventsSection />
+        <section className="bg-background">
+          <PastEventsSection />
+        </section>
 
-        <InstagramSection />
+        <section className="bg-secondary/10">
+          <InstagramSection />
+        </section>
 
-        <NewsletterSection />
+        <section className="bg-primary/10">
+          <NewsletterSection />
+        </section>
       </main>
 
       <Footer
