@@ -29,8 +29,8 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
           <h1 className="hero-title">
             {headline.split('\n').map((line, index) => (
               <span key={index} className={`inline-block animate-fade-in stagger-${index + 1}`}>
-                {line}
-                {index === 0 && <br />}
+                {line === "Driving Inclusive Change In" && <br />}
+                {index}
               </span>
             ))}
           </h1>
