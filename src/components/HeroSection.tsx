@@ -30,7 +30,9 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
             <span key={index} className={inline-block animate-fade-in stagger-${index + 1}}> 
               {line} 
               {index === 0 && <br />} 
-            </span> ))} </h1> </div>
+            </span> ))} 
+          </h1> 
+        </div>
         <div className="animate-slide-up stagger-2">
           <p className="hero-subtitle max-w-2xl mx-auto lg:mx-0">
             The Society of Black Academics (SBA) provides a supportive community where Black Academics and Aspiring Scholars connect, share insights, and strengthen their career paths.
