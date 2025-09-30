@@ -108,7 +108,7 @@ const Gallery = () => {
         </section>
 
         {/* Photos from Past Events */}
-        <section className="section-padding">
+        <section className="section-padding bg-gradient-to-br from-indigo-50 via-background to-purple-50">
           <div className="container-wide">
             <h2 className="heading-lg mb-12 text-center">Photos from Past Events</h2>
             
@@ -134,7 +134,7 @@ const Gallery = () => {
         </section>
 
         {/* Call to Action */}
-        <section className="section-padding bg-muted/20">
+        <section className="section-padding bg-gradient-to-br from-coral-50 via-background to-teal-50">
           <div className="container-wide">
             <div className="text-center">
               <h2 className="heading-lg mb-6">Join Our Next Event</h2>

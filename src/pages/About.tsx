@@ -111,7 +111,7 @@ const About = () => {
         </section>
 
         {/* Why SBA Section */}
-        <section className="section-padding">
+        <section className="section-padding bg-gradient-to-br from-purple-50 via-background to-indigo-50">
           <div className="container-wide">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
@@ -137,7 +137,7 @@ const About = () => {
         </section>
 
         {/* Mission, Vision, Values */}
-        <section className="section-padding bg-muted/20">
+        <section className="section-padding bg-gradient-to-br from-emerald-50 via-background to-teal-50">
           <div className="container-wide">
             <div className="grid md:grid-cols-3 gap-8">
               <Card className="h-full">
@@ -171,7 +171,7 @@ const About = () => {
         </section>
 
         {/* Team Section */}
-        <section className="section-padding" id="our_team">
+        <section className="section-padding bg-gradient-to-br from-coral-50 via-background to-indigo-50" id="our_team">
           <div className="container-wide">
             <div className="text-center mb-12">
               <h2 className="heading-lg mb-4">Meet Our Team</h2>
@@ -273,7 +273,7 @@ const About = () => {
         </section>
 
         {/* Partners & Sponsors Section */}
-        <section className="section-padding bg-muted/20" id="part_spon">
+        <section className="section-padding bg-gradient-to-br from-indigo-50 via-background to-purple-50" id="part_spon">
           <div className="container-wide">
             <div className="text-center">
               <h2 className="heading-lg mb-6">Become Our Partners & Sponsors</h2>

@@ -118,7 +118,7 @@ const Contact = () => {
         </section>
 
         {/* Contact Form and Info */}
-        <section className="section-padding">
+        <section className="section-padding bg-gradient-to-br from-teal-50 via-background to-emerald-50">
           <div className="container-wide">
             <div className="grid lg:grid-cols-2 gap-12">
               {/* Contact Form */}
@@ -274,7 +274,7 @@ const Contact = () => {
         </section>
 
         {/* FAQ Section */}
-        <section className="section-padding bg-muted/20">
+        <section className="section-padding bg-gradient-to-br from-purple-50 via-background to-coral-50">
           <div className="container-wide">
             <div className="max-w-4xl mx-auto">
               <h2 className="heading-lg mb-8 text-center">Frequently Asked Questions</h2>

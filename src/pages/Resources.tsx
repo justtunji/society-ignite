@@ -150,7 +150,7 @@ const Resources = () => {
         </section>
 
         {/* Resource Categories */}
-        <section className="section-padding">
+        <section className="section-padding bg-gradient-to-br from-purple-50 via-background to-coral-50">
           <div className="container-wide">
             {resourceCategories.map((category, categoryIndex) => (
               <div key={categoryIndex} className="mb-16">
@@ -198,7 +198,7 @@ const Resources = () => {
         </section>
 
         {/* Resource Request Section */}
-        <section className="section-padding bg-muted/20">
+        <section className="section-padding bg-gradient-to-br from-indigo-50 via-background to-teal-50">
           <div className="container-wide">
             <div className="text-center">
               <h2 className="heading-lg mb-6">Need Something Specific?</h2>
@@ -216,7 +216,7 @@ const Resources = () => {
         </section>
 
         {/* Community Resources */}
-        <section className="section-padding">
+        <section className="section-padding bg-gradient-to-br from-emerald-50 via-background to-purple-50">
           <div className="container-wide">
             <div className="text-center mb-12">
               <h2 className="heading-lg mb-6">Community Resources</h2>

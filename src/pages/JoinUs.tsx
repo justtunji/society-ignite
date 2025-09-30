@@ -197,7 +197,7 @@ const JoinUs = () => {
         </section>
 
         {/* Benefits Section */}
-        <section className="section-padding">
+        <section className="section-padding bg-gradient-to-br from-emerald-50 via-background to-teal-50">
           <div className="container-wide">
             <h2 className="heading-lg mb-8 text-center">Benefits of SBA Membership</h2>
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -212,7 +212,7 @@ const JoinUs = () => {
         </section>
 
         {/* Membership Levels */}
-        <section className="section-padding bg-muted/20">
+        <section className="section-padding bg-gradient-to-br from-purple-50 via-background to-indigo-50">
           <div className="container-wide">
             <h2 className="heading-lg mb-8 text-center">Levels of Membership</h2>
             <p className="text-lg text-muted-foreground text-center mb-8 max-w-3xl mx-auto">
@@ -255,7 +255,7 @@ const JoinUs = () => {
         </section>
 
         {/* Membership Form */}
-        <section className="section-padding" id="b-a-m">
+        <section className="section-padding bg-gradient-to-br from-coral-50 via-background to-indigo-50" id="b-a-m">
           <div className="container-wide">
             <div className="max-w-2xl mx-auto">
               <Card>
@@ -357,7 +357,7 @@ const JoinUs = () => {
         <StripePaymentForm />
 
         {/* Partners & Sponsors Section */}
-        <section className="section-padding bg-muted/20" id="part_spon">
+        <section className="section-padding bg-gradient-to-br from-teal-50 via-background to-emerald-50" id="part_spon">
           <div className="container-wide">
             <div className="text-center">
               <h2 className="heading-lg mb-6">Become our Partners & Sponsors</h2>
