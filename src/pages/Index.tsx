@@ -85,7 +85,7 @@ const Index = () => {
         />
 
         {siteSettings.show_partner_carousel && (
-          <section className="bg-secondary/5">
+          <section className="bg-gradient-to-br from-purple-50 via-background to-purple-50">
             <PartnerCarousel 
               speed={siteSettings.partner_carousel_speed}
               pauseOnHover={siteSettings.partner_carousel_pause_on_hover}
@@ -94,32 +94,32 @@ const Index = () => {
         )}
 
         {siteSettings.show_promotions_section && (
-          <section className="bg-background">
+          <section className="bg-gradient-to-br from-teal-50 via-background to-teal-50">
             <PromotionsSection />
           </section>
         )}
 
-        <section className="bg-muted/30">
+        <section className="bg-gradient-to-br from-coral-50 via-background to-coral-50">
           <NuffieldAnnouncement />
         </section>
 
-        <section className="bg-background">
+        <section className="bg-gradient-to-br from-indigo-50 via-background to-indigo-50">
           <DoItNowNowPartnership />
         </section>
 
-        <section className="bg-primary/5">
+        <section className="bg-gradient-to-br from-emerald-50 via-background to-emerald-50">
           <HEPIReportSection />
         </section>
 
-        <section className="bg-background">
+        <section className="bg-gradient-to-br from-purple-50 via-background to-purple-50">
           <PastEventsSection />
         </section>
 
-        <section className="bg-secondary/10">
+        <section className="bg-gradient-to-br from-teal-50 via-background to-teal-50">
           <InstagramSection />
         </section>
 
-        <section className="bg-primary/10">
+        <section className="bg-gradient-to-br from-coral-50 via-background to-coral-50">
           <NewsletterSection />
         </section>
       </main>
