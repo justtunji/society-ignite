@@ -6,24 +6,25 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import galleryHero from "@/assets/images/gallery-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
-import sba1 from "@/assets/images/gallery/sba1.jpeg";
-import sba2 from "@/assets/images/gallery/sba2.jpeg";
-import sba4 from "@/assets/images/gallery/sba4.jpeg";
-import sba5 from "@/assets/images/gallery/sba5.jpeg";
-import sba6 from "@/assets/images/gallery/sba6.jpeg";
-import sba8 from "@/assets/images/gallery/sba8.jpeg";
-import sbaEvent3 from "@/assets/images/gallery/sba-event-3.jpeg";
-import sbaEvent6 from "@/assets/images/gallery/sba-event-6.jpeg";
-import sbaEvent8 from "@/assets/images/gallery/sba-event-8.jpeg";
-import drAdeOyedijo from "@/assets/images/team/dr-ade-oyedijo.jpeg";
-import drBolaBabajide from "@/assets/images/team/dr-bola-babajide.jpg";
-import drMercyDenedo from "@/assets/images/team/dr-mercy-denedo.jpg";
-import drOpeoluwaAiyenitaju from "@/assets/images/team/dr-opeoluwa-aiyenitaju.jpeg";
-import formal2 from "@/assets/images/team/formal-2.jpeg";
-import julietOcheja from "@/assets/images/team/juliet-ocheja.jpeg";
-import professorKevinIbeh from "@/assets/images/team/professor-kevin-ibeh.jpeg";
-import stevenIorfa from "@/assets/images/team/steven-iorfa.jpeg";
-import teamMember9 from "@/assets/images/team/team-member-9.jpeg";
+import sba1 from "@/assets/images/gallery/sba-1.jpeg";
+import sba31 from "@/assets/images/gallery/sba-3-1.jpeg";
+import sba61 from "@/assets/images/gallery/sba-6-1.jpeg";
+import sba81 from "@/assets/images/gallery/sba-8-1.jpeg";
+import sba93 from "@/assets/images/gallery/sba-9-3.jpeg";
+import sba101 from "@/assets/images/gallery/sba-10-1.jpeg";
+import sba2 from "@/assets/images/gallery/sba-2.jpeg";
+import sba111 from "@/assets/images/gallery/sba-11-1.jpeg";
+import sba122 from "@/assets/images/gallery/sba-12-2.jpeg";
+import sba132 from "@/assets/images/gallery/sba-13-2.jpeg";
+import sba141 from "@/assets/images/gallery/sba-14-1.jpeg";
+import sba151 from "@/assets/images/gallery/sba-15-1.jpeg";
+import sba161 from "@/assets/images/gallery/sba-16-1.jpeg";
+import journals1 from "@/assets/images/gallery/journals-1.jpg";
+import sba3 from "@/assets/images/gallery/sba-3.jpeg";
+import sba4 from "@/assets/images/gallery/sba-4.jpeg";
+import sba5 from "@/assets/images/gallery/sba-5.jpeg";
+import sba6 from "@/assets/images/gallery/sba-6.jpeg";
+import sba8 from "@/assets/images/gallery/sba-8.jpeg";
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<{ src: string; title: string; caption: string } | null>(null);
@@ -46,92 +47,97 @@ const Gallery = () => {
     {
       src: sba1,
       title: "4th Annual SBA conference hosted by The University of Bristol",
-      caption: "Bringing together academics and professionals for networking and knowledge sharing"
+      caption: "4th Annual SBA conference hosted by The University of Bristol"
+    },
+    {
+      src: sba31,
+      title: "SBA Event",
+      caption: "Society of Black Academics event"
+    },
+    {
+      src: sba61,
+      title: "SBA Event",
+      caption: "Society of Black Academics event"
+    },
+    {
+      src: sba81,
+      title: "SBA Event",
+      caption: "Society of Black Academics event"
+    },
+    {
+      src: sba93,
+      title: "SBA Event",
+      caption: "Society of Black Academics event"
+    },
+    {
+      src: sba101,
+      title: "SBA Event",
+      caption: "Society of Black Academics event"
     },
     {
       src: sba2,
       title: "Joint workshop with Higher Education Policy Institute (HEPI) and GatenbySanderson",
-      caption: "Exploring why there are so few Black Professors"
+      caption: "Joint workshop with Higher Education Policy Institute (HEPI) and GatenbySanderson on Why There are so Few Black Professors"
+    },
+    {
+      src: sba111,
+      title: "SBA Event",
+      caption: "Society of Black Academics event"
+    },
+    {
+      src: sba122,
+      title: "SBA Event",
+      caption: "Society of Black Academics event"
+    },
+    {
+      src: sba132,
+      title: "SBA Event",
+      caption: "Society of Black Academics event"
+    },
+    {
+      src: sba141,
+      title: "SBA Event",
+      caption: "Society of Black Academics event"
+    },
+    {
+      src: sba151,
+      title: "SBA Event",
+      caption: "Society of Black Academics event"
+    },
+    {
+      src: sba161,
+      title: "SBA Event",
+      caption: "Society of Black Academics event"
+    },
+    {
+      src: journals1,
+      title: "Academic Journals",
+      caption: "Academic Journals"
+    },
+    {
+      src: sba3,
+      title: "SBA Event",
+      caption: "Society of Black Academics event"
     },
     {
       src: sba4,
       title: "President and Vice Chancellor of University of Bristol, Professor Evelyn Welch",
-      caption: "Giving a Keynote Address at the 2024 SBA conference hosted by Bristol University"
+      caption: "President and Vice Chancellor of University of Bristol, Professor Evelyn Welch, giving a Keynote Address at the 2024 SBA conference hosted by Bristol University"
     },
     {
       src: sba5,
       title: "SBA Conference 2024 hosted by University of Bristol",
-      caption: "Engaging discussions and professional development sessions"
+      caption: "SBA Conference 2024 hosted by University of Bristol"
     },
     {
       src: sba6,
       title: "3rd Annual SBA Conference hosted by the University of Leicester",
-      caption: "Building community and advancing careers in higher education"
+      caption: "3rd Annual SBA Conference hosted by the University of Leicester"
     },
     {
       src: sba8,
       title: "3rd Annual SBA Conference hosted by the University of Leicester",
-      caption: "Collaborative workshops and networking opportunities"
-    },
-    {
-      src: sbaEvent3,
-      title: "SBA Workshop Session",
-      caption: "Interactive discussions on career development and progression"
-    },
-    {
-      src: sbaEvent6,
-      title: "Conference Networking",
-      caption: "Building professional relationships and community connections"
-    },
-    {
-      src: sbaEvent8,
-      title: "Panel Discussion",
-      caption: "Expert insights on diversity and inclusion in higher education"
-    },
-    {
-      src: drAdeOyedijo,
-      title: "Dr. Ade Oyedijo",
-      caption: "Leadership and mentorship in academic excellence"
-    },
-    {
-      src: drBolaBabajide,
-      title: "Dr. Bola Babajide",
-      caption: "Advancing research and academic development"
-    },
-    {
-      src: drMercyDenedo,
-      title: "Dr. Mercy Denedo",
-      caption: "Championing diversity in higher education"
-    },
-    {
-      src: drOpeoluwaAiyenitaju,
-      title: "Dr. Opeoluwa Aiyenitaju",
-      caption: "Excellence in academic research and teaching"
-    },
-    {
-      src: formal2,
-      title: "SBA Formal Event",
-      caption: "Celebrating academic achievements and milestones"
-    },
-    {
-      src: julietOcheja,
-      title: "Juliet Ocheja",
-      caption: "Supporting academic professionals and development"
-    },
-    {
-      src: professorKevinIbeh,
-      title: "Professor Kevin Ibeh",
-      caption: "Leading innovation in higher education research"
-    },
-    {
-      src: stevenIorfa,
-      title: "Steven Iorfa",
-      caption: "Driving change in academic communities"
-    },
-    {
-      src: teamMember9,
-      title: "SBA Community Member",
-      caption: "Building bridges in academic excellence"
+      caption: "3rd Annual SBA Conference hosted by the University of Leicester"
     }
   ];
 
