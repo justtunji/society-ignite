@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
-import { Mail, Phone, MapPin, Send, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Send, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import contactHero from "@/assets/images/contact-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
@@ -92,228 +91,234 @@ const Contact = () => {
     <div className="min-h-screen">
       <Header logoUrl={sbaLogo} siteName="Society of Black Academics" />
       
-      <main className="pt-16">
-        {/* Hero Section */}
-        <section className="relative min-h-[60vh] flex items-center justify-center">
-          {/* Background Image with Overlay */}
+      <main>
+        {/* Hero Section - DINN Style */}
+        <section className="relative min-h-[80vh] flex items-center bg-primary">
           <div className="absolute inset-0">
             <img 
               src={contactHero} 
               alt="Contact Society of Black Academics"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover opacity-30"
             />
             <div className="absolute inset-0 bg-primary/80"></div>
           </div>
           
-          {/* Content */}
-          <div className="relative z-10 text-center text-white container-wide animate-fade-in">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <Mail className="h-12 w-12 animate-bounce-soft" />
-              <h1 className="hero-title">Get in Touch</h1>
+          <div className="relative z-10 container-wide py-32">
+            <div className="max-w-3xl">
+              <p className="text-accent font-medium text-lg mb-4">Get in Touch</p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-primary-foreground mb-6">
+                We'd Love to Hear From You.
+              </h1>
+              <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
+                Whether you have questions about membership, partnerships, or want to get involved, we're here to help.
+              </p>
             </div>
-            <p className="hero-subtitle max-w-3xl mx-auto">
-              We'd love to hear from you. Whether you have questions about membership, partnerships, or want to get involved, we're here to help.
-            </p>
           </div>
         </section>
 
-        {/* Contact Form and Info */}
-        <section className="section-padding bg-gradient-to-br from-teal-50 via-background to-emerald-50">
+        {/* Contact Section - Split Layout */}
+        <section className="py-20 lg:py-32 bg-background">
           <div className="container-wide">
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid lg:grid-cols-2 gap-16">
               {/* Contact Form */}
-              <Card>
-                <CardContent className="p-8">
-                  <h2 className="heading-lg mb-6">Send us a Message</h2>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Full Name *</Label>
-                        <Input
-                          id="name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="Enter your full name"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email Address *</Label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="Enter your email"
-                        />
-                      </div>
-                    </div>
-                    
+              <div>
+                <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Send a Message</h4>
+                <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-8">
+                  Contact Form
+                </h2>
+                
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="subject">Subject *</Label>
+                      <Label htmlFor="name">Full Name *</Label>
                       <Input
-                        id="subject"
-                        name="subject"
-                        value={formData.subject}
+                        id="name"
+                        name="name"
+                        value={formData.name}
                         onChange={handleInputChange}
                         required
-                        placeholder="What is this regarding?"
+                        placeholder="Enter your full name"
+                        className="rounded-full px-6 py-6"
                       />
                     </div>
-                    
                     <div className="space-y-2">
-                      <Label htmlFor="message">Message *</Label>
-                      <Textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
+                      <Label htmlFor="email">Email Address *</Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
                         onChange={handleInputChange}
                         required
-                        rows={6}
-                        placeholder="Tell us more about your inquiry..."
+                        placeholder="Enter your email"
+                        className="rounded-full px-6 py-6"
                       />
                     </div>
-                    
-                    <Button 
-                      type="submit" 
-                      disabled={isSubmitting}
-                      className="w-full"
-                    >
-                      {isSubmitting ? (
-                        "Sending..."
-                      ) : (
-                        <>
-                          <Send className="mr-2 h-4 w-4" />
-                          Send Message
-                        </>
-                      )}
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="subject">Subject *</Label>
+                    <Input
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="What is this regarding?"
+                      className="rounded-full px-6 py-6"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Message *</Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                      rows={6}
+                      placeholder="Tell us more about your inquiry..."
+                      className="rounded-2xl px-6 py-4"
+                    />
+                  </div>
+                  
+                  <Button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    size="lg"
+                    className="w-full rounded-full px-8 py-6 bg-accent text-accent-foreground hover:bg-accent/90"
+                  >
+                    {isSubmitting ? (
+                      "Sending..."
+                    ) : (
+                      <>
+                        <Send className="mr-2 h-4 w-4" />
+                        Send Message
+                      </>
+                    )}
+                  </Button>
+                </form>
+              </div>
 
               {/* Contact Information */}
-              <div className="space-y-8">
-                <Card>
-                  <CardContent className="p-8">
-                    <h2 className="heading-lg mb-6">Contact Information</h2>
-                    <div className="space-y-6">
-                      <div className="flex items-start gap-4">
-                        <Mail className="h-6 w-6 text-primary mt-1" />
-                        <div>
-                          <h3 className="font-semibold mb-1">Email</h3>
-                          <p className="text-muted-foreground">info@societyofblackacademics.com</p>
-                        </div>
+              <div className="space-y-12">
+                <div>
+                  <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Contact Information</h4>
+                  <div className="space-y-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                        <Mail className="h-5 w-5 text-accent" />
                       </div>
-                      
-                      <div className="flex items-start gap-4">
-                        <Phone className="h-6 w-6 text-primary mt-1" />
-                        <div>
-                          <h3 className="font-semibold mb-1">Phone</h3>
-                          <p className="text-muted-foreground">Available upon request</p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-start gap-4">
-                        <MapPin className="h-6 w-6 text-primary mt-1" />
-                        <div>
-                          <h3 className="font-semibold mb-1">Location</h3>
-                          <p className="text-muted-foreground">United Kingdom</p>
-                        </div>
+                      <div>
+                        <h3 className="font-bold text-lg mb-1">Email</h3>
+                        <p className="text-muted-foreground">info@societyofblackacademics.com</p>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardContent className="p-8">
-                    <h3 className="heading-md mb-4">Quick Links</h3>
-                    <div className="space-y-3">
-                      <a 
-                        href="/join-us" 
-                        className="block text-primary hover:underline"
-                      >
-                        Become a Member
-                      </a>
-                      <a 
-                        href="/about#part_spon" 
-                        className="block text-primary hover:underline"
-                      >
-                        Partnership Opportunities
-                      </a>
-                      <a 
-                        href="https://www.linkedin.com/company/society-of-black-academics/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block text-primary hover:underline"
-                      >
-                        Follow us on LinkedIn
-                      </a>
+                    
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                        <Phone className="h-5 w-5 text-accent" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-lg mb-1">Phone</h3>
+                        <p className="text-muted-foreground">Available upon request</p>
+                      </div>
                     </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardContent className="p-8">
-                    <h3 className="heading-md mb-4">Office Hours</h3>
-                    <div className="space-y-2 text-muted-foreground">
-                      <p>Monday - Friday: 9:00 AM - 5:00 PM (GMT)</p>
-                      <p>Saturday - Sunday: Closed</p>
-                      <p className="text-sm mt-4">
-                        We aim to respond to all inquiries within 48 hours during business days.
-                      </p>
+                    
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                        <MapPin className="h-5 w-5 text-accent" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-lg mb-1">Location</h3>
+                        <p className="text-muted-foreground">United Kingdom</p>
+                      </div>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
+                
+                <div className="border-t border-border pt-12">
+                  <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Quick Links</h4>
+                  <div className="space-y-4">
+                    <a 
+                      href="/join-us" 
+                      className="flex items-center text-foreground hover:text-accent transition-colors font-medium"
+                    >
+                      Become a Member
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </a>
+                    <a 
+                      href="/about#part_spon" 
+                      className="flex items-center text-foreground hover:text-accent transition-colors font-medium"
+                    >
+                      Partnership Opportunities
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </a>
+                    <a 
+                      href="https://www.linkedin.com/company/society-of-black-academics/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center text-foreground hover:text-accent transition-colors font-medium"
+                    >
+                      Follow us on LinkedIn
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="border-t border-border pt-12">
+                  <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Office Hours</h4>
+                  <div className="space-y-2 text-muted-foreground">
+                    <p>Monday - Friday: 9:00 AM - 5:00 PM (GMT)</p>
+                    <p>Saturday - Sunday: Closed</p>
+                    <p className="text-sm mt-4">
+                      We aim to respond to all inquiries within 48 hours during business days.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* FAQ Section */}
-        <section className="section-padding bg-gradient-to-br from-purple-50 via-background to-coral-50">
+        <section className="py-20 lg:py-32 bg-muted/30">
           <div className="container-wide">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="heading-lg mb-8 text-center">Frequently Asked Questions</h2>
-              <div className="grid md:grid-cols-2 gap-8">
-                <Card>
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold mb-3">How do I become a member?</h3>
-                    <p className="text-muted-foreground text-sm">
-                      Visit our Join Us page to learn about membership levels and complete the membership form. Membership is open to academics, practitioners, and students.
-                    </p>
-                  </CardContent>
-                </Card>
+            <div className="text-center mb-16">
+              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">FAQ</h4>
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
+                Frequently Asked Questions
+              </h2>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              <div className="bg-background p-8 border-l-4 border-accent">
+                <h3 className="font-bold text-lg mb-3">How do I become a member?</h3>
+                <p className="text-muted-foreground">
+                  Visit our Join Us page to learn about membership levels and complete the membership form. Membership is open to academics, practitioners, and students.
+                </p>
+              </div>
 
-                <Card>
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold mb-3">What events do you organize?</h3>
-                    <p className="text-muted-foreground text-sm">
-                      We organize annual conferences, workshops, networking events, and professional development sessions. Check our gallery for photos from past events.
-                    </p>
-                  </CardContent>
-                </Card>
+              <div className="bg-background p-8 border-l-4 border-accent">
+                <h3 className="font-bold text-lg mb-3">What events do you organize?</h3>
+                <p className="text-muted-foreground">
+                  We organize annual conferences, workshops, networking events, and professional development sessions.
+                </p>
+              </div>
 
-                <Card>
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold mb-3">How can my organization partner with SBA?</h3>
-                    <p className="text-muted-foreground text-sm">
-                      We welcome partnerships with universities, organizations, and companies that share our mission. Contact us to discuss sponsorship and collaboration opportunities.
-                    </p>
-                  </CardContent>
-                </Card>
+              <div className="bg-background p-8 border-l-4 border-accent">
+                <h3 className="font-bold text-lg mb-3">How can my organization partner with SBA?</h3>
+                <p className="text-muted-foreground">
+                  We welcome partnerships with universities and organizations that share our mission. Contact us to discuss opportunities.
+                </p>
+              </div>
 
-                <Card>
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold mb-3">Do you offer mentorship programs?</h3>
-                    <p className="text-muted-foreground text-sm">
-                      Yes, we facilitate mentoring relationships between experienced academics and early career researchers. Contact us to learn more about our mentorship initiatives.
-                    </p>
-                  </CardContent>
-                </Card>
+              <div className="bg-background p-8 border-l-4 border-accent">
+                <h3 className="font-bold text-lg mb-3">Do you offer mentorship programs?</h3>
+                <p className="text-muted-foreground">
+                  Yes, we facilitate mentoring relationships between experienced academics and early career researchers.
+                </p>
               </div>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 // Import partner logos
 import nuffieldLogo from '@/assets/partners/nuffield-foundation.png';
@@ -47,71 +48,70 @@ export const PartnerCarousel = ({ speed = 60, pauseOnHover = true }: PartnerCaro
 
   if (partners.length === 0) return null;
 
-  // Duplicate partners for seamless loop
-  const duplicatedPartners = [...partners, ...partners];
-  
-  const animationDuration = `${partners.length * 100 / (speed || 60)}s`;
-
   return (
-    <section className="partner-carousel" aria-label="Partner Universities">
-      <div className="container-wide">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-medium text-foreground mb-2">
-            Partnering with Leading Institutions
-          </h2>
-          <p className="text-muted-foreground">
-            Collaborating with top universities to advance academic excellence
-          </p>
+    <section className="bg-background border-y border-border" aria-label="Featured In">
+      <div className="flex flex-col lg:flex-row">
+        {/* Left Label */}
+        <div className="lg:w-64 flex-shrink-0 flex items-center justify-center lg:justify-start border-r border-border px-8 py-6 lg:py-12 bg-muted/30">
+          <h3 className="text-2xl lg:text-3xl font-bold text-foreground">
+            Featured in
+          </h3>
         </div>
-      </div>
-      
-      <div className="relative overflow-hidden">
-        <div 
-          className="partner-track"
-          style={{
-            animationDuration,
-            animationPlayState: pauseOnHover ? undefined : 'running'
-          }}
-        >
-          {duplicatedPartners.map((partner, index) => (
-            <div key={`${partner.id}-${index}`} className="flex-none">
-              {partner.website_url ? (
-                <a
-                  href={partner.website_url}
-                  target={partner.target_blank ? "_blank" : undefined}
-                  rel={partner.target_blank ? "noopener noreferrer" : undefined}
-                  className="block focus:outline-none focus:ring-2 focus:ring-accent rounded"
-                  aria-label={`Visit ${partner.name} website`}
-                >
-                  {partner.logo_url ? (
+        
+        {/* Partner Logos Carousel */}
+        <div className="flex-1 relative overflow-hidden py-8 lg:py-12">
+          {/* Navigation Arrows */}
+          <button 
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-background border border-border flex items-center justify-center hover:bg-muted transition-colors"
+            aria-label="Previous partners"
+          >
+            <ChevronLeft className="h-5 w-5 text-foreground" />
+          </button>
+          <button 
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-background border border-border flex items-center justify-center hover:bg-muted transition-colors"
+            aria-label="Next partners"
+          >
+            <ChevronRight className="h-5 w-5 text-foreground" />
+          </button>
+          
+          {/* Scrolling logos */}
+          <div className="flex items-center justify-center gap-12 px-16">
+            {partners.slice(0, 5).map((partner) => (
+              <div key={partner.id} className="flex-shrink-0">
+                {partner.website_url ? (
+                  <a
+                    href={partner.website_url}
+                    target={partner.target_blank ? "_blank" : undefined}
+                    rel={partner.target_blank ? "noopener noreferrer" : undefined}
+                    className="block focus:outline-none focus:ring-2 focus:ring-accent rounded"
+                    aria-label={`Visit ${partner.name} website`}
+                  >
+                    {partner.logo_url ? (
+                      <img
+                        src={partner.logo_url}
+                        alt={partner.name}
+                        className="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span className="text-foreground font-medium">{partner.name}</span>
+                    )}
+                  </a>
+                ) : (
+                  partner.logo_url ? (
                     <img
                       src={partner.logo_url}
                       alt={partner.name}
-                      className="partner-logo"
+                      className="h-10 md:h-12 w-auto object-contain opacity-70"
                       loading="lazy"
                     />
                   ) : (
-                    <div className="partner-logo flex items-center justify-center bg-secondary text-foreground font-medium">
-                      {partner.name}
-                    </div>
-                  )}
-                </a>
-              ) : (
-                partner.logo_url ? (
-                  <img
-                    src={partner.logo_url}
-                    alt={partner.name}
-                    className="partner-logo"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="partner-logo flex items-center justify-center bg-secondary text-foreground font-medium">
-                    {partner.name}
-                  </div>
-                )
-              )}
-            </div>
-          ))}
+                    <span className="text-foreground font-medium">{partner.name}</span>
+                  )
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

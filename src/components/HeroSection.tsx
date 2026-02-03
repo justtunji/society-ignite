@@ -12,56 +12,78 @@ interface HeroSectionProps {
 
 export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSectionProps) => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-primary">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img 
           src={heroImage} 
           alt="Society of Black Academics"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover opacity-30"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/85 to-indigo-600/40"></div>
+        <div className="absolute inset-0 bg-primary/80"></div>
       </div>
       
-      {/* Content */}
-      <div className="relative z-10 hero-content text-left container mx-auto px-4 lg:px-4">
-        <div className="animate-slide-up">
-          <h1 className="hero-title font-display">
-            <span className="inline-block animate-fade-in stagger-1">
-              Driving Inclusive Change In
-            </span>
-            <br />
-            <span className="inline-block animate-fade-in stagger-2">
-              Higher Education Sector
-            </span>
-          </h1>
-        </div>
-        <div className="animate-slide-up stagger-2">
-          <p className="hero-subtitle max-w-2xl mx-auto lg:mx-0">
-            The Society of Black Academics (SBA) provides a supportive community where Black Academics and Aspiring Scholars connect, share insights, and strengthen their career paths.
-          </p>
-        </div>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mt-8 animate-slide-up stagger-3">
-          <Button 
-            asChild 
-            size="lg"
-            className="group bg-white text-black hover:bg-white/90 hover-lift animate-bounce-gentle"
-          >
-            <a href="/join-us">
-              Become a Member
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </a>
-          </Button>
-          <PartnerSponsorDialog>
-            <Button 
-              variant="outline"
-              size="lg"
-              className="border-white text-white hover:bg-white hover:text-primary group hover-lift"
-            >
-              <Handshake className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
-              Become a Partner & Sponsor
-            </Button>
-          </PartnerSponsorDialog>
+      {/* Content Grid */}
+      <div className="relative z-10 container-wide py-24 lg:py-32">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left - Circular Image */}
+          <div className="relative order-2 lg:order-1 flex justify-center lg:justify-start">
+            <div className="relative">
+              {/* Decorative circle behind */}
+              <div className="absolute -top-8 -right-8 w-80 h-80 md:w-96 md:h-96 rounded-full bg-accent/20 blur-sm"></div>
+              
+              {/* Main circular image */}
+              <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-primary-foreground/20 shadow-2xl">
+                <img 
+                  src={heroImage} 
+                  alt="Black Academics Community"
+                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                />
+              </div>
+            </div>
+          </div>
+          
+          {/* Right - Content */}
+          <div className="order-1 lg:order-2 text-primary-foreground">
+            {/* Tagline */}
+            <p className="text-accent font-medium text-lg mb-4 animate-fade-in">
+              Empowering Black Academics
+            </p>
+            
+            {/* Main Headline */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] mb-6 animate-fade-in stagger-1">
+              Driving Inclusive Change In Higher Education.
+            </h1>
+            
+            {/* Subheadline */}
+            <p className="text-lg md:text-xl text-primary-foreground/80 max-w-xl mb-10 leading-relaxed animate-fade-in stagger-2">
+              {subheadline || "Join a community of scholars, researchers, and educators committed to advancing diversity and excellence in academia."}
+            </p>
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in stagger-3">
+              <Button 
+                asChild 
+                size="lg"
+                className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-8 py-6 text-lg font-medium transition-all duration-300 hover:scale-105"
+              >
+                <a href="/join-us">
+                  Join the Network
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </a>
+              </Button>
+              <PartnerSponsorDialog>
+                <Button 
+                  variant="outline"
+                  size="lg"
+                  className="border-2 border-primary-foreground/30 text-primary-foreground bg-transparent hover:bg-primary-foreground hover:text-primary rounded-full px-8 py-6 text-lg font-medium transition-all duration-300"
+                >
+                  <Handshake className="mr-2 h-5 w-5" />
+                  Partner With Us
+                </Button>
+              </PartnerSponsorDialog>
+            </div>
+          </div>
         </div>
       </div>
     </section>

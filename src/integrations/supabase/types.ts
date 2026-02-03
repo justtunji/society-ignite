@@ -828,7 +828,7 @@ export type Database = {
     }
     Functions: {
       get_public_site_settings: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           accent_color: string
           address: string
@@ -870,7 +870,7 @@ export type Database = {
         }[]
       }
       get_public_team_members: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           bio: string | null
           created_at: string | null
@@ -885,6 +885,12 @@ export type Database = {
           twitter_url: string | null
           updated_at: string | null
         }[]
+        SetofOptions: {
+          from: "*"
+          to: "team_members_public"
+          isOneToOne: false
+          isSetofReturn: true
+        }
       }
     }
     Enums: {

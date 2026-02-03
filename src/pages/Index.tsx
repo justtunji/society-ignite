@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { PartnerCarousel } from "@/components/PartnerCarousel";
-import { PromotionsSection } from "@/components/PromotionsSection";
-import { HEPIReportSection } from "@/components/HEPIReportSection";
-import { DoItNowNowPartnership } from "@/components/DoItNowNowPartnership";
-import { NuffieldAnnouncement } from "@/components/NuffieldAnnouncement";
-import { PastEventsSection } from "@/components/PastEventsSection";
-import { InstagramSection } from "@/components/InstagramSection";
+import { AboutSection } from "@/components/AboutSection";
+import { ProgrammesSection } from "@/components/ProgrammesSection";
+import { CommunitiesSection } from "@/components/CommunitiesSection";
+import { ImpactSection } from "@/components/ImpactSection";
+import { ReportsSection } from "@/components/ReportsSection";
+import { LatestStoriesSection } from "@/components/LatestStoriesSection";
 import { NewsletterSection } from "@/components/NewsletterSection";
 import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
@@ -85,43 +85,25 @@ const Index = () => {
         />
 
         {siteSettings.show_partner_carousel && (
-          <section className="bg-gradient-to-br from-purple-50 via-background to-purple-50">
-            <PartnerCarousel 
-              speed={siteSettings.partner_carousel_speed}
-              pauseOnHover={siteSettings.partner_carousel_pause_on_hover}
-            />
-          </section>
+          <PartnerCarousel 
+            speed={siteSettings.partner_carousel_speed}
+            pauseOnHover={siteSettings.partner_carousel_pause_on_hover}
+          />
         )}
 
-        {siteSettings.show_promotions_section && (
-          <section className="bg-gradient-to-br from-teal-50 via-background to-teal-50">
-            <PromotionsSection />
-          </section>
-        )}
+        <AboutSection />
 
-        <section className="bg-gradient-to-br from-coral-50 via-background to-coral-50">
-          <NuffieldAnnouncement />
-        </section>
+        <ProgrammesSection />
 
-        <section className="bg-gradient-to-br from-indigo-50 via-background to-indigo-50">
-          <DoItNowNowPartnership />
-        </section>
+        <CommunitiesSection />
 
-        <section className="bg-gradient-to-br from-emerald-50 via-background to-emerald-50">
-          <HEPIReportSection />
-        </section>
+        <ImpactSection />
 
-        <section className="bg-gradient-to-br from-purple-50 via-background to-purple-50">
-          <PastEventsSection />
-        </section>
+        <ReportsSection />
 
-        <section className="bg-gradient-to-br from-teal-50 via-background to-teal-50">
-          <InstagramSection />
-        </section>
+        <LatestStoriesSection />
 
-        <section className="bg-gradient-to-br from-coral-50 via-background to-coral-50">
-          <NewsletterSection />
-        </section>
+        <NewsletterSection />
       </main>
 
       <Footer
