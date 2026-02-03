@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, CheckCircle } from "lucide-react";
+import { CheckCircle, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export const NewsletterSection = () => {
@@ -22,8 +21,6 @@ export const NewsletterSection = () => {
     setIsSubmitting(true);
     
     try {
-      // In production, this would call the Supabase API to handle newsletter signup
-      // For now, we'll simulate the API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       setIsSubscribed(true);
@@ -32,7 +29,6 @@ export const NewsletterSection = () => {
         description: "Thank you for joining our community. You'll receive updates about our programs and events.",
       });
       
-      // Reset form
       setEmail('');
       setName('');
       setCategory('');
@@ -49,70 +45,67 @@ export const NewsletterSection = () => {
 
   if (isSubscribed) {
     return (
-      <section className="section-padding bg-secondary/30">
-        <div className="container-narrow">
-          <Card className="text-center">
-            <CardContent className="pt-8">
-              <CheckCircle className="mx-auto h-16 w-16 text-accent mb-4" />
-              <h3 className="text-2xl font-medium mb-2">Welcome to our community!</h3>
-              <p className="text-muted-foreground">
-                You'll receive updates about our programs, events, and resources for Black academics.
-              </p>
-            </CardContent>
-          </Card>
+      <section className="py-20 lg:py-32 bg-primary text-primary-foreground">
+        <div className="container-wide">
+          <div className="max-w-2xl mx-auto text-center">
+            <CheckCircle className="mx-auto h-16 w-16 text-accent mb-6" />
+            <h3 className="text-3xl font-bold mb-4">Welcome to our community!</h3>
+            <p className="text-primary-foreground/80 text-lg">
+              You'll receive updates about our programs, events, and resources for Black academics.
+            </p>
+          </div>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="section-padding bg-gradient-to-br from-emerald-50 via-background to-teal-50">
-      <div className="container-narrow">
-        <Card className="border-2 border-emerald-200/50 shadow-lg">
-          <CardHeader className="text-center">
-            <div className="mx-auto h-12 w-12 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-lg flex items-center justify-center mb-4">
-              <Mail className="h-6 w-6 text-emerald-600" />
-            </div>
-            <CardTitle className="text-2xl font-medium">
+    <section className="py-20 lg:py-32 bg-primary text-primary-foreground">
+      <div className="container-wide">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Left - Content */}
+          <div>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Stay Connected
-            </CardTitle>
-            <CardDescription className="text-lg">
-              Get updates on programs, events, and resources for Black academics
-            </CardDescription>
-          </CardHeader>
+            </h2>
+            <p className="text-primary-foreground/80 text-lg leading-relaxed">
+              Join our mailing list to receive updates on programmes, events, and resources designed to support Black academics in their journey.
+            </p>
+          </div>
           
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Full Name *</Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter your full name"
-                    required
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email Address *</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
-                    required
-                  />
-                </div>
+          {/* Right - Form */}
+          <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="name" className="text-primary-foreground">Full Name *</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter your full name"
+                  required
+                  className="bg-primary-foreground text-foreground border-0 rounded-full px-6 py-6"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-primary-foreground">Email Address *</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  required
+                  className="bg-primary-foreground text-foreground border-0 rounded-full px-6 py-6"
+                />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="category">Category (Optional)</Label>
+                <Label htmlFor="category" className="text-primary-foreground">Category (Optional)</Label>
                 <Select value={category} onValueChange={setCategory}>
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-primary-foreground text-foreground border-0 rounded-full px-6 py-6 h-auto">
                     <SelectValue placeholder="Select your category" />
                   </SelectTrigger>
                   <SelectContent>
@@ -126,19 +119,20 @@ export const NewsletterSection = () => {
 
               <Button 
                 type="submit" 
-                className="w-full btn-accent" 
                 disabled={isSubmitting}
                 size="lg"
+                className="w-full bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-8 py-6 text-lg font-medium"
               >
-                {isSubmitting ? 'Subscribing...' : 'Subscribe to Newsletter'}
+                {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               
-              <p className="text-sm text-muted-foreground text-center">
+              <p className="text-sm text-primary-foreground/60 text-center">
                 We respect your privacy. Unsubscribe at any time.
               </p>
             </form>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </section>
   );

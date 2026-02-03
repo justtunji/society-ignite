@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Handshake } from "lucide-react";
+import { Handshake, ArrowRight } from "lucide-react";
 import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
 import aboutHero from "@/assets/images/about-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
@@ -88,205 +88,228 @@ const About = () => {
     <div className="min-h-screen">
       <Header logoUrl={sbaLogo} siteName="Society of Black Academics" />
       
-      <main className="pt-16">
-        {/* Hero Section */}
-        <section className="relative min-h-[60vh] flex items-center justify-center">
-          {/* Background Image with Overlay */}
+      <main>
+        {/* Hero Section - DINN Style */}
+        <section className="relative min-h-[80vh] flex items-center bg-primary">
           <div className="absolute inset-0">
             <img 
               src={aboutHero} 
               alt="About Society of Black Academics"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover opacity-30"
             />
             <div className="absolute inset-0 bg-primary/80"></div>
           </div>
           
-          {/* Content */}
-          <div className="relative z-10 text-center text-white container-wide animate-fade-in">
-            <h1 className="hero-title mb-6">About Us</h1>
-            <p className="hero-subtitle max-w-3xl mx-auto">
-              The Society of Black Academics (SBA) was formed due to the under-representation of Black academics at the Professorial and Senior Leadership levels in UK Universities.
-            </p>
+          <div className="relative z-10 container-wide py-32">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="text-primary-foreground">
+                <p className="text-accent font-medium text-lg mb-4">About Us</p>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                  Driving Change in Higher Education.
+                </h1>
+                <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
+                  The Society of Black Academics (SBA) was formed due to the under-representation of Black academics at the Professorial and Senior Leadership levels in UK Universities.
+                </p>
+              </div>
+              
+              <div className="hidden lg:block">
+                <div className="relative w-80 h-80 mx-auto">
+                  <div className="absolute inset-0 rounded-full bg-accent/20 blur-lg"></div>
+                  <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary-foreground/20">
+                    <img 
+                      src={sbaContacto}
+                      alt="SBA Community"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* Why SBA Section */}
-        <section className="section-padding bg-gradient-to-br from-purple-50 via-background to-indigo-50">
+        {/* Why SBA Section - Split Layout */}
+        <section className="py-20 lg:py-32 bg-background">
           <div className="container-wide">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="heading-lg mb-6">Why SBA</h2>
-                <div className="space-y-6 text-lg">
-                  <p>
-                    Since our inception in 2021, we have launched several impactful initiatives and organized numerous events (including Workshops and Conferences) with the goal of promoting Equality, Diversity, and Inclusion (EDI) in the UK's Higher Education sector.
-                  </p>
-                  <p>
-                    Through the development of EDI and career development programmes, safe spaces for learning and knowledge exchange, as well as other progressive campaigns, we are attempting to improve the career advancement of Black academics. Our goal is to increase the number of Black academics employed at the professorial and senior leadership levels in the UK's higher education system.
-                  </p>
-                </div>
+            <div className="grid lg:grid-cols-2 gap-0 items-stretch">
+              <div className="p-8 lg:p-16 flex flex-col justify-center">
+                <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Why SBA</h4>
+                <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                  Since our inception in 2021, we have launched several impactful initiatives and organized numerous events (including Workshops and Conferences) with the goal of promoting Equality, Diversity, and Inclusion (EDI) in the UK's Higher Education sector.
+                </p>
+                <p className="text-muted-foreground text-lg leading-relaxed mb-8">
+                  Through the development of EDI and career development programmes, safe spaces for learning and knowledge exchange, as well as other progressive campaigns, we are attempting to improve the career advancement of Black academics.
+                </p>
+                <Button 
+                  asChild 
+                  variant="outline" 
+                  size="lg"
+                  className="w-fit rounded-full px-8"
+                >
+                  <a href="/resources">
+                    Learn more
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </a>
+                </Button>
               </div>
-              <div>
+              <div className="relative min-h-[400px]">
                 <img 
                   src={sbaContacto}
                   alt="Society of Black Academics team meeting"
-                  className="rounded-lg shadow-lg w-full"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </div>
           </div>
         </section>
 
-        {/* Mission, Vision, Values */}
-        <section className="section-padding bg-gradient-to-br from-emerald-50 via-background to-teal-50">
+        {/* Mission, Vision, Values - Card Grid */}
+        <section className="py-20 lg:py-32 bg-muted/30">
           <div className="container-wide">
+            <div className="text-center mb-16">
+              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Our Foundation</h4>
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
+                Mission, Vision & Values
+              </h2>
+            </div>
+            
             <div className="grid md:grid-cols-3 gap-8">
-              <Card className="h-full">
-                <CardContent className="p-8">
-                  <h3 className="heading-md mb-4 text-primary">Our Mission</h3>
-                  <p className="text-muted-foreground">
-                    We continue to identify prevalent issues confronting Black academics in the Higher Education sector and address them by providing a safe space for personal reflection, knowledge sharing and dialogue, collaboration, and networking, all of which will have a long-lasting positive impact on Black academics' career development and success.
-                  </p>
-                </CardContent>
-              </Card>
+              <div className="bg-background p-8 lg:p-12 border-l-4 border-accent">
+                <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  We continue to identify prevalent issues confronting Black academics in the Higher Education sector and address them by providing a safe space for personal reflection, knowledge sharing and dialogue, collaboration, and networking.
+                </p>
+              </div>
 
-              <Card className="h-full">
-                <CardContent className="p-8">
-                  <h3 className="heading-md mb-4 text-primary">Our Vision</h3>
-                  <p className="text-muted-foreground">
-                    Justice, Equity, and Fairness (JEF) are at the heart of SBA's values. Therefore, we aim to see a better level of JEF embedded in the progression opportunities for Black scholars in the UK's Higher Education sector.
-                  </p>
-                </CardContent>
-              </Card>
+              <div className="bg-background p-8 lg:p-12 border-l-4 border-accent">
+                <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Justice, Equity, and Fairness (JEF) are at the heart of SBA's values. We aim to see a better level of JEF embedded in the progression opportunities for Black scholars in the UK's Higher Education sector.
+                </p>
+              </div>
 
-              <Card className="h-full">
-                <CardContent className="p-8">
-                  <h3 className="heading-md mb-4 text-primary">Our Values</h3>
-                  <p className="text-muted-foreground">
-                    We pride ourselves in promoting Justice (broader ethical standards and procedures), Equity (encouraging equal opportunities, inclusivity, diversity, and respect), and well as Fairness (focusing on specific outcomes and treatment).
-                  </p>
-                </CardContent>
-              </Card>
+              <div className="bg-background p-8 lg:p-12 border-l-4 border-accent">
+                <h3 className="text-2xl font-bold mb-4">Our Values</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  We pride ourselves in promoting Justice (broader ethical standards), Equity (encouraging equal opportunities and inclusivity), and Fairness (focusing on specific outcomes and treatment).
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Team Section */}
-        <section className="section-padding bg-gradient-to-br from-coral-50 via-background to-indigo-50" id="our_team">
+        <section className="py-20 lg:py-32 bg-background" id="our_team">
           <div className="container-wide">
-            <div className="text-center mb-12">
-              <h2 className="heading-lg mb-4">Meet Our Team</h2>
+            <div className="text-center mb-16">
+              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Our Team</h4>
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                Meet Our Team
+              </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Our team is made up of academics and practitioners from various fields who are enthusiastic about advancing the progression of Black academics and enhancing equality, diversity, and inclusion (EDI) in the UK's higher education sector.
+                Our team is made up of academics and practitioners from various fields who are enthusiastic about advancing the progression of Black academics.
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {teamMembers.map((member, index) => (
-                <Card key={index} className="h-full">
-                  <CardContent className="p-6">
-                    <div className="text-center mb-4">
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
-                      />
-                      <h3 className="heading-sm mb-2">{member.name}</h3>
-                      <p className="text-primary font-medium mb-3">{member.title}</p>
-                    </div>
-                    <p className="text-muted-foreground text-sm mb-4">{member.bio}</p>
-                    {member.linkedin && (
-                      <div className="text-center">
-                        <a
-                          href={member.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary hover:underline"
-                        >
-                          LinkedIn Profile
-                        </a>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
+                <div key={index} className="group">
+                  <div className="relative aspect-square overflow-hidden rounded-lg mb-4">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <h3 className="text-xl font-bold mb-1">{member.name}</h3>
+                  <p className="text-accent font-medium mb-3">{member.title}</p>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-3">{member.bio}</p>
+                  {member.linkedin && (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:text-accent transition-colors text-sm font-medium"
+                    >
+                      LinkedIn →
+                    </a>
+                  )}
+                </div>
               ))}
             </div>
           </div>
         </section>
 
         {/* Advisory Board Section */}
-        <section className="section-padding" id="advisory_board">
+        <section className="py-20 lg:py-32 bg-muted/30" id="advisory_board">
           <div className="container-wide">
-            <div className="text-center mb-12">
-              <h2 className="heading-lg mb-4">Advisory Board</h2>
+            <div className="text-center mb-16">
+              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Leadership</h4>
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                Advisory Board
+              </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Our distinguished advisory board provides strategic guidance and expertise to advance SBA's mission of promoting equity and inclusion in higher education.
+                Our distinguished advisory board provides strategic guidance and expertise to advance SBA's mission.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-3 gap-8">
               {[
                 {
                   name: "Professor Sally Everett",
                   title: "Vice Dean, Education, Deputy Dean (interim)",
                   institution: "King's Business School",
-                  bio: "Professor Sally Everett is Vice Dean, Education, Deputy Dean (interim), and Professor of Business Education at King's Business School. She is also the academic lead for Inclusive Education at King's College London and a National Teaching Fellow (2017).",
-                  image: "https://aheconferencedotcom1.files.wordpress.com/2022/03/sally-everett-small.jpg" // Keep external URL as fallback
+                  bio: "Professor Sally Everett is Vice Dean, Education, Deputy Dean (interim), and Professor of Business Education at King's Business School.",
+                  image: "https://aheconferencedotcom1.files.wordpress.com/2022/03/sally-everett-small.jpg"
                 },
                 {
                   name: "Professor Kevin Ibeh",
                   title: "Professor of Marketing and International Business",
                   institution: "Birkbeck, University of London",
-                  bio: "Kevin Ibeh, PhD, FCIM, FRSA, is Professor of Marketing and International Business and Pro Vice Chancellor (International) at Birkbeck, University of London. He is considered a leading authority on emerging African Multinational Enterprises.",
+                  bio: "Kevin Ibeh, PhD, FCIM, FRSA, is Professor of Marketing and International Business and Pro Vice Chancellor (International) at Birkbeck.",
                   image: professorKevinIbeh
                 },
                 {
                   name: "Professor (Associate) Gillian Stokes",
                   title: "Associate Professor of Inclusive Social Research",
                   institution: "UCL Social Research Institute",
-                  bio: "Gillian is an Associate Professor of Inclusive Social Research at the UCL Social Research Institute, University College London (UCL). She is also a qualified herbal practitioner and medical ethnobotanist with experience coaching both staff and students.",
+                  bio: "Gillian is an Associate Professor of Inclusive Social Research at the UCL Social Research Institute.",
                   image: teamMember9
                 }
               ].map((member, index) => (
-                <Card key={index} className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-2 animate-fade-in rounded-3xl overflow-hidden border-2 border-transparent hover:border-primary/20" style={{ animationDelay: `${index * 0.1}s` }}>
-                  <CardContent className="p-8">
-                    <div className="text-center mb-6">
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-xl opacity-50"></div>
-                        <img
-                          src={member.image}
-                          alt={member.name}
-                          className="relative w-36 h-36 rounded-full mx-auto mb-6 object-cover shadow-2xl border-4 border-white dark:border-gray-800"
-                        />
-                      </div>
-                      <h3 className="heading-sm mb-3 text-xl font-medium">{member.name}</h3>
-                      <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-3 mb-3">
-                        <p className="text-primary font-medium text-sm">{member.title}</p>
-                        <p className="text-xs text-muted-foreground mt-1">{member.institution}</p>
-                      </div>
-                    </div>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{member.bio}</p>
-                  </CardContent>
-                </Card>
+                <div key={index} className="group">
+                  <div className="relative aspect-square overflow-hidden rounded-lg mb-4">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <h3 className="text-xl font-bold mb-1">{member.name}</h3>
+                  <p className="text-accent font-medium text-sm mb-1">{member.title}</p>
+                  <p className="text-muted-foreground text-sm mb-3">{member.institution}</p>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{member.bio}</p>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Partners & Sponsors Section */}
-        <section className="section-padding bg-gradient-to-br from-indigo-50 via-background to-purple-50" id="part_spon">
-          <div className="container-wide">
-            <div className="text-center">
-              <h2 className="heading-lg mb-6">Become Our Partners & Sponsors</h2>
-              <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-                Ready to team up with us? Let's create impact together and explore exciting sponsorship and partnership possibilities.
-              </p>
-              <PartnerSponsorDialog>
-                <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                  <Handshake className="mr-2 h-5 w-5" />
-                  Get in Touch
-                </Button>
-              </PartnerSponsorDialog>
-            </div>
+        {/* Partners CTA */}
+        <section className="py-20 lg:py-32 bg-primary text-primary-foreground" id="part_spon">
+          <div className="container-wide text-center">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Become Our Partner
+            </h2>
+            <p className="text-xl text-primary-foreground/80 mb-10 max-w-3xl mx-auto">
+              Ready to team up with us? Let's create impact together and explore exciting sponsorship and partnership possibilities.
+            </p>
+            <PartnerSponsorDialog>
+              <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-10 py-6 text-lg">
+                <Handshake className="mr-2 h-5 w-5" />
+                Get in Touch
+              </Button>
+            </PartnerSponsorDialog>
           </div>
         </section>
       </main>

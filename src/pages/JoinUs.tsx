@@ -1,20 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
-import { Badge } from "@/components/ui/badge";
-import { Check, Users, GraduationCap, Briefcase, School, Handshake } from "lucide-react";
+import { Check, GraduationCap, Briefcase, Users, School, Handshake, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { StripePaymentForm } from "@/components/StripePaymentForm";
 import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
 import joinUsHero from "@/assets/images/join-us-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
-import sbaLogoSquare from "@/assets/logos/sba-logo-square.jpg";
 import membershipLevelsImage from "@/assets/images/membership-levels.jpg";
 
 const JoinUs = () => {
@@ -45,71 +42,45 @@ const JoinUs = () => {
 
   const membershipLevels = [
     {
-      title: "Academic and Scholar Membership (ASM)",
+      title: "Academic and Scholar Membership",
+      shortTitle: "ASM",
       icon: GraduationCap,
-      description: "For scholars at all levels from early career researcher (ECR) stage to senior academics at the Associate and Full Professorial levels.",
-      benefits: [
-        "Career development opportunities",
-        "Networking with junior and senior academics",
-        "Mentorship and leadership development",
-        "Access to professional guidance"
-      ]
+      description: "For scholars at all levels from early career researcher (ECR) stage to senior academics at the Associate and Full Professorial levels."
     },
     {
-      title: "Executive Leader Membership (ELM)",
+      title: "Executive Leader Membership",
+      shortTitle: "ELM",
       icon: Briefcase,
-      description: "For current directors, managers, and leaders within the Higher Education sector such as Deans, Directors, Pro-Vice Chancellors, and Vice Chancellors.",
-      benefits: [
-        "Leadership development insights",
-        "Understanding diverse staff challenges",
-        "Strategic guidance on inclusion",
-        "Executive networking opportunities"
-      ]
+      description: "For current directors, managers, and leaders within the Higher Education sector such as Deans, Directors, Pro-Vice Chancellors, and Vice Chancellors."
     },
     {
-      title: "Industry Practitioner Membership (IPM)",
+      title: "Industry Practitioner Membership",
+      shortTitle: "IPM",
       icon: Users,
-      description: "For non-academic professionals wanting to transition into academia or practitioners who regularly engage with the scholarly community.",
-      benefits: [
-        "Academic transition guidance",
-        "Knowledge exchange opportunities",
-        "Collaborative learning experiences",
-        "Professional network access"
-      ]
+      description: "For non-academic professionals wanting to transition into academia or practitioners who regularly engage with the scholarly community."
     },
     {
-      title: "Student Membership (SM)",
+      title: "Student Membership",
+      shortTitle: "SM",
       icon: School,
-      description: "For current postgraduate students enrolled in Masters (MSc, MPhil) or PhD programs.",
-      benefits: [
-        "Engagement with senior academics",
-        "Career guidance and mentorship",
-        "Community knowledge sharing",
-        "Academic career preparation"
-      ]
+      description: "For current postgraduate students enrolled in Masters (MSc, MPhil) or PhD programs."
     }
   ];
 
   const benefits = [
     "Exposure to best practices, guidance, information, and a growing professional community",
-    "Commitment to driving change and promoting Justice, Equity, and Fairness (JEF) for Black Academics in Higher Education",
+    "Commitment to driving change and promoting Justice, Equity, and Fairness (JEF)",
     "Improved career prospects and exposure to exciting opportunities",
-    "Access to a diverse network of academics and non-academics at different career stages"
+    "Access to a diverse network of academics at different career stages"
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSelectChange = (value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      membership: value
-    }));
+    setFormData(prev => ({ ...prev, membership: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -119,35 +90,21 @@ const JoinUs = () => {
     try {
       const { error } = await supabase
         .from('members')
-        .insert([
-          {
-            name: `${formData.firstName} ${formData.lastName}`,
-            email: formData.email,
-            category: formData.membership,
-            preferences: {
-              jobTitle: formData.jobTitle,
-              institution: formData.institution
-            }
-          }
-        ]);
+        .insert([{
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          category: formData.membership,
+          preferences: { jobTitle: formData.jobTitle, institution: formData.institution }
+        }]);
 
-      if (error) {
-        throw error;
-      }
+      if (error) throw error;
 
       toast({
         title: "Membership application submitted!",
         description: "Thank you for joining the Society of Black Academics. We'll be in touch soon.",
       });
 
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        jobTitle: '',
-        institution: '',
-        membership: ''
-      });
+      setFormData({ firstName: '', lastName: '', email: '', jobTitle: '', institution: '', membership: '' });
     } catch (error) {
       console.error('Error submitting membership:', error);
       toast({
@@ -164,191 +121,208 @@ const JoinUs = () => {
     <div className="min-h-screen">
       <Header logoUrl={sbaLogo} siteName="Society of Black Academics" />
       
-      <main className="pt-16">
-        {/* Hero Section */}
-        <section className="relative min-h-[60vh] flex items-center justify-center">
-          {/* Background Image with Overlay */}
+      <main>
+        {/* Hero Section - DINN Style */}
+        <section className="relative min-h-[80vh] flex items-center bg-primary">
           <div className="absolute inset-0">
             <img 
               src={joinUsHero} 
               alt="Join Society of Black Academics"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover opacity-30"
             />
             <div className="absolute inset-0 bg-primary/80"></div>
           </div>
           
-          {/* Content */}
-          <div className="relative z-10 text-center text-white container-wide animate-fade-in">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <Users className="h-12 w-12 animate-pulse-slow" />
-              <h1 className="hero-title">Become a Member</h1>
-            </div>
-            <p className="hero-subtitle max-w-3xl mx-auto mb-8">
-              Join our community of scholars, researchers, and educators committed to driving inclusive change in higher education.
-            </p>
-            <div className="max-w-md mx-auto">
-              <img 
-                src={sbaLogoSquare}
-                alt="Society of Black Academics Logo"
-                className="w-full h-auto rounded-lg shadow-lg animate-fade-in"
-              />
+          <div className="relative z-10 container-wide py-32">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="text-primary-foreground">
+                <p className="text-accent font-medium text-lg mb-4">Join Our Community</p>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                  Become a Member.
+                </h1>
+                <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
+                  Join our community of scholars, researchers, and educators committed to driving inclusive change in higher education.
+                </p>
+              </div>
+              
+              <div className="hidden lg:flex justify-center">
+                <img 
+                  src={membershipLevelsImage}
+                  alt="SBA Membership Levels"
+                  className="max-w-md rounded-lg shadow-2xl"
+                />
+              </div>
             </div>
           </div>
         </section>
 
         {/* Benefits Section */}
-        <section className="section-padding bg-gradient-to-br from-emerald-50 via-background to-teal-50">
+        <section className="py-20 lg:py-32 bg-background">
           <div className="container-wide">
-            <h2 className="heading-lg mb-8 text-center">Benefits of SBA Membership</h2>
-            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {benefits.map((benefit, index) => (
-                <div key={index} className="flex items-start gap-3">
-                  <Check className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
-                  <p className="text-muted-foreground">{benefit}</p>
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Why Join</h4>
+                <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-8">
+                  Benefits of SBA Membership
+                </h2>
+                <div className="space-y-6">
+                  {benefits.map((benefit, index) => (
+                    <div key={index} className="flex items-start gap-4">
+                      <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 mt-1">
+                        <Check className="h-4 w-4 text-accent" />
+                      </div>
+                      <p className="text-muted-foreground text-lg">{benefit}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="lg:hidden flex justify-center">
+                <img 
+                  src={membershipLevelsImage}
+                  alt="SBA Membership Levels"
+                  className="max-w-sm rounded-lg shadow-xl"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Membership Levels */}
+        <section className="py-20 lg:py-32 bg-muted/30">
+          <div className="container-wide">
+            <div className="text-center mb-16">
+              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Membership Levels</h4>
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
+                Choose Your Path
+              </h2>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-8">
+              {membershipLevels.map((level, index) => (
+                <div key={index} className="bg-background p-8 lg:p-12 border-l-4 border-accent">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                      <level.icon className="h-6 w-6 text-accent" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold">{level.title}</h3>
+                      <span className="text-accent font-medium text-sm">({level.shortTitle})</span>
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">{level.description}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Membership Levels */}
-        <section className="section-padding bg-gradient-to-br from-purple-50 via-background to-indigo-50">
-          <div className="container-wide">
-            <h2 className="heading-lg mb-8 text-center">Levels of Membership</h2>
-            <p className="text-lg text-muted-foreground text-center mb-8 max-w-3xl mx-auto">
-              Membership of the Society of Black Academics is divided into four key levels:
-            </p>
-            
-            {/* Membership Levels Visual */}
-            <div className="flex justify-center mb-12">
-              <div className="max-w-2xl">
-                <img 
-                  src={membershipLevelsImage}
-                  alt="SBA Membership Levels Diagram showing Academic and Scholar Membership, Executive Leader Membership, Industry Practitioner Membership, and Student Membership"
-                  className="w-full h-auto rounded-lg shadow-lg animate-fade-in"
-                />
-              </div>
-            </div>
-            
-            <div className="grid lg:grid-cols-2 gap-8">
-              {membershipLevels.map((level, index) => (
-                <Card key={index} className="h-full">
-                  <CardContent className="p-8">
-                    <div className="flex items-center gap-3 mb-4">
-                      <level.icon className="h-8 w-8 text-primary" />
-                      <h3 className="heading-sm">{level.title}</h3>
-                    </div>
-                    <p className="text-muted-foreground mb-6">{level.description}</p>
-                    <div className="space-y-2">
-                      {level.benefits.map((benefit, benefitIndex) => (
-                        <div key={benefitIndex} className="flex items-center gap-2">
-                          <Check className="h-4 w-4 text-primary" />
-                          <span className="text-sm">{benefit}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Membership Form */}
-        <section className="section-padding bg-gradient-to-br from-coral-50 via-background to-indigo-50" id="b-a-m">
+        <section className="py-20 lg:py-32 bg-background" id="b-a-m">
           <div className="container-wide">
             <div className="max-w-2xl mx-auto">
-              <Card>
-                <CardContent className="p-8">
-                  <h2 className="heading-lg mb-6 text-center">Membership Form</h2>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="firstName">First Name *</Label>
-                        <Input
-                          id="firstName"
-                          name="firstName"
-                          value={formData.firstName}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="Enter your first name"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="lastName">Last Name *</Label>
-                        <Input
-                          id="lastName"
-                          name="lastName"
-                          value={formData.lastName}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="Enter your last name"
-                        />
-                      </div>
-                    </div>
-                    
+              <div className="text-center mb-12">
+                <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Apply Now</h4>
+                <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
+                  Membership Application
+                </h2>
+              </div>
+              
+              <div className="bg-muted/30 rounded-2xl p-8 lg:p-12">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email Address *</Label>
+                      <Label htmlFor="firstName">First Name *</Label>
                       <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
+                        id="firstName"
+                        name="firstName"
+                        value={formData.firstName}
                         onChange={handleInputChange}
                         required
-                        placeholder="Enter your email address"
+                        placeholder="Enter your first name"
+                        className="rounded-full px-6 py-6"
                       />
                     </div>
-                    
                     <div className="space-y-2">
-                      <Label htmlFor="jobTitle">Job Title *</Label>
+                      <Label htmlFor="lastName">Last Name *</Label>
                       <Input
-                        id="jobTitle"
-                        name="jobTitle"
-                        value={formData.jobTitle}
+                        id="lastName"
+                        name="lastName"
+                        value={formData.lastName}
                         onChange={handleInputChange}
                         required
-                        placeholder="Enter your job title"
+                        placeholder="Enter your last name"
+                        className="rounded-full px-6 py-6"
                       />
                     </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="institution">Institution *</Label>
-                      <Input
-                        id="institution"
-                        name="institution"
-                        value={formData.institution}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Enter your institution"
-                      />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="membership">Membership Level *</Label>
-                      <Select value={formData.membership} onValueChange={handleSelectChange}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Please choose an option" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Academic and Scholar Membership (ASM)">Academic and Scholar Membership (ASM)</SelectItem>
-                          <SelectItem value="Executive Leader Membership (ELM)">Executive Leader Membership (ELM)</SelectItem>
-                          <SelectItem value="Industry Practitioner Membership (IPM)">Industry Practitioner Membership (IPM)</SelectItem>
-                          <SelectItem value="Student Membership (SM)">Student Membership (SM)</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    
-                    <Button 
-                      type="submit" 
-                      disabled={isSubmitting}
-                      className="w-full"
-                    >
-                      {isSubmitting ? "Submitting..." : "Submit Application"}
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email Address *</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="Enter your email address"
+                      className="rounded-full px-6 py-6"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="jobTitle">Job Title *</Label>
+                    <Input
+                      id="jobTitle"
+                      name="jobTitle"
+                      value={formData.jobTitle}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="Enter your job title"
+                      className="rounded-full px-6 py-6"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="institution">Institution *</Label>
+                    <Input
+                      id="institution"
+                      name="institution"
+                      value={formData.institution}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="Enter your institution"
+                      className="rounded-full px-6 py-6"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="membership">Membership Level *</Label>
+                    <Select value={formData.membership} onValueChange={handleSelectChange}>
+                      <SelectTrigger className="rounded-full px-6 py-6 h-auto">
+                        <SelectValue placeholder="Please choose an option" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Academic and Scholar Membership (ASM)">Academic and Scholar Membership (ASM)</SelectItem>
+                        <SelectItem value="Executive Leader Membership (ELM)">Executive Leader Membership (ELM)</SelectItem>
+                        <SelectItem value="Industry Practitioner Membership (IPM)">Industry Practitioner Membership (IPM)</SelectItem>
+                        <SelectItem value="Student Membership (SM)">Student Membership (SM)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <Button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    size="lg"
+                    className="w-full rounded-full px-8 py-6 bg-accent text-accent-foreground hover:bg-accent/90"
+                  >
+                    {isSubmitting ? "Submitting..." : "Submit Application"}
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </form>
+              </div>
             </div>
           </div>
         </section>
@@ -356,21 +330,21 @@ const JoinUs = () => {
         {/* Stripe Payment Section */}
         <StripePaymentForm />
 
-        {/* Partners & Sponsors Section */}
-        <section className="section-padding bg-gradient-to-br from-teal-50 via-background to-emerald-50" id="part_spon">
-          <div className="container-wide">
-            <div className="text-center">
-              <h2 className="heading-lg mb-6">Become our Partners & Sponsors</h2>
-              <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-                Let's Create Impact together! Ready to team up with us? Fill out this quick registration form to explore exciting sponsorship and partnership possibilities. Join forces for success!
-              </p>
-              <PartnerSponsorDialog>
-                <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                  <Handshake className="mr-2 h-5 w-5" />
-                  Partner With Us
-                </Button>
-              </PartnerSponsorDialog>
-            </div>
+        {/* Partners CTA */}
+        <section className="py-20 lg:py-32 bg-primary text-primary-foreground" id="part_spon">
+          <div className="container-wide text-center">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Become a Partner & Sponsor
+            </h2>
+            <p className="text-xl text-primary-foreground/80 mb-10 max-w-3xl mx-auto">
+              Let's create impact together! Ready to team up with us? Explore exciting sponsorship and partnership possibilities.
+            </p>
+            <PartnerSponsorDialog>
+              <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-10 py-6 text-lg">
+                <Handshake className="mr-2 h-5 w-5" />
+                Partner With Us
+              </Button>
+            </PartnerSponsorDialog>
           </div>
         </section>
       </main>

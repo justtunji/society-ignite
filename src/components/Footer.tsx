@@ -1,4 +1,5 @@
-import { Mail, Phone, MapPin, ExternalLink } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
+import sbaLogo from "@/assets/logos/sba-logo.png";
 
 interface FooterProps {
   siteName: string;
@@ -23,64 +24,57 @@ export const Footer = ({
 }: FooterProps) => {
   const currentYear = new Date().getFullYear();
 
-  const navigation = [
-    { name: 'About', href: '/about' },
-    { name: 'Programs', href: '/programs' },
-    { name: 'Events', href: '/events' },
+  const quickLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'About Us', href: '/about' },
     { name: 'Resources', href: '/resources' },
     { name: 'Gallery', href: '/gallery' },
-    { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' },
+    { name: 'Join Us', href: '/join-us' },
   ];
 
   const socialLinks = [
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/society-of-black-academics/', icon: 'in' },
-    { name: 'YouTube', href: 'https://www.youtube.com/channel/UC2mDgBLZlUUjipwEHVZuy-w', icon: '📺' },
-    { name: 'Instagram', href: 'https://www.instagram.com/societyofblackacademics/', icon: '📷' },
-    { name: 'X (Twitter)', href: 'https://twitter.com/SocietyBlackAca', icon: '𝕏' },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/society-of-black-academics/' },
+    { name: 'YouTube', href: 'https://www.youtube.com/channel/UC2mDgBLZlUUjipwEHVZuy-w' },
+    { name: 'Instagram', href: 'https://www.instagram.com/societyofblackacademics/' },
+    { name: 'X (Twitter)', href: 'https://twitter.com/SocietyBlackAca' },
   ];
 
   return (
     <footer className="bg-primary text-primary-foreground">
-      <div className="container-wide">
-        <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Brand Section */}
-          <div className="lg:col-span-2 space-y-4">
-            <h3 className="text-xl font-medium">{siteName}</h3>
-            <p className="text-primary-foreground/80 max-w-md leading-relaxed">
+      {/* Main Footer Content */}
+      <div className="container-wide py-16 lg:py-24">
+        <div className="grid lg:grid-cols-4 gap-12">
+          {/* Logo & Description */}
+          <div className="lg:col-span-2">
+            <a href="/" className="inline-block mb-6">
+              <img 
+                src={sbaLogo} 
+                alt={siteName}
+                className="h-12 w-auto brightness-0 invert"
+              />
+            </a>
+            <p className="text-primary-foreground/70 text-lg leading-relaxed max-w-md mb-8">
               {footerBlurb || "Driving inclusive change in higher education by supporting Black academics through mentorship, research, and community building."}
             </p>
             
             {/* Contact Info */}
-            <div className="space-y-2 text-sm">
+            <div className="space-y-3">
               {contactEmail && (
-                <div className="flex items-center gap-2">
-                  <Mail className="h-4 w-4" />
+                <div className="flex items-center gap-3 text-primary-foreground/70">
+                  <Mail className="h-5 w-5" />
                   <a 
                     href={`mailto:${contactEmail}`}
-                    className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                    className="hover:text-primary-foreground transition-colors"
                   >
                     {contactEmail}
                   </a>
                 </div>
               )}
-              {contactPhone && (
-                <div className="flex items-center gap-2">
-                  <Phone className="h-4 w-4" />
-                  <a 
-                    href={`tel:${contactPhone}`}
-                    className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
-                  >
-                    {contactPhone}
-                  </a>
-                </div>
-              )}
               {address && (
-                <div className="flex items-start gap-2">
-                  <MapPin className="h-4 w-4 mt-0.5" />
-                  <span className="text-primary-foreground/80">
-                    {address}
-                  </span>
+                <div className="flex items-start gap-3 text-primary-foreground/70">
+                  <MapPin className="h-5 w-5 mt-0.5" />
+                  <span>{address}</span>
                 </div>
               )}
             </div>
@@ -88,13 +82,13 @@ export const Footer = ({
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-medium mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {navigation.map((item) => (
+            <h4 className="text-lg font-bold mb-6">Quick Links</h4>
+            <ul className="space-y-3">
+              {quickLinks.map((item) => (
                 <li key={item.name}>
                   <a
                     href={item.href}
-                    className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm"
+                    className="text-primary-foreground/70 hover:text-primary-foreground transition-colors"
                   >
                     {item.name}
                   </a>
@@ -105,31 +99,30 @@ export const Footer = ({
 
           {/* Social Links */}
           <div>
-            <h4 className="font-medium mb-4">Connect</h4>
-            <div className="space-y-2">
+            <h4 className="text-lg font-bold mb-6">Connect With Us</h4>
+            <ul className="space-y-3">
               {socialLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm group"
-                >
-                  <span className="text-base">{link.icon}</span>
-                  {link.name}
-                  <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </a>
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </div>
+      </div>
 
-        {/* Bottom Bar */}
-        <div className="py-6 border-t border-primary-foreground/20">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/60">
-            <p>
-              © {currentYear} {siteName}. All rights reserved.
-            </p>
+      {/* Bottom Bar */}
+      <div className="border-t border-primary-foreground/20">
+        <div className="container-wide py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/50">
+            <p>© {currentYear} {siteName}. All rights reserved.</p>
             <div className="flex items-center gap-6">
               <a href="/privacy" className="hover:text-primary-foreground/80 transition-colors">
                 Privacy Policy
