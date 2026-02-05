@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import sba1 from "@/assets/images/gallery/sba-11-1.jpeg";
-import sba2 from "@/assets/images/gallery/sba-12-2.jpeg";
-import sba3 from "@/assets/images/gallery/sba-13-2.jpeg";
+import sba1 from "@/assets/images/gallery/sba1.jpeg";
+import sba2 from "@/assets/images/gallery/sba2.jpeg";
+import sba3 from "@/assets/images/gallery/sba4.jpeg";
 
 interface Story {
   id: string;
