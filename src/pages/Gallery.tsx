@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { ResearchTracksSection } from "@/components/ResearchTracksSection";
 import galleryHero from "@/assets/images/gallery-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 import sba1 from "@/assets/images/gallery/sba1.jpeg";
@@ -16,6 +17,8 @@ import sba7 from "@/assets/images/gallery/sba-event-3.jpeg";
 import sba8 from "@/assets/images/gallery/sba-event-6.jpeg";
 import sba9 from "@/assets/images/gallery/sba-event-8.jpeg";
 import heroImage from "@/assets/images/hero-image.jpg";
+import sba11 from "@/assets/images/gallery/sba-new-11.jpeg";
+import sba12 from "@/assets/images/gallery/sba-new-12.jpeg";
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<{ src: string; title: string; caption: string } | null>(null);
@@ -44,7 +47,9 @@ const Gallery = () => {
     { src: sba7, title: "SBA Banner", caption: "Driving systematic change in higher education" },
     { src: sba8, title: "Member Networking", caption: "Members networking at SBA event" },
     { src: sba9, title: "Group Photo", caption: "SBA Conference 2024 group photo" },
-    { src: heroImage, title: "Financial Flourishing Session", caption: "Panel session on Financial Flourishing at King's Business School" }
+    { src: heroImage, title: "Financial Flourishing Session", caption: "Panel session on Financial Flourishing at King's Business School" },
+    { src: sba11, title: "Young Scholars Presentation", caption: "Young academics presenting at SBA event" },
+    { src: sba12, title: "5th Annual Conference", caption: "SBA 2025 5th Conference attendees celebrating" }
   ];
 
   return (
@@ -139,6 +144,9 @@ const Gallery = () => {
             )}
           </DialogContent>
         </Dialog>
+
+        {/* Research Tracks Section */}
+        <ResearchTracksSection />
 
         {/* Call to Action */}
         <section className="py-20 lg:py-32 bg-primary text-primary-foreground">
