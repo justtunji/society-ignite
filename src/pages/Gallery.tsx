@@ -6,25 +6,16 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import galleryHero from "@/assets/images/gallery-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
-import sba1 from "@/assets/images/gallery/sba-1.jpeg";
-import sba31 from "@/assets/images/gallery/sba-3-1.jpeg";
-import sba61 from "@/assets/images/gallery/sba-6-1.jpeg";
-import sba81 from "@/assets/images/gallery/sba-8-1.jpeg";
-import sba93 from "@/assets/images/gallery/sba-9-3.jpeg";
-import sba101 from "@/assets/images/gallery/sba-10-1.jpeg";
-import sba2 from "@/assets/images/gallery/sba-2.jpeg";
-import sba111 from "@/assets/images/gallery/sba-11-1.jpeg";
-import sba122 from "@/assets/images/gallery/sba-12-2.jpeg";
-import sba132 from "@/assets/images/gallery/sba-13-2.jpeg";
-import sba141 from "@/assets/images/gallery/sba-14-1.jpeg";
-import sba151 from "@/assets/images/gallery/sba-15-1.jpeg";
-import sba161 from "@/assets/images/gallery/sba-16-1.jpeg";
-import journals1 from "@/assets/images/gallery/journals-1.jpg";
-import sba3 from "@/assets/images/gallery/sba-3.jpeg";
-import sba4 from "@/assets/images/gallery/sba-4.jpeg";
-import sba5 from "@/assets/images/gallery/sba-5.jpeg";
-import sba6 from "@/assets/images/gallery/sba-6.jpeg";
-import sba8 from "@/assets/images/gallery/sba-8.jpeg";
+import sba1 from "@/assets/images/gallery/sba1.jpeg";
+import sba2 from "@/assets/images/gallery/sba2.jpeg";
+import sba3 from "@/assets/images/gallery/sba4.jpeg";
+import sba4 from "@/assets/images/gallery/sba5.jpeg";
+import sba5 from "@/assets/images/gallery/sba6.jpeg";
+import sba6 from "@/assets/images/gallery/sba8.jpeg";
+import sba7 from "@/assets/images/gallery/sba-event-3.jpeg";
+import sba8 from "@/assets/images/gallery/sba-event-6.jpeg";
+import sba9 from "@/assets/images/gallery/sba-event-8.jpeg";
+import heroImage from "@/assets/images/hero-image.jpg";
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<{ src: string; title: string; caption: string } | null>(null);
@@ -44,25 +35,16 @@ const Gallery = () => {
   }, []);
 
   const galleryImages = [
-    { src: sba1, title: "4th Annual SBA conference hosted by The University of Bristol", caption: "4th Annual SBA conference hosted by The University of Bristol" },
-    { src: sba31, title: "SBA Event", caption: "Society of Black Academics event" },
-    { src: sba61, title: "SBA Event", caption: "Society of Black Academics event" },
-    { src: sba81, title: "SBA Event", caption: "Society of Black Academics event" },
-    { src: sba93, title: "SBA Event", caption: "Society of Black Academics event" },
-    { src: sba101, title: "SBA Event", caption: "Society of Black Academics event" },
-    { src: sba2, title: "Joint workshop with HEPI and GatenbySanderson", caption: "Joint workshop with Higher Education Policy Institute (HEPI) and GatenbySanderson" },
-    { src: sba111, title: "SBA Event", caption: "Society of Black Academics event" },
-    { src: sba122, title: "SBA Event", caption: "Society of Black Academics event" },
-    { src: sba132, title: "SBA Event", caption: "Society of Black Academics event" },
-    { src: sba141, title: "SBA Event", caption: "Society of Black Academics event" },
-    { src: sba151, title: "SBA Event", caption: "Society of Black Academics event" },
-    { src: sba161, title: "SBA Event", caption: "Society of Black Academics event" },
-    { src: journals1, title: "Academic Journals", caption: "Academic Journals" },
-    { src: sba3, title: "SBA Event", caption: "Society of Black Academics event" },
-    { src: sba4, title: "Professor Evelyn Welch Keynote", caption: "President and Vice Chancellor of University of Bristol giving a Keynote Address" },
-    { src: sba5, title: "SBA Conference 2024", caption: "SBA Conference 2024 hosted by University of Bristol" },
-    { src: sba6, title: "3rd Annual SBA Conference", caption: "3rd Annual SBA Conference hosted by the University of Leicester" },
-    { src: sba8, title: "3rd Annual SBA Conference", caption: "3rd Annual SBA Conference hosted by the University of Leicester" }
+    { src: sba1, title: "SBA Conference Attendees", caption: "Academics engaged during SBA conference session" },
+    { src: sba2, title: "Conference Session", caption: "Attendees listening to a keynote presentation" },
+    { src: sba3, title: "Conference Audience", caption: "Black academics gathered at SBA annual conference" },
+    { src: sba4, title: "Networking Session", caption: "Members networking during conference break" },
+    { src: sba5, title: "SBA Leadership Team", caption: "Society of Black Academics leadership team" },
+    { src: sba6, title: "Panel Discussion", caption: "Expert panel discussion at SBA event" },
+    { src: sba7, title: "SBA Banner", caption: "Driving systematic change in higher education" },
+    { src: sba8, title: "Member Networking", caption: "Members networking at SBA event" },
+    { src: sba9, title: "Group Photo", caption: "SBA Conference 2024 group photo" },
+    { src: heroImage, title: "Financial Flourishing Session", caption: "Panel session on Financial Flourishing at King's Business School" }
   ];
 
   return (

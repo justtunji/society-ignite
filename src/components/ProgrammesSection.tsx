@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import sbaImage1 from "@/assets/images/gallery/sba-3-1.jpeg";
-import sbaImage2 from "@/assets/images/gallery/sba-6-1.jpeg";
+import sbaImage1 from "@/assets/images/gallery/sba-event-3.jpeg";
+import sbaImage2 from "@/assets/images/gallery/sba-event-6.jpeg";
 
 export const ProgrammesSection = () => {
   return (

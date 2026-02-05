@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import sbaImage from "@/assets/images/gallery/sba-8-1.jpeg";
-import sbaImage2 from "@/assets/images/gallery/sba-9-3.jpeg";
+import sbaImage from "@/assets/images/gallery/sba5.jpeg";
+import sbaImage2 from "@/assets/images/gallery/sba6.jpeg";
 
 interface Community {
   id: string;
