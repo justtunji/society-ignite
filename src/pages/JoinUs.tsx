@@ -328,11 +328,11 @@ const JoinUs = () => {
           </div>
         </section>
 
-        {/* Research Tracks Section */}
-        <ResearchTracksSection />
-
         {/* Stripe Payment Section */}
         <StripePaymentForm />
+
+        {/* Research Tracks Section */}
+        <ResearchTracksSection />
 
         {/* Partners CTA */}
         <section className="py-20 lg:py-32 bg-primary text-primary-foreground" id="part_spon">
