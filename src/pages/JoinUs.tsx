@@ -10,6 +10,7 @@ import { Check, GraduationCap, Briefcase, Users, School, Handshake, ArrowRight }
 import { supabase } from "@/integrations/supabase/client";
 import { StripePaymentForm } from "@/components/StripePaymentForm";
 import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
+import { ResearchTracksSection } from "@/components/ResearchTracksSection";
 import joinUsHero from "@/assets/images/join-us-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 import membershipLevelsImage from "@/assets/images/membership-levels.jpg";
@@ -326,6 +327,9 @@ const JoinUs = () => {
             </div>
           </div>
         </section>
+
+        {/* Research Tracks Section */}
+        <ResearchTracksSection />
 
         {/* Stripe Payment Section */}
         <StripePaymentForm />

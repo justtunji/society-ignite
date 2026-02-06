@@ -4,7 +4,6 @@ import { Footer } from "@/components/Footer";
 import { X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { ResearchTracksSection } from "@/components/ResearchTracksSection";
 import galleryHero from "@/assets/images/gallery-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 import sba1 from "@/assets/images/gallery/sba1.jpeg";
@@ -144,9 +143,6 @@ const Gallery = () => {
             )}
           </DialogContent>
         </Dialog>
-
-        {/* Research Tracks Section */}
-        <ResearchTracksSection />
 
         {/* Call to Action */}
         <section className="py-20 lg:py-32 bg-primary text-primary-foreground">
