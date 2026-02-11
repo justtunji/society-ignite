@@ -45,42 +45,89 @@ const About = () => {
       name: "Dr. Mercy Denedo",
       title: "Project Manager",
       bio: "Dr. Denedo is an Assistant Professor in Accounting at Durham University. She manages all SBA's projects and she also assists in the planning of SBA's annual conferences.",
-      image: drMercyDenedo,
-      linkedin: "https://www.linkedin.com/in/mercy-denedo-68071135/?originalSubdomain=uk"
+      image: drMercyDenedo
     },
     {
       name: "Dr. Bola Babajide",
       title: "Partnerships & External Engagement Manager",
       bio: "Dr. Babajide is a Senior Lecturer in Accounting and Finance at De Montfort University. She is responsible for SBA's partnerships and external engagement activities.",
-      image: drBolaBabajide,
-      linkedin: "https://www.linkedin.com/in/bola-o-babajide-64124352/?originalSubdomain=uk"
+      image: drBolaBabajide
     },
     {
       name: "Steven Iorfa",
       title: "Operations & Events Manager",
       bio: "Steven looks after SBA's events and coordinates its operational activities. He is a doctoral researcher at the University of Portsmouth, looking at sustainability transitions in food systems.",
-      image: stevenIorfa,
-      linkedin: "https://www.linkedin.com/in/steven-kator-iorfa-138641116/"
+      image: stevenIorfa
     },
     {
       name: "Juliet Ocheja",
       title: "Company Secretary",
       bio: "Juliet is a qualified lawyer with extensive experience in a variety of fields, including the public sector, oil and gas, finance, and energy. She assists SBA and offers guidance on compliance and regulatory matters.",
-      image: julietOcheja,
-      linkedin: "https://www.linkedin.com/in/juliet-ocheja-66952362/?originalSubdomain=uk"
+      image: julietOcheja
     },
     {
       name: "Oyebola Toyese",
       title: "Marketing Manager",
       bio: "Oyebola Toyese is a specialist and consultant in branding, marketing, communications, and business growth. She provides support on SBA's marketing and branding approach.",
-      image: formal2,
-      linkedin: "https://www.linkedin.com/in/oyebolatoyese/?originalSubdomain=uk"
+      image: formal2
     },
     {
       name: "Dr Opeoluwa Aiyenitaju",
       title: "Education Manager",
       bio: "Dr. Ope is an enthusiastic academic. She lectures in Business Information Systems at Manchester Metropolitan University. Additionally, she takes an integral role in SBA's student outreach initiative and holds the role of Education & Engagement Manager.",
       image: drOpeoluwaAiyenitaju
+    }
+  ];
+
+  const advisoryBoardMembers = [
+    {
+      name: "Professor Sally Everett",
+      title: "Vice Dean, Education, Deputy Dean (interim)",
+      institution: "King's Business School",
+      bio: "Professor Sally Everett is Vice Dean, Education, Deputy Dean (interim), and Professor of Business Education at King's Business School. She is a National Teaching Fellow and a Principal Fellow of the Higher Education Academy.",
+      image: "https://aheconferencedotcom1.files.wordpress.com/2022/03/sally-everett-small.jpg"
+    },
+    {
+      name: "Professor Kevin Ibeh",
+      title: "Professor of Marketing and International Business",
+      institution: "Birkbeck, University of London",
+      bio: "Kevin Ibeh, PhD, FCIM, FRSA, is Professor of Marketing and International Business and Pro Vice Chancellor (International) at Birkbeck, University of London.",
+      image: professorKevinIbeh
+    },
+    {
+      name: "Professor (Associate) Gillian Stokes",
+      title: "Associate Professor of Inclusive Social Research",
+      institution: "UCL Social Research Institute",
+      bio: "Gillian is an Associate Professor of Inclusive Social Research at the UCL Social Research Institute, University College London (UCL).",
+      image: teamMember9
+    },
+    {
+      name: "Professor Temidayo Akenroye",
+      title: "Faculty Member",
+      institution: "University of Missouri-St Louis",
+      bio: "Professor Temidayo Akenroye is a Faculty Member at the University of Missouri-St Louis and a Senior Visiting Fellow at Lagos Business School, Nigeria. He holds a PhD in Supply Chain Management.",
+      image: "https://societyofblackacademics.com/wp-content/uploads/2024/05/temidayo-akenroye.jpg"
+    },
+    {
+      name: "Professor Nelarine Cornelius",
+      title: "Professor of Organisation Studies",
+      institution: "University of Bradford",
+      bio: "Nelarine Cornelius is a Professor of Organisation Studies. Her research is in the areas of social justice, business in society and the evolution of management practices in emerging, fragile economies.",
+      image: "https://societyofblackacademics.com/wp-content/uploads/2024/05/nelarine-cornelius.jpg"
+    },
+    {
+      name: "Professor Kenneth Amaeshi",
+      title: "Professor of Sustainable Finance and Governance",
+      institution: "School of Transnational Governance",
+      bio: "Kenneth Amaeshi is a Professor of Sustainable Finance and Governance. He is a leading scholar on sustainable business and finance in the global south.",
+      image: "https://societyofblackacademics.com/wp-content/uploads/2024/05/kenneth-amaeshi.jpg"
+    },
+    {
+      name: "Professor Gloria Agyemang",
+      title: "Professor of Accounting",
+      institution: "Royal Holloway, University of London",
+      bio: "Gloria Agyemang is a Professor of Accounting at Royal Holloway, University of London. Her research interests include NGO Accountability and Performance Management issues.",
+      image: "https://societyofblackacademics.com/wp-content/uploads/2024/05/gloria-agyemang.jpg"
     }
   ];
 
@@ -198,6 +245,17 @@ const About = () => {
           </div>
         </section>
 
+        {/* SBA Logo Display */}
+        <section className="py-16 bg-background">
+          <div className="container-wide flex justify-center">
+            <img 
+              src={sbaLogo}
+              alt="Society of Black Academics Logo"
+              className="h-24 md:h-32 w-auto object-contain"
+            />
+          </div>
+        </section>
+
         {/* Team Section */}
         <section className="py-20 lg:py-32 bg-background" id="our_team">
           <div className="container-wide">
@@ -253,36 +311,18 @@ const About = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  name: "Professor Sally Everett",
-                  title: "Vice Dean, Education, Deputy Dean (interim)",
-                  institution: "King's Business School",
-                  bio: "Professor Sally Everett is Vice Dean, Education, Deputy Dean (interim), and Professor of Business Education at King's Business School.",
-                  image: "https://aheconferencedotcom1.files.wordpress.com/2022/03/sally-everett-small.jpg"
-                },
-                {
-                  name: "Professor Kevin Ibeh",
-                  title: "Professor of Marketing and International Business",
-                  institution: "Birkbeck, University of London",
-                  bio: "Kevin Ibeh, PhD, FCIM, FRSA, is Professor of Marketing and International Business and Pro Vice Chancellor (International) at Birkbeck.",
-                  image: professorKevinIbeh
-                },
-                {
-                  name: "Professor (Associate) Gillian Stokes",
-                  title: "Associate Professor of Inclusive Social Research",
-                  institution: "UCL Social Research Institute",
-                  bio: "Gillian is an Associate Professor of Inclusive Social Research at the UCL Social Research Institute.",
-                  image: teamMember9
-                }
-              ].map((member, index) => (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              {advisoryBoardMembers.map((member, index) => (
                 <div key={index} className="group">
-                  <div className="relative aspect-square overflow-hidden rounded-lg mb-4">
+                  <div className="relative aspect-square overflow-hidden rounded-lg mb-4 bg-muted">
                     <img
                       src={member.image}
                       alt={member.name}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                      }}
                     />
                   </div>
                   <h3 className="text-xl font-bold mb-1">{member.name}</h3>
@@ -318,6 +358,8 @@ const About = () => {
         siteName="Society of Black Academics"
         contactEmail="info@societyofblackacademics.com"
         socialLinkedin="https://www.linkedin.com/company/society-of-black-academics/"
+        socialX="https://x.com/SocietyBlackAca"
+        socialInstagram="https://www.instagram.com/societyofblackacademics/"
         footerBlurb="Driving inclusive change in the Higher Education sector through community, networking, and professional development."
       />
     </div>

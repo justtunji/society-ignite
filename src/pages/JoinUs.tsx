@@ -357,6 +357,8 @@ const JoinUs = () => {
         siteName="Society of Black Academics"
         contactEmail="info@societyofblackacademics.com"
         socialLinkedin="https://www.linkedin.com/company/society-of-black-academics/"
+        socialX="https://x.com/SocietyBlackAca"
+        socialInstagram="https://www.instagram.com/societyofblackacademics/"
         footerBlurb="Driving inclusive change in the Higher Education sector through community, networking, and professional development."
       />
     </div>

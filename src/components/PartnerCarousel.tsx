@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 // Import partner logos
 import nuffieldLogo from '@/assets/partners/nuffield-foundation.png';
@@ -30,12 +29,11 @@ interface PartnerCarouselProps {
 export const PartnerCarousel = ({ speed = 60, pauseOnHover = true }: PartnerCarouselProps) => {
   const [partners, setPartners] = useState<Partner[]>([]);
 
-  // Sample partner data - in production this would come from Supabase
   useEffect(() => {
     setPartners([
       { id: '1', name: 'University of Edinburgh Business School', logo_url: hbsLogo, website_url: 'https://www.business-school.ed.ac.uk/', target_blank: true, order_index: 1 },
       { id: '2', name: 'Chartered Association of Business Schools', logo_url: cabsLogo, website_url: 'https://charteredabs.org/', target_blank: true, order_index: 2 },
-      { id: '3', name: 'King\'s College London Business School', logo_url: kbsLogo, website_url: 'https://www.kcl.ac.uk/business', target_blank: true, order_index: 3 },
+      { id: '3', name: "King's College London Business School", logo_url: kbsLogo, website_url: 'https://www.kcl.ac.uk/business', target_blank: true, order_index: 3 },
       { id: '4', name: 'Scottish Black Academics Interest Group', logo_url: sbiaLogo, website_url: 'https://www.sbia.business-school.ed.ac.uk/', target_blank: true, order_index: 4 },
       { id: '5', name: 'Perrett Laver', logo_url: perrettLaverLogo, website_url: 'https://www.perrettlaver.com/', target_blank: true, order_index: 5 },
       { id: '6', name: 'Nuffield Foundation', logo_url: nuffieldLogo, website_url: 'https://www.nuffieldfoundation.org/', target_blank: true, order_index: 6 },
@@ -47,6 +45,11 @@ export const PartnerCarousel = ({ speed = 60, pauseOnHover = true }: PartnerCaro
   }, []);
 
   if (partners.length === 0) return null;
+
+  // Double the partners for seamless infinite scroll
+  const doubledPartners = [...partners, ...partners];
+
+  const animationDuration = `${speed}s`;
 
   return (
     <section className="bg-background border-y border-border" aria-label="Featured In">
@@ -60,24 +63,20 @@ export const PartnerCarousel = ({ speed = 60, pauseOnHover = true }: PartnerCaro
         
         {/* Partner Logos Carousel */}
         <div className="flex-1 relative overflow-hidden py-8 lg:py-12">
-          {/* Navigation Arrows */}
-          <button 
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-background border border-border flex items-center justify-center hover:bg-muted transition-colors"
-            aria-label="Previous partners"
-          >
-            <ChevronLeft className="h-5 w-5 text-foreground" />
-          </button>
-          <button 
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-background border border-border flex items-center justify-center hover:bg-muted transition-colors"
-            aria-label="Next partners"
-          >
-            <ChevronRight className="h-5 w-5 text-foreground" />
-          </button>
+          {/* Gradient fades */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
           
           {/* Scrolling logos */}
-          <div className="flex items-center justify-center gap-12 px-16">
-            {partners.slice(0, 5).map((partner) => (
-              <div key={partner.id} className="flex-shrink-0">
+          <div 
+            className="partner-track"
+            style={{ 
+              animationDuration,
+              animationPlayState: pauseOnHover ? undefined : 'running'
+            }}
+          >
+            {doubledPartners.map((partner, index) => (
+              <div key={`${partner.id}-${index}`} className="flex-shrink-0 mx-8">
                 {partner.website_url ? (
                   <a
                     href={partner.website_url}

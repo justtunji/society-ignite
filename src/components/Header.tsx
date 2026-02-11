@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 
@@ -23,7 +23,6 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
   const [navigationItems, setNavigationItems] = useState<NavigationItem[]>([]);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -32,7 +31,6 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Sample navigation - in production this would come from Supabase
   useEffect(() => {
     setNavigationItems([
       { id: '1', label: 'Home', url: '/', external: false, cta_style: false, visible: true },
@@ -91,8 +89,24 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden lg:flex items-center space-x-4">
+          {/* CTA Buttons */}
+          <div className="hidden lg:flex items-center space-x-3">
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className={cn(
+                "rounded-full px-5",
+                isScrolled 
+                  ? "border-accent text-accent hover:bg-accent hover:text-accent-foreground" 
+                  : "border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+              )}
+            >
+              <a href="/join-us#part_spon">
+                <Heart className="mr-1.5 h-4 w-4" />
+                Donate / Sponsor
+              </a>
+            </Button>
             {ctaItems.map((item) => (
               <Button
                 key={item.id}
@@ -128,7 +142,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
       <div
         className={cn(
           "lg:hidden overflow-hidden transition-all duration-300 bg-background border-b border-border",
-          isOpen ? "max-h-[400px]" : "max-h-0"
+          isOpen ? "max-h-[500px]" : "max-h-0"
         )}
       >
         <nav className="container-wide py-6 space-y-4">
@@ -144,6 +158,16 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
               {item.label}
             </a>
           ))}
+          <Button
+            asChild
+            variant="outline"
+            className="w-full rounded-full border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+          >
+            <a href="/join-us#part_spon" onClick={() => setIsOpen(false)}>
+              <Heart className="mr-1.5 h-4 w-4" />
+              Donate / Sponsor
+            </a>
+          </Button>
           {ctaItems.map((item) => (
             <Button
               key={item.id}

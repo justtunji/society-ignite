@@ -108,12 +108,12 @@ const Index = () => {
 
       <Footer
         siteName={siteSettings.site_name}
-        contactEmail={siteSettings.contact_email}
+        contactEmail={siteSettings.contact_email || "info@societyofblackacademics.com"}
         contactPhone={siteSettings.contact_phone}
         address={siteSettings.address}
-        socialX={siteSettings.social_x}
-        socialLinkedin={siteSettings.social_linkedin}
-        socialInstagram={siteSettings.social_instagram}
+        socialX={siteSettings.social_x || "https://x.com/SocietyBlackAca"}
+        socialLinkedin={siteSettings.social_linkedin || "https://www.linkedin.com/company/society-of-black-academics/"}
+        socialInstagram={siteSettings.social_instagram || "https://www.instagram.com/societyofblackacademics/"}
         footerBlurb={siteSettings.footer_blurb}
       />
     </div>
