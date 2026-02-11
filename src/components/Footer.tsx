@@ -34,10 +34,10 @@ export const Footer = ({
   ];
 
   const socialLinks = [
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/society-of-black-academics/' },
+    { name: 'LinkedIn', href: socialLinkedin || 'https://www.linkedin.com/company/society-of-black-academics/' },
     { name: 'YouTube', href: 'https://www.youtube.com/channel/UC2mDgBLZlUUjipwEHVZuy-w' },
-    { name: 'Instagram', href: 'https://www.instagram.com/societyofblackacademics/' },
-    { name: 'X (Twitter)', href: 'https://twitter.com/SocietyBlackAca' },
+    { name: 'Instagram', href: socialInstagram || 'https://www.instagram.com/societyofblackacademics/' },
+    { name: 'X (Twitter)', href: socialX || 'https://x.com/SocietyBlackAca' },
   ];
 
   return (

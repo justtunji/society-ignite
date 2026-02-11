@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Download, FileText, Video, Link as LinkIcon, ArrowRight } from "lucide-react";
+import { BookOpen, Download, FileText, Video, Link as LinkIcon, ArrowRight, Briefcase, GraduationCap, Users } from "lucide-react";
 import resourcesHero from "@/assets/images/resources-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 
@@ -26,6 +26,10 @@ const Resources = () => {
     {
       title: "Career Development",
       description: "Tools and guidance for advancing your academic career",
+      icon: Briefcase,
+      gradient: "from-accent/20 to-accent/5",
+      borderColor: "border-accent",
+      iconBg: "bg-accent/10 text-accent",
       resources: [
         { title: "Academic Job Application Guide", type: "PDF", description: "Comprehensive guide to writing successful academic job applications.", icon: FileText, topics: ["Career", "Applications"] },
         { title: "Networking Strategies for Academics", type: "Video", description: "Learn effective networking techniques in academia.", icon: Video, topics: ["Networking", "Development"] },
@@ -35,6 +39,10 @@ const Resources = () => {
     {
       title: "Research & Publications",
       description: "Research insights and publication opportunities",
+      icon: GraduationCap,
+      gradient: "from-teal/20 to-teal/5",
+      borderColor: "border-teal",
+      iconBg: "bg-teal/10 text-teal",
       resources: [
         { title: "Diversity in Higher Education Report 2024", type: "PDF", description: "Annual report on diversity statistics in UK HE.", icon: FileText, topics: ["Research", "Diversity"] },
         { title: "Publication Strategy for ECRs", type: "Guide", description: "Building a strong publication record.", icon: LinkIcon, topics: ["Publications", "ECR"] },
@@ -44,6 +52,10 @@ const Resources = () => {
     {
       title: "Mentorship & Support",
       description: "Mentoring resources and community support materials",
+      icon: Users,
+      gradient: "from-coral/20 to-coral/5",
+      borderColor: "border-coral",
+      iconBg: "bg-coral/10 text-coral",
       resources: [
         { title: "Mentorship Program Guidelines", type: "PDF", description: "Framework for effective mentoring relationships.", icon: FileText, topics: ["Mentorship", "Guidelines"] },
         { title: "Wellbeing in Academia Workshop", type: "Video", description: "Addressing mental health challenges.", icon: Video, topics: ["Wellbeing", "Support"] },
@@ -52,12 +64,12 @@ const Resources = () => {
     }
   ];
 
-  const getIconColor = (type: string) => {
+  const getTypeBadgeStyle = (type: string) => {
     switch (type) {
-      case "PDF": return "text-red-500";
-      case "Video": return "text-blue-500";
-      case "Guide": return "text-green-500";
-      default: return "text-muted-foreground";
+      case "PDF": return "bg-destructive/10 text-destructive border-destructive/20";
+      case "Video": return "bg-indigo/10 text-indigo border-indigo/20";
+      case "Guide": return "bg-emerald/10 text-emerald border-emerald/20";
+      default: return "";
     }
   };
 
@@ -66,7 +78,7 @@ const Resources = () => {
       <Header logoUrl={sbaLogo} siteName="Society of Black Academics" />
       
       <main>
-        {/* Hero Section - DINN Style */}
+        {/* Hero Section */}
         <section className="relative min-h-[80vh] flex items-center bg-primary">
           <div className="absolute inset-0">
             <img 
@@ -95,34 +107,43 @@ const Resources = () => {
           <div className="container-wide">
             {resourceCategories.map((category, categoryIndex) => (
               <div key={categoryIndex} className="mb-20 last:mb-0">
-                <div className="mb-12">
-                  <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">{category.title}</h4>
-                  <p className="text-lg text-muted-foreground">{category.description}</p>
+                <div className={`mb-12 p-8 rounded-2xl bg-gradient-to-r ${category.gradient}`}>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${category.iconBg}`}>
+                      <category.icon className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl lg:text-3xl font-bold text-foreground">{category.title}</h2>
+                      <p className="text-muted-foreground">{category.description}</p>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {category.resources.map((resource, resourceIndex) => (
-                    <div key={resourceIndex} className="bg-muted/30 p-8 border-l-4 border-accent group hover:bg-muted/50 transition-colors">
+                    <div key={resourceIndex} className={`bg-background p-8 border-l-4 ${category.borderColor} group hover:shadow-lg transition-all duration-300 rounded-r-lg`}>
                       <div className="flex items-start gap-4 mb-4">
-                        <resource.icon className={`h-6 w-6 mt-1 ${getIconColor(resource.type)}`} />
+                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${category.iconBg}`}>
+                          <resource.icon className="h-5 w-5" />
+                        </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
                             <h3 className="font-bold">{resource.title}</h3>
-                            <Badge variant="secondary" className="text-xs">
-                              {resource.type}
-                            </Badge>
                           </div>
+                          <Badge variant="outline" className={`text-xs mb-3 ${getTypeBadgeStyle(resource.type)}`}>
+                            {resource.type}
+                          </Badge>
                           <p className="text-muted-foreground text-sm mb-4">
                             {resource.description}
                           </p>
                           <div className="flex flex-wrap gap-1 mb-4">
                             {resource.topics.map((topic, topicIndex) => (
-                              <Badge key={topicIndex} variant="outline" className="text-xs">
+                              <Badge key={topicIndex} variant="secondary" className="text-xs">
                                 {topic}
                               </Badge>
                             ))}
                           </div>
-                          <button className="inline-flex items-center text-accent hover:text-accent/80 text-sm font-medium transition-colors">
+                          <button className={`inline-flex items-center text-sm font-medium transition-colors hover:opacity-80`} style={{ color: 'hsl(var(--accent))' }}>
                             <Download className="h-4 w-4 mr-1" />
                             Access Resource
                           </button>
@@ -169,59 +190,25 @@ const Resources = () => {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div className="text-center p-8 bg-muted/30 border-l-4 border-accent">
-                <h3 className="font-bold text-lg mb-2">LinkedIn Network</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Join our professional network for updates.
-                </p>
-                <a 
-                  href="https://www.linkedin.com/company/society-of-black-academics/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-accent hover:text-accent/80 text-sm font-medium"
-                >
-                  Connect →
-                </a>
-              </div>
-
-              <div className="text-center p-8 bg-muted/30 border-l-4 border-accent">
-                <h3 className="font-bold text-lg mb-2">Newsletter</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Stay updated with the latest news.
-                </p>
-                <a 
-                  href="/join-us"
-                  className="text-accent hover:text-accent/80 text-sm font-medium"
-                >
-                  Subscribe →
-                </a>
-              </div>
-
-              <div className="text-center p-8 bg-muted/30 border-l-4 border-accent">
-                <h3 className="font-bold text-lg mb-2">Mentorship</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Connect with experienced mentors.
-                </p>
-                <a 
-                  href="/contact"
-                  className="text-accent hover:text-accent/80 text-sm font-medium"
-                >
-                  Learn More →
-                </a>
-              </div>
-
-              <div className="text-center p-8 bg-muted/30 border-l-4 border-accent">
-                <h3 className="font-bold text-lg mb-2">Events</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Attend our networking events.
-                </p>
-                <a 
-                  href="/gallery"
-                  className="text-accent hover:text-accent/80 text-sm font-medium"
-                >
-                  View Past Events →
-                </a>
-              </div>
+              {[
+                { title: "LinkedIn Network", desc: "Join our professional network for updates.", href: "https://www.linkedin.com/company/society-of-black-academics/", label: "Connect →", external: true, color: "border-indigo" },
+                { title: "Newsletter", desc: "Stay updated with the latest news.", href: "/join-us", label: "Subscribe →", external: false, color: "border-accent" },
+                { title: "Mentorship", desc: "Connect with experienced mentors.", href: "/contact", label: "Learn More →", external: false, color: "border-teal" },
+                { title: "Events", desc: "Attend our networking events.", href: "/gallery", label: "View Past Events →", external: false, color: "border-coral" },
+              ].map((item, idx) => (
+                <div key={idx} className={`text-center p-8 bg-muted/30 border-l-4 ${item.color} hover:shadow-md transition-shadow`}>
+                  <h3 className="font-bold text-lg mb-2">{item.title}</h3>
+                  <p className="text-muted-foreground text-sm mb-4">{item.desc}</p>
+                  <a 
+                    href={item.href}
+                    target={item.external ? "_blank" : undefined}
+                    rel={item.external ? "noopener noreferrer" : undefined}
+                    className="text-accent hover:text-accent/80 text-sm font-medium"
+                  >
+                    {item.label}
+                  </a>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -231,6 +218,8 @@ const Resources = () => {
         siteName="Society of Black Academics"
         contactEmail="info@societyofblackacademics.com"
         socialLinkedin="https://www.linkedin.com/company/society-of-black-academics/"
+        socialX="https://x.com/SocietyBlackAca"
+        socialInstagram="https://www.instagram.com/societyofblackacademics/"
         footerBlurb="Driving inclusive change in the Higher Education sector through community, networking, and professional development."
       />
     </div>

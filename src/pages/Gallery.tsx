@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { X, ArrowRight } from "lucide-react";
+import { X, ArrowRight, ExternalLink, Calendar, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import galleryHero from "@/assets/images/gallery-hero.jpg";
@@ -18,6 +18,22 @@ import sba9 from "@/assets/images/gallery/sba-event-8.jpeg";
 import heroImage from "@/assets/images/hero-image.jpg";
 import sba11 from "@/assets/images/gallery/sba-new-11.jpeg";
 import sba12 from "@/assets/images/gallery/sba-new-12.jpeg";
+// Older event photos
+import sbaOld1 from "@/assets/images/gallery/sba-1.jpeg";
+import sbaOld2 from "@/assets/images/gallery/sba-2.jpeg";
+import sbaOld3 from "@/assets/images/gallery/sba-3.jpeg";
+import sbaOld4 from "@/assets/images/gallery/sba-3-1.jpeg";
+import sbaOld5 from "@/assets/images/gallery/sba-6.jpeg";
+import sbaOld6 from "@/assets/images/gallery/sba-6-1.jpeg";
+import sbaOld7 from "@/assets/images/gallery/sba-8-1.jpeg";
+import sbaOld8 from "@/assets/images/gallery/sba-9-3.jpeg";
+import sbaOld9 from "@/assets/images/gallery/sba-10-1.jpeg";
+import sbaOld10 from "@/assets/images/gallery/sba-11-1.jpeg";
+import sbaOld11 from "@/assets/images/gallery/sba-12-2.jpeg";
+import sbaOld12 from "@/assets/images/gallery/sba-13-2.jpeg";
+import sbaOld13 from "@/assets/images/gallery/sba-14-1.jpeg";
+import sbaOld14 from "@/assets/images/gallery/sba-15-1.jpeg";
+import sbaOld15 from "@/assets/images/gallery/sba-16-1.jpeg";
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<{ src: string; title: string; caption: string } | null>(null);
@@ -37,18 +53,73 @@ const Gallery = () => {
   }, []);
 
   const galleryImages = [
-    { src: sba1, title: "SBA Conference Attendees", caption: "Academics engaged during SBA conference session" },
-    { src: sba2, title: "Conference Session", caption: "Attendees listening to a keynote presentation" },
-    { src: sba3, title: "Conference Audience", caption: "Black academics gathered at SBA annual conference" },
-    { src: sba4, title: "Networking Session", caption: "Members networking during conference break" },
-    { src: sba5, title: "SBA Leadership Team", caption: "Society of Black Academics leadership team" },
-    { src: sba6, title: "Panel Discussion", caption: "Expert panel discussion at SBA event" },
-    { src: sba7, title: "SBA Banner", caption: "Driving systematic change in higher education" },
-    { src: sba8, title: "Member Networking", caption: "Members networking at SBA event" },
-    { src: sba9, title: "Group Photo", caption: "SBA Conference 2024 group photo" },
-    { src: heroImage, title: "Financial Flourishing Session", caption: "Panel session on Financial Flourishing at King's Business School" },
-    { src: sba11, title: "Young Scholars Presentation", caption: "Young academics presenting at SBA event" },
-    { src: sba12, title: "5th Annual Conference", caption: "SBA 2025 5th Conference attendees celebrating" }
+    // 5th Annual Conference photos
+    { src: sba1, title: "5th Annual Conference", caption: "5th Annual Conference" },
+    { src: sba2, title: "5th Annual Conference", caption: "5th Annual Conference" },
+    { src: sba3, title: "5th Annual Conference", caption: "5th Annual Conference" },
+    { src: sba4, title: "5th Annual Conference", caption: "5th Annual Conference" },
+    { src: sba5, title: "5th Annual Conference", caption: "5th Annual Conference" },
+    { src: sba6, title: "5th Annual Conference", caption: "5th Annual Conference" },
+    { src: sba7, title: "5th Annual Conference", caption: "5th Annual Conference" },
+    { src: sba8, title: "5th Annual Conference", caption: "5th Annual Conference" },
+    { src: sba9, title: "5th Annual Conference", caption: "5th Annual Conference" },
+    { src: heroImage, title: "5th Annual Conference", caption: "5th Annual Conference" },
+    { src: sba11, title: "5th Annual Conference", caption: "5th Annual Conference" },
+    { src: sba12, title: "5th Annual Conference", caption: "5th Annual Conference" },
+    // Older event photos
+    { src: sbaOld1, title: "SBA Community Event", caption: "SBA community gathering" },
+    { src: sbaOld2, title: "SBA Workshop", caption: "Workshop and knowledge exchange session" },
+    { src: sbaOld3, title: "SBA Conference", caption: "SBA conference session" },
+    { src: sbaOld4, title: "SBA Networking", caption: "Networking at SBA event" },
+    { src: sbaOld5, title: "SBA Event", caption: "SBA community event" },
+    { src: sbaOld6, title: "SBA Panel Discussion", caption: "Panel discussion at SBA event" },
+    { src: sbaOld7, title: "SBA Workshop", caption: "SBA workshop session" },
+    { src: sbaOld8, title: "SBA Group Session", caption: "Group discussion at SBA event" },
+    { src: sbaOld9, title: "SBA Conference", caption: "SBA annual conference" },
+    { src: sbaOld10, title: "SBA Networking Event", caption: "Networking at SBA conference" },
+    { src: sbaOld11, title: "SBA Workshop", caption: "SBA educational workshop" },
+    { src: sbaOld12, title: "SBA Conference", caption: "SBA conference keynote session" },
+    { src: sbaOld13, title: "SBA Group Photo", caption: "SBA conference group photo" },
+    { src: sbaOld14, title: "SBA Event", caption: "SBA community event" },
+    { src: sbaOld15, title: "SBA Conference", caption: "SBA conference session" },
+  ];
+
+  const upcomingEvents = [
+    {
+      title: "6th Annual SBA Conference 2026",
+      date: "June 2026",
+      location: "London, UK",
+      description: "Our flagship annual conference bringing together Black academics from across the UK and beyond.",
+      link: "/contact"
+    },
+    {
+      title: "Career Development Workshop",
+      date: "March 2026",
+      location: "Online",
+      description: "Practical workshop on navigating promotion and progression in UK higher education.",
+      link: "/contact"
+    },
+    {
+      title: "Research Excellence Seminar",
+      date: "April 2026",
+      location: "Birmingham, UK",
+      description: "A seminar focused on building impactful research portfolios and securing funding.",
+      link: "/contact"
+    },
+    {
+      title: "Mentorship Programme Launch",
+      date: "May 2026",
+      location: "Online",
+      description: "Launch of our annual mentorship matching programme for early career researchers and senior academics.",
+      link: "/contact"
+    },
+    {
+      title: "EDI Leadership Forum",
+      date: "July 2026",
+      location: "Manchester, UK",
+      description: "Forum exploring equity, diversity, and inclusion leadership in higher education institutions.",
+      link: "/contact"
+    }
   ];
 
   return (
@@ -56,7 +127,7 @@ const Gallery = () => {
       <Header logoUrl={sbaLogo} siteName="Society of Black Academics" />
       
       <main>
-        {/* Hero Section - DINN Style */}
+        {/* Hero Section */}
         <section className="relative min-h-[80vh] flex items-center bg-primary">
           <div className="absolute inset-0">
             <img 
@@ -144,11 +215,54 @@ const Gallery = () => {
           </DialogContent>
         </Dialog>
 
-        {/* Call to Action */}
+        {/* Register for Events */}
+        <section className="py-20 lg:py-32 bg-muted/30">
+          <div className="container-wide">
+            <div className="text-center mb-16">
+              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Upcoming</h4>
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
+                Register for Our Events
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto mt-4">
+                Be part of our growing community and join us at our upcoming conferences, workshops, and networking events.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {upcomingEvents.map((event, index) => (
+                <div key={index} className="bg-background p-8 border-l-4 border-accent hover:shadow-lg transition-shadow">
+                  <h3 className="text-xl font-bold mb-3">{event.title}</h3>
+                  <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
+                    <Calendar className="h-4 w-4 text-accent" />
+                    <span>{event.date}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-muted-foreground text-sm mb-4">
+                    <MapPin className="h-4 w-4 text-accent" />
+                    <span>{event.location}</span>
+                  </div>
+                  <p className="text-muted-foreground text-sm mb-6">{event.description}</p>
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="sm"
+                    className="rounded-full px-6 hover:bg-accent hover:text-accent-foreground hover:border-accent"
+                  >
+                    <a href={event.link}>
+                      Register
+                      <ExternalLink className="ml-2 h-3 w-3" />
+                    </a>
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
         <section className="py-20 lg:py-32 bg-primary text-primary-foreground">
           <div className="container-wide text-center">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Join Our Next Event
+              Join Our Community
             </h2>
             <p className="text-xl text-primary-foreground/80 mb-10 max-w-3xl mx-auto">
               Be part of our growing community and create memories at our upcoming conferences, workshops, and networking events.
@@ -183,6 +297,8 @@ const Gallery = () => {
         siteName="Society of Black Academics"
         contactEmail="info@societyofblackacademics.com"
         socialLinkedin="https://www.linkedin.com/company/society-of-black-academics/"
+        socialX="https://x.com/SocietyBlackAca"
+        socialInstagram="https://www.instagram.com/societyofblackacademics/"
         footerBlurb="Driving inclusive change in the Higher Education sector through community, networking, and professional development."
       />
     </div>
