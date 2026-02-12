@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import sbaImage from "@/assets/images/gallery/sba-1.jpeg";
+import sbaImage from "@/assets/images/about-section.jpg";
 
 export const AboutSection = () => {
   return (
