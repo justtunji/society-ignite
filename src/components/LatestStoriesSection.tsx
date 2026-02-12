@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import sba1 from "@/assets/images/gallery/sba1.jpeg";
-import sba2 from "@/assets/images/gallery/sba-event-3.jpeg";
+import sba2 from "@/assets/images/gallery/sba-new-12.jpeg";
 import sba3 from "@/assets/images/gallery/sba4.jpeg";
 
 interface Story {
@@ -21,7 +21,7 @@ export const LatestStoriesSection = () => {
     },
     {
       id: '2',
-      title: 'Building Networks: The Power of Academic Community',
+      title: 'Networking & Collaboration at the SBA Annual Conference',
       image: sba2,
       link: '/gallery'
     },
