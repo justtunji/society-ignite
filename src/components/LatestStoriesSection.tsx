@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import sba1 from "@/assets/images/gallery/sba1.jpeg";
-import sba2 from "@/assets/images/gallery/sba2.jpeg";
+import sba2 from "@/assets/images/gallery/sba-event-3.jpeg";
 import sba3 from "@/assets/images/gallery/sba4.jpeg";
 
 interface Story {
@@ -15,7 +15,7 @@ export const LatestStoriesSection = () => {
   const stories: Story[] = [
     {
       id: '1',
-      title: '4th Annual SBA Conference: Highlights and Key Takeaways',
+      title: '5th Annual SBA Conference: Highlights and Key Takeaways',
       image: sba1,
       link: '/gallery'
     },

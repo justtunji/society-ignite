@@ -160,12 +160,11 @@ const About = () => {
               </div>
               
               <div className="hidden lg:flex justify-center items-center">
-                <div className="relative w-80 h-80 mx-auto flex items-center justify-center">
-                  <div className="absolute inset-0 rounded-full bg-primary-foreground/10 blur-lg"></div>
+                <div className="relative w-80 h-80 mx-auto flex items-center justify-center bg-white rounded-2xl shadow-lg">
                   <img 
                     src={sbaLogo}
                     alt="Society of Black Academics Logo"
-                    className="relative w-full h-full object-contain p-4"
+                    className="relative w-full h-full object-contain p-6"
                   />
                 </div>
               </div>
