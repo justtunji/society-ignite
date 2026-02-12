@@ -159,16 +159,14 @@ const About = () => {
                 </p>
               </div>
               
-              <div className="hidden lg:block">
-                <div className="relative w-80 h-80 mx-auto">
-                  <div className="absolute inset-0 rounded-full bg-accent/20 blur-lg"></div>
-                  <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary-foreground/20">
-                    <img 
-                      src={sbaContacto}
-                      alt="SBA Community"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+              <div className="hidden lg:flex justify-center items-center">
+                <div className="relative w-80 h-80 mx-auto flex items-center justify-center">
+                  <div className="absolute inset-0 rounded-full bg-primary-foreground/10 blur-lg"></div>
+                  <img 
+                    src={sbaLogo}
+                    alt="Society of Black Academics Logo"
+                    className="relative w-full h-full object-contain p-4"
+                  />
                 </div>
               </div>
             </div>
@@ -199,11 +197,11 @@ const About = () => {
                   </a>
                 </Button>
               </div>
-              <div className="relative min-h-[400px]">
+              <div className="relative min-h-[400px] flex items-center justify-center bg-muted/20 p-8">
                 <img 
-                  src={sbaContacto}
-                  alt="Society of Black Academics team meeting"
-                  className="w-full h-full object-cover"
+                  src={sbaLogo}
+                  alt="Society of Black Academics Logo"
+                  className="max-w-full max-h-[350px] object-contain"
                 />
               </div>
             </div>
@@ -251,7 +249,7 @@ const About = () => {
             <img 
               src={sbaLogo}
               alt="Society of Black Academics Logo"
-              className="h-24 md:h-32 w-auto object-contain"
+              className="h-32 md:h-44 w-auto object-contain"
             />
           </div>
         </section>
