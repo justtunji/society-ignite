@@ -13,6 +13,7 @@ const EventsAdmin = () => (
       { name: 'cover_image_url', label: 'Cover Image', type: 'image', showInTable: true },
       { name: 'start_datetime', label: 'Start Date/Time', type: 'datetime', showInTable: true },
       { name: 'end_datetime', label: 'End Date/Time', type: 'datetime' },
+      { name: 'timezone', label: 'Timezone', type: 'text', defaultValue: 'UTC' },
       { name: 'location_mode', label: 'Location Mode', type: 'text' },
       { name: 'location_text', label: 'Location', type: 'text' },
       { name: 'registration_url', label: 'Registration URL', type: 'url' },

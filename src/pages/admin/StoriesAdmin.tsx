@@ -12,6 +12,7 @@ const StoriesAdmin = () => (
       { name: 'image_url', label: 'Image', type: 'image', showInTable: true },
       { name: 'short_description', label: 'Short Description', type: 'textarea', showInTable: true },
       { name: 'link', label: 'Link', type: 'url', showInTable: true },
+      { name: 'published_at', label: 'Published At', type: 'datetime' },
       { name: 'featured', label: 'Featured', type: 'boolean', defaultValue: false, showInTable: true },
       { name: 'order_index', label: 'Order', type: 'number', defaultValue: 0 },
     ]}
