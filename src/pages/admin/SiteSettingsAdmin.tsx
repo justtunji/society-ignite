@@ -18,7 +18,7 @@ const SiteSettingsAdmin = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const { data } = await supabase.from('site_settings').select('*').limit(1).single();
+      const { data } = await supabase.from('site_settings').select('*').limit(1).maybeSingle();
       if (data) setSettings(data);
       setLoading(false);
     };
@@ -58,6 +58,8 @@ const SiteSettingsAdmin = () => {
           <TabsTrigger value="social">Social & Contact</TabsTrigger>
           <TabsTrigger value="appearance">Appearance</TabsTrigger>
           <TabsTrigger value="features">Features</TabsTrigger>
+          <TabsTrigger value="seo">SEO</TabsTrigger>
+          <TabsTrigger value="newsletter">Newsletter</TabsTrigger>
         </TabsList>
 
         <TabsContent value="general">
@@ -121,7 +123,34 @@ const SiteSettingsAdmin = () => {
               <div className="flex items-center justify-between"><Label>Show Promotions Section</Label><Switch checked={settings.show_promotions_section} onCheckedChange={v => updateField('show_promotions_section', v)} /></div>
               <div className="flex items-center justify-between"><Label>Show Instagram Feed</Label><Switch checked={settings.show_instagram_feed} onCheckedChange={v => updateField('show_instagram_feed', v)} /></div>
               <div className="flex items-center justify-between"><Label>Show LinkedIn Feed</Label><Switch checked={settings.show_linkedin_feed} onCheckedChange={v => updateField('show_linkedin_feed', v)} /></div>
+              <div className="flex items-center justify-between"><Label>Mega Menu</Label><Switch checked={settings.is_mega_menu} onCheckedChange={v => updateField('is_mega_menu', v)} /></div>
+              <div className="flex items-center justify-between"><Label>Pause Carousel on Hover</Label><Switch checked={settings.partner_carousel_pause_on_hover} onCheckedChange={v => updateField('partner_carousel_pause_on_hover', v)} /></div>
               <div><Label>Partner Carousel Speed</Label><Input type="number" value={settings.partner_carousel_speed || 60} onChange={e => updateField('partner_carousel_speed', parseInt(e.target.value))} /></div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="seo">
+          <Card>
+            <CardHeader><CardTitle>SEO & Meta</CardTitle></CardHeader>
+            <CardContent className="space-y-4">
+              <div><Label>Default SEO Title</Label><Input value={settings.seo_default_title || ''} onChange={e => updateField('seo_default_title', e.target.value)} /></div>
+              <div><Label>Default SEO Description</Label><Textarea value={settings.seo_default_description || ''} onChange={e => updateField('seo_default_description', e.target.value)} /></div>
+              <div><Label>OG Image</Label><ImageUpload value={settings.og_image_url || ''} onChange={v => updateField('og_image_url', v)} folder="og" /></div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="newsletter">
+          <Card>
+            <CardHeader><CardTitle>Newsletter & Email</CardTitle></CardHeader>
+            <CardContent className="space-y-4">
+              <div><Label>Newsletter Provider</Label><Input value={settings.newsletter_provider || ''} onChange={e => updateField('newsletter_provider', e.target.value)} placeholder="e.g. mailerlite" /></div>
+              <div><Label>Newsletter List ID</Label><Input value={settings.newsletter_list_id || ''} onChange={e => updateField('newsletter_list_id', e.target.value)} /></div>
+              <div><Label>Newsletter Position</Label><Input value={settings.newsletter_position || ''} onChange={e => updateField('newsletter_position', e.target.value)} placeholder="e.g. below_promotions" /></div>
+              <div><Label>Email From Name</Label><Input value={settings.email_from_name || ''} onChange={e => updateField('email_from_name', e.target.value)} /></div>
+              <div><Label>Email From Address</Label><Input value={settings.email_from_address || ''} onChange={e => updateField('email_from_address', e.target.value)} /></div>
+              <div><Label>Email Fallback Provider</Label><Input value={settings.email_fallback_provider || ''} onChange={e => updateField('email_fallback_provider', e.target.value)} /></div>
             </CardContent>
           </Card>
         </TabsContent>

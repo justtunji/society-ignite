@@ -13,6 +13,7 @@ const ResourcesAdmin = () => (
       { name: 'resource_type', label: 'Type', type: 'text', showInTable: true },
       { name: 'thumbnail_url', label: 'Thumbnail', type: 'image', showInTable: true },
       { name: 'file_url', label: 'File URL', type: 'url' },
+      { name: 'published_at', label: 'Published At', type: 'datetime' },
       { name: 'year', label: 'Year', type: 'number', showInTable: true },
       { name: 'topics', label: 'Topics', type: 'tags' },
     ]}
