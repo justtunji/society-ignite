@@ -17,6 +17,7 @@ import formal2 from "@/assets/images/team/formal-2.jpeg";
 import drOpeoluwaAiyenitaju from "@/assets/images/team/dr-opeoluwa-aiyenitaju.jpeg";
 import professorKevinIbeh from "@/assets/images/team/professor-kevin-ibeh.jpeg";
 import teamMember9 from "@/assets/images/team/team-member-9.jpeg";
+import sallyEverett from "@/assets/images/team/Sally-Everett-Wonkhe-.jpg";
 
 const About = () => {
   useEffect(() => {
@@ -85,7 +86,7 @@ const About = () => {
       title: "Vice Dean, Education, Deputy Dean (interim)",
       institution: "King's Business School",
       bio: "Professor Sally Everett is Vice Dean, Education, Deputy Dean (interim), and Professor of Business Education at King's Business School. She is a National Teaching Fellow and a Principal Fellow of the Higher Education Academy.",
-      image: "https://aheconferencedotcom1.files.wordpress.com/2022/03/sally-everett-small.jpg"
+      image: sallyEverett
     },
     {
       name: "Professor Kevin Ibeh",
