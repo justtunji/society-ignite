@@ -17,7 +17,11 @@ import formal2 from "@/assets/images/team/formal-2.jpeg";
 import drOpeoluwaAiyenitaju from "@/assets/images/team/dr-opeoluwa-aiyenitaju.jpeg";
 import professorKevinIbeh from "@/assets/images/team/professor-kevin-ibeh.jpeg";
 import teamMember9 from "@/assets/images/team/team-member-9.jpeg";
-import sallyEverett from "@/assets/images/team/Sally-Everett-Wonkhe-.jpg";
+import proSallyEverett from "@/assets/images/team/Sally-Everett-Wonkhe-.jpg";
+import proTemidayoAkenroye from "@/assets/images/team/temidayo-akenroye.jpg";
+import proNelarineCornelius from "@/assets/images/team/Nelarine-Cornelius.png";
+import prokennethAmaeshi from "@/assets/images/team/Kenneth-Amaeshi-2022.xca972950.jpg
+import proGloriaAgyemang from "@/assets/images/team/Gloria Agyemang.png
 
 const About = () => {
   useEffect(() => {
@@ -86,7 +90,7 @@ const About = () => {
       title: "Vice Dean, Education, Deputy Dean (interim)",
       institution: "King's Business School",
       bio: "Professor Sally Everett is Vice Dean, Education, Deputy Dean (interim), and Professor of Business Education at King's Business School. She is a National Teaching Fellow and a Principal Fellow of the Higher Education Academy.",
-      image: sallyEverett
+      image: proSallyEverett
     },
     {
       name: "Professor Kevin Ibeh",
@@ -107,28 +111,28 @@ const About = () => {
       title: "Faculty Member",
       institution: "University of Missouri-St Louis",
       bio: "Professor Temidayo Akenroye is a Faculty Member at the University of Missouri-St Louis and a Senior Visiting Fellow at Lagos Business School, Nigeria. He holds a PhD in Supply Chain Management.",
-      image: "https://societyofblackacademics.com/wp-content/uploads/2024/05/temidayo-akenroye.jpg"
+      image: proTemidayoAkenroye
     },
     {
       name: "Professor Nelarine Cornelius",
       title: "Professor of Organisation Studies",
       institution: "University of Bradford",
       bio: "Nelarine Cornelius is a Professor of Organisation Studies. Her research is in the areas of social justice, business in society and the evolution of management practices in emerging, fragile economies.",
-      image: "https://societyofblackacademics.com/wp-content/uploads/2024/05/nelarine-cornelius.jpg"
+      image: proNelarineCornelius
     },
     {
       name: "Professor Kenneth Amaeshi",
       title: "Professor of Sustainable Finance and Governance",
       institution: "School of Transnational Governance",
       bio: "Kenneth Amaeshi is a Professor of Sustainable Finance and Governance. He is a leading scholar on sustainable business and finance in the global south.",
-      image: "https://societyofblackacademics.com/wp-content/uploads/2024/05/kenneth-amaeshi.jpg"
+      image: prokennethAmaeshi
     },
     {
       name: "Professor Gloria Agyemang",
       title: "Professor of Accounting",
       institution: "Royal Holloway, University of London",
       bio: "Gloria Agyemang is a Professor of Accounting at Royal Holloway, University of London. Her research interests include NGO Accountability and Performance Management issues.",
-      image: "https://societyofblackacademics.com/wp-content/uploads/2024/05/gloria-agyemang.jpg"
+      image: proGloriaAgyemang
     }
   ];
 
