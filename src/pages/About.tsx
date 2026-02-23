@@ -20,8 +20,8 @@ import teamMember9 from "@/assets/images/team/team-member-9.jpeg";
 import proSallyEverett from "@/assets/images/team/Sally-Everett-Wonkhe-.jpg";
 import proTemidayoAkenroye from "@/assets/images/team/temidayo-akenroye.jpg";
 import proNelarineCornelius from "@/assets/images/team/Nelarine-Cornelius.png";
-import prokennethAmaeshi from "@/assets/images/team/Kenneth-Amaeshi-2022.xca972950.jpg
-import proGloriaAgyemang from "@/assets/images/team/Gloria Agyemang.png
+import prokennethAmaeshi from "@/assets/images/team/Kenneth-Amaeshi-2022.xca972950.jpg";
+import proGloriaAgyemang from "@/assets/images/team/Gloria Agyemang.png";
 
 const About = () => {
   useEffect(() => {
