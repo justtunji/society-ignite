@@ -37,16 +37,13 @@ export const CommunitiesSection = () => {
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-0 items-stretch">
           {/* Left - Images Grid */}
-          <div className="relative min-h-[400px] lg:min-h-[700px] order-2 lg:order-1">
-            <div className="absolute inset-0">
-              <img 
-                src={sbaImage}
-                alt="SBA Community"
-                className="w-full h-full object-cover"
-              />
-            </div>
+          <div className="relative min-h-[300px] lg:min-h-[700px] order-2 lg:order-1 overflow-hidden">
+            <img 
+              src={sbaImage}
+              alt="SBA Community"
+              className="w-full h-full object-cover object-center absolute inset-0"
+            />
           </div>
-          
           {/* Right - Content */}
           <div className="bg-muted/30 p-8 lg:p-16 flex flex-col justify-center order-1 lg:order-2">
             <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">

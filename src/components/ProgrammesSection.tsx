@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import sbaImage1 from "@/assets/images/gallery/sba-event-3.jpeg";
-import sbaImage2 from "@/assets/images/gallery/sba-event-6.jpeg";
+
 
 export const ProgrammesSection = () => {
   return (
@@ -10,18 +10,11 @@ export const ProgrammesSection = () => {
         <div className="grid lg:grid-cols-2 gap-0 items-stretch">
           {/* Left - Images */}
           <div className="relative bg-primary min-h-[400px] lg:min-h-[600px]">
-            <div className="absolute inset-0 grid grid-cols-2 gap-1">
-              <img 
-                src={sbaImage1}
-                alt="SBA Programme 1"
-                className="w-full h-full object-cover"
-              />
-              <img 
-                src={sbaImage2}
-                alt="SBA Programme 2"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <img 
+              src={sbaImage1}
+              alt="SBA Programme"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
           </div>
           
           {/* Right - Content */}
