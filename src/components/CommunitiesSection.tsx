@@ -37,11 +37,11 @@ export const CommunitiesSection = () => {
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-0 items-stretch">
           {/* Left - Images Grid */}
-          <div className="relative min-h-[300px] lg:min-h-[700px] order-2 lg:order-1 overflow-hidden">
+          <div className="relative min-h-[300px] lg:min-h-[700px] order-2 lg:order-1 bg-muted flex items-center justify-center">
             <img 
               src={sbaImage}
               alt="SBA Community"
-              className="w-full h-full object-cover object-center absolute inset-0"
+              className="w-full h-full object-contain"
             />
           </div>
           {/* Right - Content */}
