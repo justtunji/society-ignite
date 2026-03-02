@@ -9,11 +9,11 @@ export const ProgrammesSection = () => {
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-0 items-stretch">
           {/* Left - Images */}
-          <div className="relative bg-primary min-h-[400px] lg:min-h-[600px]">
+          <div className="relative bg-muted min-h-[400px] lg:min-h-[600px] flex items-center justify-center">
             <img 
               src={sbaImage1}
               alt="SBA Programme"
-              className="absolute inset-0 w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
           </div>
           
