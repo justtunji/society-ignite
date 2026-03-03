@@ -1,42 +1,36 @@
+import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { supabase } from '@/integrations/supabase/client';
 import sbaImage from "@/assets/images/gallery/sba5.jpeg";
-import sbaImage2 from "@/assets/images/gallery/sba6.jpeg";
 
 interface Community {
   id: string;
   name: string;
-  description: string;
-  link: string;
+  description: string | null;
+  link: string | null;
 }
 
 export const CommunitiesSection = () => {
-  const communities: Community[] = [
-    {
-      id: '1',
-      name: 'Early Career Academics',
-      description: 'Support network for PhD students and early career researchers navigating their academic journey.',
-      link: '/resources'
-    },
-    {
-      id: '2',
-      name: 'Senior Academics',
-      description: 'A community for established academics in leadership and senior research positions.',
-      link: '/resources'
-    },
-    {
-      id: '3',
-      name: 'Aspiring Scholars',
-      description: 'Resources and mentorship for students considering an academic career path.',
-      link: '/resources'
-    }
-  ];
+  const [communities, setCommunities] = useState<Community[]>([]);
+
+  useEffect(() => {
+    const fetchCommunities = async () => {
+      const { data } = await supabase
+        .from('communities')
+        .select('id, name, description, link')
+        .eq('visible', true)
+        .order('order_index', { ascending: true });
+      if (data) setCommunities(data);
+    };
+    fetchCommunities();
+  }, []);
 
   return (
     <section className="py-20 lg:py-32 bg-background">
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-0 items-stretch">
-          {/* Left - Images Grid */}
+          {/* Left - Image */}
           <div className="relative min-h-[300px] lg:min-h-[700px] order-2 lg:order-1 bg-muted flex items-center justify-center">
             <img 
               src={sbaImage}
@@ -53,7 +47,6 @@ export const CommunitiesSection = () => {
               We understand the need for nuance and specificity, which is why we have created several communities that you can join. Each with its unique landscape, language, and content, we hope that you find one that works for you.
             </p>
             
-            {/* Community Cards */}
             <div className="space-y-6 mb-8">
               {communities.map((community) => (
                 <div 
@@ -66,16 +59,18 @@ export const CommunitiesSection = () => {
                   <p className="text-muted-foreground mb-3">
                     {community.description}
                   </p>
-                  <Button 
-                    asChild 
-                    variant="link" 
-                    className="p-0 h-auto text-primary hover:text-accent"
-                  >
-                    <a href={community.link}>
-                      Learn more
-                      <ArrowRight className="ml-1 h-4 w-4" />
-                    </a>
-                  </Button>
+                  {community.link && (
+                    <Button 
+                      asChild 
+                      variant="link" 
+                      className="p-0 h-auto text-primary hover:text-accent"
+                    >
+                      <a href={community.link}>
+                        Learn more
+                        <ArrowRight className="ml-1 h-4 w-4" />
+                      </a>
+                    </Button>
+                  )}
                 </div>
               ))}
             </div>

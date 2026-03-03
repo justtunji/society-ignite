@@ -1,42 +1,36 @@
+import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import sba1 from "@/assets/images/gallery/sba1.jpeg";
-import sba2 from "@/assets/images/gallery/sba-new-12.jpeg";
-import sba3 from "@/assets/images/gallery/sba4.jpeg";
+import { supabase } from '@/integrations/supabase/client';
 
 interface Story {
   id: string;
   title: string;
-  image: string;
-  link: string;
+  image_url: string | null;
+  link: string | null;
+  short_description: string | null;
 }
 
 export const LatestStoriesSection = () => {
-  const stories: Story[] = [
-    {
-      id: '1',
-      title: '5th Annual SBA Conference: Highlights and Key Takeaways',
-      image: sba1,
-      link: '/gallery'
-    },
-    {
-      id: '2',
-      title: 'Networking & Collaboration at the SBA Annual Conference',
-      image: sba2,
-      link: '/gallery'
-    },
-    {
-      id: '3',
-      title: 'Research Excellence: Celebrating Black Academic Achievement',
-      image: sba3,
-      link: '/gallery'
-    }
-  ];
+  const [stories, setStories] = useState<Story[]>([]);
+
+  useEffect(() => {
+    const fetchStories = async () => {
+      const { data } = await supabase
+        .from('stories')
+        .select('id, title, image_url, link, short_description')
+        .order('order_index', { ascending: true })
+        .limit(3);
+      if (data) setStories(data);
+    };
+    fetchStories();
+  }, []);
+
+  if (stories.length === 0) return null;
 
   return (
     <section className="py-20 lg:py-32 bg-muted/30">
       <div className="container-wide">
-        {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4 md:mb-0">
             Latest Stories
@@ -54,20 +48,25 @@ export const LatestStoriesSection = () => {
           </Button>
         </div>
         
-        {/* Stories Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {stories.map((story) => (
             <a 
               key={story.id}
-              href={story.link}
+              href={story.link || '/gallery'}
               className="group block"
             >
               <div className="relative aspect-[4/3] overflow-hidden rounded-lg mb-4">
-                <img 
-                  src={story.image}
-                  alt={story.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+                {story.image_url ? (
+                  <img 
+                    src={story.image_url}
+                    alt={story.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-muted flex items-center justify-center">
+                    <span className="text-muted-foreground">No image</span>
+                  </div>
+                )}
               </div>
               <h3 className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors mb-2">
                 {story.title}
