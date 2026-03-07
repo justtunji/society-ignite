@@ -3,51 +3,36 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Calendar, MapPin } from "lucide-react";
+import { supabase } from '@/integrations/supabase/client';
 
 interface Program {
   id: string;
   title: string;
   slug: string;
-  short_description?: string;
-  program_type?: string;
-  start_date?: string;
-  end_date?: string;
-  location_mode?: string;
-  location_text?: string;
-  tags: string[];
+  short_description: string | null;
+  program_type: string | null;
+  start_date: string | null;
+  end_date: string | null;
+  location_mode: string | null;
+  location_text: string | null;
+  tags: string[] | null;
+  status: string | null;
 }
 
 export const FeaturedPrograms = () => {
   const [programs, setPrograms] = useState<Program[]>([]);
 
-  // Sample program data - in production this would come from Supabase
   useEffect(() => {
-    setPrograms([
-      {
-        id: '1',
-        title: 'Academic Mentorship Program',
-        slug: 'academic-mentorship-program',
-        short_description: 'Connect with experienced academics for career guidance and professional development in higher education.',
-        program_type: 'Mentorship',
-        start_date: '2024-09-01',
-        end_date: '2025-06-30',
-        location_mode: 'hybrid',
-        location_text: 'Online & Regional Meetups',
-        tags: ['mentorship', 'career-development', 'networking']
-      },
-      {
-        id: '2',
-        title: 'Research Fellowship Initiative',
-        slug: 'research-fellowship-initiative',
-        short_description: 'Funding and institutional support for groundbreaking research projects led by Black academics.',
-        program_type: 'Fellowship',
-        start_date: '2024-10-15',
-        end_date: '2025-10-15',
-        location_mode: 'in-person',
-        location_text: 'Partner Universities',
-        tags: ['research', 'funding', 'fellowship', 'innovation']
-      }
-    ]);
+    const fetchPrograms = async () => {
+      const { data } = await supabase
+        .from('programs')
+        .select('id, title, slug, short_description, program_type, start_date, end_date, location_mode, location_text, tags, status')
+        .eq('status', 'active')
+        .order('created_at', { ascending: false })
+        .limit(4);
+      if (data) setPrograms(data);
+    };
+    fetchPrograms();
   }, []);
 
   if (programs.length === 0) return null;
@@ -106,7 +91,7 @@ export const FeaturedPrograms = () => {
                   )}
                 </div>
 
-                {program.tags.length > 0 && (
+                {program.tags && program.tags.length > 0 && (
                   <div className="flex flex-wrap gap-2">
                     {program.tags.slice(0, 3).map((tag) => (
                       <Badge key={tag} variant="outline" className="text-xs">

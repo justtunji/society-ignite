@@ -1,9 +1,37 @@
+import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { supabase } from '@/integrations/supabase/client';
 import sbaImage1 from "@/assets/images/gallery/sba-event-3.jpeg";
 
+interface Program {
+  id: string;
+  title: string;
+  short_description: string | null;
+  hero_image_url: string | null;
+}
 
 export const ProgrammesSection = () => {
+  const [program, setProgram] = useState<Program | null>(null);
+
+  useEffect(() => {
+    const fetchProgram = async () => {
+      const { data } = await supabase
+        .from('programs')
+        .select('id, title, short_description, hero_image_url')
+        .eq('status', 'active')
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (data) setProgram(data);
+    };
+    fetchProgram();
+  }, []);
+
+  const imageUrl = program?.hero_image_url || sbaImage1;
+  const description = program?.short_description || 
+    'We support the career development and success of Black academics across the UK by empowering universities, corporations, and research institutions with the insights, recommendations and support to implement authentic and effective diversity initiatives.';
+
   return (
     <section className="py-20 lg:py-32 bg-muted/30">
       <div className="container-wide">
@@ -11,8 +39,8 @@ export const ProgrammesSection = () => {
           {/* Left - Images */}
           <div className="relative bg-muted min-h-[400px] lg:min-h-[600px] flex items-center justify-center">
             <img 
-              src={sbaImage1}
-              alt="SBA Programme"
+              src={imageUrl}
+              alt={program?.title || "SBA Programme"}
               className="w-full h-full object-contain"
             />
           </div>
@@ -23,7 +51,7 @@ export const ProgrammesSection = () => {
               Our programmes
             </h4>
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              We support the career development and success of Black academics across the UK by empowering universities, corporations, and research institutions with the insights, recommendations and support to implement authentic and effective diversity initiatives.
+              {description}
             </p>
             <Button 
               asChild 
