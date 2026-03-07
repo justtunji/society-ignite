@@ -289,7 +289,7 @@ const About = () => {
         </section>
       </main>
       
-      <Footer />
+      <Footer siteName="Society of Black Academics" />
     </div>
   );
 };
