@@ -1,29 +1,29 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Handshake, ArrowRight } from "lucide-react";
 import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
+import { supabase } from '@/integrations/supabase/client';
 import aboutHero from "@/assets/images/about-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
-import sbaContacto from "@/assets/images/sba-contacto.jpg";
-import drAdeOyedijo from "@/assets/images/team/dr-ade-oyedijo.jpeg";
-import drMercyDenedo from "@/assets/images/team/dr-mercy-denedo.jpg";
-import drBolaBabajide from "@/assets/images/team/dr-bola-babajide.jpg";
-import stevenIorfa from "@/assets/images/team/steven-iorfa.jpeg";
-import julietOcheja from "@/assets/images/team/juliet-ocheja.jpeg";
-import formal2 from "@/assets/images/team/formal-2.jpeg";
-import drOpeoluwaAiyenitaju from "@/assets/images/team/dr-opeoluwa-aiyenitaju.jpeg";
-import professorKevinIbeh from "@/assets/images/team/professor-kevin-ibeh.jpeg";
-import teamMember9 from "@/assets/images/team/team-member-9.jpeg";
-import proSallyEverett from "@/assets/images/team/Sally-Everett-Wonkhe-.jpg";
-import proTemidayoAkenroye from "@/assets/images/team/temidayo-akenroye.jpg";
-import proNelarineCornelius from "@/assets/images/team/Nelarine-Cornelius.png";
-import prokennethAmaeshi from "@/assets/images/team/Kenneth-Amaeshi-2022.xca972950.jpg";
-import proGloriaAgyemang from "@/assets/images/team/Gloria Agyemang.png";
+
+interface TeamMember {
+  id: string;
+  name: string;
+  title: string | null;
+  bio: string | null;
+  image_url: string | null;
+  linkedin_url: string | null;
+  twitter_url: string | null;
+  is_featured: boolean | null;
+  order_index: number | null;
+}
 
 const About = () => {
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [advisoryMembers, setAdvisoryMembers] = useState<TeamMember[]>([]);
+
   useEffect(() => {
     document.title = "About Us | Society of Black Academics";
     
@@ -36,112 +36,28 @@ const About = () => {
       meta.content = 'Learn about the Society of Black Academics (SBA), our mission to promote Justice, Equity, and Fairness for Black academics in UK Higher Education.';
       document.head.appendChild(meta);
     }
+
+    const fetchTeamMembers = async () => {
+      const { data } = await supabase
+        .from('team_members_public')
+        .select('*')
+        .order('order_index', { ascending: true });
+      
+      if (data) {
+        // Split: featured members go to advisory board, non-featured to team
+        setTeamMembers(data.filter(m => !m.is_featured));
+        setAdvisoryMembers(data.filter(m => m.is_featured));
+      }
+    };
+    fetchTeamMembers();
   }, []);
-
-  const teamMembers = [
-    {
-      name: "Dr. Ade Oyedijo",
-      title: "Founder & Director",
-      bio: "Dr Oyedijo is a Scholar who is currently based at the University of Leicester School of Business where he lectures in Operations and Supply Chain Management. Ade founded SBA and overseas its current activities.",
-      image: drAdeOyedijo,
-      linkedin: "https://www.linkedin.com/in/ade-oyedijo-25986260/?originalSubdomain=uk"
-    },
-    {
-      name: "Dr. Mercy Denedo",
-      title: "Project Manager",
-      bio: "Dr. Denedo is an Assistant Professor in Accounting at Durham University. She manages all SBA's projects and she also assists in the planning of SBA's annual conferences.",
-      image: drMercyDenedo
-    },
-    {
-      name: "Dr. Bola Babajide",
-      title: "Partnerships & External Engagement Manager",
-      bio: "Dr. Babajide is a Senior Lecturer in Accounting and Finance at De Montfort University. She is responsible for SBA's partnerships and external engagement activities.",
-      image: drBolaBabajide
-    },
-    {
-      name: "Steven Iorfa",
-      title: "Operations & Events Manager",
-      bio: "Steven looks after SBA's events and coordinates its operational activities. He is a doctoral researcher at the University of Portsmouth, looking at sustainability transitions in food systems.",
-      image: stevenIorfa
-    },
-    {
-      name: "Juliet Ocheja",
-      title: "Company Secretary",
-      bio: "Juliet is a qualified lawyer with extensive experience in a variety of fields, including the public sector, oil and gas, finance, and energy. She assists SBA and offers guidance on compliance and regulatory matters.",
-      image: julietOcheja
-    },
-    {
-      name: "Oyebola Toyese",
-      title: "Marketing Manager",
-      bio: "Oyebola Toyese is a specialist and consultant in branding, marketing, communications, and business growth. She provides support on SBA's marketing and branding approach.",
-      image: formal2
-    },
-    {
-      name: "Dr Opeoluwa Aiyenitaju",
-      title: "Education Manager",
-      bio: "Dr. Ope is an enthusiastic academic. She lectures in Business Information Systems at Manchester Metropolitan University. Additionally, she takes an integral role in SBA's student outreach initiative and holds the role of Education & Engagement Manager.",
-      image: drOpeoluwaAiyenitaju
-    }
-  ];
-
-  const advisoryBoardMembers = [
-    {
-      name: "Professor Sally Everett",
-      title: "Vice Dean, Education, Deputy Dean (interim)",
-      institution: "King's Business School",
-      bio: "Professor Sally Everett is Vice Dean, Education, Deputy Dean (interim), and Professor of Business Education at King's Business School. She is a National Teaching Fellow and a Principal Fellow of the Higher Education Academy.",
-      image: proSallyEverett
-    },
-    {
-      name: "Professor Kevin Ibeh",
-      title: "Professor of Marketing and International Business",
-      institution: "Birkbeck, University of London",
-      bio: "Kevin Ibeh, PhD, FCIM, FRSA, is Professor of Marketing and International Business and Pro Vice Chancellor (International) at Birkbeck, University of London.",
-      image: professorKevinIbeh
-    },
-    {
-      name: "Professor (Associate) Gillian Stokes",
-      title: "Associate Professor of Inclusive Social Research",
-      institution: "UCL Social Research Institute",
-      bio: "Gillian is an Associate Professor of Inclusive Social Research at the UCL Social Research Institute, University College London (UCL).",
-      image: teamMember9
-    },
-    {
-      name: "Professor Temidayo Akenroye",
-      title: "Faculty Member",
-      institution: "University of Missouri-St Louis",
-      bio: "Professor Temidayo Akenroye is a Faculty Member at the University of Missouri-St Louis and a Senior Visiting Fellow at Lagos Business School, Nigeria. He holds a PhD in Supply Chain Management.",
-      image: proTemidayoAkenroye
-    },
-    {
-      name: "Professor Nelarine Cornelius",
-      title: "Professor of Organisation Studies",
-      institution: "University of Bradford",
-      bio: "Nelarine Cornelius is a Professor of Organisation Studies. Her research is in the areas of social justice, business in society and the evolution of management practices in emerging, fragile economies.",
-      image: proNelarineCornelius
-    },
-    {
-      name: "Professor Kenneth Amaeshi",
-      title: "Professor of Sustainable Finance and Governance",
-      institution: "School of Transnational Governance",
-      bio: "Kenneth Amaeshi is a Professor of Sustainable Finance and Governance. He is a leading scholar on sustainable business and finance in the global south.",
-      image: prokennethAmaeshi
-    },
-    {
-      name: "Professor Gloria Agyemang",
-      title: "Professor of Accounting",
-      institution: "Royal Holloway, University of London",
-      bio: "Gloria Agyemang is a Professor of Accounting at Royal Holloway, University of London. Her research interests include NGO Accountability and Performance Management issues.",
-      image: proGloriaAgyemang
-    }
-  ];
 
   return (
     <div className="min-h-screen">
       <Header logoUrl={sbaLogo} siteName="Society of Black Academics" />
       
       <main>
-        {/* Hero Section - DINN Style */}
+        {/* Hero Section */}
         <section className="relative min-h-[80vh] flex items-center bg-primary">
           <div className="absolute inset-0">
             <img 
@@ -177,7 +93,7 @@ const About = () => {
           </div>
         </section>
 
-        {/* Why SBA Section - Split Layout */}
+        {/* Why SBA Section */}
         <section className="py-20 lg:py-32 bg-background">
           <div className="container-wide">
             <div className="grid lg:grid-cols-2 gap-0 items-stretch">
@@ -212,7 +128,7 @@ const About = () => {
           </div>
         </section>
 
-        {/* Mission, Vision, Values - Card Grid */}
+        {/* Mission, Vision, Values */}
         <section className="py-20 lg:py-32 bg-muted/30">
           <div className="container-wide">
             <div className="text-center mb-16">
@@ -271,71 +187,88 @@ const About = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {teamMembers.map((member, index) => (
-                <div key={index} className="group">
-                  <div className="relative aspect-square overflow-hidden rounded-lg mb-4">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+            {teamMembers.length > 0 ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {teamMembers.map((member) => (
+                  <div key={member.id} className="group">
+                    <div className="relative aspect-square overflow-hidden rounded-lg mb-4 bg-muted">
+                      {member.image_url ? (
+                        <img
+                          src={member.image_url}
+                          alt={member.name}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                          No photo
+                        </div>
+                      )}
+                    </div>
+                    <h3 className="text-xl font-bold mb-1">{member.name}</h3>
+                    {member.title && <p className="text-accent font-medium mb-3">{member.title}</p>}
+                    {member.bio && <p className="text-muted-foreground text-sm leading-relaxed mb-3">{member.bio}</p>}
+                    {member.linkedin_url && (
+                      <a
+                        href={member.linkedin_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:text-accent transition-colors text-sm font-medium"
+                      >
+                        LinkedIn →
+                      </a>
+                    )}
                   </div>
-                  <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                  <p className="text-accent font-medium mb-3">{member.title}</p>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-3">{member.bio}</p>
-                  {member.linkedin && (
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:text-accent transition-colors text-sm font-medium"
-                    >
-                      LinkedIn →
-                    </a>
-                  )}
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-muted-foreground">Team members coming soon.</p>
+            )}
           </div>
         </section>
 
         {/* Advisory Board Section */}
-        <section className="py-20 lg:py-32 bg-muted/30" id="advisory_board">
-          <div className="container-wide">
-            <div className="text-center mb-16">
-              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Leadership</h4>
-              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-                Advisory Board
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Our distinguished advisory board provides strategic guidance and expertise to advance SBA's mission.
-              </p>
-            </div>
+        {advisoryMembers.length > 0 && (
+          <section className="py-20 lg:py-32 bg-muted/30" id="advisory_board">
+            <div className="container-wide">
+              <div className="text-center mb-16">
+                <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Leadership</h4>
+                <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                  Advisory Board
+                </h2>
+                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                  Our distinguished advisory board provides strategic guidance and expertise to advance SBA's mission.
+                </p>
+              </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-              {advisoryBoardMembers.map((member, index) => (
-                <div key={index} className="group">
-                  <div className="relative aspect-square overflow-hidden rounded-lg mb-4 bg-muted">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                      }}
-                    />
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {advisoryMembers.map((member) => (
+                  <div key={member.id} className="group">
+                    <div className="relative aspect-square overflow-hidden rounded-lg mb-4 bg-muted">
+                      {member.image_url ? (
+                        <img
+                          src={member.image_url}
+                          alt={member.name}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                          }}
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                          No photo
+                        </div>
+                      )}
+                    </div>
+                    <h3 className="text-xl font-bold mb-1">{member.name}</h3>
+                    {member.title && <p className="text-accent font-medium text-sm mb-1">{member.title}</p>}
+                    {member.bio && <p className="text-muted-foreground text-sm leading-relaxed">{member.bio}</p>}
                   </div>
-                  <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                  <p className="text-accent font-medium text-sm mb-1">{member.title}</p>
-                  <p className="text-muted-foreground text-sm mb-3">{member.institution}</p>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{member.bio}</p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Partners CTA */}
         <section className="py-20 lg:py-32 bg-primary text-primary-foreground" id="part_spon">
@@ -349,21 +282,14 @@ const About = () => {
             <PartnerSponsorDialog>
               <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-10 py-6 text-lg">
                 <Handshake className="mr-2 h-5 w-5" />
-                Get in Touch
+                Become a Partner / Sponsor
               </Button>
             </PartnerSponsorDialog>
           </div>
         </section>
       </main>
-
-      <Footer
-        siteName="Society of Black Academics"
-        contactEmail="info@societyofblackacademics.com"
-        socialLinkedin="https://www.linkedin.com/company/society-of-black-academics/"
-        socialX="https://x.com/SocietyBlackAca"
-        socialInstagram="https://www.instagram.com/societyofblackacademics/"
-        footerBlurb="Driving inclusive change in the Higher Education sector through community, networking, and professional development."
-      />
+      
+      <Footer siteName="Society of Black Academics" />
     </div>
   );
 };
