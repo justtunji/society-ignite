@@ -11,6 +11,7 @@ import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import JoinUs from "./pages/JoinUs";
 import NotFound from "./pages/NotFound";
+import Programs from "./pages/Programs";
 
 // Admin pages
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
