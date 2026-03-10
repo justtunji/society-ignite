@@ -11,6 +11,7 @@ import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import JoinUs from "./pages/JoinUs";
 import NotFound from "./pages/NotFound";
+import Programs from "./pages/Programs";
 
 // Admin pages
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
@@ -47,6 +48,7 @@ const App = () => (
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/join-us" element={<JoinUs />} />
+            <Route path="/programs" element={<Programs />} />
             
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
