@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, Download, FileText, Video, Link as LinkIcon, ArrowRight, Briefcase, GraduationCap, Users } from "lucide-react";
 import resourcesHero from "@/assets/images/resources-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
+import SBAUpdateMarch2026 from "@/components/SBAUpdateMarch2026";
 
 const Resources = () => {
   useEffect(() => {
