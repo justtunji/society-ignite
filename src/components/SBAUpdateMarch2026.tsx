@@ -229,7 +229,7 @@ const SBAUpdateMarch2026 = () => {
             },
             {
               title: "Black History Month Event",
-              desc: "A special event themed "Reclaiming Narratives," exploring how connecting with historical roots can serve as a source of strength.",
+              desc: "A special event themed 'Reclaiming Narratives,' exploring how connecting with historical roots can serve as a source of strength.",
               color: "border-coral/30",
             },
             {
