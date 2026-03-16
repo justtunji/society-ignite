@@ -8,6 +8,7 @@ import resourcesHero from "@/assets/images/resources-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 import SBAUpdateMarch2026 from "@/components/SBAUpdateMarch2026";
 
+
 const Resources = () => {
   useEffect(() => {
     document.title = "Resources | Society of Black Academics";
