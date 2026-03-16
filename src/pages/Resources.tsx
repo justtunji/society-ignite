@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, Download, FileText, Video, Link as LinkIcon, ArrowRight, Briefcase, GraduationCap, Users } from "lucide-react";
 import resourcesHero from "@/assets/images/resources-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
+import SBAUpdateMarch2026 from "@/components/SBAUpdateMarch2026";
 
 const Resources = () => {
   useEffect(() => {
@@ -99,6 +100,13 @@ const Resources = () => {
                 Access our curated collection of resources designed to support Black academics at every stage of their career journey.
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* SBA Updates */}
+        <section className="py-20 lg:py-32 bg-gradient-to-b from-background via-muted/20 to-background">
+          <div className="container-wide">
+            <SBAUpdateMarch2026 />
           </div>
         </section>
 
