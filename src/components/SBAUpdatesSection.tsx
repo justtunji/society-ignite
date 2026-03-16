@@ -23,6 +23,55 @@ interface SBAUpdate {
   topics: string[] | null;
 }
 
+const MARCH_2026_FALLBACK: SBAUpdate = {
+  id: "march-2026-fallback",
+  title: "SBA Update — March 2026",
+  description: `<h2>Reflecting on Our 5th Annual Conference</h2>
+<p>In 2025, we celebrated our fifth anniversary with our Annual Conference at King's College London, themed <strong>From Surviving to Thriving: Building Sustainable Wellbeing as Black Academics</strong>.</p>
+<p>The conference explored key areas essential for long-term success in academia:</p>
+<ul><li>Research with Reach</li><li>Financial Flourishing</li><li>Mental Health and Wellbeing</li><li>A Career with Purpose</li></ul>
+<p>We were honoured to welcome senior leaders from across the higher education sector, including university vice-chancellors, deputy vice-chancellors, academic leaders, and funders (Do It Now Now and the Nuffield Foundation).</p>
+<h3>Conference Sessions</h3>
+<p><strong>Session 1:</strong> How Can Black Academics Move from Surviving to Thriving — Professor Sally Everett</p>
+<p><strong>Session 2:</strong> Research with Reach — Liz Gilfillan, Dr Anne Makena, Saskia Walcott (Chair: Dr Nero Ughwujabo)</p>
+<p><strong>Session 3:</strong> Financial Flourishing — Victor Olaseni, Debodun Osekita, Ken &amp; Mary Okoroafor, Godfrey Asare (Chair: Professor Miranda Brawn)</p>
+<p><strong>Session 4:</strong> Mental Health and Wellbeing — Dr Tokunbo Fasuyi, Dr Lola Olamosu, Dr Peter Phiri, Jenny Okolo (Chair: Professor Jessica Jones Nielsen)</p>
+<p><strong>Session 5:</strong> A Career with Purpose — Professor David Mba, Alice Chilver, Professor Robert Mokaya (Chair: Dr Ashiedu Joel)</p>
+<h2>2026 Workshop Series</h2>
+<p>Building on the themes of thriving and sustainable careers, SBA has partnered with the International Teaching and Learning Special Interest Group (ITLSIG) to deliver a three-part workshop series between February and July 2026.</p>
+<h3>Workshop 1 — 27 February 2026 (Completed)</h3>
+<p><strong>Embracing AI Responsibly in Teaching and Learning Contexts: Opportunities and Challenges</strong></p>
+<p>This session explored how Artificial Intelligence is reshaping teaching, learning, assessment, and academic work.</p>
+<h3>Workshop 2 — Wednesday, 20 May 2026</h3>
+<p><strong>Career Progression on the Teaching-Focused Pathway</strong></p>
+<p>This workshop will focus on building successful and impactful academic careers through teaching and scholarship pathways.</p>
+<h3>Workshop 3 — Wednesday, 22 July 2026</h3>
+<p><strong>Addressing the Degree Awarding Gap in Higher Education</strong></p>
+<p>This session will explore how Black academics can act as agents of change in tackling awarding gaps affecting Black and minoritized students.</p>
+<h2>Save the Date: SBA 6th Annual Conference</h2>
+<p><strong>Tuesday, 15 September 2026 — University of Bath</strong></p>
+<p>The theme will focus on <strong>Demystifying Leadership in Higher Education</strong>, exploring how Black academics can navigate leadership pathways, build influence, and lead with impact.</p>
+<p><a href="https://www.bath.ac.uk/events/society-of-black-academics-sixth-annual-conference-2026/" target="_blank">Register Here</a></p>
+<h2>Research Impact &amp; Sector Partnerships</h2>
+<p>SBA is proud to have co-authored the policy report: <strong>Unblocking the Pipeline: Supporting the Retention, Progression, and Promotion of Black Early Career Academics</strong>, in partnership with the Higher Education Policy Institute (HEPI) and GatenbySanderson.</p>
+<p><a href="https://www.gatenbysanderson.com/news/report-supporting-the-retention-progression-and-promotion-of-black-early-career-academics/" target="_blank">Read the Report</a></p>
+<h2>Looking Beyond the UK: SBA Goes Global</h2>
+<p>We are planning our first international conference in Europe. The issues SBA addresses reflect global challenges experienced by Black academics across higher education systems worldwide.</p>
+<h2>Black History Month Event — October 2026</h2>
+<p>A special event themed "Reclaiming Narratives," exploring how connecting with historical roots and identity can serve as a source of strength for academic and professional growth.</p>
+<h2>New Initiative: SBA Regional Forums</h2>
+<p>In 2026, we are launching SBA Regional Forums across the UK, including London, the North West, North East, Midlands, South East, South West, Scotland, and Northern Ireland.</p>
+<h2>Supporting the Society of Black Academics</h2>
+<p>Since its inception, SBA has remained committed to keeping all events, conferences, workshops, and membership free and accessible. As SBA continues to grow, we are offering members the opportunity to support the Society through voluntary financial contributions.</p>
+<p><a href="https://www.paypal.com/donate/?hosted_button_id=LQGKBMZKMQHNE" target="_blank"><strong>💛 Make a Donation</strong></a></p>
+<p>We are deeply grateful for any level of support and for your continued belief in SBA's mission.</p>`,
+  file_url: "/downloads/SBA_Update_March_2026.docx",
+  thumbnail_url: null,
+  published_at: "2026-03-01T00:00:00Z",
+  year: 2026,
+  topics: ["Conference", "Workshops", "Leadership", "Research"],
+};
+
 const SBAUpdatesSection = () => {
   const [updates, setUpdates] = useState<SBAUpdate[]>([]);
   const [loading, setLoading] = useState(true);
@@ -36,8 +85,11 @@ const SBAUpdatesSection = () => {
         .eq("resource_type", "sba-update")
         .order("published_at", { ascending: false });
 
-      if (!error && data) {
+      if (!error && data && data.length > 0) {
         setUpdates(data);
+      } else {
+        // Fallback to hardcoded March 2026 update
+        setUpdates([MARCH_2026_FALLBACK]);
       }
       setLoading(false);
     };
