@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,7 +9,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Download, Calendar, Eye, Newspaper } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Download, Calendar, Eye, Newspaper, Filter } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface SBAUpdate {
@@ -22,6 +29,24 @@ interface SBAUpdate {
   year: number | null;
   topics: string[] | null;
 }
+
+const ALL_YEARS = "all-years";
+const ALL_MONTHS = "all-months";
+
+const MONTH_OPTIONS = [
+  { value: "0", label: "January" },
+  { value: "1", label: "February" },
+  { value: "2", label: "March" },
+  { value: "3", label: "April" },
+  { value: "4", label: "May" },
+  { value: "5", label: "June" },
+  { value: "6", label: "July" },
+  { value: "7", label: "August" },
+  { value: "8", label: "September" },
+  { value: "9", label: "October" },
+  { value: "10", label: "November" },
+  { value: "11", label: "December" },
+];
 
 const MARCH_2026_FALLBACK: SBAUpdate = {
   id: "march-2026-fallback",
@@ -72,10 +97,25 @@ const MARCH_2026_FALLBACK: SBAUpdate = {
   topics: ["Conference", "Workshops", "Leadership", "Research"],
 };
 
+const getUpdateYear = (update: SBAUpdate) => {
+  if (update.year) return update.year;
+  if (!update.published_at) return null;
+  return new Date(update.published_at).getFullYear();
+};
+
+const getUpdateMonth = (update: SBAUpdate) => {
+  if (!update.published_at) return null;
+  return new Date(update.published_at).getMonth();
+};
+
+const stripHtml = (html: string) => html.replace(/<[^>]*>/g, "").trim();
+
 const SBAUpdatesSection = () => {
   const [updates, setUpdates] = useState<SBAUpdate[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedUpdate, setSelectedUpdate] = useState<SBAUpdate | null>(null);
+  const [selectedYear, setSelectedYear] = useState(ALL_YEARS);
+  const [selectedMonth, setSelectedMonth] = useState(ALL_MONTHS);
 
   useEffect(() => {
     const fetchUpdates = async () => {
@@ -88,7 +128,6 @@ const SBAUpdatesSection = () => {
       if (!error && data && data.length > 0) {
         setUpdates(data);
       } else {
-        // Fallback to hardcoded March 2026 update
         setUpdates([MARCH_2026_FALLBACK]);
       }
       setLoading(false);
@@ -96,12 +135,47 @@ const SBAUpdatesSection = () => {
     fetchUpdates();
   }, []);
 
+  const yearOptions = useMemo(() => {
+    const years = Array.from(
+      new Set(updates.map(getUpdateYear).filter((year): year is number => year !== null))
+    ).sort((a, b) => b - a);
+
+    return years.map((year) => ({ value: String(year), label: String(year) }));
+  }, [updates]);
+
+  const monthOptions = useMemo(() => {
+    const filteredByYear = selectedYear === ALL_YEARS
+      ? updates
+      : updates.filter((update) => String(getUpdateYear(update)) === selectedYear);
+
+    const months = new Set(
+      filteredByYear
+        .map(getUpdateMonth)
+        .filter((month): month is number => month !== null)
+    );
+
+    return MONTH_OPTIONS.filter((month) => months.has(Number(month.value)));
+  }, [updates, selectedYear]);
+
+  const filteredUpdates = useMemo(() => {
+    return updates.filter((update) => {
+      const matchesYear = selectedYear === ALL_YEARS || String(getUpdateYear(update)) === selectedYear;
+      const matchesMonth = selectedMonth === ALL_MONTHS || String(getUpdateMonth(update)) === selectedMonth;
+      return matchesYear && matchesMonth;
+    });
+  }, [updates, selectedMonth, selectedYear]);
+
   const formatDate = (dateStr: string | null) => {
     if (!dateStr) return "";
     return new Date(dateStr).toLocaleDateString("en-GB", {
       month: "long",
       year: "numeric",
     });
+  };
+
+  const resetFilters = () => {
+    setSelectedYear(ALL_YEARS);
+    setSelectedMonth(ALL_MONTHS);
   };
 
   if (loading) {
@@ -129,7 +203,6 @@ const SBAUpdatesSection = () => {
     <>
       <section className="py-20 lg:py-28 bg-gradient-to-b from-background via-muted/20 to-background">
         <div className="container-wide">
-          {/* Section Header */}
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-medium mb-5">
               <Newspaper className="h-4 w-4" />
@@ -143,100 +216,149 @@ const SBAUpdatesSection = () => {
             </p>
           </div>
 
-          {/* Updates Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {updates.map((update) => (
-              <Card
-                key={update.id}
-                className="group overflow-hidden border border-border/50 hover:border-accent/40 hover:shadow-xl transition-all duration-300"
-              >
-                {/* Thumbnail or gradient header */}
-                {update.thumbnail_url ? (
-                  <div className="relative h-44 overflow-hidden">
-                    <img
-                      src={update.thumbnail_url}
-                      alt={update.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/70 to-transparent" />
-                    <div className="absolute bottom-4 left-4">
+          <div className="mb-8 rounded-2xl border border-border/60 bg-card/80 p-5">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <p className="flex items-center gap-2 text-sm font-medium text-foreground">
+                  <Filter className="h-4 w-4 text-accent" />
+                  Browse the archive
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Filter SBA Updates by year and month.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Select
+                  value={selectedYear}
+                  onValueChange={(value) => {
+                    setSelectedYear(value);
+                    setSelectedMonth(ALL_MONTHS);
+                  }}
+                >
+                  <SelectTrigger className="w-full sm:w-[160px]">
+                    <SelectValue placeholder="Year" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={ALL_YEARS}>All years</SelectItem>
+                    {yearOptions.map((year) => (
+                      <SelectItem key={year.value} value={year.value}>
+                        {year.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+
+                <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+                  <SelectTrigger className="w-full sm:w-[180px]">
+                    <SelectValue placeholder="Month" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={ALL_MONTHS}>All months</SelectItem>
+                    {monthOptions.map((month) => (
+                      <SelectItem key={month.value} value={month.value}>
+                        {month.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+
+                <Button variant="outline" onClick={resetFilters}>
+                  Reset
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {filteredUpdates.length === 0 ? (
+            <Card className="border border-border/60 bg-card/80">
+              <CardContent className="py-12 text-center">
+                <p className="text-lg font-semibold text-foreground">No updates found</p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Try a different year or month to browse the archive.
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredUpdates.map((update) => (
+                <Card
+                  key={update.id}
+                  className="group overflow-hidden border border-border/50 hover:border-accent/40 hover:shadow-xl transition-all duration-300"
+                >
+                  {update.thumbnail_url ? (
+                    <div className="relative h-44 overflow-hidden">
+                      <img
+                        src={update.thumbnail_url}
+                        alt={update.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary/70 to-transparent" />
+                      <div className="absolute bottom-4 left-4">
+                        <Badge className="bg-accent text-accent-foreground text-xs">
+                          {formatDate(update.published_at)}
+                        </Badge>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="relative h-32 bg-gradient-to-br from-primary via-primary/90 to-accent/20 flex items-end p-5">
+                      <div className="absolute top-4 right-4">
+                        <Newspaper className="h-8 w-8 text-primary-foreground/20" />
+                      </div>
                       <Badge className="bg-accent text-accent-foreground text-xs">
                         {formatDate(update.published_at)}
                       </Badge>
                     </div>
-                  </div>
-                ) : (
-                  <div className="relative h-32 bg-gradient-to-br from-primary via-primary/90 to-accent/20 flex items-end p-5">
-                    <div className="absolute top-4 right-4">
-                      <Newspaper className="h-8 w-8 text-primary-foreground/20" />
-                    </div>
-                    <Badge className="bg-accent text-accent-foreground text-xs">
-                      {formatDate(update.published_at)}
-                    </Badge>
-                  </div>
-                )}
-
-                <CardContent className="p-6">
-                  <h3 className="font-bold text-lg text-foreground mb-2 line-clamp-2 group-hover:text-accent transition-colors">
-                    {update.title}
-                  </h3>
-
-                  {update.topics && update.topics.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {update.topics.slice(0, 3).map((topic, i) => (
-                        <Badge
-                          key={i}
-                          variant="secondary"
-                          className="text-xs"
-                        >
-                          {topic}
-                        </Badge>
-                      ))}
-                    </div>
                   )}
 
-                  {update.description && (
-                    <p className="text-sm text-muted-foreground line-clamp-2 mb-5">
-                      {update.description.replace(/<[^>]*>/g, "").slice(0, 120)}
-                      ...
-                    </p>
-                  )}
+                  <CardContent className="p-6">
+                    <h3 className="font-bold text-lg text-foreground mb-2 line-clamp-2 group-hover:text-accent transition-colors">
+                      {update.title}
+                    </h3>
 
-                  <div className="flex gap-2">
-                    <Button
-                      size="sm"
-                      variant="default"
-                      className="rounded-full flex-1 bg-accent text-accent-foreground hover:bg-accent/90"
-                      onClick={() => setSelectedUpdate(update)}
-                    >
-                      <Eye className="h-4 w-4 mr-1.5" />
-                      Read Online
-                    </Button>
-                    {update.file_url && (
+                    {update.topics && update.topics.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {update.topics.slice(0, 3).map((topic, i) => (
+                          <Badge key={i} variant="secondary" className="text-xs">
+                            {topic}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+
+                    {update.description && (
+                      <p className="text-sm text-muted-foreground line-clamp-2 mb-5">
+                        {stripHtml(update.description).slice(0, 120)}...
+                      </p>
+                    )}
+
+                    <div className="flex gap-2">
                       <Button
                         size="sm"
-                        variant="outline"
-                        className="rounded-full"
-                        asChild
+                        variant="accent"
+                        className="rounded-full flex-1"
+                        onClick={() => setSelectedUpdate(update)}
                       >
-                        <a href={update.file_url} download>
-                          <Download className="h-4 w-4" />
-                        </a>
+                        <Eye className="h-4 w-4 mr-1.5" />
+                        Read Online
                       </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                      {update.file_url && (
+                        <Button size="sm" variant="outline" className="rounded-full" asChild>
+                          <a href={update.file_url} download>
+                            <Download className="h-4 w-4" />
+                          </a>
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Read Online Modal */}
-      <Dialog
-        open={!!selectedUpdate}
-        onOpenChange={(open) => !open && setSelectedUpdate(null)}
-      >
+      <Dialog open={!!selectedUpdate} onOpenChange={(open) => !open && setSelectedUpdate(null)}>
         <DialogContent className="max-w-3xl max-h-[90vh] p-0 overflow-hidden">
           <DialogHeader className="sticky top-0 z-10 bg-background border-b px-6 py-4">
             <div className="flex items-center justify-between gap-4">
@@ -252,12 +374,7 @@ const SBAUpdatesSection = () => {
                 )}
               </div>
               {selectedUpdate?.file_url && (
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="rounded-full flex-shrink-0"
-                  asChild
-                >
+                <Button size="sm" variant="outline" className="rounded-full flex-shrink-0" asChild>
                   <a href={selectedUpdate.file_url} download>
                     <Download className="h-4 w-4 mr-1.5" />
                     Download

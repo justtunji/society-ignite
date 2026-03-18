@@ -11,13 +11,14 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ImageUpload } from '@/components/admin/ImageUpload';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Pencil, Trash2 } from 'lucide-react';
 
 export interface FieldConfig {
   name: string;
   label: string;
-  type: 'text' | 'textarea' | 'number' | 'boolean' | 'image' | 'url' | 'date' | 'datetime' | 'tags' | 'select';
+  type: 'text' | 'textarea' | 'richtext' | 'number' | 'boolean' | 'image' | 'url' | 'date' | 'datetime' | 'tags' | 'select';
   required?: boolean;
   defaultValue?: any;
   showInTable?: boolean;
@@ -118,6 +119,8 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
     switch (field.type) {
       case 'textarea':
         return <Textarea value={value || ''} onChange={e => updateFormField(field.name, e.target.value)} />;
+      case 'richtext':
+        return <RichTextEditor value={value || ''} onChange={v => updateFormField(field.name, v)} />;
       case 'number':
         return <Input type="number" value={value || ''} onChange={e => updateFormField(field.name, e.target.value === '' ? '' : parseFloat(e.target.value))} />;
       case 'boolean':
