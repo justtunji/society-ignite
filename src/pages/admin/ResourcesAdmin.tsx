@@ -16,7 +16,7 @@ const ResourcesAdmin = () => (
     fields={[
       { name: 'title', label: 'Title', type: 'text', required: true, showInTable: true },
       { name: 'slug', label: 'Slug', type: 'text' },
-      { name: 'description', label: 'Description', type: 'textarea', showInTable: true },
+      { name: 'description', label: 'Description', type: 'richtext', showInTable: true },
       { name: 'resource_type', label: 'Type', type: 'select', options: resourceTypeOptions, defaultValue: 'PDF', showInTable: true },
       { name: 'thumbnail_url', label: 'Thumbnail', type: 'image', showInTable: true },
       { name: 'file_url', label: 'File URL', type: 'url' },
