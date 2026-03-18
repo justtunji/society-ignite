@@ -5,10 +5,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ImageUpload } from '@/components/admin/ImageUpload';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Pencil, Trash2 } from 'lucide-react';
@@ -16,10 +17,11 @@ import { Plus, Pencil, Trash2 } from 'lucide-react';
 export interface FieldConfig {
   name: string;
   label: string;
-  type: 'text' | 'textarea' | 'number' | 'boolean' | 'image' | 'url' | 'date' | 'datetime' | 'tags';
+  type: 'text' | 'textarea' | 'number' | 'boolean' | 'image' | 'url' | 'date' | 'datetime' | 'tags' | 'select';
   required?: boolean;
   defaultValue?: any;
   showInTable?: boolean;
+  options?: { label: string; value: string }[];
 }
 
 interface CrudPageProps {
@@ -60,7 +62,10 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
     } else {
       setEditingItem(null);
       const defaults: any = {};
-      fields.forEach(f => { defaults[f.name] = f.defaultValue ?? (f.type === 'boolean' ? false : ''); });
+      fields.forEach(f => {
+        const defaultValue = f.defaultValue ?? (f.type === 'boolean' ? false : '');
+        defaults[f.name] = defaultValue;
+      });
       setFormData(defaults);
     }
     setDialogOpen(true);
@@ -71,11 +76,9 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
 
   const handleSave = async () => {
     const payload = { ...formData };
-    // Auto-generate slug from title if applicable
     if (slugField && payload.title && !payload.slug) {
       payload.slug = generateSlug(payload.title);
     }
-    // Remove id for insert
     if (!editingItem) delete payload.id;
     delete payload.created_at;
     delete payload.updated_at;
@@ -116,7 +119,7 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
       case 'textarea':
         return <Textarea value={value || ''} onChange={e => updateFormField(field.name, e.target.value)} />;
       case 'number':
-        return <Input type="number" value={value || ''} onChange={e => updateFormField(field.name, parseFloat(e.target.value) || 0)} />;
+        return <Input type="number" value={value || ''} onChange={e => updateFormField(field.name, e.target.value === '' ? '' : parseFloat(e.target.value))} />;
       case 'boolean':
         return <Switch checked={!!value} onCheckedChange={v => updateFormField(field.name, v)} />;
       case 'image':
@@ -129,6 +132,21 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
         return <Input value={Array.isArray(value) ? value.join(', ') : value || ''} onChange={e => updateFormField(field.name, e.target.value.split(',').map((s: string) => s.trim()).filter(Boolean))} placeholder="Comma-separated tags" />;
       case 'url':
         return <Input type="url" value={value || ''} onChange={e => updateFormField(field.name, e.target.value)} />;
+      case 'select':
+        return (
+          <Select value={value || ''} onValueChange={v => updateFormField(field.name, v)}>
+            <SelectTrigger>
+              <SelectValue placeholder={`Select ${field.label.toLowerCase()}`} />
+            </SelectTrigger>
+            <SelectContent>
+              {field.options?.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        );
       default:
         return <Input value={value || ''} onChange={e => updateFormField(field.name, e.target.value)} required={field.required} />;
     }
@@ -138,7 +156,7 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
     const val = item[field.name];
     if (field.type === 'boolean') return val ? '✅' : '❌';
     if (field.type === 'image') return val ? <img src={val} alt="" className="h-10 w-10 object-cover rounded" /> : '—';
-    if (val === null || val === undefined) return '—';
+    if (val === null || val === undefined || val === '') return '—';
     if (Array.isArray(val)) return val.join(', ');
     const str = String(val);
     return str.length > 60 ? str.slice(0, 60) + '...' : str;
