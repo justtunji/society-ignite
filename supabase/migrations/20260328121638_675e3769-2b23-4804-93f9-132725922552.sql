@@ -1,0 +1,1 @@
+ALTER TABLE public.resources ADD COLUMN featured boolean DEFAULT false;
