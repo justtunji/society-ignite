@@ -213,6 +213,7 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
                     ))}
                     <TableCell>
                       <div className="flex items-center gap-1">
+                        {customActions?.(item)}
                         <Button size="icon" variant="ghost" onClick={() => initForm(item)}><Pencil size={16} /></Button>
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
