@@ -320,9 +320,14 @@ const SBAUpdatesSection = () => {
                   )}
 
                   <CardContent className="p-6">
-                    <h3 className="font-bold text-lg text-foreground mb-2 line-clamp-2 group-hover:text-accent transition-colors">
-                      {update.title}
-                    </h3>
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <h3 className="font-bold text-lg text-foreground line-clamp-2 group-hover:text-accent transition-colors">
+                        {update.title}
+                      </h3>
+                      {update.featured && (
+                        <Badge className="bg-accent text-accent-foreground text-xs flex-shrink-0">Pinned</Badge>
+                      )}
+                    </div>
 
                     {update.topics && update.topics.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mb-4">
