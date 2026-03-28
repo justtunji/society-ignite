@@ -28,6 +28,7 @@ interface SBAUpdate {
   published_at: string | null;
   year: number | null;
   topics: string[] | null;
+  featured: boolean | null;
 }
 
 const ALL_YEARS = "all-years";
@@ -95,6 +96,7 @@ const MARCH_2026_FALLBACK: SBAUpdate = {
   published_at: "2026-03-01T00:00:00Z",
   year: 2026,
   topics: ["Conference", "Workshops", "Leadership", "Research"],
+  featured: true,
 };
 
 const getUpdateYear = (update: SBAUpdate) => {
@@ -158,10 +160,16 @@ const SBAUpdatesSection = () => {
   }, [updates, selectedYear]);
 
   const filteredUpdates = useMemo(() => {
-    return updates.filter((update) => {
+    const filtered = updates.filter((update) => {
       const matchesYear = selectedYear === ALL_YEARS || String(getUpdateYear(update)) === selectedYear;
       const matchesMonth = selectedMonth === ALL_MONTHS || String(getUpdateMonth(update)) === selectedMonth;
       return matchesYear && matchesMonth;
+    });
+    // Pin featured updates to top
+    return filtered.sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return 0;
     });
   }, [updates, selectedMonth, selectedYear]);
 
@@ -312,9 +320,14 @@ const SBAUpdatesSection = () => {
                   )}
 
                   <CardContent className="p-6">
-                    <h3 className="font-bold text-lg text-foreground mb-2 line-clamp-2 group-hover:text-accent transition-colors">
-                      {update.title}
-                    </h3>
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <h3 className="font-bold text-lg text-foreground line-clamp-2 group-hover:text-accent transition-colors">
+                        {update.title}
+                      </h3>
+                      {update.featured && (
+                        <Badge className="bg-accent text-accent-foreground text-xs flex-shrink-0">Pinned</Badge>
+                      )}
+                    </div>
 
                     {update.topics && update.topics.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mb-4">

@@ -32,9 +32,10 @@ interface CrudPageProps {
   orderBy?: string;
   orderAsc?: boolean;
   slugField?: boolean;
+  customActions?: (item: any) => React.ReactNode;
 }
 
-const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc = false, slugField = true }: CrudPageProps) => {
+const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc = false, slugField = true, customActions }: CrudPageProps) => {
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -212,6 +213,7 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
                     ))}
                     <TableCell>
                       <div className="flex items-center gap-1">
+                        {customActions?.(item)}
                         <Button size="icon" variant="ghost" onClick={() => initForm(item)}><Pencil size={16} /></Button>
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
