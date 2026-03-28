@@ -32,9 +32,10 @@ interface CrudPageProps {
   orderBy?: string;
   orderAsc?: boolean;
   slugField?: boolean;
+  customActions?: (item: any) => React.ReactNode;
 }
 
-const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc = false, slugField = true }: CrudPageProps) => {
+const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc = false, slugField = true, customActions }: CrudPageProps) => {
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
