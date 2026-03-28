@@ -96,6 +96,7 @@ const MARCH_2026_FALLBACK: SBAUpdate = {
   published_at: "2026-03-01T00:00:00Z",
   year: 2026,
   topics: ["Conference", "Workshops", "Leadership", "Research"],
+  featured: true,
 };
 
 const getUpdateYear = (update: SBAUpdate) => {
