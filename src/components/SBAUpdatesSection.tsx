@@ -160,10 +160,16 @@ const SBAUpdatesSection = () => {
   }, [updates, selectedYear]);
 
   const filteredUpdates = useMemo(() => {
-    return updates.filter((update) => {
+    const filtered = updates.filter((update) => {
       const matchesYear = selectedYear === ALL_YEARS || String(getUpdateYear(update)) === selectedYear;
       const matchesMonth = selectedMonth === ALL_MONTHS || String(getUpdateMonth(update)) === selectedMonth;
       return matchesYear && matchesMonth;
+    });
+    // Pin featured updates to top
+    return filtered.sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return 0;
     });
   }, [updates, selectedMonth, selectedYear]);
 
