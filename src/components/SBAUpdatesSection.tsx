@@ -28,6 +28,7 @@ interface SBAUpdate {
   published_at: string | null;
   year: number | null;
   topics: string[] | null;
+  featured: boolean | null;
 }
 
 const ALL_YEARS = "all-years";
