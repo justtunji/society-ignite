@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Mail, Phone, MapPin, Send, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { subscribeToMailchimp } from "@/lib/mailchimp";
 import contactHero from "@/assets/images/contact-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 
@@ -48,21 +49,26 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
+      // Save to database
       const { error } = await supabase
         .from('contact_submissions')
-        .insert([
-          {
-            name: formData.name,
-            email: formData.email,
-            subject: formData.subject,
-            message: formData.message,
-            source_page: 'contact'
-          }
-        ]);
+        .insert([{
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          source_page: 'contact'
+        }]);
 
-      if (error) {
-        throw error;
-      }
+      if (error) throw error;
+
+      // Also subscribe to Mailchimp with contact tag
+      await subscribeToMailchimp({
+        email: formData.email,
+        name: formData.name,
+        source: 'contact-form',
+        tags: ['Contact Form'],
+      }).catch(err => console.warn('Mailchimp subscription failed (non-blocking):', err));
 
       toast({
         title: "Message sent successfully!",
