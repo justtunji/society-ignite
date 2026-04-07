@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { subscribeToMailchimp } from "@/lib/mailchimp";
 
 export const NewsletterSection = () => {
   const [email, setEmail] = useState('');
@@ -21,7 +22,13 @@ export const NewsletterSection = () => {
     setIsSubmitting(true);
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await subscribeToMailchimp({
+        email,
+        name,
+        source: 'newsletter',
+        tags: ['Newsletter', ...(category ? [category] : [])],
+        merge_fields: category ? { CATEGORY: category } : {},
+      });
       
       setIsSubscribed(true);
       toast({
@@ -33,6 +40,7 @@ export const NewsletterSection = () => {
       setName('');
       setCategory('');
     } catch (error) {
+      console.error('Newsletter subscription error:', error);
       toast({
         title: "Subscription failed",
         description: "There was an error subscribing to our newsletter. Please try again.",
