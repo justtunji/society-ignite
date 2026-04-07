@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Check, Scale, Briefcase, Users, Palette, Atom, Heart, GraduationCap, Layers } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { subscribeToMailchimp } from "@/lib/mailchimp";
 
 interface Track {
   id: string;
@@ -88,17 +88,13 @@ export const ResearchTracksSection = () => {
     try {
       const selectedTrackData = tracks.find(t => t.id === selectedTrack);
       
-      const { error } = await supabase
-        .from('contact_submissions')
-        .insert({
-          name,
-          email,
-          message: `Research Track Interest: ${selectedTrackData?.title}`,
-          subject: `Research Track: ${selectedTrackData?.title}`,
-          source_page: 'research-tracks'
-        });
-
-      if (error) throw error;
+      await subscribeToMailchimp({
+        email,
+        name,
+        source: 'research-tracks',
+        tags: ['Research Tracks', selectedTrackData?.title || ''],
+        merge_fields: { TRACK: selectedTrackData?.title || '' },
+      });
 
       setIsSubmitted(true);
       toast({
