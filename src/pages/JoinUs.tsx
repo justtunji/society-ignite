@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/components/ui/use-toast";
 import { Check, GraduationCap, Briefcase, Users, School, Handshake, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { subscribeToMailchimp } from "@/lib/mailchimp";
 import { StripePaymentForm } from "@/components/StripePaymentForm";
 import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
 import { ResearchTracksSection } from "@/components/ResearchTracksSection";
@@ -89,10 +90,13 @@ const JoinUs = () => {
     setIsSubmitting(true);
 
     try {
+      const fullName = `${formData.firstName} ${formData.lastName}`;
+      
+      // Save to members table
       const { error } = await supabase
         .from('members')
         .insert([{
-          name: `${formData.firstName} ${formData.lastName}`,
+          name: fullName,
           email: formData.email,
           category: formData.membership,
           preferences: { jobTitle: formData.jobTitle, institution: formData.institution }
@@ -100,9 +104,22 @@ const JoinUs = () => {
 
       if (error) throw error;
 
+      // Subscribe to Mailchimp with membership tags (triggers welcome automation)
+      await subscribeToMailchimp({
+        email: formData.email,
+        name: fullName,
+        source: 'membership-application',
+        tags: ['New Member', formData.membership],
+        merge_fields: {
+          JOBTITLE: formData.jobTitle,
+          INSTITUT: formData.institution,
+          MEMLEVEL: formData.membership,
+        },
+      }).catch(err => console.warn('Mailchimp subscription failed (non-blocking):', err));
+
       toast({
         title: "Membership application submitted!",
-        description: "Thank you for joining the Society of Black Academics. We'll be in touch soon.",
+        description: "Thank you for joining the Society of Black Academics. Check your email for a welcome message!",
       });
 
       setFormData({ firstName: '', lastName: '', email: '', jobTitle: '', institution: '', membership: '' });
