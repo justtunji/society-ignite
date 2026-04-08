@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { subscribeToMailchimp } from "@/lib/mailchimp";
 import { Building2, Handshake } from "lucide-react";
 
 interface PartnerSponsorDialogProps {
@@ -70,6 +71,22 @@ ${formData.message}`,
         ]);
 
       if (error) throw error;
+
+      // Subscribe to Mailchimp with Partner tag
+      try {
+        await subscribeToMailchimp({
+          email: formData.email,
+          name: formData.contactName,
+          source: 'partner-sponsor-form',
+          tags: ['Partner Inquiry', formData.partnershipType],
+          merge_fields: {
+            COMPANY: formData.companyName,
+            PTYPE: formData.partnershipType,
+          },
+        });
+      } catch (mcError) {
+        console.error('Mailchimp subscription error (non-blocking):', mcError);
+      }
 
       toast({
         title: "Partnership inquiry submitted!",
