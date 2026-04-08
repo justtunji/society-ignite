@@ -72,6 +72,22 @@ ${formData.message}`,
 
       if (error) throw error;
 
+      // Subscribe to Mailchimp with Partner tag
+      try {
+        await subscribeToMailchimp({
+          email: formData.email,
+          name: formData.contactName,
+          source: 'partner-sponsor-form',
+          tags: ['Partner Inquiry', formData.partnershipType],
+          merge_fields: {
+            COMPANY: formData.companyName,
+            PTYPE: formData.partnershipType,
+          },
+        });
+      } catch (mcError) {
+        console.error('Mailchimp subscription error (non-blocking):', mcError);
+      }
+
       toast({
         title: "Partnership inquiry submitted!",
         description: "Thank you for your interest. We'll be in touch soon to discuss partnership opportunities.",
