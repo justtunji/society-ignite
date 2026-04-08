@@ -4,7 +4,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import {
   Settings, Users, Image, Calendar, BookOpen, Megaphone, FileText,
-  LayoutDashboard, LogOut, Navigation, Handshake, MessageSquare, Menu, X
+  LayoutDashboard, LogOut, Navigation, Handshake, MessageSquare, Menu, X, UserPlus
 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -23,6 +23,7 @@ const navItems = [
   { label: 'Resources', path: '/admin/resources', icon: FileText },
   { label: 'Stories', path: '/admin/stories', icon: MessageSquare },
   { label: 'Communities', path: '/admin/communities', icon: Users },
+  { label: 'Members', path: '/admin/members', icon: UserPlus },
   { label: 'Contact Submissions', path: '/admin/contacts', icon: MessageSquare },
 ];
 
