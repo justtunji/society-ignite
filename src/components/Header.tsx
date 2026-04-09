@@ -102,7 +102,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
                   : "border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground hover:text-primary"
               )}
             >
-              <a href="/join-us#part_spon">
+              <a href="https://donate.stripe.com/8x23cucfY6fJeY08Vuf3a00" target="_blank" rel="noopener noreferrer">
                 <Heart className="mr-1.5 h-4 w-4" />
                 Donate / Sponsor
               </a>
@@ -163,7 +163,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
             variant="outline"
             className="w-full rounded-full border-accent text-accent hover:bg-accent hover:text-accent-foreground"
           >
-            <a href="/join-us#part_spon" onClick={() => setIsOpen(false)}>
+            <a href="https://donate.stripe.com/8x23cucfY6fJeY08Vuf3a00" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)}>
               <Heart className="mr-1.5 h-4 w-4" />
               Donate / Sponsor
             </a>
