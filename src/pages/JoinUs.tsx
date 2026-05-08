@@ -111,7 +111,7 @@ const JoinUs = () => {
           name: fullName,
           email: formData.email,
           category: formData.membership,
-          preferences: { jobTitle: formData.jobTitle, institution: formData.institution }
+          preferences: { jobTitle: formData.jobTitle, institution: formData.institution, researchTrack: formData.researchTrack }
         }]);
 
       if (error) throw error;
@@ -121,20 +121,21 @@ const JoinUs = () => {
         email: formData.email,
         name: fullName,
         source: 'membership-application',
-        tags: ['New Member', formData.membership],
+        tags: ['New Member', formData.membership, formData.researchTrack].filter(Boolean),
         merge_fields: {
           JOBTITLE: formData.jobTitle,
           INSTITUT: formData.institution,
           MEMLEVEL: formData.membership,
+          TRACK: formData.researchTrack,
         },
       }).catch(err => console.warn('Mailchimp subscription failed (non-blocking):', err));
 
       toast({
-        title: "Membership application submitted!",
-        description: "Thank you for joining the Society of Black Academics. Check your email for a welcome message!",
+        title: "Application submitted!",
+        description: "Thank you for supporting SBA. Check your email for a welcome message — you'll get to attend our conference for free!",
       });
 
-      setFormData({ firstName: '', lastName: '', email: '', jobTitle: '', institution: '', membership: '' });
+      setFormData({ firstName: '', lastName: '', email: '', jobTitle: '', institution: '', membership: '', researchTrack: '' });
     } catch (error) {
       console.error('Error submitting membership:', error);
       toast({
