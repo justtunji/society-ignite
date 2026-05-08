@@ -12,9 +12,9 @@ import { subscribeToMailchimp } from "@/lib/mailchimp";
 import { StripePaymentForm } from "@/components/StripePaymentForm";
 import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
 import { ResearchTracksSection } from "@/components/ResearchTracksSection";
-import joinUsHero from "@/assets/images/join-us-hero.jpg";
+import joinUsHero from "@/assets/images/gallery/sba-event-6.jpeg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
-import membershipLevelsImage from "@/assets/images/membership-levels.jpg";
+import membershipLevelsImage from "@/assets/images/gallery/sba-event-3.jpeg";
 
 const JoinUs = () => {
   const { toast } = useToast();
@@ -25,8 +25,20 @@ const JoinUs = () => {
     email: '',
     jobTitle: '',
     institution: '',
-    membership: ''
+    membership: '',
+    researchTrack: ''
   });
+
+  const researchTracks = [
+    'Law and Legal Studies',
+    'Business, Management, and Economics',
+    'Social Sciences',
+    'Arts, Humanities, and Cultural Studies',
+    'Sciences, Technology, Engineering, and Mathematics (STEM)',
+    'Health, Medicine, and Life Sciences',
+    'Education and Pedagogy',
+    'Interdisciplinary and Cross-Cutting Research'
+  ];
 
   useEffect(() => {
     document.title = "Join Us | Society of Black Academics";
@@ -81,8 +93,8 @@ const JoinUs = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSelectChange = (value: string) => {
-    setFormData(prev => ({ ...prev, membership: value }));
+  const handleSelectChange = (name: string, value: string) => {
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
