@@ -8,16 +8,16 @@ interface ImpactStat {
 export const ImpactSection = () => {
   const stats: ImpactStat[] = [
     {
-      number: '500+',
-      label: 'We have supported over 500 Black academics through our conferences, workshops, and mentorship programmes.'
+      number: '800+',
+      label: 'Black academics supported through our conferences, workshops, and mentorship programmes.'
     },
     {
-      number: '50+',
-      label: 'We have partnered with over 50 universities and institutions to advance diversity in higher education.'
+      number: '15',
+      label: 'UK universities and institutions partnered with to advance diversity in higher education.'
     },
     {
       number: '1000+',
-      label: 'We have provided networking opportunities to over 1,000 community members across the UK and beyond.'
+      label: 'Networking opportunities provided to community members across the UK and beyond.'
     }
   ];
 
