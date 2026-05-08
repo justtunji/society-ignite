@@ -24,46 +24,40 @@ const Resources = () => {
     }
   }, []);
 
-  const resourceCategories = [
+  const featuredResources = [
     {
-      title: "Career Development",
-      description: "Tools and guidance for advancing your academic career",
-      icon: Briefcase,
-      gradient: "from-accent/20 to-accent/5",
-      borderColor: "border-accent",
+      title: "HEPI Report",
+      description: "Our partnership report with HEPI exploring the experiences and progression of Black academics in UK Higher Education.",
+      type: "PDF",
+      icon: FileText,
+      href: "https://www.hepi.ac.uk/",
+      cta: "View Report",
+      color: "border-accent",
       iconBg: "bg-accent/10 text-accent",
-      resources: [
-        { title: "Academic Job Application Guide", type: "PDF", description: "Comprehensive guide to writing successful academic job applications.", icon: FileText, topics: ["Career", "Applications"] },
-        { title: "Networking Strategies for Academics", type: "Video", description: "Learn effective networking techniques in academia.", icon: Video, topics: ["Networking", "Development"] },
-        { title: "Promotion and Progression Toolkit", type: "PDF", description: "Essential resources for understanding promotion processes.", icon: FileText, topics: ["Promotion", "Career"] }
-      ]
+      gradient: "from-accent/20 to-accent/5",
     },
     {
-      title: "Research & Publications",
-      description: "Research insights and publication opportunities",
-      icon: GraduationCap,
-      gradient: "from-teal/20 to-teal/5",
-      borderColor: "border-teal",
-      iconBg: "bg-teal/10 text-teal",
-      resources: [
-        { title: "Diversity in Higher Education Report 2024", type: "PDF", description: "Annual report on diversity statistics in UK HE.", icon: FileText, topics: ["Research", "Diversity"] },
-        { title: "Publication Strategy for ECRs", type: "Guide", description: "Building a strong publication record.", icon: LinkIcon, topics: ["Publications", "ECR"] },
-        { title: "Conference Presentation Skills", type: "Video", description: "Delivering impactful presentations.", icon: Video, topics: ["Presentations", "Skills"] }
-      ]
-    },
-    {
-      title: "Mentorship & Support",
-      description: "Mentoring resources and community support materials",
-      icon: Users,
-      gradient: "from-coral/20 to-coral/5",
-      borderColor: "border-coral",
+      title: "SBA YouTube Channel",
+      description: "Watch recordings of our conferences, workshops, panels, and conversations with leading Black academics.",
+      type: "Video",
+      icon: Video,
+      href: "https://www.youtube.com/@societyofblackacademics",
+      cta: "Watch Now",
+      color: "border-coral",
       iconBg: "bg-coral/10 text-coral",
-      resources: [
-        { title: "Mentorship Program Guidelines", type: "PDF", description: "Framework for effective mentoring relationships.", icon: FileText, topics: ["Mentorship", "Guidelines"] },
-        { title: "Wellbeing in Academia Workshop", type: "Video", description: "Addressing mental health challenges.", icon: Video, topics: ["Wellbeing", "Support"] },
-        { title: "Building Inclusive Environments", type: "Guide", description: "Best practices for inclusive spaces.", icon: LinkIcon, topics: ["Inclusion", "Environment"] }
-      ]
-    }
+      gradient: "from-coral/20 to-coral/5",
+    },
+    {
+      title: "University of Edinburgh",
+      description: "Resources and research from our partnership with the University of Edinburgh on advancing Black academic leadership.",
+      type: "Link",
+      icon: LinkIcon,
+      href: "https://www.ed.ac.uk/",
+      cta: "Visit Resource",
+      color: "border-teal",
+      iconBg: "bg-teal/10 text-teal",
+      gradient: "from-teal/20 to-teal/5",
+    },
   ];
 
   const getTypeBadgeStyle = (type: string) => {
