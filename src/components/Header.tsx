@@ -104,7 +104,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
             >
               <a href="https://donate.stripe.com/8x23cucfY6fJeY08Vuf3a00" target="_blank" rel="noopener noreferrer">
                 <Heart className="mr-1.5 h-4 w-4" />
-                Donate / Sponsor
+                Donate / Support
               </a>
             </Button>
             {ctaItems.map((item) => (
@@ -165,7 +165,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
           >
             <a href="https://donate.stripe.com/8x23cucfY6fJeY08Vuf3a00" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)}>
               <Heart className="mr-1.5 h-4 w-4" />
-              Donate / Sponsor
+              Donate / Support
             </a>
           </Button>
           {ctaItems.map((item) => (
