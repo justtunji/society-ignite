@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react';
 import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { PartnerCarousel } from "@/components/PartnerCarousel";
+import { ConferenceSection } from "@/components/ConferenceSection";
 import { AboutSection } from "@/components/AboutSection";
 import { ProgrammesSection } from "@/components/ProgrammesSection";
 import { CommunitiesSection } from "@/components/CommunitiesSection";
 import { ImpactSection } from "@/components/ImpactSection";
-import { ReportsSection } from "@/components/ReportsSection";
-import { LatestStoriesSection } from "@/components/LatestStoriesSection";
 import { NewsletterSection } from "@/components/NewsletterSection";
 import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
@@ -91,6 +90,8 @@ const Index = () => {
           />
         )}
 
+        <ConferenceSection />
+
         <AboutSection />
 
         <ProgrammesSection />
@@ -98,10 +99,6 @@ const Index = () => {
         <CommunitiesSection />
 
         <ImpactSection />
-
-        <ReportsSection />
-
-        <LatestStoriesSection />
 
         <NewsletterSection />
       </main>
