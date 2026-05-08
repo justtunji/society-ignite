@@ -254,9 +254,12 @@ const JoinUs = () => {
             <div className="max-w-2xl mx-auto">
               <div className="text-center mb-12">
                 <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Apply Now</h4>
-                <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
-                  Membership Application
+                <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                  Support Us
                 </h2>
+                <p className="text-lg text-muted-foreground">
+                  Support us and you'll get to attend our conference for free.
+                </p>
               </div>
               
               <div className="bg-muted/30 rounded-2xl p-8 lg:p-12">
@@ -264,73 +267,32 @@ const JoinUs = () => {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="firstName">First Name *</Label>
-                      <Input
-                        id="firstName"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Enter your first name"
-                        className="rounded-full px-6 py-6"
-                      />
+                      <Input id="firstName" name="firstName" value={formData.firstName} onChange={handleInputChange} required placeholder="Enter your first name" className="rounded-full px-6 py-6" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="lastName">Last Name *</Label>
-                      <Input
-                        id="lastName"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Enter your last name"
-                        className="rounded-full px-6 py-6"
-                      />
+                      <Input id="lastName" name="lastName" value={formData.lastName} onChange={handleInputChange} required placeholder="Enter your last name" className="rounded-full px-6 py-6" />
                     </div>
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="email">Email Address *</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="Enter your email address"
-                      className="rounded-full px-6 py-6"
-                    />
+                    <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} required placeholder="Enter your email address" className="rounded-full px-6 py-6" />
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="jobTitle">Job Title *</Label>
-                    <Input
-                      id="jobTitle"
-                      name="jobTitle"
-                      value={formData.jobTitle}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="Enter your job title"
-                      className="rounded-full px-6 py-6"
-                    />
+                    <Input id="jobTitle" name="jobTitle" value={formData.jobTitle} onChange={handleInputChange} required placeholder="Enter your job title" className="rounded-full px-6 py-6" />
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="institution">Institution *</Label>
-                    <Input
-                      id="institution"
-                      name="institution"
-                      value={formData.institution}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="Enter your institution"
-                      className="rounded-full px-6 py-6"
-                    />
+                    <Input id="institution" name="institution" value={formData.institution} onChange={handleInputChange} required placeholder="Enter your institution" className="rounded-full px-6 py-6" />
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="membership">Membership Level *</Label>
-                    <Select value={formData.membership} onValueChange={handleSelectChange}>
+                    <Select value={formData.membership} onValueChange={(v) => handleSelectChange('membership', v)}>
                       <SelectTrigger className="rounded-full px-6 py-6 h-auto">
                         <SelectValue placeholder="Please choose an option" />
                       </SelectTrigger>
@@ -339,6 +301,20 @@ const JoinUs = () => {
                         <SelectItem value="Executive Leader Membership (ELM)">Executive Leader Membership (ELM)</SelectItem>
                         <SelectItem value="Industry Practitioner Membership (IPM)">Industry Practitioner Membership (IPM)</SelectItem>
                         <SelectItem value="Student Membership (SM)">Student Membership (SM)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="researchTrack">Research Track *</Label>
+                    <Select value={formData.researchTrack} onValueChange={(v) => handleSelectChange('researchTrack', v)}>
+                      <SelectTrigger className="rounded-full px-6 py-6 h-auto">
+                        <SelectValue placeholder="Select your research track" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {researchTracks.map((t) => (
+                          <SelectItem key={t} value={t}>{t}</SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -353,6 +329,39 @@ const JoinUs = () => {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Side-by-side CTAs: Become a Member / Become a Partner */}
+        <section className="py-20 lg:py-32 bg-primary text-primary-foreground" id="part_spon">
+          <div className="container-wide">
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              <div className="bg-primary-foreground/5 border border-primary-foreground/10 rounded-2xl p-8 lg:p-10 text-center flex flex-col">
+                <h3 className="text-2xl lg:text-3xl font-bold mb-4">Become a Member</h3>
+                <p className="text-primary-foreground/80 mb-8 flex-1">
+                  Join our community of scholars and support inclusive change in higher education.
+                </p>
+                <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-8">
+                  <a href="#b-a-m">
+                    Apply Now
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </a>
+                </Button>
+              </div>
+
+              <div className="bg-primary-foreground/5 border border-primary-foreground/10 rounded-2xl p-8 lg:p-10 text-center flex flex-col">
+                <h3 className="text-2xl lg:text-3xl font-bold mb-4">Become a Partner & Sponsor</h3>
+                <p className="text-primary-foreground/80 mb-8 flex-1">
+                  If you want to be a headline sponsor, partner with us to create lasting impact together.
+                </p>
+                <PartnerSponsorDialog>
+                  <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-8">
+                    <Handshake className="mr-2 h-5 w-5" />
+                    Partner With Us
+                  </Button>
+                </PartnerSponsorDialog>
               </div>
             </div>
           </div>
