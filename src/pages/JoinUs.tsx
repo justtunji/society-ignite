@@ -9,12 +9,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { Check, GraduationCap, Briefcase, Users, School, Handshake, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { subscribeToMailchimp } from "@/lib/mailchimp";
-import { StripePaymentForm } from "@/components/StripePaymentForm";
 import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
-import { ResearchTracksSection } from "@/components/ResearchTracksSection";
-import joinUsHero from "@/assets/images/join-us-hero.jpg";
+import joinUsHero from "@/assets/images/gallery/sba-event-6.jpeg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
-import membershipLevelsImage from "@/assets/images/membership-levels.jpg";
+import membershipLevelsImage from "@/assets/images/gallery/sba-event-3.jpeg";
 
 const JoinUs = () => {
   const { toast } = useToast();
@@ -25,8 +23,20 @@ const JoinUs = () => {
     email: '',
     jobTitle: '',
     institution: '',
-    membership: ''
+    membership: '',
+    researchTrack: ''
   });
+
+  const researchTracks = [
+    'Law and Legal Studies',
+    'Business, Management, and Economics',
+    'Social Sciences',
+    'Arts, Humanities, and Cultural Studies',
+    'Sciences, Technology, Engineering, and Mathematics (STEM)',
+    'Health, Medicine, and Life Sciences',
+    'Education and Pedagogy',
+    'Interdisciplinary and Cross-Cutting Research'
+  ];
 
   useEffect(() => {
     document.title = "Join Us | Society of Black Academics";
@@ -81,8 +91,8 @@ const JoinUs = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSelectChange = (value: string) => {
-    setFormData(prev => ({ ...prev, membership: value }));
+  const handleSelectChange = (name: string, value: string) => {
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -99,7 +109,7 @@ const JoinUs = () => {
           name: fullName,
           email: formData.email,
           category: formData.membership,
-          preferences: { jobTitle: formData.jobTitle, institution: formData.institution }
+          preferences: { jobTitle: formData.jobTitle, institution: formData.institution, researchTrack: formData.researchTrack }
         }]);
 
       if (error) throw error;
@@ -109,20 +119,21 @@ const JoinUs = () => {
         email: formData.email,
         name: fullName,
         source: 'membership-application',
-        tags: ['New Member', formData.membership],
+        tags: ['New Member', formData.membership, formData.researchTrack].filter(Boolean),
         merge_fields: {
           JOBTITLE: formData.jobTitle,
           INSTITUT: formData.institution,
           MEMLEVEL: formData.membership,
+          TRACK: formData.researchTrack,
         },
       }).catch(err => console.warn('Mailchimp subscription failed (non-blocking):', err));
 
       toast({
-        title: "Membership application submitted!",
-        description: "Thank you for joining the Society of Black Academics. Check your email for a welcome message!",
+        title: "Application submitted!",
+        description: "Thank you for supporting SBA. Check your email for a welcome message — you'll get to attend our conference for free!",
       });
 
-      setFormData({ firstName: '', lastName: '', email: '', jobTitle: '', institution: '', membership: '' });
+      setFormData({ firstName: '', lastName: '', email: '', jobTitle: '', institution: '', membership: '', researchTrack: '' });
     } catch (error) {
       console.error('Error submitting membership:', error);
       toast({
@@ -241,9 +252,12 @@ const JoinUs = () => {
             <div className="max-w-2xl mx-auto">
               <div className="text-center mb-12">
                 <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Apply Now</h4>
-                <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
-                  Membership Application
+                <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                  Support Us
                 </h2>
+                <p className="text-lg text-muted-foreground">
+                  Support us and you'll get to attend our conference for free.
+                </p>
               </div>
               
               <div className="bg-muted/30 rounded-2xl p-8 lg:p-12">
@@ -251,73 +265,32 @@ const JoinUs = () => {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="firstName">First Name *</Label>
-                      <Input
-                        id="firstName"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Enter your first name"
-                        className="rounded-full px-6 py-6"
-                      />
+                      <Input id="firstName" name="firstName" value={formData.firstName} onChange={handleInputChange} required placeholder="Enter your first name" className="rounded-full px-6 py-6" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="lastName">Last Name *</Label>
-                      <Input
-                        id="lastName"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Enter your last name"
-                        className="rounded-full px-6 py-6"
-                      />
+                      <Input id="lastName" name="lastName" value={formData.lastName} onChange={handleInputChange} required placeholder="Enter your last name" className="rounded-full px-6 py-6" />
                     </div>
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="email">Email Address *</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="Enter your email address"
-                      className="rounded-full px-6 py-6"
-                    />
+                    <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} required placeholder="Enter your email address" className="rounded-full px-6 py-6" />
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="jobTitle">Job Title *</Label>
-                    <Input
-                      id="jobTitle"
-                      name="jobTitle"
-                      value={formData.jobTitle}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="Enter your job title"
-                      className="rounded-full px-6 py-6"
-                    />
+                    <Input id="jobTitle" name="jobTitle" value={formData.jobTitle} onChange={handleInputChange} required placeholder="Enter your job title" className="rounded-full px-6 py-6" />
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="institution">Institution *</Label>
-                    <Input
-                      id="institution"
-                      name="institution"
-                      value={formData.institution}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="Enter your institution"
-                      className="rounded-full px-6 py-6"
-                    />
+                    <Input id="institution" name="institution" value={formData.institution} onChange={handleInputChange} required placeholder="Enter your institution" className="rounded-full px-6 py-6" />
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="membership">Membership Level *</Label>
-                    <Select value={formData.membership} onValueChange={handleSelectChange}>
+                    <Select value={formData.membership} onValueChange={(v) => handleSelectChange('membership', v)}>
                       <SelectTrigger className="rounded-full px-6 py-6 h-auto">
                         <SelectValue placeholder="Please choose an option" />
                       </SelectTrigger>
@@ -326,6 +299,20 @@ const JoinUs = () => {
                         <SelectItem value="Executive Leader Membership (ELM)">Executive Leader Membership (ELM)</SelectItem>
                         <SelectItem value="Industry Practitioner Membership (IPM)">Industry Practitioner Membership (IPM)</SelectItem>
                         <SelectItem value="Student Membership (SM)">Student Membership (SM)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="researchTrack">Research Track *</Label>
+                    <Select value={formData.researchTrack} onValueChange={(v) => handleSelectChange('researchTrack', v)}>
+                      <SelectTrigger className="rounded-full px-6 py-6 h-auto">
+                        <SelectValue placeholder="Select your research track" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {researchTracks.map((t) => (
+                          <SelectItem key={t} value={t}>{t}</SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -345,29 +332,39 @@ const JoinUs = () => {
           </div>
         </section>
 
-        {/* Stripe Payment Section */}
-        <StripePaymentForm />
-
-        {/* Research Tracks Section */}
-        <ResearchTracksSection />
-
-        {/* Partners CTA */}
+        {/* Side-by-side CTAs: Become a Member / Become a Partner */}
         <section className="py-20 lg:py-32 bg-primary text-primary-foreground" id="part_spon">
-          <div className="container-wide text-center">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Become a Partner & Sponsor
-            </h2>
-            <p className="text-xl text-primary-foreground/80 mb-10 max-w-3xl mx-auto">
-              Let's create impact together! Ready to team up with us? Explore exciting sponsorship and partnership possibilities.
-            </p>
-            <PartnerSponsorDialog>
-              <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-10 py-6 text-lg">
-                <Handshake className="mr-2 h-5 w-5" />
-                Partner With Us
-              </Button>
-            </PartnerSponsorDialog>
+          <div className="container-wide">
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              <div className="bg-primary-foreground/5 border border-primary-foreground/10 rounded-2xl p-8 lg:p-10 text-center flex flex-col">
+                <h3 className="text-2xl lg:text-3xl font-bold mb-4">Become a Member</h3>
+                <p className="text-primary-foreground/80 mb-8 flex-1">
+                  Join our community of scholars and support inclusive change in higher education.
+                </p>
+                <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-8">
+                  <a href="#b-a-m">
+                    Apply Now
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </a>
+                </Button>
+              </div>
+
+              <div className="bg-primary-foreground/5 border border-primary-foreground/10 rounded-2xl p-8 lg:p-10 text-center flex flex-col">
+                <h3 className="text-2xl lg:text-3xl font-bold mb-4">Become a Partner & Sponsor</h3>
+                <p className="text-primary-foreground/80 mb-8 flex-1">
+                  If you want to be a headline sponsor, partner with us to create lasting impact together.
+                </p>
+                <PartnerSponsorDialog>
+                  <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-8">
+                    <Handshake className="mr-2 h-5 w-5" />
+                    Partner With Us
+                  </Button>
+                </PartnerSponsorDialog>
+              </div>
+            </div>
           </div>
         </section>
+
       </main>
 
       <Footer

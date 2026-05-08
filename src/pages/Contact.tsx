@@ -288,47 +288,6 @@ const Contact = () => {
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section className="py-20 lg:py-32 bg-muted/30">
-          <div className="container-wide">
-            <div className="text-center mb-16">
-              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">FAQ</h4>
-              <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
-                Frequently Asked Questions
-              </h2>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              <div className="bg-background p-8 border-l-4 border-accent">
-                <h3 className="font-bold text-lg mb-3">How do I become a member?</h3>
-                <p className="text-muted-foreground">
-                  Visit our Join Us page to learn about membership levels and complete the membership form. Membership is open to academics, practitioners, and students.
-                </p>
-              </div>
-
-              <div className="bg-background p-8 border-l-4 border-accent">
-                <h3 className="font-bold text-lg mb-3">What events do you organize?</h3>
-                <p className="text-muted-foreground">
-                  We organize annual conferences, workshops, networking events, and professional development sessions.
-                </p>
-              </div>
-
-              <div className="bg-background p-8 border-l-4 border-accent">
-                <h3 className="font-bold text-lg mb-3">How can my organization partner with SBA?</h3>
-                <p className="text-muted-foreground">
-                  We welcome partnerships with universities and organizations that share our mission. Contact us to discuss opportunities.
-                </p>
-              </div>
-
-              <div className="bg-background p-8 border-l-4 border-accent">
-                <h3 className="font-bold text-lg mb-3">Do you offer mentorship programs?</h3>
-                <p className="text-muted-foreground">
-                  Yes, we facilitate mentoring relationships between experienced academics and early career researchers.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
 
       <Footer
