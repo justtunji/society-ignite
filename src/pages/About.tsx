@@ -93,84 +93,50 @@ const About = () => {
           </div>
         </section>
 
-        {/* Why SBA Section */}
+        {/* Why SBA + Mission/Vision/Values side by side */}
         <section className="py-20 lg:py-32 bg-background">
           <div className="container-wide">
-            <div className="grid lg:grid-cols-2 gap-0 items-stretch">
-              <div className="p-8 lg:p-16 flex flex-col justify-center">
-                <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Why SBA</h4>
-                <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+              <div>
+                <h4 className="text-accent font-semibold text-base uppercase tracking-wider mb-6">Why SBA</h4>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-8 leading-tight">
+                  Building a more inclusive academy.
+                </h2>
+                <p className="text-foreground/80 text-lg lg:text-xl leading-relaxed mb-6">
                   Since our inception in 2021, we have launched several impactful initiatives and organized numerous events (including Workshops and Conferences) with the goal of promoting Equality, Diversity, and Inclusion (EDI) in the UK's Higher Education sector.
                 </p>
-                <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-                  Through the development of EDI and career development programmes, safe spaces for learning and knowledge exchange, as well as other progressive campaigns, we are attempting to improve the career advancement of Black academics.
+                <p className="text-foreground/80 text-lg lg:text-xl leading-relaxed mb-8">
+                  Through the development of EDI and career development programmes, safe spaces for learning and knowledge exchange, as well as other progressive campaigns, we are improving the career advancement of Black academics.
                 </p>
-                <Button 
-                  asChild 
-                  variant="outline" 
-                  size="lg"
-                  className="w-fit rounded-full px-8"
-                >
-                  <a href="/resources">
-                    Learn more
+                <Button asChild variant="outline" size="lg" className="rounded-full px-8">
+                  <a href="#our_team">
+                    Meet Our Team
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
                 </Button>
               </div>
-              <div className="relative min-h-[400px] flex items-center justify-center bg-muted/20 p-8">
-                <img 
-                  src={sbaLogo}
-                  alt="Society of Black Academics Logo"
-                  className="max-w-full max-h-[350px] object-contain"
-                />
+
+              <div className="space-y-6">
+                <div className="bg-muted/30 p-6 lg:p-8 border-l-4 border-accent rounded-r-lg">
+                  <h3 className="text-xl lg:text-2xl font-bold mb-3">Our Mission</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    We continue to identify prevalent issues confronting Black academics in the Higher Education sector and address them by providing a safe space for personal reflection, knowledge sharing and dialogue, collaboration, and networking.
+                  </p>
+                </div>
+                <div className="bg-muted/30 p-6 lg:p-8 border-l-4 border-accent rounded-r-lg">
+                  <h3 className="text-xl lg:text-2xl font-bold mb-3">Our Vision</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Justice, Equity, and Fairness (JEF) are at the heart of SBA's values. We aim to see a better level of JEF embedded in the progression opportunities for Black scholars in the UK's Higher Education sector.
+                  </p>
+                </div>
+                <div className="bg-muted/30 p-6 lg:p-8 border-l-4 border-accent rounded-r-lg">
+                  <h3 className="text-xl lg:text-2xl font-bold mb-3">Our Values</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    We promote Justice (broader ethical standards), Equity (equal opportunities and inclusivity), and Fairness (specific outcomes and treatment).
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Mission, Vision, Values */}
-        <section className="py-20 lg:py-32 bg-muted/30">
-          <div className="container-wide">
-            <div className="text-center mb-16">
-              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Our Foundation</h4>
-              <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
-                Mission, Vision & Values
-              </h2>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-background p-8 lg:p-12 border-l-4 border-accent">
-                <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  We continue to identify prevalent issues confronting Black academics in the Higher Education sector and address them by providing a safe space for personal reflection, knowledge sharing and dialogue, collaboration, and networking.
-                </p>
-              </div>
-
-              <div className="bg-background p-8 lg:p-12 border-l-4 border-accent">
-                <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Justice, Equity, and Fairness (JEF) are at the heart of SBA's values. We aim to see a better level of JEF embedded in the progression opportunities for Black scholars in the UK's Higher Education sector.
-                </p>
-              </div>
-
-              <div className="bg-background p-8 lg:p-12 border-l-4 border-accent">
-                <h3 className="text-2xl font-bold mb-4">Our Values</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  We pride ourselves in promoting Justice (broader ethical standards), Equity (encouraging equal opportunities and inclusivity), and Fairness (focusing on specific outcomes and treatment).
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* SBA Logo Display */}
-        <section className="py-16 bg-background">
-          <div className="container-wide flex justify-center">
-            <img 
-              src={sbaLogo}
-              alt="Society of Black Academics Logo"
-              className="h-32 md:h-44 w-auto object-contain"
-            />
           </div>
         </section>
 
