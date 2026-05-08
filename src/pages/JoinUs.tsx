@@ -367,29 +367,6 @@ const JoinUs = () => {
           </div>
         </section>
 
-        {/* Stripe Payment Section */}
-        <StripePaymentForm />
-
-        {/* Research Tracks Section */}
-        <ResearchTracksSection />
-
-        {/* Partners CTA */}
-        <section className="py-20 lg:py-32 bg-primary text-primary-foreground" id="part_spon">
-          <div className="container-wide text-center">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Become a Partner & Sponsor
-            </h2>
-            <p className="text-xl text-primary-foreground/80 mb-10 max-w-3xl mx-auto">
-              Let's create impact together! Ready to team up with us? Explore exciting sponsorship and partnership possibilities.
-            </p>
-            <PartnerSponsorDialog>
-              <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-10 py-6 text-lg">
-                <Handshake className="mr-2 h-5 w-5" />
-                Partner With Us
-              </Button>
-            </PartnerSponsorDialog>
-          </div>
-        </section>
       </main>
 
       <Footer
