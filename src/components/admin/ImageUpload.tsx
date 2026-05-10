@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Upload, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface ImageUploadProps {
@@ -12,6 +11,8 @@ interface ImageUploadProps {
   folder?: string;
 }
 
+const MAX_BYTES = 10 * 1024 * 1024; // 10MB
+
 export const ImageUpload = ({ value, onChange, bucket = 'cms-media', folder = 'uploads' }: ImageUploadProps) => {
   const [uploading, setUploading] = useState(false);
   const { toast } = useToast();
@@ -20,21 +21,36 @@ export const ImageUpload = ({ value, onChange, bucket = 'cms-media', folder = 'u
     const file = e.target.files?.[0];
     if (!file) return;
 
+    if (file.size > MAX_BYTES) {
+      toast({ title: 'File too large', description: `Max size is ${MAX_BYTES / 1024 / 1024}MB`, variant: 'destructive' });
+      e.target.value = '';
+      return;
+    }
+
     setUploading(true);
     try {
-      const ext = file.name.split('.').pop();
+      const { data: sessionData } = await supabase.auth.getSession();
+      if (!sessionData.session) {
+        throw new Error('You are not signed in. Please log in to /admin and try again.');
+      }
+
+      const ext = (file.name.split('.').pop() || 'bin').toLowerCase();
       const path = `${folder}/${Date.now()}-${Math.random().toString(36).substring(7)}.${ext}`;
 
-      const { error: uploadError } = await supabase.storage.from(bucket).upload(path, file);
+      const { error: uploadError } = await supabase.storage
+        .from(bucket)
+        .upload(path, file, { cacheControl: '3600', upsert: false, contentType: file.type || undefined });
       if (uploadError) throw uploadError;
 
       const { data: { publicUrl } } = supabase.storage.from(bucket).getPublicUrl(path);
       onChange(publicUrl);
       toast({ title: 'Image uploaded successfully' });
     } catch (error: any) {
-      toast({ title: 'Upload failed', description: error.message, variant: 'destructive' });
+      console.error('[ImageUpload] failed:', error);
+      toast({ title: 'Upload failed', description: error?.message || 'Unknown error', variant: 'destructive' });
     } finally {
       setUploading(false);
+      e.target.value = '';
     }
   };
 
@@ -44,6 +60,7 @@ export const ImageUpload = ({ value, onChange, bucket = 'cms-media', folder = 'u
         <div className="relative w-32 h-32 rounded-lg overflow-hidden border">
           <img src={value} alt="Preview" className="w-full h-full object-cover" />
           <button
+            type="button"
             onClick={() => onChange('')}
             className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full p-1"
           >
