@@ -17,13 +17,13 @@ export const useAuth = () => {
         return;
       }
       try {
-        const { data } = await withTimeout(
+        const { data } = await withTimeout<any>(
           supabase
             .from('user_roles')
             .select('role')
             .eq('user_id', currentUser.id)
             .eq('role', 'admin')
-            .maybeSingle(),
+            .maybeSingle() as any,
           8000,
           'role lookup',
         );
