@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,51 +7,59 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { ImageUpload } from '@/components/admin/ImageUpload';
+import { AsyncBoundary } from '@/components/admin/AsyncBoundary';
 import { useToast } from '@/hooks/use-toast';
+import { useAsyncResource, withTimeout } from '@/hooks/useAsync';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Loader2 } from 'lucide-react';
 
 const SiteSettingsAdmin = () => {
-  const [settings, setSettings] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const { toast } = useToast();
 
-  useEffect(() => {
-    const fetch = async () => {
-      const { data } = await supabase.from('site_settings').select('*').limit(1).maybeSingle();
-      if (data) setSettings(data);
-      setLoading(false);
-    };
-    fetch();
+  const loader = useCallback(async () => {
+    const { data, error } = await supabase.from('site_settings').select('*').limit(1).maybeSingle();
+    if (error) throw error;
+    return data;
   }, []);
 
-  const handleSave = async () => {
-    if (!settings) return;
-    setSaving(true);
-    const { error } = await supabase.from('site_settings').update(settings).eq('id', settings.id);
-    if (error) {
-      toast({ title: 'Error saving', description: error.message, variant: 'destructive' });
-    } else {
-      toast({ title: 'Settings saved!' });
-    }
-    setSaving(false);
-  };
+  const { data: settings, status, error, refetch, setData } = useAsyncResource<any>(loader, [loader], 15000);
 
   const updateField = (field: string, value: any) => {
-    setSettings((prev: any) => ({ ...prev, [field]: value }));
+    setData({ ...(settings || {}), [field]: value });
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (!settings) return <p>No settings found.</p>;
+  const handleSave = async () => {
+    if (!settings || saving) return;
+    setSaving(true);
+    try {
+      const { error: saveErr } = await withTimeout<any>(
+        supabase.from('site_settings').update(settings).eq('id', settings.id) as any,
+        15000,
+        'save',
+      );
+      if (saveErr) throw saveErr;
+      toast({ title: 'Settings saved' });
+    } catch (err: any) {
+      toast({ title: 'Error saving', description: err?.message || 'Unknown error', variant: 'destructive' });
+    } finally {
+      setSaving(false);
+    }
+  };
 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold">Site Settings</h1>
-        <Button onClick={handleSave} disabled={saving}>{saving ? 'Saving...' : 'Save Changes'}</Button>
+        <Button onClick={handleSave} disabled={saving || !settings}>
+          {saving ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Saving…</> : 'Save Changes'}
+        </Button>
       </div>
 
+      <AsyncBoundary status={status} error={error} onRetry={refetch} loadingLabel="Loading site settings…">
+        {!settings ? <p>No settings found.</p> : (
       <Tabs defaultValue="general" className="space-y-6">
+
         <TabsList>
           <TabsTrigger value="general">General</TabsTrigger>
           <TabsTrigger value="hero">Hero</TabsTrigger>
@@ -155,6 +163,8 @@ const SiteSettingsAdmin = () => {
           </Card>
         </TabsContent>
       </Tabs>
+        )}
+      </AsyncBoundary>
     </div>
   );
 };
