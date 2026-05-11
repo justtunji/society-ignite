@@ -158,6 +158,8 @@ const SiteSettingsAdmin = () => {
           </Card>
         </TabsContent>
       </Tabs>
+        )}
+      </AsyncBoundary>
     </div>
   );
 };
