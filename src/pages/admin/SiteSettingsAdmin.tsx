@@ -51,10 +51,15 @@ const SiteSettingsAdmin = () => {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold">Site Settings</h1>
-        <Button onClick={handleSave} disabled={saving}>{saving ? 'Saving...' : 'Save Changes'}</Button>
+        <Button onClick={handleSave} disabled={saving || !settings}>
+          {saving ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Saving…</> : 'Save Changes'}
+        </Button>
       </div>
 
+      <AsyncBoundary status={status} error={error} onRetry={refetch} loadingLabel="Loading site settings…">
+        {!settings ? <p>No settings found.</p> : (
       <Tabs defaultValue="general" className="space-y-6">
+
         <TabsList>
           <TabsTrigger value="general">General</TabsTrigger>
           <TabsTrigger value="hero">Hero</TabsTrigger>
