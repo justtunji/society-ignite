@@ -91,10 +91,10 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
 
     setSaving(true);
     try {
-      const op = editingItem
-        ? supabase.from(tableName as any).update(payload).eq('id', editingItem.id)
-        : supabase.from(tableName as any).insert(payload as any);
-      const { error: opError } = await withTimeout(op as any, REQUEST_TIMEOUT, 'save');
+      const op: Promise<any> = editingItem
+        ? (supabase.from(tableName as any).update(payload).eq('id', editingItem.id) as any)
+        : (supabase.from(tableName as any).insert(payload as any) as any);
+      const { error: opError } = await withTimeout<any>(op, REQUEST_TIMEOUT, 'save');
       if (opError) throw opError;
 
       toast({ title: editingItem ? 'Updated' : 'Created' });
@@ -111,7 +111,7 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
   const handleDelete = async (id: string) => {
     setDeletingId(id);
     try {
-      const { error: delError } = await withTimeout(
+      const { error: delError } = await withTimeout<any>(
         supabase.from(tableName as any).delete().eq('id', id) as any,
         REQUEST_TIMEOUT,
         'delete',
