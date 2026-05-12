@@ -40,12 +40,24 @@ export function useAsyncResource<T>(loader: () => Promise<T>, deps: any[] = [], 
   const run = useCallback(async () => {
     if (!mounted.current) return;
     setState((s) => ({ ...s, status: 'loading', error: null }));
+    const start = performance.now();
     try {
       const data = await withTimeout(loaderRef.current(), timeoutMs, 'load');
       if (!mounted.current) return;
       setState({ data, error: null, status: 'success' });
     } catch (err: any) {
       console.error('[useAsyncResource]', err);
+      const durationMs = Math.round(performance.now() - start);
+      const isTimeout = /timed out/i.test(err?.message || '');
+      adminLog.push({
+        label: 'load',
+        durationMs,
+        status: isTimeout ? 'timeout' : 'error',
+        message: err?.message || 'Failed to load',
+        code: err?.code,
+        details: err?.details,
+        hint: err?.hint,
+      });
       if (!mounted.current) return;
       setState({ data: null, error: err?.message || 'Failed to load', status: 'error' });
     }
