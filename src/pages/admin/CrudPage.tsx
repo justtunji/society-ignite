@@ -103,6 +103,13 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
       refetch();
     } catch (err: any) {
       console.error('[CrudPage save]', err);
+      adminLog.push({
+        label: editingItem ? 'update' : 'insert',
+        scope: tableName,
+        status: /timed out/i.test(err?.message || '') ? 'timeout' : 'error',
+        message: err?.message || 'Save failed',
+        code: err?.code, details: err?.details, hint: err?.hint,
+      });
       toast({ title: 'Save failed', description: err?.message || 'Unknown error', variant: 'destructive' });
     } finally {
       setSaving(false);
