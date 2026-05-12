@@ -104,7 +104,8 @@ const AdminLayout = () => {
             <Menu size={24} />
           </button>
           <div className="flex-1" />
-          <span className="text-sm text-muted-foreground">{user.email}</span>
+          <AdminErrorReport />
+          <span className="text-sm text-muted-foreground hidden sm:inline">{user.email}</span>
         </header>
         <main className="flex-1 p-4 lg:p-6 overflow-auto">
           <Outlet />
