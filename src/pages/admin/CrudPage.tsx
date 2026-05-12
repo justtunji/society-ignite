@@ -15,6 +15,7 @@ import RichTextEditor from '@/components/admin/RichTextEditor';
 import { AsyncBoundary } from '@/components/admin/AsyncBoundary';
 import { useToast } from '@/hooks/use-toast';
 import { useAsyncResource, withTimeout } from '@/hooks/useAsync';
+import { adminLog } from '@/lib/adminErrorLog';
 import { Plus, Pencil, Trash2, Loader2, RefreshCw } from 'lucide-react';
 
 export interface FieldConfig {
@@ -102,6 +103,13 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
       refetch();
     } catch (err: any) {
       console.error('[CrudPage save]', err);
+      adminLog.push({
+        label: editingItem ? 'update' : 'insert',
+        scope: tableName,
+        status: /timed out/i.test(err?.message || '') ? 'timeout' : 'error',
+        message: err?.message || 'Save failed',
+        code: err?.code, details: err?.details, hint: err?.hint,
+      });
       toast({ title: 'Save failed', description: err?.message || 'Unknown error', variant: 'destructive' });
     } finally {
       setSaving(false);
@@ -123,6 +131,13 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
       refetch();
     } catch (err: any) {
       console.error('[CrudPage delete]', err);
+      adminLog.push({
+        label: 'delete',
+        scope: tableName,
+        status: /timed out/i.test(err?.message || '') ? 'timeout' : 'error',
+        message: err?.message || 'Delete failed',
+        code: err?.code, details: err?.details, hint: err?.hint,
+      });
       toast({ title: 'Delete failed', description: err?.message || 'Unknown error', variant: 'destructive' });
     } finally {
       setDeletingId(null);
