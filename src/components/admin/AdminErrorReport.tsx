@@ -17,7 +17,10 @@ export const AdminErrorReport = () => {
   const [items, setItems] = useState<AdminLogEntry[]>([]);
   const { toast } = useToast();
 
-  useEffect(() => adminLog.subscribe(setItems), []);
+  useEffect(() => {
+    const unsub = adminLog.subscribe(setItems);
+    return () => { unsub(); };
+  }, []);
 
   const failures = items.filter((i) => i.status !== 'info');
   const latest = failures[0];
