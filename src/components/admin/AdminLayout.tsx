@@ -9,6 +9,7 @@ import {
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import sbaLogo from '@/assets/logos/sba-logo.png';
+import { AdminErrorReport } from '@/components/admin/AdminErrorReport';
 
 const navItems = [
   { label: 'Dashboard', path: '/admin', icon: LayoutDashboard },
