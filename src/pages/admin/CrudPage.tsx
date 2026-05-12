@@ -15,6 +15,7 @@ import RichTextEditor from '@/components/admin/RichTextEditor';
 import { AsyncBoundary } from '@/components/admin/AsyncBoundary';
 import { useToast } from '@/hooks/use-toast';
 import { useAsyncResource, withTimeout } from '@/hooks/useAsync';
+import { adminLog } from '@/lib/adminErrorLog';
 import { Plus, Pencil, Trash2, Loader2, RefreshCw } from 'lucide-react';
 
 export interface FieldConfig {
