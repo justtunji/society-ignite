@@ -131,6 +131,13 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
       refetch();
     } catch (err: any) {
       console.error('[CrudPage delete]', err);
+      adminLog.push({
+        label: 'delete',
+        scope: tableName,
+        status: /timed out/i.test(err?.message || '') ? 'timeout' : 'error',
+        message: err?.message || 'Delete failed',
+        code: err?.code, details: err?.details, hint: err?.hint,
+      });
       toast({ title: 'Delete failed', description: err?.message || 'Unknown error', variant: 'destructive' });
     } finally {
       setDeletingId(null);
