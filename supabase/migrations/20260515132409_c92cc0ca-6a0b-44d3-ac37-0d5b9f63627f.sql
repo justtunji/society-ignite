@@ -1,0 +1,2 @@
+UPDATE public.team_members SET image_url = '/lovable-uploads/sally-everett.jpg', updated_at = now() WHERE name = 'Professor Sally Everett';
+UPDATE public.team_members_public SET image_url = '/lovable-uploads/sally-everett.jpg', updated_at = now() WHERE name = 'Professor Sally Everett';
