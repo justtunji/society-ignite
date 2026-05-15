@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Download, FileText, Video, Link as LinkIcon, ArrowRight, Briefcase, GraduationCap, Users } from "lucide-react";
+import { BookOpen, Download, FileText, Video, Link as LinkIcon, ArrowRight, Briefcase, GraduationCap, Users, Newspaper } from "lucide-react";
 import resourcesHero from "@/assets/images/resources-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 import SBAUpdatesSection from "@/components/SBAUpdatesSection";
@@ -24,50 +24,56 @@ const Resources = () => {
     }
   }, []);
 
-  const featuredResources = [
+  const resourceCategories = [
     {
-      title: "HEPI Report",
-      description: "Our partnership report with HEPI exploring the experiences and progression of Black academics in UK Higher Education.",
-      type: "PDF",
+      heading: "Reports",
       icon: FileText,
-      href: "https://www.hepi.ac.uk/",
-      cta: "View Report",
       color: "border-accent",
       iconBg: "bg-accent/10 text-accent",
-      gradient: "from-accent/20 to-accent/5",
+      items: [
+        { title: "Unblocking the Pipeline", description: "Supporting the Retention, Progression and Promotion of Black Early-Career Academics — published by Advance HE with GatenbySanderson and HEPI.", href: "https://www.gatenbysanderson.com/news/report-supporting-the-retention-progression-and-promotion-of-black-early-career-academics/" },
+        { title: "HEPI Report", description: "Our HEPI partnership report exploring the experiences and progression of Black academics in UK Higher Education.", href: "https://www.hepi.ac.uk/" },
+        { title: "Developing a successful career as a black academic in the UK", description: "Black academics remain underrepresented at professorial and leadership levels in UK universities.", href: "https://www.sbia.business-school.ed.ac.uk/news/developing-a-successful-career-as-a-black-academic-in-the-uk" },
+        { title: "Impactful Research and Scholarship", description: "A short piece on Impactful Research and Scholarship from our 2nd annual conference.", href: "https://www.linkedin.com/feed/update/urn:li:activity:6969935472240271360/" },
+      ],
     },
     {
-      title: "SBA YouTube Channel",
-      description: "Watch recordings of our conferences, workshops, panels, and conversations with leading Black academics.",
-      type: "Video",
-      icon: Video,
-      href: "https://www.youtube.com/@societyofblackacademics",
-      cta: "Watch Now",
+      heading: "Conferences & News",
+      icon: Newspaper,
       color: "border-coral",
       iconBg: "bg-coral/10 text-coral",
-      gradient: "from-coral/20 to-coral/5",
+      items: [
+        { title: "SBA Annual Conference 2024 — Bristol", description: "Over 70 Black academics from across the UK and US gathered for the SBA annual conference at the University of Bristol.", href: "https://www.bristol.ac.uk/news/2024/september/sba-conference-2024.html" },
+        { title: "How to make universities more inclusive", description: "Mercy Denedo on support networks, mentoring and inter-institutional collaboration to improve representation. Times Higher Education.", href: "https://www.timeshighereducation.com/blog/how-make-universities-more-inclusive-black-academics" },
+        { title: "1st Annual Conference (June 2021)", description: "‘Developing a successful career as a Black Academic in the UK’ — University of Edinburgh Business School.", href: "https://www.business-school.ed.ac.uk/event/developing-a-successful-career-as-a-black-academic-in-the-uk" },
+        { title: "2nd Annual Conference (July 2022)", description: "‘Impactful Research and Scholarship’ — Africa Research Group, University of Nottingham Business School.", href: "https://www.nottingham.ac.uk/business/who-we-are/centres-and-institutes/arg/newsevents.aspx" },
+      ],
     },
     {
-      title: "University of Edinburgh",
-      description: "Resources and research from our partnership with the University of Edinburgh on advancing Black academic leadership.",
-      type: "Link",
-      icon: LinkIcon,
-      href: "https://www.ed.ac.uk/",
-      cta: "Visit Resource",
+      heading: "Past Workshops",
+      icon: Users,
       color: "border-teal",
       iconBg: "bg-teal/10 text-teal",
-      gradient: "from-teal/20 to-teal/5",
+      items: [
+        { title: "Breaking Glass Ceilings (Nov 2022)", description: "3rd SBA Global Workshop — Mentorship and collaborations for academic success, hosted by King's Business School, KCL.", href: "https://www.eventbrite.co.uk/e/breaking-glass-ceilings-mentorship-and-collaborations-for-academic-success-tickets-427035844707" },
+        { title: "Logistics, Transport & Supply Chain Careers (June 2022)", description: "Workshop on Developing a Career in Logistics, Transport, and Supply Chain Management.", href: "https://www.instagram.com/p/Cdvx02EsRQU/" },
+        { title: "Building Resilience (March 2022)", description: "2nd SBA Global Workshop — Building Resilience and Strength through your Academic Career, University of Leicester.", href: "https://www.instagram.com/p/Cam7BzMMEzG/" },
+        { title: "Entering the Academic Market (Nov 2021)", description: "1st SBA Global Workshop for Early Career Researchers — Henley Business School, University of Reading.", href: "https://www.youtube.com/watch?v=3m2pFRVPqd8" },
+      ],
+    },
+    {
+      heading: "Video Resources",
+      icon: Video,
+      color: "border-indigo",
+      iconBg: "bg-indigo/10 text-indigo",
+      items: [
+        { title: "Successful Career as a Black Academic — Day 1 (June 2021)", description: "Day 1 recording of the 1st annual conference at the University of Edinburgh.", href: "https://media.ed.ac.uk/media/Developing+a+successful+career+as+a+black+academic+in+the+UK+Day+1/1_vc3wsa6y" },
+        { title: "Successful Career as a Black Academic — Day 2 (June 2021)", description: "Day 2 recording of the 1st annual conference at the University of Edinburgh.", href: "https://media.ed.ac.uk/media/Developing+a+Successful+Career+as+a+Black+Academic+in+the+UK+-+3rd+June+2021/1_dhcj0gk5" },
+        { title: "Breaking Glass Ceilings (Nov 2022)", description: "Recording of the 3rd Global Workshop hosted by King's Business School.", href: "https://emckclac-my.sharepoint.com/:v:/r/personal/k1818357_kcl_ac_uk/Documents/Recordings/3rd%20Global%20Workshop%20of%20Society%20of%20Black%20Academics-20221104_151329-Meeting%20Recording.mp4" },
+        { title: "SBA YouTube Channel", description: "Watch recordings of our conferences, workshops, panels, and conversations with leading Black academics.", href: "https://www.youtube.com/@societyofblackacademics" },
+      ],
     },
   ];
-
-  const getTypeBadgeStyle = (type: string) => {
-    switch (type) {
-      case "PDF": return "bg-destructive/10 text-destructive border-destructive/20";
-      case "Video": return "bg-indigo/10 text-indigo border-indigo/20";
-      case "Guide": return "bg-emerald/10 text-emerald border-emerald/20";
-      default: return "";
-    }
-  };
 
   return (
     <div className="min-h-screen">
@@ -101,36 +107,45 @@ const Resources = () => {
         {/* SBA Updates */}
         <SBAUpdatesSection />
 
-        {/* Featured Resources */}
+        {/* Key Resources - Categorized */}
         <section className="py-20 lg:py-32 bg-background">
           <div className="container-wide">
             <div className="text-center mb-16">
               <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Featured</h4>
-              <h2 className="text-4xl lg:text-5xl font-bold text-foreground">Key Resources</h2>
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">Key Resources</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Reports, news, workshops and recordings from across our community.
+              </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {featuredResources.map((resource, idx) => (
-                <a
-                  key={idx}
-                  href={resource.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`bg-background p-8 border-l-4 ${resource.color} hover:shadow-lg transition-all duration-300 rounded-r-lg group`}
-                >
-                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${resource.iconBg}`}>
-                    <resource.icon className="h-6 w-6" />
+            <div className="space-y-20 max-w-7xl mx-auto">
+              {resourceCategories.map((category, cIdx) => (
+                <div key={cIdx}>
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${category.iconBg}`}>
+                      <category.icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-2xl lg:text-3xl font-bold text-foreground">{category.heading}</h3>
                   </div>
-                  <Badge variant="outline" className={`text-xs mb-3 ${getTypeBadgeStyle(resource.type)}`}>
-                    {resource.type}
-                  </Badge>
-                  <h3 className="font-bold text-xl mb-3">{resource.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{resource.description}</p>
-                  <span className="inline-flex items-center text-sm font-medium text-accent group-hover:translate-x-1 transition-transform">
-                    {resource.cta}
-                    <ArrowRight className="h-4 w-4 ml-1" />
-                  </span>
-                </a>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {category.items.map((item, iIdx) => (
+                      <a
+                        key={iIdx}
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`bg-background p-6 border-l-4 ${category.color} hover:shadow-lg hover:-translate-y-1 transition-all duration-300 rounded-r-lg group flex flex-col h-full`}
+                      >
+                        <h4 className="font-bold text-lg mb-3 leading-snug">{item.title}</h4>
+                        <p className="text-muted-foreground text-sm mb-6 leading-relaxed flex-1">{item.description}</p>
+                        <span className="inline-flex items-center text-sm font-medium text-accent group-hover:translate-x-1 transition-transform">
+                          Read More
+                          <ArrowRight className="h-4 w-4 ml-1" />
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </div>

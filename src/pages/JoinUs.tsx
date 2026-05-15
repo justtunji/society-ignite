@@ -10,9 +10,9 @@ import { Check, GraduationCap, Briefcase, Users, School, Handshake, ArrowRight }
 import { supabase } from "@/integrations/supabase/client";
 import { subscribeToMailchimp } from "@/lib/mailchimp";
 import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
-import joinUsHero from "@/assets/images/gallery/sba-event-6.jpeg";
+import joinUsHero from "@/assets/images/join-us-team.jpeg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
-import membershipLevelsImage from "@/assets/images/gallery/sba-event-3.jpeg";
+import membershipLevelsImage from "@/assets/images/join-us-team.jpeg";
 
 const JoinUs = () => {
   const { toast } = useToast();
