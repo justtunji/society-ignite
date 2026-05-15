@@ -98,16 +98,22 @@ const About = () => {
           <div className="container-wide">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
               <div>
-                <h4 className="text-accent font-semibold text-base uppercase tracking-wider mb-6">Why SBA</h4>
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-8 leading-tight">
+                <h4 className="text-accent font-semibold text-lg uppercase tracking-wider mb-6">Why SBA</h4>
+                <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-tight">
                   Building a more inclusive academy.
                 </h2>
-                <p className="text-foreground/80 text-lg lg:text-xl leading-relaxed mb-6">
+                <p className="text-foreground/80 text-base lg:text-lg leading-relaxed mb-6">
                   Since our inception in 2021, we have launched several impactful initiatives and organized numerous events (including Workshops and Conferences) with the goal of promoting Equality, Diversity, and Inclusion (EDI) in the UK's Higher Education sector.
                 </p>
-                <p className="text-foreground/80 text-lg lg:text-xl leading-relaxed mb-8">
+                <p className="text-foreground/80 text-base lg:text-lg leading-relaxed mb-6">
                   Through the development of EDI and career development programmes, safe spaces for learning and knowledge exchange, as well as other progressive campaigns, we are improving the career advancement of Black academics.
                 </p>
+                <div className="bg-accent/5 border-l-4 border-accent p-6 rounded-r-lg mb-8">
+                  <h3 className="text-xl font-bold mb-3 text-foreground">What we are doing currently</h3>
+                  <p className="text-foreground/80 text-base lg:text-lg leading-relaxed">
+                    Through the development of EDI and career development programmes, safe spaces for learning and knowledge exchange, as well as other progressive campaigns, we are attempting to improve the career advancement of Black academics. Our goal is to increase the number of Black academics employed at the professorial and senior leadership levels in the UK's higher education system.
+                  </p>
+                </div>
                 <Button asChild variant="outline" size="lg" className="rounded-full px-8">
                   <a href="#our_team">
                     Meet Our Team
