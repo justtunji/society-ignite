@@ -159,40 +159,56 @@ const About = () => {
               </p>
             </div>
 
-            {teamMembers.length > 0 ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {teamMembers.map((member) => (
-                  <div key={member.id} className="group">
-                    <div className="relative aspect-square overflow-hidden rounded-lg mb-4 bg-muted">
-                      {member.image_url ? (
-                        <img
-                          src={member.image_url}
-                          alt={member.name}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                          No photo
-                        </div>
-                      )}
-                    </div>
-                    <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                    {member.title && <p className="text-accent font-medium mb-3">{member.title}</p>}
-                    {member.bio && <p className="text-muted-foreground text-sm leading-relaxed mb-3">{member.bio}</p>}
-                    {member.linkedin_url && (
-                      <a
-                        href={member.linkedin_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary hover:text-accent transition-colors text-sm font-medium"
-                      >
-                        LinkedIn →
-                      </a>
+            {teamMembers.length > 0 ? (() => {
+              const founder = teamMembers.find(m => m.order_index === 0);
+              const others = teamMembers.filter(m => m.order_index !== 0);
+              const renderMember = (member: TeamMember) => (
+                <div key={member.id} className="group">
+                  <div className="relative aspect-square overflow-hidden rounded-lg mb-4 bg-muted">
+                    {member.image_url ? (
+                      <img
+                        src={member.image_url}
+                        alt={member.name}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                        No photo
+                      </div>
                     )}
                   </div>
-                ))}
-              </div>
-            ) : (
+                  <h3 className="text-xl font-bold mb-1">{member.name}</h3>
+                  {member.title && <p className="text-accent font-medium mb-3">{member.title}</p>}
+                  {member.bio && <p className="text-muted-foreground text-sm leading-relaxed mb-3">{member.bio}</p>}
+                  {member.linkedin_url && (
+                    <a
+                      href={member.linkedin_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:text-accent transition-colors text-sm font-medium"
+                    >
+                      LinkedIn →
+                    </a>
+                  )}
+                </div>
+              );
+              return (
+                <>
+                  {founder && (
+                    <div className="flex justify-center mb-12">
+                      <div className="w-full max-w-sm text-center">
+                        {renderMember(founder)}
+                      </div>
+                    </div>
+                  )}
+                  {others.length > 0 && (
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                      {others.map(renderMember)}
+                    </div>
+                  )}
+                </>
+              );
+            })() : (
               <p className="text-center text-muted-foreground">Team members coming soon.</p>
             )}
           </div>
