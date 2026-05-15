@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Download, FileText, Video, Link as LinkIcon, ArrowRight, Briefcase, GraduationCap, Users } from "lucide-react";
+import { BookOpen, Download, FileText, Video, Link as LinkIcon, ArrowRight, Briefcase, GraduationCap, Users, Newspaper } from "lucide-react";
 import resourcesHero from "@/assets/images/resources-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 import SBAUpdatesSection from "@/components/SBAUpdatesSection";
@@ -107,36 +107,45 @@ const Resources = () => {
         {/* SBA Updates */}
         <SBAUpdatesSection />
 
-        {/* Featured Resources */}
+        {/* Key Resources - Categorized */}
         <section className="py-20 lg:py-32 bg-background">
           <div className="container-wide">
             <div className="text-center mb-16">
               <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Featured</h4>
-              <h2 className="text-4xl lg:text-5xl font-bold text-foreground">Key Resources</h2>
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">Key Resources</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Reports, news, workshops and recordings from across our community.
+              </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {featuredResources.map((resource, idx) => (
-                <a
-                  key={idx}
-                  href={resource.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`bg-background p-8 border-l-4 ${resource.color} hover:shadow-lg transition-all duration-300 rounded-r-lg group`}
-                >
-                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${resource.iconBg}`}>
-                    <resource.icon className="h-6 w-6" />
+            <div className="space-y-20 max-w-7xl mx-auto">
+              {resourceCategories.map((category, cIdx) => (
+                <div key={cIdx}>
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${category.iconBg}`}>
+                      <category.icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-2xl lg:text-3xl font-bold text-foreground">{category.heading}</h3>
                   </div>
-                  <Badge variant="outline" className={`text-xs mb-3 ${getTypeBadgeStyle(resource.type)}`}>
-                    {resource.type}
-                  </Badge>
-                  <h3 className="font-bold text-xl mb-3">{resource.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{resource.description}</p>
-                  <span className="inline-flex items-center text-sm font-medium text-accent group-hover:translate-x-1 transition-transform">
-                    {resource.cta}
-                    <ArrowRight className="h-4 w-4 ml-1" />
-                  </span>
-                </a>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {category.items.map((item, iIdx) => (
+                      <a
+                        key={iIdx}
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`bg-background p-6 border-l-4 ${category.color} hover:shadow-lg hover:-translate-y-1 transition-all duration-300 rounded-r-lg group flex flex-col h-full`}
+                      >
+                        <h4 className="font-bold text-lg mb-3 leading-snug">{item.title}</h4>
+                        <p className="text-muted-foreground text-sm mb-6 leading-relaxed flex-1">{item.description}</p>
+                        <span className="inline-flex items-center text-sm font-medium text-accent group-hover:translate-x-1 transition-transform">
+                          Read More
+                          <ArrowRight className="h-4 w-4 ml-1" />
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
