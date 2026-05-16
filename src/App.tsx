@@ -30,6 +30,9 @@ const StoriesAdmin = lazy(() => import("./pages/admin/StoriesAdmin"));
 const CommunitiesAdmin = lazy(() => import("./pages/admin/CommunitiesAdmin"));
 const MembersAdmin = lazy(() => import("./pages/admin/MembersAdmin"));
 const ContactsAdmin = lazy(() => import("./pages/admin/ContactsAdmin"));
+const PagesAdmin = lazy(() => import("./pages/admin/PagesAdmin"));
+const SectionsAdmin = lazy(() => import("./pages/admin/SectionsAdmin"));
+const MediaAdmin = lazy(() => import("./pages/admin/MediaAdmin"));
 
 const queryClient = new QueryClient();
 
@@ -68,6 +71,9 @@ const App = () => (
               <Route path="communities" element={<CommunitiesAdmin />} />
               <Route path="members" element={<MembersAdmin />} />
               <Route path="contacts" element={<ContactsAdmin />} />
+              <Route path="pages" element={<PagesAdmin />} />
+              <Route path="sections" element={<SectionsAdmin />} />
+              <Route path="media" element={<MediaAdmin />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
