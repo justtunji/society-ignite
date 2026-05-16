@@ -31,10 +31,10 @@ const Resources = () => {
       color: "border-accent",
       iconBg: "bg-accent/10 text-accent",
       items: [
-        { title: "Unblocking the Pipeline", description: "Supporting the Retention, Progression and Promotion of Black Early-Career Academics — published by Advance HE with GatenbySanderson and HEPI.", href: "https://www.gatenbysanderson.com/news/report-supporting-the-retention-progression-and-promotion-of-black-early-career-academics/" },
-        { title: "HEPI Report", description: "Our HEPI partnership report exploring the experiences and progression of Black academics in UK Higher Education.", href: "https://www.hepi.ac.uk/" },
-        { title: "Developing a successful career as a black academic in the UK", description: "Black academics remain underrepresented at professorial and leadership levels in UK universities.", href: "https://www.sbia.business-school.ed.ac.uk/news/developing-a-successful-career-as-a-black-academic-in-the-uk" },
-        { title: "Impactful Research and Scholarship", description: "A short piece on Impactful Research and Scholarship from our 2nd annual conference.", href: "https://www.linkedin.com/feed/update/urn:li:activity:6969935472240271360/" },
+        { title: "Unblocking the Pipeline", description: "Supporting the Retention, Progression and Promotion of Black Early-Career Academics — published by Advance HE with GatenbySanderson and HEPI.", href: "https://www.gatenbysanderson.com/news/report-supporting-the-retention-progression-and-promotion-of-black-early-career-academics/", image: "/lovable-uploads/reports/unblocking-pipeline.png" },
+        { title: "HEPI Report", description: "Our HEPI partnership report exploring the experiences and progression of Black academics in UK Higher Education.", href: "https://www.hepi.ac.uk/", image: "/lovable-uploads/reports/hepi-report.png" },
+        { title: "Developing a successful career as a black academic in the UK", description: "Black academics remain underrepresented at professorial and leadership levels in UK universities.", href: "https://www.sbia.business-school.ed.ac.uk/news/developing-a-successful-career-as-a-black-academic-in-the-uk", image: "/lovable-uploads/reports/black-academic.jpeg" },
+        { title: "Impactful Research and Scholarship", description: "A short piece on Impactful Research and Scholarship from our 2nd annual conference.", href: "https://www.linkedin.com/feed/update/urn:li:activity:6969935472240271360/", image: "/lovable-uploads/reports/impactful-research.png" },
       ],
     },
     {
@@ -128,20 +128,32 @@ const Resources = () => {
                     <h3 className="text-2xl lg:text-3xl font-bold text-foreground">{category.heading}</h3>
                   </div>
                   <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {category.items.map((item, iIdx) => (
+                    {category.items.map((item: any, iIdx) => (
                       <a
                         key={iIdx}
                         href={item.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`bg-background p-6 border-l-4 ${category.color} hover:shadow-lg hover:-translate-y-1 transition-all duration-300 rounded-r-lg group flex flex-col h-full`}
+                        className={`bg-background border-l-4 ${category.color} hover:shadow-lg hover:-translate-y-1 transition-all duration-300 rounded-r-lg group flex flex-col h-full overflow-hidden`}
                       >
-                        <h4 className="font-bold text-lg mb-3 leading-snug">{item.title}</h4>
-                        <p className="text-muted-foreground text-sm mb-6 leading-relaxed flex-1">{item.description}</p>
-                        <span className="inline-flex items-center text-sm font-medium text-accent group-hover:translate-x-1 transition-transform">
-                          Read More
-                          <ArrowRight className="h-4 w-4 ml-1" />
-                        </span>
+                        {item.image && (
+                          <div className="aspect-[4/3] overflow-hidden bg-muted">
+                            <img
+                              src={item.image}
+                              alt={item.title}
+                              loading="lazy"
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                          </div>
+                        )}
+                        <div className="p-6 flex flex-col flex-1">
+                          <h4 className="font-bold text-lg mb-3 leading-snug">{item.title}</h4>
+                          <p className="text-muted-foreground text-sm mb-6 leading-relaxed flex-1">{item.description}</p>
+                          <span className="inline-flex items-center text-sm font-medium text-accent group-hover:translate-x-1 transition-transform">
+                            Read More
+                            <ArrowRight className="h-4 w-4 ml-1" />
+                          </span>
+                        </div>
                       </a>
                     ))}
                   </div>
