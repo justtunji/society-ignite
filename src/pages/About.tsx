@@ -98,8 +98,8 @@ const About = () => {
           <div className="container-wide">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
               <div>
-                <h4 className="text-accent font-semibold text-lg uppercase tracking-wider mb-6">Why SBA</h4>
-                <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-tight">
+                <h4 className="text-accent font-semibold uppercase tracking-wider mb-6 text-5xl md:text-6xl lg:text-7xl font-bold">Why SBA</h4>
+                <h2 className="text-foreground mb-8 leading-tight text-lg font-semibold">
                   Building a more inclusive academy.
                 </h2>
                 <p className="text-foreground/80 text-base lg:text-lg leading-relaxed mb-6">
