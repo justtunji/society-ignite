@@ -133,7 +133,11 @@ const SiteSettingsAdmin = () => {
               <div className="flex items-center justify-between"><Label>Show LinkedIn Feed</Label><Switch checked={settings.show_linkedin_feed} onCheckedChange={v => updateField('show_linkedin_feed', v)} /></div>
               <div className="flex items-center justify-between"><Label>Mega Menu</Label><Switch checked={settings.is_mega_menu} onCheckedChange={v => updateField('is_mega_menu', v)} /></div>
               <div className="flex items-center justify-between"><Label>Pause Carousel on Hover</Label><Switch checked={settings.partner_carousel_pause_on_hover} onCheckedChange={v => updateField('partner_carousel_pause_on_hover', v)} /></div>
-              <div><Label>Partner Carousel Speed</Label><Input type="number" value={settings.partner_carousel_speed || 60} onChange={e => updateField('partner_carousel_speed', parseInt(e.target.value))} /></div>
+              <div>
+                <Label>Partner Carousel Speed (seconds per loop)</Label>
+                <Input type="number" min={5} max={120} value={settings.partner_carousel_speed || 25} onChange={e => updateField('partner_carousel_speed', parseInt(e.target.value) || 25)} />
+                <p className="text-xs text-muted-foreground mt-1">Lower = faster. Try 15–25 for a brisk scroll, 40–60 for slow.</p>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
