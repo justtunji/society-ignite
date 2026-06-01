@@ -146,6 +146,7 @@ export type Database = {
       gallery_items: {
         Row: {
           caption: string | null
+          category: string | null
           created_at: string | null
           display_order: number | null
           id: string
@@ -160,6 +161,7 @@ export type Database = {
         }
         Insert: {
           caption?: string | null
+          category?: string | null
           created_at?: string | null
           display_order?: number | null
           id?: string
@@ -174,6 +176,7 @@ export type Database = {
         }
         Update: {
           caption?: string | null
+          category?: string | null
           created_at?: string | null
           display_order?: number | null
           id?: string
