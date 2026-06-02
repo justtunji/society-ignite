@@ -152,6 +152,30 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
     setFormData((prev: any) => ({ ...prev, [name]: value }));
   };
 
+  const handleReorder = async (item: any, dir: -1 | 1) => {
+    if (!reorderField) return;
+    const peers = groupBy
+      ? list.filter((i: any) => (i[groupBy] ?? null) === (item[groupBy] ?? null))
+      : list;
+    const sorted = [...peers].sort((a, b) => (a[reorderField] ?? 0) - (b[reorderField] ?? 0));
+    const idx = sorted.findIndex(i => i.id === item.id);
+    const neighbour = sorted[idx + dir];
+    if (!neighbour) return;
+    const a = item[reorderField] ?? 0;
+    const b = neighbour[reorderField] ?? 0;
+    const swapVal = a === b ? a + dir : b;
+    try {
+      await Promise.all([
+        supabase.from(tableName as any).update({ [reorderField]: swapVal } as any).eq('id', item.id),
+        supabase.from(tableName as any).update({ [reorderField]: a } as any).eq('id', neighbour.id),
+      ]);
+      refetch();
+    } catch (err: any) {
+      toast({ title: 'Reorder failed', description: err?.message, variant: 'destructive' });
+    }
+  };
+
+
   const renderField = (field: FieldConfig) => {
     const value = formData[field.name];
     switch (field.type) {
