@@ -282,8 +282,14 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
                       ))}
                       <TableCell>
                         <div className="flex items-center gap-1">
+                          {reorderField && (
+                            <>
+                              <Button size="icon" variant="ghost" aria-label="Move up" onClick={() => handleReorder(item, -1)}><ArrowUp size={16} /></Button>
+                              <Button size="icon" variant="ghost" aria-label="Move down" onClick={() => handleReorder(item, 1)}><ArrowDown size={16} /></Button>
+                            </>
+                          )}
                           {customActions?.(item)}
-                          <Button size="icon" variant="ghost" onClick={() => initForm(item)}><Pencil size={16} /></Button>
+                          <Button size="icon" variant="ghost" aria-label="Edit" onClick={() => initForm(item)}><Pencil size={16} /></Button>
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
                               <Button size="icon" variant="ghost" className="text-destructive" disabled={deletingId === item.id}>
