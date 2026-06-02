@@ -16,7 +16,7 @@ import { AsyncBoundary } from '@/components/admin/AsyncBoundary';
 import { useToast } from '@/hooks/use-toast';
 import { useAsyncResource, withTimeout } from '@/hooks/useAsync';
 import { adminLog } from '@/lib/adminErrorLog';
-import { Plus, Pencil, Trash2, Loader2, RefreshCw } from 'lucide-react';
+import { Plus, Pencil, Trash2, Loader2, RefreshCw, ArrowUp, ArrowDown } from 'lucide-react';
 
 export interface FieldConfig {
   name: string;
@@ -36,11 +36,15 @@ interface CrudPageProps {
   orderAsc?: boolean;
   slugField?: boolean;
   customActions?: (item: any) => React.ReactNode;
+  /** Enables Up/Down reorder buttons that swap this numeric column with the neighbour. Pair with `groupBy` to scope swaps. */
+  reorderField?: string;
+  /** Only swap within rows that share this column's value (e.g. 'category'). */
+  groupBy?: string;
 }
 
 const REQUEST_TIMEOUT = 15_000;
 
-const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc = false, slugField = true, customActions }: CrudPageProps) => {
+const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc = false, slugField = true, customActions, reorderField, groupBy }: CrudPageProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
   const [formData, setFormData] = useState<any>({});
@@ -148,6 +152,30 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
     setFormData((prev: any) => ({ ...prev, [name]: value }));
   };
 
+  const handleReorder = async (item: any, dir: -1 | 1) => {
+    if (!reorderField) return;
+    const peers = groupBy
+      ? list.filter((i: any) => (i[groupBy] ?? null) === (item[groupBy] ?? null))
+      : list;
+    const sorted = [...peers].sort((a, b) => (a[reorderField] ?? 0) - (b[reorderField] ?? 0));
+    const idx = sorted.findIndex(i => i.id === item.id);
+    const neighbour = sorted[idx + dir];
+    if (!neighbour) return;
+    const a = item[reorderField] ?? 0;
+    const b = neighbour[reorderField] ?? 0;
+    const swapVal = a === b ? a + dir : b;
+    try {
+      await Promise.all([
+        supabase.from(tableName as any).update({ [reorderField]: swapVal } as any).eq('id', item.id),
+        supabase.from(tableName as any).update({ [reorderField]: a } as any).eq('id', neighbour.id),
+      ]);
+      refetch();
+    } catch (err: any) {
+      toast({ title: 'Reorder failed', description: err?.message, variant: 'destructive' });
+    }
+  };
+
+
   const renderField = (field: FieldConfig) => {
     const value = formData[field.name];
     switch (field.type) {
@@ -254,8 +282,14 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
                       ))}
                       <TableCell>
                         <div className="flex items-center gap-1">
+                          {reorderField && (
+                            <>
+                              <Button size="icon" variant="ghost" aria-label="Move up" onClick={() => handleReorder(item, -1)}><ArrowUp size={16} /></Button>
+                              <Button size="icon" variant="ghost" aria-label="Move down" onClick={() => handleReorder(item, 1)}><ArrowDown size={16} /></Button>
+                            </>
+                          )}
                           {customActions?.(item)}
-                          <Button size="icon" variant="ghost" onClick={() => initForm(item)}><Pencil size={16} /></Button>
+                          <Button size="icon" variant="ghost" aria-label="Edit" onClick={() => initForm(item)}><Pencil size={16} /></Button>
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
                               <Button size="icon" variant="ghost" className="text-destructive" disabled={deletingId === item.id}>
