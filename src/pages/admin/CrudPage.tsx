@@ -36,11 +36,15 @@ interface CrudPageProps {
   orderAsc?: boolean;
   slugField?: boolean;
   customActions?: (item: any) => React.ReactNode;
+  /** Enables Up/Down reorder buttons that swap this numeric column with the neighbour. Pair with `groupBy` to scope swaps. */
+  reorderField?: string;
+  /** Only swap within rows that share this column's value (e.g. 'category'). */
+  groupBy?: string;
 }
 
 const REQUEST_TIMEOUT = 15_000;
 
-const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc = false, slugField = true, customActions }: CrudPageProps) => {
+const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc = false, slugField = true, customActions, reorderField, groupBy }: CrudPageProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
   const [formData, setFormData] = useState<any>({});
