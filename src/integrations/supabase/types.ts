@@ -155,6 +155,7 @@ export type Database = {
           photographer_credit: string | null
           related_program_id: string | null
           slug: string
+          tags: string[] | null
           title: string
           updated_at: string | null
           visible: boolean | null
@@ -170,6 +171,7 @@ export type Database = {
           photographer_credit?: string | null
           related_program_id?: string | null
           slug: string
+          tags?: string[] | null
           title: string
           updated_at?: string | null
           visible?: boolean | null
@@ -185,6 +187,7 @@ export type Database = {
           photographer_credit?: string | null
           related_program_id?: string | null
           slug?: string
+          tags?: string[] | null
           title?: string
           updated_at?: string | null
           visible?: boolean | null
