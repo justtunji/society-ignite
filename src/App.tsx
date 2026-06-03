@@ -33,6 +33,7 @@ const ContactsAdmin = lazy(() => import("./pages/admin/ContactsAdmin"));
 const PagesAdmin = lazy(() => import("./pages/admin/PagesAdmin"));
 const SectionsAdmin = lazy(() => import("./pages/admin/SectionsAdmin"));
 const MediaAdmin = lazy(() => import("./pages/admin/MediaAdmin"));
+const CloudinaryMigrateAdmin = lazy(() => import("./pages/admin/CloudinaryMigrateAdmin"));
 
 const queryClient = new QueryClient();
 
@@ -74,6 +75,7 @@ const App = () => (
               <Route path="pages" element={<PagesAdmin />} />
               <Route path="sections" element={<SectionsAdmin />} />
               <Route path="media" element={<MediaAdmin />} />
+              <Route path="cloudinary" element={<CloudinaryMigrateAdmin />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
