@@ -1,30 +1,28 @@
 import { useRef, useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { X, Loader2, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { withTimeout } from '@/hooks/useAsync';
+import { uploadToCloudinary } from '@/lib/cloudinary';
 
 interface ImageUploadProps {
   value?: string;
   onChange: (url: string) => void;
+  /** @deprecated kept for API compatibility; uploads now go to Cloudinary */
   bucket?: string;
+  /** Logical folder key (e.g. 'gallery_items', 'partners'). Mapped server-side. */
   folder?: string;
 }
 
-const MAX_BYTES = 10 * 1024 * 1024; // 10MB
-const UPLOAD_TIMEOUT = 30_000; // 30s hard cap so the UI never hangs
+const MAX_BYTES = 10 * 1024 * 1024;
 
-export const ImageUpload = ({ value, onChange, bucket = 'cms-media', folder = 'uploads' }: ImageUploadProps) => {
+export const ImageUpload = ({ value, onChange, folder = 'uploads' }: ImageUploadProps) => {
   const [uploading, setUploading] = useState(false);
-  const [progressLabel, setProgressLabel] = useState<string>('');
   const inputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   const reset = () => {
     setUploading(false);
-    setProgressLabel('');
     if (inputRef.current) inputRef.current.value = '';
   };
 
@@ -37,11 +35,10 @@ export const ImageUpload = ({ value, onChange, bucket = 'cms-media', folder = 'u
       reset();
       return;
     }
-
     if (file.size > MAX_BYTES) {
       toast({
         title: 'File too large',
-        description: `Max size is ${MAX_BYTES / 1024 / 1024}MB. Yours is ${(file.size / 1024 / 1024).toFixed(1)}MB.`,
+        description: `Max ${MAX_BYTES / 1024 / 1024}MB. Yours is ${(file.size / 1024 / 1024).toFixed(1)}MB.`,
         variant: 'destructive',
       });
       reset();
@@ -49,47 +46,13 @@ export const ImageUpload = ({ value, onChange, bucket = 'cms-media', folder = 'u
     }
 
     setUploading(true);
-    setProgressLabel('Checking session…');
-
     try {
-      const { data: sessionData, error: sessionError } = await withTimeout(
-        supabase.auth.getSession(),
-        5000,
-        'auth check',
-      );
-      if (sessionError) throw sessionError;
-      if (!sessionData.session) {
-        throw new Error('Your session expired. Please sign in to /admin again.');
-      }
-
-      setProgressLabel('Uploading…');
-      const ext = (file.name.split('.').pop() || 'bin').toLowerCase().replace(/[^a-z0-9]/g, '') || 'bin';
-      const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 9)}.${ext}`;
-
-      const { error: uploadError } = await withTimeout(
-        supabase.storage.from(bucket).upload(path, file, {
-          cacheControl: '3600',
-          upsert: false,
-          contentType: file.type || undefined,
-        }),
-        UPLOAD_TIMEOUT,
-        'upload',
-      );
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage.from(bucket).getPublicUrl(path);
-      onChange(publicUrl);
-      toast({ title: 'Image uploaded' });
-    } catch (error: any) {
-      console.error('[ImageUpload] failed:', error);
-      const msg = error?.message || 'Unknown error';
-      toast({
-        title: 'Upload failed',
-        description: msg.includes('row-level security')
-          ? 'Permission denied. Make sure you are signed in as an admin.'
-          : msg,
-        variant: 'destructive',
-      });
+      const result = await uploadToCloudinary(file, folder);
+      onChange(result.url);
+      toast({ title: 'Image uploaded to Cloudinary' });
+    } catch (err: any) {
+      console.error('[ImageUpload] failed:', err);
+      toast({ title: 'Upload failed', description: err?.message || 'Unknown error', variant: 'destructive' });
     } finally {
       reset();
     }
@@ -122,20 +85,15 @@ export const ImageUpload = ({ value, onChange, bucket = 'cms-media', folder = 'u
         />
         {uploading ? (
           <span className="text-sm text-muted-foreground inline-flex items-center gap-2">
-            <Loader2 className="h-4 w-4 animate-spin" /> {progressLabel || 'Uploading…'}
+            <Loader2 className="h-4 w-4 animate-spin" /> Uploading…
           </span>
         ) : value ? (
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={() => inputRef.current?.click()}
-          >
+          <Button type="button" variant="ghost" size="sm" onClick={() => inputRef.current?.click()}>
             <Upload className="h-4 w-4 mr-2" /> Replace
           </Button>
         ) : null}
       </div>
-      <p className="text-xs text-muted-foreground">PNG, JPG, WebP, GIF up to 10MB.</p>
+      <p className="text-xs text-muted-foreground">PNG, JPG, WebP, GIF up to 10MB. Stored on Cloudinary.</p>
     </div>
   );
 };
