@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import {
   Settings, Users, Image, Calendar, BookOpen, Megaphone, FileText,
   LayoutDashboard, LogOut, Navigation, Handshake, MessageSquare, Menu, X, UserPlus,
-  FileStack, Layers, FolderOpen
+  FileStack, Layers, FolderOpen, CloudUpload
 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -19,6 +19,7 @@ const navItems = [
   { label: 'Pages', path: '/admin/pages', icon: FileStack },
   { label: 'Sections', path: '/admin/sections', icon: Layers },
   { label: 'Media Library', path: '/admin/media', icon: FolderOpen },
+  { label: 'Cloudinary Migration', path: '/admin/cloudinary', icon: CloudUpload },
   { label: 'Partners', path: '/admin/partners', icon: Handshake },
   { label: 'Team Members', path: '/admin/team', icon: Users },
   { label: 'Gallery', path: '/admin/gallery', icon: Image },
