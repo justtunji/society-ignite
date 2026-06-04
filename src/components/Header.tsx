@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import sbaLogo from "@/assets/logos/sba-logo.png";
+import { cldUrl } from "@/lib/cloudinary";
 
 interface NavigationItem {
   id: string;
