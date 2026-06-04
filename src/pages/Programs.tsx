@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowRight, Calendar, MapPin, Filter } from "lucide-react";
 import { supabase } from '@/integrations/supabase/client';
+import { cldUrl, cldSrcSet } from '@/lib/cloudinary';
 import sbaLogo from "@/assets/logos/sba-logo.png";
 
 interface Program {
