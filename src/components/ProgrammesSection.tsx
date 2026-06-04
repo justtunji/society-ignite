@@ -20,7 +20,7 @@ export const ProgrammesSection = () => {
     const fetchProgram = async () => {
       const { data } = await supabase
         .from('programs')
-        .select('id, title, short_description, hero_image_url')
+        .select('id, title, short_description, hero_image_url, updated_at')
         .eq('status', 'active')
         .order('created_at', { ascending: false })
         .limit(1)
