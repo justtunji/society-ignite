@@ -240,8 +240,12 @@ const About = () => {
                     <div className="relative aspect-square overflow-hidden rounded-lg mb-4 bg-muted">
                       {member.image_url ? (
                         <img
-                          src={member.image_url}
+                          src={cldUrl(member.image_url, { w: 600, c: 'fill', bust: member.updated_at })}
+                          srcSet={cldSrcSet(member.image_url, [400, 600, 900], { c: 'fill', bust: member.updated_at })}
+                          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                           alt={member.name}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
