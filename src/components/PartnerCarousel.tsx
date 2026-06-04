@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { cldUrl, cldSrcSet } from '@/lib/cloudinary';
 
 interface Partner {
   id: string;
@@ -68,10 +69,13 @@ export const PartnerCarousel = ({ speed = 60, pauseOnHover = true }: PartnerCaro
                   >
                     {partner.logo_url ? (
                       <img
-                        src={partner.logo_url}
+                        src={cldUrl(partner.logo_url, { h: 96, c: 'fit' })}
+                        srcSet={cldSrcSet(partner.logo_url, [96, 192, 288], { c: 'fit' })}
+                        sizes="160px"
                         alt={partner.name}
                         className="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
                         loading="lazy"
+                        decoding="async"
                       />
                     ) : (
                       <span className="text-foreground font-medium">{partner.name}</span>
@@ -80,10 +84,13 @@ export const PartnerCarousel = ({ speed = 60, pauseOnHover = true }: PartnerCaro
                 ) : (
                   partner.logo_url ? (
                     <img
-                      src={partner.logo_url}
+                      src={cldUrl(partner.logo_url, { h: 96, c: 'fit' })}
+                      srcSet={cldSrcSet(partner.logo_url, [96, 192, 288], { c: 'fit' })}
+                      sizes="160px"
                       alt={partner.name}
                       className="h-10 md:h-12 w-auto object-contain opacity-70"
                       loading="lazy"
+                      decoding="async"
                     />
                   ) : (
                     <span className="text-foreground font-medium">{partner.name}</span>
