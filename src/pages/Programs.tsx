@@ -126,10 +126,13 @@ const Programs = () => {
                   {program.hero_image_url && (
                     <div className="aspect-video overflow-hidden rounded-t-lg">
                       <img
-                        src={program.hero_image_url}
+                        src={cldUrl(program.hero_image_url, { w: 800, c: 'fill', bust: program.updated_at })}
+                        srcSet={cldSrcSet(program.hero_image_url, [400, 800, 1200], { c: 'fill', bust: program.updated_at })}
+                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                         alt={program.title}
                         className="w-full h-full object-cover"
                         loading="lazy"
+                        decoding="async"
                       />
                     </div>
                   )}
