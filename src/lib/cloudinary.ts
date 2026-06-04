@@ -93,17 +93,38 @@ export interface CldOptions {
  */
 export function cldUrl(url: string | null | undefined, opts: CldOptions = {}): string {
   if (!url) return '';
-  if (!url.includes('res.cloudinary.com') || !url.includes('/upload/')) return url;
 
-  const parts: string[] = [];
-  parts.push(`f_${opts.f ?? 'auto'}`);
-  parts.push(`q_${opts.q ?? 'auto'}`);
-  if (opts.w) parts.push(`w_${opts.w}`);
-  if (opts.h) parts.push(`h_${opts.h}`);
-  if (opts.c) parts.push(`c_${opts.c}`);
-  parts.push(`dpr_${opts.dpr ?? 'auto'}`);
-  const transform = parts.join(',');
+  // Cloudinary URL: inject transformations.
+  if (url.includes('res.cloudinary.com') && url.includes('/upload/')) {
+    const parts: string[] = [];
+    parts.push(`f_${opts.f ?? 'auto'}`);
+    parts.push(`q_${opts.q ?? 'auto'}`);
+    if (opts.w) parts.push(`w_${opts.w}`);
+    if (opts.h) parts.push(`h_${opts.h}`);
+    if (opts.c) parts.push(`c_${opts.c}`);
+    parts.push(`dpr_${opts.dpr ?? 'auto'}`);
+    const transform = parts.join(',');
+    return url.replace(/\/upload\/(?:[^/]+\/)?(v\d+\/|)/, `/upload/${transform}/$1`);
+  }
 
-  // Strip any existing transformation segment between /upload/ and the version (vNNN) or path.
-  return url.replace(/\/upload\/(?:[^/]+\/)?(v\d+\/|)/, `/upload/${transform}/$1`);
+  // Supabase Storage public object URL: rewrite to the render endpoint for on-the-fly resize.
+  // /storage/v1/object/public/<bucket>/<path> -> /storage/v1/render/image/public/<bucket>/<path>?...
+  const supaMatch = url.match(/\/storage\/v1\/object\/public\//);
+  if (supaMatch && (opts.w || opts.h)) {
+    const rendered = url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/');
+    const params = new URLSearchParams();
+    if (opts.w) params.set('width', String(opts.w));
+    if (opts.h) params.set('height', String(opts.h));
+    params.set('quality', String(typeof opts.q === 'number' ? opts.q : 75));
+    if (opts.c === 'fill' || opts.c === 'fit') params.set('resize', opts.c === 'fill' ? 'cover' : 'contain');
+    return `${rendered}?${params.toString()}`;
+  }
+
+  return url;
+}
+
+/** Build a srcset string of widths for responsive `<img srcset>`. */
+export function cldSrcSet(url: string | null | undefined, widths: number[], opts: Omit<CldOptions, 'w'> = {}): string | undefined {
+  if (!url) return undefined;
+  return widths.map(w => `${cldUrl(url, { ...opts, w })} ${w}w`).join(', ');
 }

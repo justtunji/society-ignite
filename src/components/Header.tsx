@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import sbaLogo from "@/assets/logos/sba-logo.png";
+import { cldUrl } from "@/lib/cloudinary";
 
 interface NavigationItem {
   id: string;
@@ -59,8 +60,10 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
           {/* Logo */}
           <a href="/" className="flex-shrink-0">
             <img 
-              src={logoUrl || sbaLogo} 
+              src={logoUrl ? cldUrl(logoUrl, { h: 80, c: 'fit' }) : sbaLogo} 
               alt={siteName}
+              fetchPriority="high"
+              decoding="async"
               className={cn(
                 "h-10 w-auto transition-all duration-300",
                 !isScrolled && "brightness-0 invert"

@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from '@/integrations/supabase/client';
 import galleryHero from "@/assets/images/gallery-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
+import { cldUrl, cldSrcSet } from '@/lib/cloudinary';
 
 interface GalleryItem {
   id: string;
@@ -305,7 +306,8 @@ const Gallery = () => {
                       className="group relative block w-full overflow-hidden rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                     >
                       <img
-                        src={image.image_url}
+                        src={cldUrl(image.image_url, { w: 800, c: 'fit' })}
+                        srcSet={cldSrcSet(image.image_url, [400, 640, 800, 1200], { c: 'fit' })}
                         alt={image.title}
                         loading={i < 4 ? 'eager' : 'lazy'}
                         decoding="async"
@@ -363,8 +365,11 @@ const Gallery = () => {
                   <div className="flex items-center justify-center min-h-[80vh] p-6 md:p-10">
                     <div className="w-full max-w-6xl">
                       <img
-                        src={selected.image_url}
+                        src={cldUrl(selected.image_url, { w: 1600, c: 'fit' })}
+                        srcSet={cldSrcSet(selected.image_url, [800, 1200, 1600, 2000], { c: 'fit' })}
+                        sizes="90vw"
                         alt={selected.title}
+                        decoding="async"
                         className="w-full h-auto max-h-[75vh] object-contain"
                       />
                       <div className="mt-5 text-center text-white space-y-1">

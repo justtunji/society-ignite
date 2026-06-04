@@ -18,6 +18,9 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
         <img 
           src={heroImage} 
           alt="Society of Black Academics"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
           className="w-full h-full object-cover opacity-30"
         />
         <div className="absolute inset-0 bg-primary/80"></div>
@@ -37,6 +40,9 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
                 <img 
                   src={heroImage} 
                   alt="Black Academics Community"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 />
               </div>

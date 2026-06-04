@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { supabase } from '@/integrations/supabase/client';
 import sbaImage1 from "@/assets/images/gallery/sba-event-3.jpeg";
+import { cldUrl, cldSrcSet } from '@/lib/cloudinary';
 
 interface Program {
   id: string;
