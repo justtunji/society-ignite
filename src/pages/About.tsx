@@ -19,6 +19,7 @@ interface TeamMember {
   twitter_url: string | null;
   is_featured: boolean | null;
   order_index: number | null;
+  updated_at?: string | null;
 }
 
 const About = () => {
