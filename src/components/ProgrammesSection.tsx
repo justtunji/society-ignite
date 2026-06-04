@@ -10,6 +10,7 @@ interface Program {
   title: string;
   short_description: string | null;
   hero_image_url: string | null;
+  updated_at?: string | null;
 }
 
 export const ProgrammesSection = () => {
