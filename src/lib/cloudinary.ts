@@ -85,11 +85,19 @@ export interface CldOptions {
   f?: 'auto' | string;
   c?: 'fill' | 'fit' | 'limit' | 'thumb' | 'scale';
   dpr?: 'auto' | number;
+  /** Cache-bust value appended as `?_v=...`. Pass row.updated_at or any version token. */
+  bust?: string | number | null;
+}
+
+function withBust(url: string, bust?: string | number | null): string {
+  if (!bust) return url;
+  const token = encodeURIComponent(String(bust));
+  return url.includes('?') ? `${url}&_v=${token}` : `${url}?_v=${token}`;
 }
 
 /**
  * Inject Cloudinary transformations into a delivery URL.
- * Returns the input untouched if it's not a Cloudinary URL.
+ * Returns the input untouched (except for cache-bust) if it's not a Cloudinary URL.
  */
 export function cldUrl(url: string | null | undefined, opts: CldOptions = {}): string {
   if (!url) return '';
@@ -104,11 +112,11 @@ export function cldUrl(url: string | null | undefined, opts: CldOptions = {}): s
     if (opts.c) parts.push(`c_${opts.c}`);
     parts.push(`dpr_${opts.dpr ?? 'auto'}`);
     const transform = parts.join(',');
-    return url.replace(/\/upload\/(?:[^/]+\/)?(v\d+\/|)/, `/upload/${transform}/$1`);
+    const rewritten = url.replace(/\/upload\/(?:[^/]+\/)?(v\d+\/|)/, `/upload/${transform}/$1`);
+    return withBust(rewritten, opts.bust);
   }
 
   // Supabase Storage public object URL: rewrite to the render endpoint for on-the-fly resize.
-  // /storage/v1/object/public/<bucket>/<path> -> /storage/v1/render/image/public/<bucket>/<path>?...
   const supaMatch = url.match(/\/storage\/v1\/object\/public\//);
   if (supaMatch && (opts.w || opts.h)) {
     const rendered = url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/');
@@ -117,10 +125,11 @@ export function cldUrl(url: string | null | undefined, opts: CldOptions = {}): s
     if (opts.h) params.set('height', String(opts.h));
     params.set('quality', String(typeof opts.q === 'number' ? opts.q : 75));
     if (opts.c === 'fill' || opts.c === 'fit') params.set('resize', opts.c === 'fill' ? 'cover' : 'contain');
+    if (opts.bust) params.set('_v', String(opts.bust));
     return `${rendered}?${params.toString()}`;
   }
 
-  return url;
+  return withBust(url, opts.bust);
 }
 
 /** Build a srcset string of widths for responsive `<img srcset>`. */
@@ -128,3 +137,4 @@ export function cldSrcSet(url: string | null | undefined, widths: number[], opts
   if (!url) return undefined;
   return widths.map(w => `${cldUrl(url, { ...opts, w })} ${w}w`).join(', ');
 }
+
