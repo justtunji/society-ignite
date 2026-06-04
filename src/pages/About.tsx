@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Handshake, ArrowRight } from "lucide-react";
 import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
 import { supabase } from '@/integrations/supabase/client';
+import { cldUrl, cldSrcSet } from '@/lib/cloudinary';
 import aboutHero from "@/assets/images/about-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 
