@@ -26,6 +26,7 @@ interface Program {
   status: string | null;
   application_url: string | null;
   eligibility: string | null;
+  updated_at?: string | null;
 }
 
 const Programs = () => {
