@@ -41,8 +41,12 @@ export const ProgrammesSection = () => {
           {/* Left - Images */}
           <div className="relative bg-muted min-h-[400px] lg:min-h-[600px] flex items-center justify-center">
             <img 
-              src={imageUrl}
+              src={cldUrl(imageUrl, { w: 1200, c: 'fit', bust: program?.updated_at })}
+              srcSet={cldSrcSet(imageUrl, [600, 1200, 1600], { c: 'fit', bust: program?.updated_at })}
+              sizes="(min-width: 1024px) 50vw, 100vw"
               alt={program?.title || "SBA Programme"}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-contain"
             />
           </div>
