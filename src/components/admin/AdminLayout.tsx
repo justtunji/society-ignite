@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import {
   Settings, Users, Image, Calendar, BookOpen, Megaphone, FileText,
   LayoutDashboard, LogOut, Navigation, Handshake, MessageSquare, Menu, X, UserPlus,
-  FileStack, Layers, FolderOpen, CloudUpload
+  FileStack, Layers, FolderOpen, CloudUpload, Shield
 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
