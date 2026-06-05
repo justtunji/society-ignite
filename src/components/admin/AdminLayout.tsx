@@ -36,22 +36,24 @@ const navItems: NavItem[] = [
 ];
 
 const AdminLayout = () => {
-  const { user, isAdmin, loading, signOut } = useAuth();
+  const { user, isAdmin, isStaff, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    if (!loading && (!user || !isAdmin)) {
+    if (!loading && (!user || !isStaff)) {
       navigate('/admin/login');
     }
-  }, [user, isAdmin, loading, navigate]);
+  }, [user, isStaff, loading, navigate]);
 
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center"><p>Loading...</p></div>;
   }
 
-  if (!user || !isAdmin) return null;
+  if (!user || !isStaff) return null;
+
+  const visibleNav = navItems.filter(item => !item.adminOnly || isAdmin);
 
   return (
     <div className="min-h-screen bg-muted/30 flex">
