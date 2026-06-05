@@ -34,6 +34,7 @@ const PagesAdmin = lazy(() => import("./pages/admin/PagesAdmin"));
 const SectionsAdmin = lazy(() => import("./pages/admin/SectionsAdmin"));
 const MediaAdmin = lazy(() => import("./pages/admin/MediaAdmin"));
 const CloudinaryMigrateAdmin = lazy(() => import("./pages/admin/CloudinaryMigrateAdmin"));
+const UsersAdmin = lazy(() => import("./pages/admin/UsersAdmin"));
 
 const queryClient = new QueryClient();
 
