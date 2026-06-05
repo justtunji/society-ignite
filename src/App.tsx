@@ -77,6 +77,7 @@ const App = () => (
               <Route path="sections" element={<SectionsAdmin />} />
               <Route path="media" element={<MediaAdmin />} />
               <Route path="cloudinary" element={<CloudinaryMigrateAdmin />} />
+              <Route path="users" element={<UsersAdmin />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
