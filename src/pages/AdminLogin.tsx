@@ -23,17 +23,16 @@ const AdminLogin = () => {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
 
-      // Check if user has admin role
+      // Check if user has admin or editor role
       const { data: roleData, error: roleError } = await supabase
         .from('user_roles')
         .select('role')
         .eq('user_id', data.user.id)
-        .eq('role', 'admin')
-        .maybeSingle();
+        .in('role', ['admin', 'editor']);
 
-      if (roleError || !roleData) {
+      if (roleError || !roleData || roleData.length === 0) {
         await supabase.auth.signOut();
-        toast({ title: 'Access denied', description: 'You do not have admin privileges.', variant: 'destructive' });
+        toast({ title: 'Access denied', description: 'You do not have CMS access.', variant: 'destructive' });
         return;
       }
 
