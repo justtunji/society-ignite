@@ -1,1 +1,10 @@
 project_id = "fcriintgtieznxcanxnp"
+
+[functions.admin-users]
+verify_jwt = false
+
+[functions.cloudinary-sign]
+verify_jwt = false
+
+[functions.cloudinary-migrate]
+verify_jwt = false
