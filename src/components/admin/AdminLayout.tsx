@@ -12,14 +12,16 @@ import { cn } from '@/lib/utils';
 import sbaLogo from '@/assets/logos/sba-logo.png';
 import { AdminErrorReport } from '@/components/admin/AdminErrorReport';
 
-const navItems = [
+type NavItem = { label: string; path: string; icon: any; adminOnly?: boolean };
+const navItems: NavItem[] = [
   { label: 'Dashboard', path: '/admin', icon: LayoutDashboard },
-  { label: 'Site Settings', path: '/admin/site-settings', icon: Settings },
+  { label: 'Site Settings', path: '/admin/site-settings', icon: Settings, adminOnly: true },
+  { label: 'Team Access', path: '/admin/users', icon: Shield, adminOnly: true },
   { label: 'Navigation', path: '/admin/navigation', icon: Navigation },
   { label: 'Pages', path: '/admin/pages', icon: FileStack },
   { label: 'Sections', path: '/admin/sections', icon: Layers },
   { label: 'Media Library', path: '/admin/media', icon: FolderOpen },
-  { label: 'Cloudinary Migration', path: '/admin/cloudinary', icon: CloudUpload },
+  { label: 'Cloudinary Migration', path: '/admin/cloudinary', icon: CloudUpload, adminOnly: true },
   { label: 'Partners', path: '/admin/partners', icon: Handshake },
   { label: 'Team Members', path: '/admin/team', icon: Users },
   { label: 'Gallery', path: '/admin/gallery', icon: Image },
@@ -29,8 +31,8 @@ const navItems = [
   { label: 'Resources', path: '/admin/resources', icon: FileText },
   { label: 'Stories', path: '/admin/stories', icon: MessageSquare },
   { label: 'Communities', path: '/admin/communities', icon: Users },
-  { label: 'Members', path: '/admin/members', icon: UserPlus },
-  { label: 'Contact Submissions', path: '/admin/contacts', icon: MessageSquare },
+  { label: 'Members', path: '/admin/members', icon: UserPlus, adminOnly: true },
+  { label: 'Contact Submissions', path: '/admin/contacts', icon: MessageSquare, adminOnly: true },
 ];
 
 const AdminLayout = () => {
