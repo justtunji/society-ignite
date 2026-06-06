@@ -19,10 +19,13 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   try {
-    const cloudName = Deno.env.get("CLOUDINARY_CLOUD_NAME");
+    const configuredCloudName = Deno.env.get("CLOUDINARY_CLOUD_NAME")?.trim();
+    const cloudName = !configuredCloudName || configuredCloudName.toLowerCase() === "sba"
+      ? "deaxltomx"
+      : configuredCloudName;
     const apiKey = Deno.env.get("CLOUDINARY_API_KEY");
     const apiSecret = Deno.env.get("CLOUDINARY_API_SECRET");
-    if (!cloudName || !apiKey || !apiSecret) {
+    if (!apiKey || !apiSecret) {
       return new Response(JSON.stringify({ error: "Cloudinary env vars not set" }), {
         status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
