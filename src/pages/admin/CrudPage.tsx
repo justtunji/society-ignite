@@ -74,7 +74,7 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
       setEditingItem(null);
       const defaults: any = {};
       fields.forEach(f => {
-        defaults[f.name] = f.defaultValue ?? (f.type === 'boolean' ? false : '');
+        defaults[f.name] = f.defaultValue ?? (f.type === 'boolean' ? false : f.type === 'tags' ? [] : '');
       });
       setFormData(defaults);
     }
@@ -93,6 +93,15 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
     if (!editingItem) delete payload.id;
     delete payload.created_at;
     delete payload.updated_at;
+    fields.forEach((field) => {
+      if (field.type !== 'tags') return;
+      const value = payload[field.name];
+      payload[field.name] = Array.isArray(value)
+        ? value.map((tag: string) => String(tag).trim()).filter(Boolean)
+        : typeof value === 'string'
+          ? value.split(',').map((tag) => tag.trim()).filter(Boolean)
+          : [];
+    });
 
     setSaving(true);
     try {
