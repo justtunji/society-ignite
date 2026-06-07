@@ -31,7 +31,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Verify admin
+    // Verify staff user (admin or editor)
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
@@ -54,9 +54,9 @@ Deno.serve(async (req) => {
       .from("user_roles")
       .select("role")
       .eq("user_id", userData.user.id)
-      .eq("role", "admin");
+      .in("role", ["admin", "editor"]);
     if (!roles || roles.length === 0) {
-      return new Response(JSON.stringify({ error: "Admin only" }), {
+      return new Response(JSON.stringify({ error: "Admin or editor only" }), {
         status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }

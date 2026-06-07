@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
-import sbaImage from "@/assets/images/gallery/sba-event-3.jpeg";
+import conferenceFlyer from "@/assets/sba-2026-conference.jpeg.asset.json";
 
 export const ConferenceSection = () => {
   return (
@@ -9,9 +9,9 @@ export const ConferenceSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="relative">
             <img
-              src={sbaImage}
+              src={conferenceFlyer.url}
               alt="SBA 2026 Annual Conference"
-              className="w-full h-auto rounded-2xl shadow-xl object-cover aspect-[4/3]"
+              className="w-full aspect-square rounded-2xl shadow-xl object-contain bg-background border border-border/40"
             />
             <div className="absolute -bottom-6 -right-6 bg-accent text-accent-foreground rounded-2xl px-6 py-4 shadow-lg hidden md:block">
               <p className="text-sm font-semibold uppercase tracking-wider">Save the date</p>
