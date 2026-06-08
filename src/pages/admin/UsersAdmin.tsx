@@ -356,6 +356,86 @@ export default function UsersAdmin() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <Dialog open={!!permsTarget} onOpenChange={(o) => !o && !permsSaving && setPermsTarget(null)}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Permissions — {permsTarget?.email}</DialogTitle>
+            <DialogDescription>
+              Grant per-module access. Read is required for the section to appear in the sidebar.
+              Admins always have full access regardless of these settings.
+            </DialogDescription>
+          </DialogHeader>
+
+          {permsLoading ? (
+            <div className="flex items-center justify-center py-10 text-muted-foreground">
+              <Loader2 className="w-5 h-5 mr-2 animate-spin" /> Loading permissions…
+            </div>
+          ) : (
+            <>
+              <div className="flex flex-wrap gap-2 py-3">
+                <span className="text-sm text-muted-foreground mr-2 self-center">Apply to all:</span>
+                <Button variant="outline" size="sm" onClick={() => applyAllPreset('none')}>No access</Button>
+                <Button variant="outline" size="sm" onClick={() => applyAllPreset('read')}>Read only</Button>
+                <Button variant="outline" size="sm" onClick={() => applyAllPreset('editor')}>Editor (C/R/U)</Button>
+                <Button variant="outline" size="sm" onClick={() => applyAllPreset('full')}>Full (C/R/U/D)</Button>
+              </div>
+
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Module</TableHead>
+                      <TableHead className="text-center w-20">Read</TableHead>
+                      <TableHead className="text-center w-20">Create</TableHead>
+                      <TableHead className="text-center w-20">Update</TableHead>
+                      <TableHead className="text-center w-20">Delete</TableHead>
+                      <TableHead className="text-right w-40">Quick set</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {ADMIN_MODULES.map(m => {
+                      const p = permsMap[m.key] ?? { can_create: false, can_read: false, can_update: false, can_delete: false };
+                      return (
+                        <TableRow key={m.key}>
+                          <TableCell className="font-medium">{m.label}</TableCell>
+                          <TableCell className="text-center">
+                            <Checkbox checked={p.can_read} onCheckedChange={(v) => togglePerm(m.key, 'read', !!v)} />
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <Checkbox checked={p.can_create} onCheckedChange={(v) => togglePerm(m.key, 'create', !!v)} />
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <Checkbox checked={p.can_update} onCheckedChange={(v) => togglePerm(m.key, 'update', !!v)} />
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <Checkbox checked={p.can_delete} onCheckedChange={(v) => togglePerm(m.key, 'delete', !!v)} />
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <div className="inline-flex gap-1">
+                              <Button size="sm" variant="ghost" onClick={() => setRowPreset(m.key, 'none')}>None</Button>
+                              <Button size="sm" variant="ghost" onClick={() => setRowPreset(m.key, 'read')}>R</Button>
+                              <Button size="sm" variant="ghost" onClick={() => setRowPreset(m.key, 'full')}>All</Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
+            </>
+          )}
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setPermsTarget(null)} disabled={permsSaving}>Cancel</Button>
+            <Button onClick={savePermissions} disabled={permsSaving || permsLoading}>
+              {permsSaving && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+              Save permissions
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
