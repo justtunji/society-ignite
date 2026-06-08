@@ -21,6 +21,7 @@ const ALL: ModulePermissions = {
 
 export const ADMIN_MODULES = [
   { key: 'pages',         label: 'Pages (builder)' },
+  { key: 'sections',      label: 'Site Sections' },
   { key: 'partners',      label: 'Partners' },
   { key: 'team',          label: 'Team Members' },
   { key: 'gallery',       label: 'Gallery' },
