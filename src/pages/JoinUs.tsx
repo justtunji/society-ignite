@@ -212,25 +212,26 @@ const JoinUs = () => {
         )}
 
         {/* Benefits Section */}
-        <section className="py-20 lg:py-32 bg-background">
-          <div className="container-wide">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div>
-                <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Why Join</h4>
-                <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-8">
-                  Benefits of SBA Membership
-                </h2>
-                <div className="space-y-6">
-                  {benefits.map((benefit, index) => (
-                    <div key={index} className="flex items-start gap-4">
-                      <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 mt-1">
-                        <Check className="h-4 w-4 text-accent" />
+        {why && (
+          <section className="py-20 lg:py-32 bg-background">
+            <div className="container-wide">
+              <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                  <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">{why.eyebrow}</h4>
+                  <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-8">
+                    {why.headline}
+                  </h2>
+                  <div className="space-y-6">
+                    {[why.benefit_1, why.benefit_2, why.benefit_3, why.benefit_4].filter(Boolean).map((benefit, index) => (
+                      <div key={index} className="flex items-start gap-4">
+                        <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 mt-1">
+                          <Check className="h-4 w-4 text-accent" />
+                        </div>
+                        <p className="text-muted-foreground text-lg">{benefit}</p>
                       </div>
-                      <p className="text-muted-foreground text-lg">{benefit}</p>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
               
               <div className="lg:hidden flex justify-center">
                 <img 
