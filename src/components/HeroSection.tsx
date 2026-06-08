@@ -20,7 +20,7 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
           src={heroImage} 
           alt="Society of Black Academics"
           loading="eager"
-          fetchPriority="high"
+          fetchpriority="high"
           decoding="async"
           className="w-full h-full object-cover opacity-30"
         />
@@ -42,7 +42,7 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
                   src={heroImage} 
                   alt="Black Academics Community"
                   loading="eager"
-                  fetchPriority="high"
+                  fetchpriority="high"
                   decoding="async"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 />
