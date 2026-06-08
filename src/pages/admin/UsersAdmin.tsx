@@ -300,7 +300,11 @@ export default function UsersAdmin() {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="inline-flex gap-2">
-                          <Button variant="outline" size="sm" onClick={() => setResetTarget(u)}>
+                          <Button variant="outline" size="sm" onClick={() => openPermissions(u)} title="Permissions"
+                            disabled={u.roles.includes('admin')}>
+                            <ShieldCheck className="w-4 h-4" />
+                          </Button>
+                          <Button variant="outline" size="sm" onClick={() => setResetTarget(u)} title="Reset password">
                             <KeyRound className="w-4 h-4" />
                           </Button>
                           <AlertDialog>
