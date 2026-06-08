@@ -34,6 +34,7 @@ export function buildTokensCSS(t: DesignTokens): string {
   css += cssVar('font-body', t.font_body ? `'${t.font_body}', sans-serif` : '');
   css += cssVar('font-button', t.font_button ? `'${t.font_button}', sans-serif` : '');
   css += cssVar('font-caption', t.font_caption ? `'${t.font_caption}', sans-serif` : '');
+  css += cssVar('font-eyebrow', t.font_eyebrow ? `'${t.font_eyebrow}', sans-serif` : '');
 
   for (const h of ['h1','h2','h3','h4','h5','h6']) {
     css += cssVar(`${h}-size`, t[`${h}_size`]);
@@ -42,7 +43,7 @@ export function buildTokensCSS(t: DesignTokens): string {
     css += cssVar(`${h}-letter-spacing`, t[`${h}_letter_spacing`]);
     css += cssVar(`${h}-color`, t[`${h}_color`]);
   }
-  for (const k of ['headline','body','button','caption']) {
+  for (const k of ['headline','body','button','caption','eyebrow']) {
     css += cssVar(`${k}-size`, t[`${k}_size`]);
     css += cssVar(`${k}-weight`, t[`${k}_weight`]);
     css += cssVar(`${k}-line-height`, t[`${k}_line_height`]);
