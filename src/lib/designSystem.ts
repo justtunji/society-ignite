@@ -110,6 +110,18 @@ export function buildTokensCSS(t: DesignTokens): string {
   return css;
 }
 
+// Aliases map well-known section keys to richer CSS selectors so admins can
+// style header, footer, nav, cards, forms, and buttons without touching code.
+// Scoped to `body:not(:has([data-admin]))` so admin UI is never restyled.
+const SECTION_SELECTOR_ALIASES: Record<string, string> = {
+  header: '[data-section="header"], body:not(:has([data-admin])) header',
+  footer: '[data-section="footer"], body:not(:has([data-admin])) footer',
+  navigation: '[data-section="navigation"], [data-section="navigation-mobile"], body:not(:has([data-admin])) nav',
+  card: 'body:not(:has([data-admin])) .rounded-lg.border.bg-card, [data-section="card"]',
+  form: 'body:not(:has([data-admin])) form, [data-section="form"]',
+  button: 'body:not(:has([data-admin])) button:not([data-admin] button), [data-section="button"]',
+};
+
 export function buildSectionsCSS(rows: SectionStyle[]): string {
   let css = '';
   for (const r of rows || []) {
@@ -124,7 +136,9 @@ export function buildSectionsCSS(rows: SectionStyle[]): string {
     if (r.text_align) parts.push(`text-align: ${r.text_align};`);
     if (r.max_width) parts.push(`max-width: ${r.max_width}; margin-left: auto; margin-right: auto;`);
     if (r.gap) parts.push(`gap: ${r.gap};`);
-    if (parts.length) css += `[data-section="${r.section_key}"] { ${parts.join(' ')} }\n`;
+    if (!parts.length) continue;
+    const selector = SECTION_SELECTOR_ALIASES[r.section_key] || `[data-section="${r.section_key}"]`;
+    css += `${selector} { ${parts.join(' ')} }\n`;
   }
   return css;
 }
