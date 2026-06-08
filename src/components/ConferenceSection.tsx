@@ -31,15 +31,18 @@ export const ConferenceSection = () => {
             {(() => {
               const src = c.image_url || conferenceFlyer.url;
               return (
-                <img
-                  src={cldUrl(src, { w: 1200, c: 'fit' })}
-                  srcSet={cldSrcSet(src, [600, 1200, 1600], { c: 'fit' })}
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  alt={c.headline}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full aspect-square rounded-2xl shadow-xl object-contain bg-background border border-border/40"
-                />
+                <div className="w-full aspect-square rounded-2xl shadow-xl bg-muted border border-border/40 overflow-hidden">
+                  <img
+                    src={cldUrl(src, { w: 1200, c: 'fit' })}
+                    srcSet={cldSrcSet(src, [600, 1200, 1600], { c: 'fit' })}
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    alt={c.headline}
+                    loading="eager"
+                    decoding="async"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = conferenceFlyer.url; }}
+                    className="w-full h-full object-contain bg-background"
+                  />
+                </div>
               );
             })()}
             {(c.badge_label || c.badge_value) && (
