@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Calendar, MapPin, ArrowRight } from "lucide-react";
-import conferenceFlyer from "@/assets/sba-2026-conference.jpeg.asset.json";
+import { Calendar, MapPin, ArrowRight, ImageIcon } from "lucide-react";
 import { useSectionContent } from "@/hooks/useSectionContent";
 import { cldUrl, cldSrcSet } from "@/lib/cloudinary";
 
