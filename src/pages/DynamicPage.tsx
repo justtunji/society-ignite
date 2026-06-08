@@ -3,6 +3,9 @@ import { useParams, Navigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import sbaLogo from '@/assets/logos/sba-logo.png';
+
+const SITE_NAME = 'Society of Black Academics';
 import PageBlockRenderer from '@/components/PageBlockRenderer';
 import type { PageBlock } from '@/lib/pageBlocks';
 
@@ -68,7 +71,7 @@ const DynamicPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Header />
+      <Header logoUrl={sbaLogo} siteName={SITE_NAME} />
       <main className="flex-1 pt-20 pb-16">
         {!hasHeroBlock && (
           <section className="container mx-auto px-4 pt-8 pb-4">
@@ -77,7 +80,7 @@ const DynamicPage = () => {
         )}
         <PageBlockRenderer blocks={blocks} />
       </main>
-      <Footer />
+      <Footer siteName={SITE_NAME} />
     </div>
   );
 };
