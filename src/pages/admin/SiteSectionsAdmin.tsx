@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '
 import { useToast } from '@/hooks/use-toast';
 import { usePermissions } from '@/hooks/usePermissions';
 import { ImageUpload } from '@/components/admin/ImageUpload';
+import { GalleryPicker } from '@/components/admin/GalleryPicker';
 import { Loader2, Pencil, Eye, EyeOff, RefreshCw } from 'lucide-react';
 
 type Row = {
