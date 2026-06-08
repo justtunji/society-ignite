@@ -219,6 +219,8 @@ const FieldEditor = ({ field, value, onChange }: { field: SectionField; value: a
         <ImageUpload value={value ?? ''} onChange={onChange} folder="sections" />
       ) : field.type === 'boolean' ? (
         <Switch checked={!!value} onCheckedChange={onChange} />
+      ) : field.type === 'datetime' ? (
+        <Input id={id} type="datetime-local" value={value ?? ''} onChange={e => onChange(e.target.value)} />
       ) : field.type === 'gallery_item' ? (
         <GalleryPicker mode="single" value={value ?? null} onChange={onChange} />
       ) : field.type === 'gallery_items' ? (
