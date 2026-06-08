@@ -9,6 +9,7 @@ import { CommunitiesSection } from "@/components/CommunitiesSection";
 import { ImpactSection } from "@/components/ImpactSection";
 import { NewsletterSection } from "@/components/NewsletterSection";
 import { Footer } from "@/components/Footer";
+import { SectionSeoTags } from "@/components/SectionSeoTags";
 import { supabase } from "@/integrations/supabase/client";
 
 interface SiteSettings {
@@ -70,6 +71,16 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <SectionSeoTags
+        pageUrl="/"
+        fallbackTitle={`${siteSettings.site_name} — Driving Inclusive Change in Higher Education`}
+        fallbackDescription={siteSettings.hero_subheadline}
+        sections={[
+          ['home', 'conference'],
+          ['home', 'programmes_intro'],
+          ['home', 'impact'],
+        ]}
+      />
       <Header 
         logoUrl={siteSettings.logo_url} 
         siteName={siteSettings.site_name}

@@ -36,6 +36,17 @@ const heroFields = (): SectionField[] => [
   { key: 'cta_url',     label: 'CTA URL',     type: 'url' },
 ];
 
+/** SEO override fields injected via react-helmet-async on the host page. */
+const seoFields = (): SectionField[] => [
+  { key: 'seo_title',       label: 'SEO — Page title override',  type: 'text',
+    help: 'When set, replaces the <title> for this page. First non-empty across sections wins.' },
+  { key: 'seo_description', label: 'SEO — Meta description',     type: 'textarea',
+    help: 'Used for <meta name="description"> and og:description.' },
+  { key: 'og_image',        label: 'SEO — Social share image',   type: 'image',
+    help: 'Image used for og:image when this page is shared.' },
+];
+const seoDefaults = { seo_title: '', seo_description: '', og_image: '' };
+
 // ---------- schemas ----------
 export const PAGE_SCHEMAS: PageSchema[] = [
   {
@@ -100,6 +111,7 @@ export const PAGE_SCHEMAS: PageSchema[] = [
           { key: 'primary_cta_url',   label: 'Primary CTA URL',   type: 'url' },
           { key: 'secondary_cta_label', label: 'Secondary CTA label', type: 'text' },
           { key: 'secondary_cta_url',   label: 'Secondary CTA URL',   type: 'url' },
+          ...seoFields(),
         ],
         defaults: {
           eyebrow: 'Upcoming Event',
@@ -114,6 +126,7 @@ export const PAGE_SCHEMAS: PageSchema[] = [
           primary_cta_url: '/join-us',
           secondary_cta_label: 'Get Updates',
           secondary_cta_url: '/contact',
+          ...seoDefaults,
         },
       },
       {
@@ -126,6 +139,7 @@ export const PAGE_SCHEMAS: PageSchema[] = [
           { key: 'cta_label', label: 'Button label', type: 'text' },
           { key: 'cta_url',   label: 'Button URL',   type: 'url' },
           { key: 'image_url', label: 'Fallback image (if no featured programme)', type: 'image' },
+          ...seoFields(),
         ],
         defaults: {
           eyebrow: 'Our programmes',
@@ -133,6 +147,7 @@ export const PAGE_SCHEMAS: PageSchema[] = [
           cta_label: 'Learn more',
           cta_url: '/resources',
           image_url: '',
+          ...seoDefaults,
         },
       },
       {
@@ -149,6 +164,7 @@ export const PAGE_SCHEMAS: PageSchema[] = [
           { key: 'stat_3_number', label: 'Stat 3 — number', type: 'text' },
           { key: 'stat_3_label',  label: 'Stat 3 — label',  type: 'textarea' },
           { key: 'image_url', label: 'Background image', type: 'image' },
+          ...seoFields(),
         ],
         defaults: {
           eyebrow: 'Our impact',
@@ -160,6 +176,7 @@ export const PAGE_SCHEMAS: PageSchema[] = [
           stat_3_number: '1000+',
           stat_3_label: 'Networking opportunities provided to community members across the UK and beyond.',
           image_url: '',
+          ...seoDefaults,
         },
       },
       {
@@ -338,10 +355,12 @@ export const PAGE_SCHEMAS: PageSchema[] = [
         ...heroFields(),
         { key: 'featured_item_id', label: 'Hero image from gallery (overrides Background image)', type: 'gallery_item',
           help: 'When set, the hero uses this gallery item\'s image instead of the uploaded background image.' },
+        ...seoFields(),
       ], defaults: {
         eyebrow: 'Our Moments', headline: 'Capturing Excellence.',
         subheadline: 'Explore moments from our conferences, workshops, and community gatherings.',
         image_url: '', cta_label: '', cta_url: '', featured_item_id: null,
+        ...seoDefaults,
       }},
       { key: 'past_events_intro', label: 'Past events intro',
         description: 'Heading above the photo grid. Use the curated list to pick exactly which photos appear, in order; leave it empty to show every visible gallery item.',

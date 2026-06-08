@@ -11,6 +11,7 @@ import galleryHero from "@/assets/images/gallery-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 import { cldUrl, cldSrcSet } from '@/lib/cloudinary';
 import { useSectionContent } from "@/hooks/useSectionContent";
+import { SectionSeoTags } from "@/components/SectionSeoTags";
 
 const HERO_DEFAULTS = {
   eyebrow: 'Our Moments',
@@ -62,16 +63,6 @@ const Gallery = () => {
   const lastTriggerRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
-    document.title = "Gallery | Society of Black Academics";
-    const desc = 'Photos from Society of Black Academics events, conferences, workshops, and community gatherings.';
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.setAttribute('name', 'description');
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute('content', desc);
-
     setLoading(true);
     supabase
       .from('gallery_items')
@@ -196,6 +187,12 @@ const Gallery = () => {
 
   return (
     <div className="min-h-screen">
+      <SectionSeoTags
+        pageUrl="/gallery"
+        fallbackTitle="Gallery | Society of Black Academics"
+        fallbackDescription="Photos from Society of Black Academics events, conferences, workshops, and community gatherings."
+        sections={[['gallery', 'hero']]}
+      />
       <a href="#gallery-grid" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-primary focus:text-primary-foreground focus:px-4 focus:py-2 focus:rounded">
         Skip to gallery
       </a>
