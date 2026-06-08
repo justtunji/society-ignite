@@ -176,37 +176,45 @@ const Gallery = () => {
 
       <main>
         {/* Hero */}
-        <section className="relative min-h-[70vh] flex items-center bg-primary">
-          <div className="absolute inset-0">
-            <img
-              src={galleryHero}
-              alt=""
-              aria-hidden="true"
-              className="w-full h-full object-cover opacity-30"
-              loading="eager"
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-primary/70" />
-          </div>
-          <div className="relative z-10 container-wide py-28">
-            <div className="max-w-3xl">
-              <p className="text-accent font-medium text-lg mb-4">Our Moments</p>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-primary-foreground mb-6">
-                Capturing Excellence.
-              </h1>
-              <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
-                Explore moments from our conferences, workshops, and community gatherings.
-              </p>
+        {hero && (
+          <section className="relative min-h-[70vh] flex items-center bg-primary">
+            <div className="absolute inset-0">
+              <img
+                src={hero.image_url || galleryHero}
+                alt=""
+                aria-hidden="true"
+                className="w-full h-full object-cover opacity-30"
+                loading="eager"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-primary/70" />
             </div>
-          </div>
-        </section>
+            <div className="relative z-10 container-wide py-28">
+              <div className="max-w-3xl">
+                {hero.eyebrow && <p className="text-accent font-medium text-lg mb-4">{hero.eyebrow}</p>}
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-primary-foreground mb-6">
+                  {hero.headline}
+                </h1>
+                {hero.subheadline && (
+                  <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
+                    {hero.subheadline}
+                  </p>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Gallery */}
         <section id="gallery-grid" className="py-16 lg:py-24 bg-background">
           <div className="container-wide">
-            <div className="text-center mb-10">
-              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-3">Gallery</h4>
-              <h2 className="text-3xl lg:text-5xl font-bold text-foreground">Photos from Past Events</h2>
-            </div>
+            {pastIntro && (
+              <div className="text-center mb-10">
+                {pastIntro.eyebrow && (
+                  <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-3">{pastIntro.eyebrow}</h4>
+                )}
+                <h2 className="text-3xl lg:text-5xl font-bold text-foreground">{pastIntro.headline}</h2>
+              </div>
+            )}
 
             {/* Search */}
             <div className="max-w-xl mx-auto mb-6">
