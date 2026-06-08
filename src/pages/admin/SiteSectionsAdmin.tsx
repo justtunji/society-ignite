@@ -127,8 +127,7 @@ const SiteSectionsAdmin = () => {
     setEditing({ pageKey: activePage, sectionKey });
     const initial = { ...schema.defaults, ...(row?.content ?? {}) };
     setForm(initial);
-    // Force iframe to refresh to the right route, then overrides replay on ready.
-    setIframeKey(k => k + 1);
+    // No iframe remount here — overrides replay on the existing iframe.
   };
 
   const onFieldChange = (key: string, v: any) => {
