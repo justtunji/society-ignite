@@ -220,6 +220,7 @@ const DesignAdmin = () => {
                   ['font_body','Body font'],
                   ['font_button','Buttons font (optional)'],
                   ['font_caption','Captions font (optional)'],
+                  ['font_eyebrow','Eyebrow font (optional)'],
                 ] as const).map(([k, label]) => (
                   <div key={k}>
                     <Label>{label}</Label>
