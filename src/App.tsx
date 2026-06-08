@@ -70,8 +70,11 @@ const App = () => (
               <Route path="members" element={<MembersAdmin />} />
               <Route path="contacts" element={<ContactsAdmin />} />
               <Route path="users" element={<UsersAdmin />} />
+              <Route path="pages" element={<PagesBuilder />} />
             </Route>
 
+            {/* Dynamic CMS pages — must come before the NotFound catch-all */}
+            <Route path="/:slug" element={<DynamicPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
