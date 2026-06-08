@@ -59,6 +59,8 @@ export const NewsletterSection = () => {
     }
   };
 
+  if (!c) return null;
+
   if (isSubscribed) {
     return (
       <section className="py-20 lg:py-32 bg-primary text-primary-foreground">
@@ -81,13 +83,10 @@ export const NewsletterSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left - Content */}
           <div>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Stay Connected
-            </h2>
-            <p className="text-primary-foreground/80 text-lg leading-relaxed">
-              Join our mailing list to receive updates on programmes, events, and resources designed to support Black academics in their journey.
-            </p>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">{c.headline}</h2>
+            <p className="text-primary-foreground/80 text-lg leading-relaxed">{c.subheadline}</p>
           </div>
+
           
           {/* Right - Form */}
           <div className="bg-primary-foreground/10 backdrop-blur-sm rounded-2xl p-8">
