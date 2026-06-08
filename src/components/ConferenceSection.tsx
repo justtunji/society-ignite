@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
 import conferenceFlyer from "@/assets/sba-2026-conference.jpeg.asset.json";
 import { useSectionContent } from "@/hooks/useSectionContent";
+import { cldUrl, cldSrcSet } from "@/lib/cloudinary";
 
 const DEFAULTS = {
   eyebrow: 'Upcoming Event',
@@ -27,11 +28,20 @@ export const ConferenceSection = () => {
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="relative">
-            <img
-              src={c.image_url || conferenceFlyer.url}
-              alt={c.headline}
-              className="w-full aspect-square rounded-2xl shadow-xl object-contain bg-background border border-border/40"
-            />
+            {(() => {
+              const src = c.image_url || conferenceFlyer.url;
+              return (
+                <img
+                  src={cldUrl(src, { w: 1200, c: 'fit' })}
+                  srcSet={cldSrcSet(src, [600, 1200, 1600], { c: 'fit' })}
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  alt={c.headline}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full aspect-square rounded-2xl shadow-xl object-contain bg-background border border-border/40"
+                />
+              );
+            })()}
             {(c.badge_label || c.badge_value) && (
               <div className="absolute -bottom-6 -right-6 bg-accent text-accent-foreground rounded-2xl px-6 py-4 shadow-lg hidden md:block">
                 {c.badge_label && <p className="text-sm font-semibold uppercase tracking-wider">{c.badge_label}</p>}
