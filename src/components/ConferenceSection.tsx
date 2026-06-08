@@ -49,7 +49,15 @@ export const ConferenceSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="relative">
             {(() => {
-              const src = c.image_url || conferenceFlyer.url;
+              const src = c.image_url;
+              if (!src) {
+                return (
+                  <div className="w-full aspect-square rounded-2xl shadow-xl bg-muted border border-border/40 flex flex-col items-center justify-center text-muted-foreground gap-2">
+                    <ImageIcon className="h-10 w-10 opacity-60" />
+                    <p className="text-sm">Event image coming soon</p>
+                  </div>
+                );
+              }
               return (
                 <div className="w-full aspect-square rounded-2xl shadow-xl bg-muted border border-border/40 overflow-hidden">
                   <img
@@ -59,7 +67,6 @@ export const ConferenceSection = () => {
                     alt={c.headline}
                     loading="eager"
                     decoding="async"
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = conferenceFlyer.url; }}
                     className="w-full h-full object-contain bg-background"
                   />
                 </div>
