@@ -19,7 +19,7 @@ const GOOGLE_FONTS = [
 ];
 
 const HEADING_KEYS = ['h1','h2','h3','h4','h5','h6'] as const;
-const TEXT_GROUPS = ['headline','body','button','caption'] as const;
+const TEXT_GROUPS = ['headline','body','button','caption','eyebrow'] as const;
 
 const COLOR_TOKENS = [
   ['color_background', 'Background'],
