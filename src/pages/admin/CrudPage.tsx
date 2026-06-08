@@ -93,14 +93,43 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
     if (!editingItem) delete payload.id;
     delete payload.created_at;
     delete payload.updated_at;
+    // Coerce form values to types the database expects. Empty strings on
+    // nullable date/number/array columns cause "invalid input syntax" or
+    // "malformed array literal" errors in Postgres.
     fields.forEach((field) => {
-      if (field.type !== 'tags') return;
       const value = payload[field.name];
-      payload[field.name] = Array.isArray(value)
-        ? value.map((tag: string) => String(tag).trim()).filter(Boolean)
-        : typeof value === 'string'
-          ? value.split(',').map((tag) => tag.trim()).filter(Boolean)
-          : [];
+      switch (field.type) {
+        case 'tags':
+          payload[field.name] = Array.isArray(value)
+            ? value.map((t: string) => String(t).trim()).filter(Boolean)
+            : typeof value === 'string'
+              ? value.split(',').map((t) => t.trim()).filter(Boolean)
+              : [];
+          break;
+        case 'number':
+          payload[field.name] =
+            value === '' || value === null || value === undefined ? null : Number(value);
+          break;
+        case 'date':
+          payload[field.name] = value === '' || value == null ? null : value;
+          break;
+        case 'datetime': {
+          if (value === '' || value == null) {
+            payload[field.name] = null;
+          } else {
+            const d = new Date(value);
+            payload[field.name] = isNaN(d.getTime()) ? null : d.toISOString();
+          }
+          break;
+        }
+        case 'boolean':
+          payload[field.name] = !!value;
+          break;
+        default:
+          // Text-like fields: convert empty strings to null when optional.
+          if (value === '' && !field.required) payload[field.name] = null;
+          break;
+      }
     });
 
     setSaving(true);
