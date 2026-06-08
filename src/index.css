@@ -170,6 +170,7 @@ Clean, minimal, academic aesthetic with generous whitespace
   body {
     @apply bg-background text-foreground font-normal antialiased;
     font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
