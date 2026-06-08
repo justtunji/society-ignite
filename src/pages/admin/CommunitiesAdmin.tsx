@@ -2,6 +2,7 @@ import CrudPage from './CrudPage';
 
 const CommunitiesAdmin = () => (
   <CrudPage
+    module="communities"
     title="Communities"
     tableName="communities"
     orderBy="order_index"

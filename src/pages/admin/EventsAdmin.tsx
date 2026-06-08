@@ -2,6 +2,7 @@ import CrudPage from './CrudPage';
 
 const EventsAdmin = () => (
   <CrudPage
+    module="events"
     title="Events"
     tableName="events"
     orderBy="start_datetime"

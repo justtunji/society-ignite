@@ -24,6 +24,7 @@ const ResourcesAdmin = () => {
   return (
     <>
       <CrudPage
+    module="resources"
         title="Resources"
         tableName="resources"
         orderBy="published_at"

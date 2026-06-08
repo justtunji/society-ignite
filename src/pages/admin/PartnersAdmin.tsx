@@ -2,6 +2,7 @@ import CrudPage from './CrudPage';
 
 const PartnersAdmin = () => (
   <CrudPage
+    module="partners"
     title="Partners"
     tableName="partners"
     orderBy="order_index"

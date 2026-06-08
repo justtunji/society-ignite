@@ -2,6 +2,7 @@ import CrudPage from './CrudPage';
 
 const TeamAdmin = () => (
   <CrudPage
+    module="team"
     title="Team Members"
     tableName="team_members"
     orderBy="order_index"
