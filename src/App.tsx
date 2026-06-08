@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import { DesignSystemProvider } from "@/components/DesignSystemProvider";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Resources from "./pages/Resources";
@@ -33,6 +34,7 @@ const UsersAdmin = lazy(() => import("./pages/admin/UsersAdmin"));
 const PagesBuilder = lazy(() => import("./pages/admin/PagesBuilder"));
 const SiteSectionsAdmin = lazy(() => import("./pages/admin/SiteSectionsAdmin"));
 const NavigationAdmin = lazy(() => import("./pages/admin/NavigationAdmin"));
+const DesignAdmin = lazy(() => import("./pages/admin/DesignAdmin"));
 const DynamicPage = lazy(() => import("./pages/DynamicPage"));
 
 const queryClient = new QueryClient();
@@ -41,6 +43,7 @@ const AdminFallback = () => <div className="min-h-screen flex items-center justi
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <DesignSystemProvider>
     <TooltipProvider>
       <Toaster />
       <Sonner />
@@ -75,6 +78,7 @@ const App = () => (
               <Route path="pages" element={<PagesBuilder />} />
               <Route path="navigation" element={<NavigationAdmin />} />
               <Route path="site-sections" element={<SiteSectionsAdmin />} />
+              <Route path="design" element={<DesignAdmin />} />
             </Route>
 
             {/* Dynamic CMS pages — must come before the NotFound catch-all */}
@@ -84,6 +88,7 @@ const App = () => (
         </Suspense>
       </BrowserRouter>
     </TooltipProvider>
+    </DesignSystemProvider>
   </QueryClientProvider>
 );
 
