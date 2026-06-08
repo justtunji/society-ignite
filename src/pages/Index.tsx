@@ -1,16 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
-import { PartnerCarousel } from "@/components/PartnerCarousel";
-import { ConferenceSection } from "@/components/ConferenceSection";
-import { AboutSection } from "@/components/AboutSection";
-import { ProgrammesSection } from "@/components/ProgrammesSection";
-import { CommunitiesSection } from "@/components/CommunitiesSection";
-import { ImpactSection } from "@/components/ImpactSection";
-import { NewsletterSection } from "@/components/NewsletterSection";
 import { Footer } from "@/components/Footer";
 import { SectionSeoTags } from "@/components/SectionSeoTags";
 import { supabase } from "@/integrations/supabase/client";
+
+// Below-the-fold sections are code-split to keep initial JS small.
+const PartnerCarousel = lazy(() => import("@/components/PartnerCarousel").then(m => ({ default: m.PartnerCarousel })));
+const ConferenceSection = lazy(() => import("@/components/ConferenceSection").then(m => ({ default: m.ConferenceSection })));
+const AboutSection = lazy(() => import("@/components/AboutSection").then(m => ({ default: m.AboutSection })));
+const ProgrammesSection = lazy(() => import("@/components/ProgrammesSection").then(m => ({ default: m.ProgrammesSection })));
+const CommunitiesSection = lazy(() => import("@/components/CommunitiesSection").then(m => ({ default: m.CommunitiesSection })));
+const ImpactSection = lazy(() => import("@/components/ImpactSection").then(m => ({ default: m.ImpactSection })));
+const NewsletterSection = lazy(() => import("@/components/NewsletterSection").then(m => ({ default: m.NewsletterSection })));
+
+const SectionFallback = () => <div className="h-32" aria-hidden />;
 
 interface SiteSettings {
   site_name: string;
