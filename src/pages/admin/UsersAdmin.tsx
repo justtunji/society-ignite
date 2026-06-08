@@ -44,6 +44,12 @@ export default function UsersAdmin() {
   const [resetTarget, setResetTarget] = useState<ManagedUser | null>(null);
   const [newPassword, setNewPassword] = useState('');
 
+  // Permissions matrix
+  const [permsTarget, setPermsTarget] = useState<ManagedUser | null>(null);
+  const [permsLoading, setPermsLoading] = useState(false);
+  const [permsSaving, setPermsSaving] = useState(false);
+  const [permsMap, setPermsMap] = useState<Record<string, { can_create: boolean; can_read: boolean; can_update: boolean; can_delete: boolean }>>({});
+
   const call = async (action: string, payload: Record<string, unknown> = {}) => {
     const { data, error } = await supabase.functions.invoke('admin-users', {
       body: { action, ...payload },
