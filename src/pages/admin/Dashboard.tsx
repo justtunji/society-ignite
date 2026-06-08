@@ -27,9 +27,6 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       const tables = [
-        { table: 'partners', label: 'Partners', icon: Handshake, path: '/admin/partners' },
-        { table: 'team_members', label: 'Team Members', icon: Users, path: '/admin/team' },
-        { table: 'gallery_items', label: 'Gallery Items', icon: Image, path: '/admin/gallery' },
         { table: 'events', label: 'Events', icon: Calendar, path: '/admin/events' },
         { table: 'programs', label: 'Programs', icon: BookOpen, path: '/admin/programs' },
         { table: 'resources', label: 'Resources', icon: FileText, path: '/admin/resources' },
