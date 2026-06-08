@@ -9,6 +9,13 @@ import { ArrowRight, Calendar, MapPin, Filter } from "lucide-react";
 import { supabase } from '@/integrations/supabase/client';
 import { cldUrl, cldSrcSet } from '@/lib/cloudinary';
 import sbaLogo from "@/assets/logos/sba-logo.png";
+import { useSectionContent } from '@/hooks/useSectionContent';
+
+const HERO_DEFAULTS = {
+  eyebrow: 'Our Programmes', headline: 'Our Programs',
+  subheadline: 'Explore our signature programs designed to support and advance Black academics across the UK',
+  image_url: '', cta_label: '', cta_url: '',
+};
 
 interface Program {
   id: string;
