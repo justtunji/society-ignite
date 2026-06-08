@@ -36,6 +36,17 @@ const heroFields = (): SectionField[] => [
   { key: 'cta_url',     label: 'CTA URL',     type: 'url' },
 ];
 
+/** SEO override fields injected via react-helmet-async on the host page. */
+const seoFields = (): SectionField[] => [
+  { key: 'seo_title',       label: 'SEO — Page title override',  type: 'text',
+    help: 'When set, replaces the <title> for this page. First non-empty across sections wins.' },
+  { key: 'seo_description', label: 'SEO — Meta description',     type: 'textarea',
+    help: 'Used for <meta name="description"> and og:description.' },
+  { key: 'og_image',        label: 'SEO — Social share image',   type: 'image',
+    help: 'Image used for og:image when this page is shared.' },
+];
+const seoDefaults = { seo_title: '', seo_description: '', og_image: '' };
+
 // ---------- schemas ----------
 export const PAGE_SCHEMAS: PageSchema[] = [
   {
