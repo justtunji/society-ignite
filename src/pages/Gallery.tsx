@@ -53,6 +53,11 @@ const ALL = 'All';
 const Gallery = () => {
   const hero = useSectionContent('gallery', 'hero', HERO_DEFAULTS);
   const pastIntro = useSectionContent('gallery', 'past_events_intro', PAST_DEFAULTS);
+  const conference = useSectionContent('home', 'conference', {
+    headline: '', body: '', date_text: '', location_text: '',
+    image_url: '', archive_image: '', end_datetime: '',
+  });
+  const archivedConference = isConferencePast(conference) ? conference : null;
   const [galleryImages, setGalleryImages] = useState<GalleryItem[]>([]);
   const [upcomingEvents, setUpcomingEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
