@@ -13,7 +13,7 @@ interface HeroSectionProps {
 
 export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSectionProps) => {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-primary">
+    <section className="relative min-h-[100svh] flex items-center overflow-hidden bg-primary">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img 
@@ -28,16 +28,16 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
       </div>
       
       {/* Content Grid */}
-      <div className="relative z-10 container-wide py-24 lg:py-32">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="relative z-10 container-wide w-full pt-28 pb-16 md:py-24 lg:py-32">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left - Circular Image */}
-          <div className="relative order-2 lg:order-1 flex justify-center lg:justify-start">
-            <div className="relative">
+          <div className="relative order-2 lg:order-1 hidden sm:flex justify-center lg:justify-start max-w-full overflow-visible">
+            <div className="relative max-w-[min(22rem,calc(100vw-3rem))] lg:max-w-none">
               {/* Decorative circle behind */}
-              <div className="absolute -top-8 -right-8 w-80 h-80 md:w-96 md:h-96 rounded-full bg-accent/20 blur-sm"></div>
+              <div className="absolute -top-5 -right-5 md:-top-8 md:-right-8 w-full aspect-square rounded-full bg-accent/20 blur-sm"></div>
               
               {/* Main circular image */}
-              <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-primary-foreground/20 shadow-2xl">
+              <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 max-w-full rounded-full overflow-hidden border-4 border-primary-foreground/20 shadow-2xl">
                 <img 
                   src={heroImage} 
                   alt="Black Academics Community"
@@ -51,14 +51,14 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
           </div>
           
           {/* Right - Content */}
-          <div className="order-1 lg:order-2 text-primary-foreground">
+          <div className="order-1 lg:order-2 text-primary-foreground max-w-3xl lg:max-w-none">
             {/* Tagline */}
             <p className="text-accent font-medium text-lg mb-4 animate-fade-in">
               Empowering Black Academics
             </p>
             
             {/* Main Headline */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] mb-6 animate-fade-in stagger-1">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] mb-6 animate-fade-in stagger-1 break-words">
               Driving Inclusive Change In Higher Education.
             </h1>
             
@@ -68,7 +68,7 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
             </p>
             
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in stagger-3">
+            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in stagger-3 max-w-full">
               <Button 
                 asChild 
                 size="lg"
