@@ -73,6 +73,7 @@ const App = () => (
               <Route path="contacts" element={<ContactsAdmin />} />
               <Route path="users" element={<UsersAdmin />} />
               <Route path="pages" element={<PagesBuilder />} />
+              <Route path="navigation" element={<NavigationAdmin />} />
               <Route path="site-sections" element={<SiteSectionsAdmin />} />
             </Route>
 
