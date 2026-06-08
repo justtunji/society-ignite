@@ -335,7 +335,7 @@ const DesignAdmin = () => {
           {/* ----- SECTIONS ----- */}
           <TabsContent value="sections" className="space-y-3">
             <div className="flex justify-between items-center">
-              <p className="text-sm text-muted-foreground">Override spacing, background, and alignment per section. Add a section key matching a <code>data-section</code> attribute on the page (e.g. <code>hero</code>, <code>about</code>, <code>programmes</code>, <code>footer</code>).</p>
+              <p className="text-sm text-muted-foreground">Override spacing, background, and alignment per section. Built-in keys: <code>header</code>, <code>footer</code>, <code>navigation</code>, <code>card</code>, <code>form</code>, <code>button</code>, <code>hero</code>, <code>about</code>, <code>programmes</code>. Or use any custom <code>data-section</code> value.</p>
               <Button size="sm" onClick={addSection}><Plus className="h-4 w-4 mr-1" /> Add</Button>
             </div>
             {sections.map((r, idx) => (
