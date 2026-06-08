@@ -355,10 +355,12 @@ export const PAGE_SCHEMAS: PageSchema[] = [
         ...heroFields(),
         { key: 'featured_item_id', label: 'Hero image from gallery (overrides Background image)', type: 'gallery_item',
           help: 'When set, the hero uses this gallery item\'s image instead of the uploaded background image.' },
+        ...seoFields(),
       ], defaults: {
         eyebrow: 'Our Moments', headline: 'Capturing Excellence.',
         subheadline: 'Explore moments from our conferences, workshops, and community gatherings.',
         image_url: '', cta_label: '', cta_url: '', featured_item_id: null,
+        ...seoDefaults,
       }},
       { key: 'past_events_intro', label: 'Past events intro',
         description: 'Heading above the photo grid. Use the curated list to pick exactly which photos appear, in order; leave it empty to show every visible gallery item.',
