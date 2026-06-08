@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { PAGE_SCHEMAS, getSectionSchema, type SectionField } from '@/lib/sectionSchemas';
 import { Button } from '@/components/ui/button';
@@ -12,7 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 import { usePermissions } from '@/hooks/usePermissions';
 import { ImageUpload } from '@/components/admin/ImageUpload';
 import { GalleryPicker } from '@/components/admin/GalleryPicker';
-import { Loader2, Pencil, Eye, EyeOff, RefreshCw } from 'lucide-react';
+import { Loader2, Pencil, Eye, EyeOff, RefreshCw, Monitor, Smartphone, X } from 'lucide-react';
 
 type Row = {
   id?: string;
@@ -20,6 +20,16 @@ type Row = {
   section_key: string;
   content: Record<string, any>;
   is_visible: boolean;
+};
+
+const PAGE_ROUTES: Record<string, string> = {
+  home: '/',
+  about: '/about',
+  contact: '/contact',
+  'join-us': '/join-us',
+  programs: '/programs',
+  resources: '/resources',
+  gallery: '/gallery',
 };
 
 const SiteSectionsAdmin = () => {
@@ -33,6 +43,11 @@ const SiteSectionsAdmin = () => {
   const [editing, setEditing] = useState<{ pageKey: string; sectionKey: string } | null>(null);
   const [form, setForm] = useState<Record<string, any>>({});
   const [saving, setSaving] = useState(false);
+
+  const [previewOpen, setPreviewOpen] = useState(true);
+  const [previewDevice, setPreviewDevice] = useState<'desktop' | 'mobile'>('desktop');
+  const [iframeKey, setIframeKey] = useState(0);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   const load = async () => {
     setLoading(true);
@@ -53,6 +68,40 @@ const SiteSectionsAdmin = () => {
   useEffect(() => { load(); }, []);
 
   const page = useMemo(() => PAGE_SCHEMAS.find(p => p.key === activePage)!, [activePage]);
+  const previewRoute = PAGE_ROUTES[activePage] ?? '/';
+
+  // Push live overrides to the preview iframe whenever the form changes.
+  const postPreview = (content: Record<string, any>) => {
+    if (!editing) return;
+    const win = iframeRef.current?.contentWindow;
+    if (!win) return;
+    win.postMessage({
+      type: 'lovable-section-preview',
+      pageKey: editing.pageKey,
+      sectionKey: editing.sectionKey,
+      content,
+      isVisible: true,
+    }, '*');
+  };
+
+  // Listen for iframe ready signals and replay current edits.
+  useEffect(() => {
+    const onMsg = (e: MessageEvent) => {
+      const m = e.data;
+      if (!m || m.type !== 'lovable-section-preview-ready') return;
+      if (editing && m.pageKey === editing.pageKey && m.sectionKey === editing.sectionKey) {
+        postPreview(form);
+      }
+    };
+    window.addEventListener('message', onMsg);
+    return () => window.removeEventListener('message', onMsg);
+  }, [editing, form]);
+
+  // Re-push overrides when iframe loads or edit target changes.
+  useEffect(() => {
+    if (editing) postPreview(form);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editing?.pageKey, editing?.sectionKey, iframeKey]);
 
   const upsert = async (pageKey: string, sectionKey: string, patch: Partial<Row>) => {
     const schema = getSectionSchema(pageKey, sectionKey);
@@ -76,7 +125,18 @@ const SiteSectionsAdmin = () => {
     const schema = getSectionSchema(activePage, sectionKey)!;
     const row = rows[`${activePage}::${sectionKey}`];
     setEditing({ pageKey: activePage, sectionKey });
-    setForm({ ...schema.defaults, ...(row?.content ?? {}) });
+    const initial = { ...schema.defaults, ...(row?.content ?? {}) };
+    setForm(initial);
+    // Force iframe to refresh to the right route, then overrides replay on ready.
+    setIframeKey(k => k + 1);
+  };
+
+  const onFieldChange = (key: string, v: any) => {
+    setForm(prev => {
+      const next = { ...prev, [key]: v };
+      postPreview(next);
+      return next;
+    });
   };
 
   const handleSave = async () => {
@@ -86,6 +146,7 @@ const SiteSectionsAdmin = () => {
       await upsert(editing.pageKey, editing.sectionKey, { content: form });
       toast({ title: 'Section saved' });
       setEditing(null);
+      setIframeKey(k => k + 1); // refresh preview to load saved data
     } catch (e: any) {
       toast({ title: 'Save failed', description: e.message, variant: 'destructive' });
     } finally {
@@ -96,6 +157,7 @@ const SiteSectionsAdmin = () => {
   const toggleVisibility = async (sectionKey: string, visible: boolean) => {
     try {
       await upsert(activePage, sectionKey, { is_visible: visible });
+      setIframeKey(k => k + 1);
     } catch (e: any) {
       toast({ title: 'Update failed', description: e.message, variant: 'destructive' });
     }
@@ -110,18 +172,24 @@ const SiteSectionsAdmin = () => {
           <h1 className="text-3xl font-bold">Site Sections</h1>
           <p className="text-sm text-muted-foreground">Edit copy, images, CTAs and visibility for every section across the public site.</p>
         </div>
-        <Button variant="outline" size="sm" onClick={load} disabled={loading}>
-          <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} /> Refresh
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" onClick={() => setPreviewOpen(o => !o)}>
+            {previewOpen ? <EyeOff className="h-4 w-4 mr-2" /> : <Eye className="h-4 w-4 mr-2" />}
+            {previewOpen ? 'Hide preview' : 'Show preview'}
+          </Button>
+          <Button variant="outline" size="sm" onClick={load} disabled={loading}>
+            <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} /> Refresh
+          </Button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6">
+      <div className={`grid gap-6 ${previewOpen ? 'grid-cols-1 xl:grid-cols-[180px_minmax(0,1fr)_minmax(0,1fr)]' : 'grid-cols-1 lg:grid-cols-[200px_1fr]'}`}>
         {/* Pages sidebar */}
         <nav className="space-y-1">
           {PAGE_SCHEMAS.map(p => (
             <button
               key={p.key}
-              onClick={() => setActivePage(p.key)}
+              onClick={() => { setActivePage(p.key); setIframeKey(k => k + 1); }}
               className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 activePage === p.key ? 'bg-accent text-accent-foreground' : 'hover:bg-muted'
               }`}
@@ -132,7 +200,7 @@ const SiteSectionsAdmin = () => {
         </nav>
 
         {/* Sections grid */}
-        <div className="space-y-4">
+        <div className="space-y-4 min-w-0">
           {page.sections.map(section => {
             const row = rows[`${activePage}::${section.key}`];
             const visible = row?.is_visible ?? true;
@@ -178,6 +246,45 @@ const SiteSectionsAdmin = () => {
             );
           })}
         </div>
+
+        {/* Live preview */}
+        {previewOpen && (
+          <div className="min-w-0">
+            <Card className="sticky top-4">
+              <CardHeader className="flex flex-row items-center justify-between gap-2 pb-3">
+                <CardTitle className="text-base">Live preview</CardTitle>
+                <div className="flex items-center gap-1">
+                  <Button size="sm" variant={previewDevice === 'desktop' ? 'default' : 'outline'} onClick={() => setPreviewDevice('desktop')}>
+                    <Monitor className="h-4 w-4" />
+                  </Button>
+                  <Button size="sm" variant={previewDevice === 'mobile' ? 'default' : 'outline'} onClick={() => setPreviewDevice('mobile')}>
+                    <Smartphone className="h-4 w-4" />
+                  </Button>
+                  <Button size="sm" variant="outline" onClick={() => setIframeKey(k => k + 1)}>
+                    <RefreshCw className="h-4 w-4" />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <p className="text-xs text-muted-foreground mb-2 truncate">{previewRoute} {editing && <span className="text-primary">· editing {editingSchema?.label}</span>}</p>
+                <div className="border rounded-lg overflow-hidden bg-muted flex justify-center">
+                  <iframe
+                    key={iframeKey}
+                    ref={iframeRef}
+                    src={previewRoute}
+                    title="Site preview"
+                    className="bg-background"
+                    style={{
+                      width: previewDevice === 'mobile' ? 390 : '100%',
+                      height: '70vh',
+                      border: 0,
+                    }}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
       </div>
 
       {/* Edit dialog */}
@@ -192,9 +299,12 @@ const SiteSectionsAdmin = () => {
                 key={field.key}
                 field={field}
                 value={form[field.key] ?? ''}
-                onChange={(v) => setForm(prev => ({ ...prev, [field.key]: v }))}
+                onChange={(v) => onFieldChange(field.key, v)}
               />
             ))}
+            {previewOpen && (
+              <p className="text-xs text-muted-foreground">Changes appear instantly in the live preview panel. They are only persisted when you click Save.</p>
+            )}
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setEditing(null)} disabled={saving}>Cancel</Button>
