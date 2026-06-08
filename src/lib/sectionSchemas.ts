@@ -126,6 +126,7 @@ export const PAGE_SCHEMAS: PageSchema[] = [
           primary_cta_url: '/join-us',
           secondary_cta_label: 'Get Updates',
           secondary_cta_url: '/contact',
+          ...seoDefaults,
         },
       },
       {
