@@ -176,38 +176,40 @@ const JoinUs = () => {
       
       <main>
         {/* Hero Section - DINN Style */}
-        <section className="relative min-h-[80vh] flex items-center bg-primary">
-          <div className="absolute inset-0">
-            <img 
-              src={joinUsHero} 
-              alt="Join Society of Black Academics"
-              className="w-full h-full object-cover opacity-30"
-            />
-            <div className="absolute inset-0 bg-primary/80"></div>
-          </div>
-          
-          <div className="relative z-10 container-wide py-32">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="text-primary-foreground">
-                <p className="text-accent font-medium text-lg mb-4">Join Our Community</p>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  Become a Member.
-                </h1>
-                <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
-                  Join our community of scholars, researchers, and educators committed to driving inclusive change in higher education.
-                </p>
-              </div>
-              
-              <div className="hidden lg:flex justify-center">
-                <img 
-                  src={membershipLevelsImage}
-                  alt="SBA Membership Levels"
-                  className="max-w-md rounded-lg shadow-2xl"
-                />
+        {hero && (
+          <section className="relative min-h-[80vh] flex items-center bg-primary">
+            <div className="absolute inset-0">
+              <img
+                src={hero.image_url || joinUsHero}
+                alt="Join Society of Black Academics"
+                className="w-full h-full object-cover opacity-30"
+              />
+              <div className="absolute inset-0 bg-primary/80"></div>
+            </div>
+
+            <div className="relative z-10 container-wide py-32">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div className="text-primary-foreground">
+                  <p className="text-accent font-medium text-lg mb-4">{hero.eyebrow}</p>
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                    {hero.headline}
+                  </h1>
+                  <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
+                    {hero.subheadline}
+                  </p>
+                </div>
+
+                <div className="hidden lg:flex justify-center">
+                  <img
+                    src={membershipLevelsImage}
+                    alt="SBA Membership Levels"
+                    className="max-w-md rounded-lg shadow-2xl"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Benefits Section */}
         <section className="py-20 lg:py-32 bg-background">
