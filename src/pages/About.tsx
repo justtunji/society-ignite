@@ -310,22 +310,24 @@ const About = () => {
         )}
 
         {/* Partners CTA */}
+        {partnersCta && (
         <section className="py-20 lg:py-32 bg-primary text-primary-foreground" id="part_spon">
           <div className="container-wide text-center">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Become Our Partner
+              {partnersCta.headline}
             </h2>
             <p className="text-xl text-primary-foreground/80 mb-10 max-w-3xl mx-auto">
-              Ready to team up with us? Let's create impact together and explore exciting sponsorship and partnership possibilities.
+              {partnersCta.subheadline}
             </p>
             <PartnerSponsorDialog>
               <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-10 py-6 text-lg">
                 <Handshake className="mr-2 h-5 w-5" />
-                Become a Partner / Sponsor
+                {partnersCta.button_label}
               </Button>
             </PartnerSponsorDialog>
           </div>
         </section>
+        )}
       </main>
       
       <Footer siteName="Society of Black Academics" />
