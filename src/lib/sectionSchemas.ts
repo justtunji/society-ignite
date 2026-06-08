@@ -111,6 +111,7 @@ export const PAGE_SCHEMAS: PageSchema[] = [
           { key: 'primary_cta_url',   label: 'Primary CTA URL',   type: 'url' },
           { key: 'secondary_cta_label', label: 'Secondary CTA label', type: 'text' },
           { key: 'secondary_cta_url',   label: 'Secondary CTA URL',   type: 'url' },
+          ...seoFields(),
         ],
         defaults: {
           eyebrow: 'Upcoming Event',
