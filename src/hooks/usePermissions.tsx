@@ -30,7 +30,7 @@ export const ADMIN_MODULES = [
   { key: 'promotions',    label: 'Promotions' },
   { key: 'resources',     label: 'Resources' },
   { key: 'stories',       label: 'Stories' },
-  { key: 'communities',   label: 'Communities' },
+  
   { key: 'members',       label: 'Members' },
   { key: 'contacts',      label: 'Contact Submissions' },
   { key: 'site_settings', label: 'Site Settings' },
