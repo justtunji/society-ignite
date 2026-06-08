@@ -43,6 +43,8 @@ interface EventItem {
 const ALL = 'All';
 
 const Gallery = () => {
+  const hero = useSectionContent('gallery', 'hero', HERO_DEFAULTS);
+  const pastIntro = useSectionContent('gallery', 'past_events_intro', PAST_DEFAULTS);
   const [galleryImages, setGalleryImages] = useState<GalleryItem[]>([]);
   const [upcomingEvents, setUpcomingEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
