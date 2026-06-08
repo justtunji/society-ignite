@@ -11,6 +11,7 @@ import galleryHero from "@/assets/images/gallery-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 import { cldUrl, cldSrcSet } from '@/lib/cloudinary';
 import { useSectionContent } from "@/hooks/useSectionContent";
+import { SectionSeoTags } from "@/components/SectionSeoTags";
 
 const HERO_DEFAULTS = {
   eyebrow: 'Our Moments',
