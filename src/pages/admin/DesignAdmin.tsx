@@ -251,13 +251,32 @@ const DesignAdmin = () => {
 
             {TEXT_GROUPS.map(g => (
               <Card key={g}>
-                <CardHeader><CardTitle className="capitalize">{g}</CardTitle></CardHeader>
+                <CardHeader>
+                  <CardTitle className="capitalize">{g}</CardTitle>
+                  {g === 'eyebrow' && (
+                    <p className="text-xs text-muted-foreground">Small label text shown above headings. Apply by adding the class <code>eyebrow</code> or <code>data-style-id="eyebrow"</code>.</p>
+                  )}
+                </CardHeader>
                 <CardContent className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   <div><Label>Size</Label><Input value={tokens[`${g}_size`] || ''} onChange={e => update(`${g}_size`, e.target.value)} /></div>
                   <div><Label>Weight</Label><Input type="number" value={tokens[`${g}_weight`] || ''} onChange={e => update(`${g}_weight`, parseInt(e.target.value)||null)} /></div>
                   <div><Label>Line height</Label><Input value={tokens[`${g}_line_height`] || ''} onChange={e => update(`${g}_line_height`, e.target.value)} /></div>
                   <div><Label>Letter spacing</Label><Input value={tokens[`${g}_letter_spacing`] || ''} onChange={e => update(`${g}_letter_spacing`, e.target.value)} /></div>
                   <div><Label>Color</Label><Input value={tokens[`${g}_color`] || ''} onChange={e => update(`${g}_color`, e.target.value)} /></div>
+                  {g === 'eyebrow' && (
+                    <div>
+                      <Label>Text transform</Label>
+                      <Select value={tokens.eyebrow_text_transform || ''} onValueChange={v => update('eyebrow_text_transform', v || null)}>
+                        <SelectTrigger><SelectValue placeholder="None" /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="none">none</SelectItem>
+                          <SelectItem value="uppercase">UPPERCASE</SelectItem>
+                          <SelectItem value="lowercase">lowercase</SelectItem>
+                          <SelectItem value="capitalize">Capitalize</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             ))}
