@@ -54,6 +54,10 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
   const [saving, setSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const { toast } = useToast();
+  const { can } = usePermissions();
+  const canCreate = !module || can(module, 'create');
+  const canUpdate = !module || can(module, 'update');
+  const canDelete = !module || can(module, 'delete');
 
   const tableColumns = fields.filter(f => f.showInTable !== false).slice(0, 5);
 
