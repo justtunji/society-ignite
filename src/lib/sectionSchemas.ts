@@ -80,21 +80,6 @@ export const PAGE_SCHEMAS: PageSchema[] = [
         },
       },
       {
-        key: 'communities_intro',
-        label: 'Communities intro',
-        description: 'Copy + side image on the homepage Communities section. Individual communities are managed under Communities.',
-        fields: [
-          { key: 'eyebrow',    label: 'Eyebrow',    type: 'text' },
-          { key: 'paragraph',  label: 'Paragraph',  type: 'textarea' },
-          { key: 'image_url',  label: 'Side image', type: 'image' },
-        ],
-        defaults: {
-          eyebrow: 'Our communities',
-          paragraph: 'We understand the need for nuance and specificity, which is why we have created several communities that you can join. Each with its unique landscape, language, and content, we hope that you find one that works for you.',
-          image_url: '',
-        },
-      },
-      {
         key: 'conference',
         label: 'Upcoming Event (Conference)',
         description: 'The “SBA 2026 Annual Conference” block on the homepage.',
