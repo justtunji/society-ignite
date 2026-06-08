@@ -192,7 +192,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
           isOpen ? "max-h-[700px] overflow-y-auto" : "max-h-0"
         )}
       >
-        <nav className="container-wide py-6 space-y-2">
+        <nav data-section="navigation-mobile" className="container-wide py-6 space-y-2">
           {regularItems.map((item) => (
             <div key={item.id}>
               <a
