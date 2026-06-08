@@ -190,15 +190,17 @@ const About = () => {
         {/* Team Section */}
         <section className="py-20 lg:py-32 bg-background" id="our_team">
           <div className="container-wide">
+            {teamIntro && (
             <div className="text-center mb-16">
-              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Our Team</h4>
+              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">{teamIntro.eyebrow}</h4>
               <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-                Meet Our Team
+                {teamIntro.headline}
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Our team is made up of academics and practitioners from various fields who are enthusiastic about advancing the progression of Black academics.
+                {teamIntro.subheadline}
               </p>
             </div>
+            )}
 
             {teamMembers.length > 0 ? (() => {
               const founder = teamMembers.find(m => m.order_index === 0);
