@@ -15,7 +15,9 @@ import {
   AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, UserPlus, Trash2, KeyRound } from 'lucide-react';
+import { Loader2, UserPlus, Trash2, KeyRound, ShieldCheck } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { ADMIN_MODULES } from '@/hooks/usePermissions';
 
 type Role = 'admin' | 'editor';
 interface ManagedUser {
