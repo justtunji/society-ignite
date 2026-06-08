@@ -97,31 +97,32 @@ const About = () => {
       
       <main>
         {/* Hero Section */}
+        {hero && (
         <section className="relative min-h-[80vh] flex items-center bg-primary">
           <div className="absolute inset-0">
-            <img 
-              src={aboutHero} 
+            <img
+              src={hero.image_url || aboutHero}
               alt="About Society of Black Academics"
               className="w-full h-full object-cover opacity-30"
             />
             <div className="absolute inset-0 bg-primary/80"></div>
           </div>
-          
+
           <div className="relative z-10 container-wide py-32">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="text-primary-foreground">
-                <p className="text-accent font-medium text-lg mb-4">About Us</p>
+                <p className="text-accent font-medium text-lg mb-4">{hero.eyebrow}</p>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  Driving Change in Higher Education.
+                  {hero.headline}
                 </h1>
                 <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
-                  The Society of Black Academics (SBA) was formed due to the under-representation of Black academics at the Professorial and Senior Leadership levels in UK Universities.
+                  {hero.subheadline}
                 </p>
               </div>
-              
+
               <div className="hidden lg:flex justify-center items-center">
                 <div className="relative w-80 h-80 mx-auto flex items-center justify-center bg-white rounded-2xl shadow-lg">
-                  <img 
+                  <img
                     src={sbaLogo}
                     alt="Society of Black Academics Logo"
                     className="relative w-full h-full object-contain p-6"
@@ -131,26 +132,29 @@ const About = () => {
             </div>
           </div>
         </section>
+        )}
 
         {/* Why SBA + Mission/Vision/Values side by side */}
+        {(why || mvv) && (
         <section className="py-20 lg:py-32 bg-background">
           <div className="container-wide">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+              {why && (
               <div>
-                <h4 className="text-accent font-semibold uppercase tracking-wider mb-6 text-5xl md:text-6xl lg:text-7xl font-bold">Why SBA</h4>
+                <h4 className="text-accent font-semibold uppercase tracking-wider mb-6 text-5xl md:text-6xl lg:text-7xl font-bold">{why.eyebrow}</h4>
                 <h2 className="text-foreground mb-8 leading-tight text-lg font-semibold">
-                  Building a more inclusive academy.
+                  {why.headline}
                 </h2>
                 <p className="text-foreground/80 text-base lg:text-lg leading-relaxed mb-6">
-                  Since our inception in 2021, we have launched several impactful initiatives and organized numerous events (including Workshops and Conferences) with the goal of promoting Equality, Diversity, and Inclusion (EDI) in the UK's Higher Education sector.
+                  {why.paragraph_1}
                 </p>
                 <p className="text-foreground/80 text-base lg:text-lg leading-relaxed mb-6">
-                  Through the development of EDI and career development programmes, safe spaces for learning and knowledge exchange, as well as other progressive campaigns, we are improving the career advancement of Black academics.
+                  {why.paragraph_2}
                 </p>
                 <div className="bg-accent/5 border-l-4 border-accent p-6 rounded-r-lg mb-8">
-                  <h3 className="text-xl font-bold mb-3 text-foreground">What we are doing currently</h3>
+                  <h3 className="text-xl font-bold mb-3 text-foreground">{why.callout_title}</h3>
                   <p className="text-foreground/80 text-base lg:text-lg leading-relaxed">
-                    Through the development of EDI and career development programmes, safe spaces for learning and knowledge exchange, as well as other progressive campaigns, we are attempting to improve the career advancement of Black academics. Our goal is to increase the number of Black academics employed at the professorial and senior leadership levels in the UK's higher education system.
+                    {why.callout_body}
                   </p>
                 </div>
                 <Button asChild variant="outline" size="lg" className="rounded-full px-8">
@@ -160,30 +164,28 @@ const About = () => {
                   </a>
                 </Button>
               </div>
+              )}
 
+              {mvv && (
               <div className="space-y-6">
                 <div className="bg-muted/30 p-6 lg:p-8 border-l-4 border-accent rounded-r-lg">
-                  <h3 className="text-xl lg:text-2xl font-bold mb-3">Our Mission</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    We continue to identify prevalent issues confronting Black academics in the Higher Education sector and address them by providing a safe space for personal reflection, knowledge sharing and dialogue, collaboration, and networking.
-                  </p>
+                  <h3 className="text-xl lg:text-2xl font-bold mb-3">{mvv.mission_title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{mvv.mission_body}</p>
                 </div>
                 <div className="bg-muted/30 p-6 lg:p-8 border-l-4 border-accent rounded-r-lg">
-                  <h3 className="text-xl lg:text-2xl font-bold mb-3">Our Vision</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Justice, Equity, and Fairness (JEF) are at the heart of SBA's values. We aim to see a better level of JEF embedded in the progression opportunities for Black scholars in the UK's Higher Education sector.
-                  </p>
+                  <h3 className="text-xl lg:text-2xl font-bold mb-3">{mvv.vision_title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{mvv.vision_body}</p>
                 </div>
                 <div className="bg-muted/30 p-6 lg:p-8 border-l-4 border-accent rounded-r-lg">
-                  <h3 className="text-xl lg:text-2xl font-bold mb-3">Our Values</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    We promote Justice (broader ethical standards), Equity (equal opportunities and inclusivity), and Fairness (specific outcomes and treatment).
-                  </p>
+                  <h3 className="text-xl lg:text-2xl font-bold mb-3">{mvv.values_title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{mvv.values_body}</p>
                 </div>
               </div>
+              )}
             </div>
           </div>
         </section>
+        )}
 
         {/* Team Section */}
         <section className="py-20 lg:py-32 bg-background" id="our_team">
