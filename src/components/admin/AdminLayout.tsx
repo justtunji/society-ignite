@@ -77,22 +77,32 @@ const AdminLayout = () => {
           </div>
 
           <nav className="flex-1 overflow-y-auto p-3 space-y-1">
-            {visibleNav.map(item => (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={() => setSidebarOpen(false)}
-                className={cn(
-                  "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
-                  location.pathname === item.path
-                    ? "bg-accent text-accent-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                )}
-              >
-                <item.icon size={18} />
-                {item.label}
-              </Link>
-            ))}
+            {visibleNav.map(item => {
+              const [itemPath, itemQuery] = item.path.split('?');
+              const itemParams = new URLSearchParams(itemQuery ?? '');
+              const currentParams = new URLSearchParams(location.search);
+              const pathMatches = location.pathname === itemPath;
+              const queryMatches = itemQuery
+                ? Array.from(itemParams.entries()).every(([k, v]) => currentParams.get(k) === v)
+                : !location.search || itemPath !== location.pathname ? location.pathname === itemPath : true;
+              const active = pathMatches && (itemQuery ? queryMatches : !currentParams.get('page') || itemPath !== '/admin/site-sections');
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setSidebarOpen(false)}
+                  className={cn(
+                    "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                    active
+                      ? "bg-accent text-accent-foreground"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  )}
+                >
+                  <item.icon size={18} />
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="p-3 border-t border-border space-y-2">
