@@ -100,7 +100,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav data-section="navigation" className="hidden lg:flex items-center space-x-8">
             {regularItems.map((item) => {
               const hasChildren = (item.children?.length ?? 0) > 0;
               const linkClasses = cn(
