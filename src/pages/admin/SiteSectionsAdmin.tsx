@@ -220,7 +220,7 @@ const SiteSectionsAdmin = () => {
           {PAGE_SCHEMAS.map(p => (
             <button
               key={p.key}
-              onClick={() => setActivePage(p.key)}
+              onClick={() => selectPage(p.key)}
               className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 activePage === p.key ? 'bg-accent text-accent-foreground' : 'hover:bg-muted'
               }`}
@@ -232,6 +232,22 @@ const SiteSectionsAdmin = () => {
 
         {/* Sections grid */}
         <div className="space-y-4 min-w-0">
+          {PAGE_COLLECTIONS[activePage] && (
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg">{PAGE_COLLECTIONS[activePage].title}</CardTitle>
+                <p className="text-sm text-muted-foreground">{PAGE_COLLECTIONS[activePage].description}</p>
+              </CardHeader>
+              <CardContent>
+                <Suspense fallback={<div className="py-8 text-center text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin inline mr-2" />Loading editor…</div>}>
+                  {(() => {
+                    const C = PAGE_COLLECTIONS[activePage].Component;
+                    return <C />;
+                  })()}
+                </Suspense>
+              </CardContent>
+            </Card>
+          )}
           {page.sections.map(section => {
             const row = rows[`${activePage}::${section.key}`];
             const visible = row?.is_visible ?? true;
