@@ -207,7 +207,7 @@ const Gallery = () => {
           <section className="relative min-h-[70vh] flex items-center bg-primary">
             <div className="absolute inset-0">
               <img
-                src={hero.image_url || galleryHero}
+                src={heroImage}
                 alt=""
                 aria-hidden="true"
                 className="w-full h-full object-cover opacity-30"
