@@ -34,6 +34,7 @@ interface GalleryItem {
   category: string | null;
   tags: string[] | null;
   photographer_credit: string | null;
+  visible?: boolean;
 }
 
 interface EventItem {
