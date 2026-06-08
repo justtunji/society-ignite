@@ -240,17 +240,19 @@ const JoinUs = () => {
                   className="max-w-sm rounded-lg shadow-xl"
                 />
               </div>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Membership Levels */}
+        {levelsIntro && (
         <section className="py-20 lg:py-32 bg-muted/30">
           <div className="container-wide">
             <div className="text-center mb-16">
-              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Membership Levels</h4>
+              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">{levelsIntro.eyebrow}</h4>
               <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
-                Choose Your Path
+                {levelsIntro.headline}
               </h2>
             </div>
             
