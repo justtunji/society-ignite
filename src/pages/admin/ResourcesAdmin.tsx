@@ -23,8 +23,8 @@ const ResourcesAdmin = () => {
 
   return (
     <>
-      <CrudPage module="resources"
-    module="resources"
+      <CrudPage
+        module="resources"
         title="Resources"
         tableName="resources"
         orderBy="published_at"

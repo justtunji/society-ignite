@@ -16,7 +16,7 @@ const fields: FieldConfig[] = [
 ];
 
 const MembersAdmin = () => (
-  <CrudPage module="members"
+  <CrudPage
     module="members"
     title="Members"
     tableName="members"
