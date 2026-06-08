@@ -62,7 +62,6 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
             <img 
               src={logoUrl ? cldUrl(logoUrl, { h: 80, c: 'fit' }) : sbaLogo} 
               alt={siteName}
-              fetchPriority="high"
               decoding="async"
               className={cn(
                 "h-10 w-auto transition-all duration-300",
