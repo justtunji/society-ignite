@@ -279,30 +279,55 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
             <RefreshCw className={`h-4 w-4 mr-2 ${status === 'loading' ? 'animate-spin' : ''}`} />
             Refresh
           </Button>
-          <Dialog open={dialogOpen} onOpenChange={(open) => { if (!saving) setDialogOpen(open); }}>
-            <DialogTrigger asChild>
-              <Button onClick={() => initForm()}><Plus size={18} className="mr-2" />Add {title.replace(/s$/, '')}</Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>{editingItem ? 'Edit' : 'Add'} {title.replace(/s$/, '')}</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4 py-4">
-                {fields.map(field => (
-                  <div key={field.name} className={field.type === 'boolean' ? 'flex items-center justify-between' : 'space-y-1'}>
-                    <Label>{field.label}{field.required && <span className="text-destructive ml-1">*</span>}</Label>
-                    {renderField(field)}
-                  </div>
-                ))}
-              </div>
-              <DialogFooter>
-                <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={saving}>Cancel</Button>
-                <Button onClick={handleSave} disabled={saving}>
-                  {saving ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Saving…</> : (editingItem ? 'Update' : 'Create')}
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+          {canCreate && (
+            <Dialog open={dialogOpen} onOpenChange={(open) => { if (!saving) setDialogOpen(open); }}>
+              <DialogTrigger asChild>
+                <Button onClick={() => initForm()}><Plus size={18} className="mr-2" />Add {title.replace(/s$/, '')}</Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>{editingItem ? 'Edit' : 'Add'} {title.replace(/s$/, '')}</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 py-4">
+                  {fields.map(field => (
+                    <div key={field.name} className={field.type === 'boolean' ? 'flex items-center justify-between' : 'space-y-1'}>
+                      <Label>{field.label}{field.required && <span className="text-destructive ml-1">*</span>}</Label>
+                      {renderField(field)}
+                    </div>
+                  ))}
+                </div>
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={saving}>Cancel</Button>
+                  <Button onClick={handleSave} disabled={saving}>
+                    {saving ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Saving…</> : (editingItem ? 'Update' : 'Create')}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          )}
+          {!canCreate && editingItem && canUpdate && (
+            <Dialog open={dialogOpen} onOpenChange={(open) => { if (!saving) setDialogOpen(open); }}>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>Edit {title.replace(/s$/, '')}</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 py-4">
+                  {fields.map(field => (
+                    <div key={field.name} className={field.type === 'boolean' ? 'flex items-center justify-between' : 'space-y-1'}>
+                      <Label>{field.label}{field.required && <span className="text-destructive ml-1">*</span>}</Label>
+                      {renderField(field)}
+                    </div>
+                  ))}
+                </div>
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={saving}>Cancel</Button>
+                  <Button onClick={handleSave} disabled={saving}>
+                    {saving ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Saving…</> : 'Update'}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          )}
         </div>
       </div>
 
