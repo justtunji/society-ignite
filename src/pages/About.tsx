@@ -57,6 +57,11 @@ interface TeamMember {
 const About = () => {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [advisoryMembers, setAdvisoryMembers] = useState<TeamMember[]>([]);
+  const hero = useSectionContent('about', 'hero', HERO_DEFAULTS);
+  const why = useSectionContent('about', 'why_sba', WHY_DEFAULTS);
+  const mvv = useSectionContent('about', 'mvv', MVV_DEFAULTS);
+  const teamIntro = useSectionContent('about', 'team_intro', TEAM_INTRO_DEFAULTS);
+  const partnersCta = useSectionContent('about', 'partners_cta', PARTNERS_CTA_DEFAULTS);
 
   useEffect(() => {
     document.title = "About Us | Society of Black Academics";
