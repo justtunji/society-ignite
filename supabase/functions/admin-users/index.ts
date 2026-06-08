@@ -105,6 +105,38 @@ Deno.serve(async (req) => {
         if (error) throw error;
         return json({ ok: true });
       }
+      case 'list_permissions': {
+        if (!body.user_id) return json({ error: 'user_id required' }, 400);
+        const { data, error } = await admin
+          .from('user_permissions')
+          .select('module, can_create, can_read, can_update, can_delete')
+          .eq('user_id', body.user_id);
+        if (error) throw error;
+        return json({ permissions: data ?? [] });
+      }
+      case 'update_permissions': {
+        if (!body.user_id || !Array.isArray(body.permissions)) {
+          return json({ error: 'user_id and permissions required' }, 400);
+        }
+        // Replace all permissions for this user atomically.
+        const rows = body.permissions
+          .filter((p) => p && typeof p.module === 'string' && p.module.trim())
+          .map((p) => ({
+            user_id: body.user_id,
+            module: p.module,
+            can_create: !!p.can_create,
+            can_read:   !!p.can_read,
+            can_update: !!p.can_update,
+            can_delete: !!p.can_delete,
+          }));
+        const { error: delErr } = await admin.from('user_permissions').delete().eq('user_id', body.user_id);
+        if (delErr) throw delErr;
+        if (rows.length) {
+          const { error: insErr } = await admin.from('user_permissions').insert(rows);
+          if (insErr) throw insErr;
+        }
+        return json({ ok: true, count: rows.length });
+      }
       default:
         return json({ error: 'unknown action' }, 400);
     }
