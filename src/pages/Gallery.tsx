@@ -10,6 +10,16 @@ import { supabase } from '@/integrations/supabase/client';
 import galleryHero from "@/assets/images/gallery-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 import { cldUrl, cldSrcSet } from '@/lib/cloudinary';
+import { useSectionContent } from "@/hooks/useSectionContent";
+
+const HERO_DEFAULTS = {
+  eyebrow: 'Our Moments',
+  headline: 'Capturing Excellence.',
+  subheadline: 'Explore moments from our conferences, workshops, and community gatherings.',
+  image_url: '',
+  cta_label: '', cta_url: '',
+};
+const PAST_DEFAULTS = { eyebrow: 'Gallery', headline: 'Photos from Past Events' };
 
 interface GalleryItem {
   id: string;
