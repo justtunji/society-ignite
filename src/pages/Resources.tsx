@@ -7,9 +7,17 @@ import { BookOpen, Download, FileText, Video, Link as LinkIcon, ArrowRight, Brie
 import resourcesHero from "@/assets/images/resources-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 import SBAUpdatesSection from "@/components/SBAUpdatesSection";
+import { useSectionContent } from '@/hooks/useSectionContent';
 
+const HERO_DEFAULTS = {
+  eyebrow: 'Knowledge Hub',
+  headline: 'Resources for Success.',
+  subheadline: 'Access our curated collection of resources designed to support Black academics at every stage of their career journey.',
+  image_url: '', cta_label: '', cta_url: '',
+};
 
 const Resources = () => {
+  const hero = useSectionContent('resources', 'hero', HERO_DEFAULTS);
   useEffect(() => {
     document.title = "Resources | Society of Black Academics";
     
@@ -81,28 +89,30 @@ const Resources = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="relative min-h-[80vh] flex items-center bg-primary">
-          <div className="absolute inset-0">
-            <img 
-              src={resourcesHero} 
-              alt="Academic Resources and Learning"
-              className="w-full h-full object-cover opacity-30"
-            />
-            <div className="absolute inset-0 bg-primary/80"></div>
-          </div>
-          
-          <div className="relative z-10 container-wide py-32">
-            <div className="max-w-3xl">
-              <p className="text-accent font-medium text-lg mb-4">Knowledge Hub</p>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-primary-foreground mb-6">
-                Resources for Success.
-              </h1>
-              <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
-                Access our curated collection of resources designed to support Black academics at every stage of their career journey.
-              </p>
+        {hero && (
+          <section className="relative min-h-[80vh] flex items-center bg-primary">
+            <div className="absolute inset-0">
+              <img
+                src={hero.image_url || resourcesHero}
+                alt="Academic Resources and Learning"
+                className="w-full h-full object-cover opacity-30"
+              />
+              <div className="absolute inset-0 bg-primary/80"></div>
             </div>
-          </div>
-        </section>
+
+            <div className="relative z-10 container-wide py-32">
+              <div className="max-w-3xl">
+                <p className="text-accent font-medium text-lg mb-4">{hero.eyebrow}</p>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-primary-foreground mb-6">
+                  {hero.headline}
+                </h1>
+                <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
+                  {hero.subheadline}
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* SBA Updates */}
         <SBAUpdatesSection />
