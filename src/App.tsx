@@ -18,7 +18,6 @@ const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const SiteSettingsAdmin = lazy(() => import("./pages/admin/SiteSettingsAdmin"));
-const NavigationAdmin = lazy(() => import("./pages/admin/NavigationAdmin"));
 const PartnersAdmin = lazy(() => import("./pages/admin/PartnersAdmin"));
 const TeamAdmin = lazy(() => import("./pages/admin/TeamAdmin"));
 const GalleryAdmin = lazy(() => import("./pages/admin/GalleryAdmin"));
@@ -30,10 +29,6 @@ const StoriesAdmin = lazy(() => import("./pages/admin/StoriesAdmin"));
 const CommunitiesAdmin = lazy(() => import("./pages/admin/CommunitiesAdmin"));
 const MembersAdmin = lazy(() => import("./pages/admin/MembersAdmin"));
 const ContactsAdmin = lazy(() => import("./pages/admin/ContactsAdmin"));
-const PagesAdmin = lazy(() => import("./pages/admin/PagesAdmin"));
-const SectionsAdmin = lazy(() => import("./pages/admin/SectionsAdmin"));
-const MediaAdmin = lazy(() => import("./pages/admin/MediaAdmin"));
-const CloudinaryMigrateAdmin = lazy(() => import("./pages/admin/CloudinaryMigrateAdmin"));
 const UsersAdmin = lazy(() => import("./pages/admin/UsersAdmin"));
 
 const queryClient = new QueryClient();
@@ -61,7 +56,6 @@ const App = () => (
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<Dashboard />} />
               <Route path="site-settings" element={<SiteSettingsAdmin />} />
-              <Route path="navigation" element={<NavigationAdmin />} />
               <Route path="partners" element={<PartnersAdmin />} />
               <Route path="team" element={<TeamAdmin />} />
               <Route path="gallery" element={<GalleryAdmin />} />
@@ -73,10 +67,6 @@ const App = () => (
               <Route path="communities" element={<CommunitiesAdmin />} />
               <Route path="members" element={<MembersAdmin />} />
               <Route path="contacts" element={<ContactsAdmin />} />
-              <Route path="pages" element={<PagesAdmin />} />
-              <Route path="sections" element={<SectionsAdmin />} />
-              <Route path="media" element={<MediaAdmin />} />
-              <Route path="cloudinary" element={<CloudinaryMigrateAdmin />} />
               <Route path="users" element={<UsersAdmin />} />
             </Route>
 

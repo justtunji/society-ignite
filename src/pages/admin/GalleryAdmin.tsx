@@ -2,6 +2,7 @@ import CrudPage from './CrudPage';
 
 const GalleryAdmin = () => (
   <CrudPage
+    module="gallery"
     title="Gallery Items"
     tableName="gallery_items"
     orderBy="display_order"

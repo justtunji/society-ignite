@@ -17,6 +17,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAsyncResource, withTimeout } from '@/hooks/useAsync';
 import { adminLog } from '@/lib/adminErrorLog';
 import { Plus, Pencil, Trash2, Loader2, RefreshCw, ArrowUp, ArrowDown } from 'lucide-react';
+import { usePermissions } from '@/hooks/usePermissions';
 
 export interface FieldConfig {
   name: string;
@@ -40,17 +41,23 @@ interface CrudPageProps {
   reorderField?: string;
   /** Only swap within rows that share this column's value (e.g. 'category'). */
   groupBy?: string;
+  /** Permission module key (e.g. 'events'). When set, action buttons are hidden if the user lacks the matching permission. */
+  module?: string;
 }
 
 const REQUEST_TIMEOUT = 15_000;
 
-const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc = false, slugField = true, customActions, reorderField, groupBy }: CrudPageProps) => {
+const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc = false, slugField = true, customActions, reorderField, groupBy, module }: CrudPageProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
   const [formData, setFormData] = useState<any>({});
   const [saving, setSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const { toast } = useToast();
+  const { can } = usePermissions();
+  const canCreate = !module || can(module, 'create');
+  const canUpdate = !module || can(module, 'update');
+  const canDelete = !module || can(module, 'delete');
 
   const tableColumns = fields.filter(f => f.showInTable !== false).slice(0, 5);
 
@@ -272,30 +279,55 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
             <RefreshCw className={`h-4 w-4 mr-2 ${status === 'loading' ? 'animate-spin' : ''}`} />
             Refresh
           </Button>
-          <Dialog open={dialogOpen} onOpenChange={(open) => { if (!saving) setDialogOpen(open); }}>
-            <DialogTrigger asChild>
-              <Button onClick={() => initForm()}><Plus size={18} className="mr-2" />Add {title.replace(/s$/, '')}</Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>{editingItem ? 'Edit' : 'Add'} {title.replace(/s$/, '')}</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4 py-4">
-                {fields.map(field => (
-                  <div key={field.name} className={field.type === 'boolean' ? 'flex items-center justify-between' : 'space-y-1'}>
-                    <Label>{field.label}{field.required && <span className="text-destructive ml-1">*</span>}</Label>
-                    {renderField(field)}
-                  </div>
-                ))}
-              </div>
-              <DialogFooter>
-                <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={saving}>Cancel</Button>
-                <Button onClick={handleSave} disabled={saving}>
-                  {saving ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Saving…</> : (editingItem ? 'Update' : 'Create')}
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+          {canCreate && (
+            <Dialog open={dialogOpen} onOpenChange={(open) => { if (!saving) setDialogOpen(open); }}>
+              <DialogTrigger asChild>
+                <Button onClick={() => initForm()}><Plus size={18} className="mr-2" />Add {title.replace(/s$/, '')}</Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>{editingItem ? 'Edit' : 'Add'} {title.replace(/s$/, '')}</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 py-4">
+                  {fields.map(field => (
+                    <div key={field.name} className={field.type === 'boolean' ? 'flex items-center justify-between' : 'space-y-1'}>
+                      <Label>{field.label}{field.required && <span className="text-destructive ml-1">*</span>}</Label>
+                      {renderField(field)}
+                    </div>
+                  ))}
+                </div>
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={saving}>Cancel</Button>
+                  <Button onClick={handleSave} disabled={saving}>
+                    {saving ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Saving…</> : (editingItem ? 'Update' : 'Create')}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          )}
+          {!canCreate && editingItem && canUpdate && (
+            <Dialog open={dialogOpen} onOpenChange={(open) => { if (!saving) setDialogOpen(open); }}>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>Edit {title.replace(/s$/, '')}</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 py-4">
+                  {fields.map(field => (
+                    <div key={field.name} className={field.type === 'boolean' ? 'flex items-center justify-between' : 'space-y-1'}>
+                      <Label>{field.label}{field.required && <span className="text-destructive ml-1">*</span>}</Label>
+                      {renderField(field)}
+                    </div>
+                  ))}
+                </div>
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={saving}>Cancel</Button>
+                  <Button onClick={handleSave} disabled={saving}>
+                    {saving ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Saving…</> : 'Update'}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          )}
         </div>
       </div>
 
@@ -327,24 +359,28 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
                             </>
                           )}
                           {customActions?.(item)}
-                          <Button size="icon" variant="ghost" aria-label="Edit" onClick={() => initForm(item)}><Pencil size={16} /></Button>
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <Button size="icon" variant="ghost" className="text-destructive" disabled={deletingId === item.id}>
-                                {deletingId === item.id ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
-                              </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>Delete this item?</AlertDialogTitle>
-                                <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction onClick={() => handleDelete(item.id)}>Delete</AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
+                          {canUpdate && (
+                            <Button size="icon" variant="ghost" aria-label="Edit" onClick={() => initForm(item)}><Pencil size={16} /></Button>
+                          )}
+                          {canDelete && (
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button size="icon" variant="ghost" className="text-destructive" disabled={deletingId === item.id}>
+                                  {deletingId === item.id ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Delete this item?</AlertDialogTitle>
+                                  <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => handleDelete(item.id)}>Delete</AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          )}
                         </div>
                       </TableCell>
                     </TableRow>

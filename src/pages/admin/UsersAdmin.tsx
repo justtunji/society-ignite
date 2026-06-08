@@ -15,7 +15,9 @@ import {
   AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, UserPlus, Trash2, KeyRound } from 'lucide-react';
+import { Loader2, UserPlus, Trash2, KeyRound, ShieldCheck } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { ADMIN_MODULES } from '@/hooks/usePermissions';
 
 type Role = 'admin' | 'editor';
 interface ManagedUser {
@@ -41,6 +43,12 @@ export default function UsersAdmin() {
   // Reset password
   const [resetTarget, setResetTarget] = useState<ManagedUser | null>(null);
   const [newPassword, setNewPassword] = useState('');
+
+  // Permissions matrix
+  const [permsTarget, setPermsTarget] = useState<ManagedUser | null>(null);
+  const [permsLoading, setPermsLoading] = useState(false);
+  const [permsSaving, setPermsSaving] = useState(false);
+  const [permsMap, setPermsMap] = useState<Record<string, { can_create: boolean; can_read: boolean; can_update: boolean; can_delete: boolean }>>({});
 
   const call = async (action: string, payload: Record<string, unknown> = {}) => {
     const { data, error } = await supabase.functions.invoke('admin-users', {
@@ -119,6 +127,75 @@ export default function UsersAdmin() {
       toast({ title: 'Reset failed', description: e.message, variant: 'destructive' });
     } finally {
       setBusy(null);
+    }
+  };
+
+  const openPermissions = async (u: ManagedUser) => {
+    setPermsTarget(u);
+    setPermsLoading(true);
+    setPermsMap({});
+    try {
+      const data = await call('list_permissions', { user_id: u.id });
+      const map: Record<string, any> = {};
+      ((data as any).permissions ?? []).forEach((p: any) => { map[p.module] = p; });
+      // Ensure every known module has an entry
+      ADMIN_MODULES.forEach(m => {
+        map[m.key] = map[m.key] ?? { can_create: false, can_read: false, can_update: false, can_delete: false };
+      });
+      setPermsMap(map);
+    } catch (e: any) {
+      toast({ title: 'Failed to load permissions', description: e.message, variant: 'destructive' });
+      setPermsTarget(null);
+    } finally {
+      setPermsLoading(false);
+    }
+  };
+
+  const togglePerm = (module: string, action: 'create' | 'read' | 'update' | 'delete', value: boolean) => {
+    setPermsMap(prev => ({
+      ...prev,
+      [module]: { ...prev[module], [`can_${action}`]: value, can_read: action === 'read' ? value : (value ? true : prev[module]?.can_read) },
+    }));
+  };
+
+  const setRowPreset = (module: string, preset: 'none' | 'read' | 'editor' | 'full') => {
+    const presets = {
+      none:   { can_create: false, can_read: false, can_update: false, can_delete: false },
+      read:   { can_create: false, can_read: true,  can_update: false, can_delete: false },
+      editor: { can_create: true,  can_read: true,  can_update: true,  can_delete: false },
+      full:   { can_create: true,  can_read: true,  can_update: true,  can_delete: true  },
+    };
+    setPermsMap(prev => ({ ...prev, [module]: presets[preset] }));
+  };
+
+  const applyAllPreset = (preset: 'none' | 'read' | 'editor' | 'full') => {
+    const next: typeof permsMap = {};
+    ADMIN_MODULES.forEach(m => {
+      next[m.key] = ({
+        none:   { can_create: false, can_read: false, can_update: false, can_delete: false },
+        read:   { can_create: false, can_read: true,  can_update: false, can_delete: false },
+        editor: { can_create: true,  can_read: true,  can_update: true,  can_delete: false },
+        full:   { can_create: true,  can_read: true,  can_update: true,  can_delete: true  },
+      })[preset];
+    });
+    setPermsMap(next);
+  };
+
+  const savePermissions = async () => {
+    if (!permsTarget) return;
+    setPermsSaving(true);
+    try {
+      const permissions = ADMIN_MODULES.map(m => ({
+        module: m.key,
+        ...permsMap[m.key],
+      }));
+      await call('update_permissions', { user_id: permsTarget.id, permissions });
+      toast({ title: 'Permissions saved' });
+      setPermsTarget(null);
+    } catch (e: any) {
+      toast({ title: 'Save failed', description: e.message, variant: 'destructive' });
+    } finally {
+      setPermsSaving(false);
     }
   };
 
@@ -223,7 +300,11 @@ export default function UsersAdmin() {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="inline-flex gap-2">
-                          <Button variant="outline" size="sm" onClick={() => setResetTarget(u)}>
+                          <Button variant="outline" size="sm" onClick={() => openPermissions(u)} title="Permissions"
+                            disabled={u.roles.includes('admin')}>
+                            <ShieldCheck className="w-4 h-4" />
+                          </Button>
+                          <Button variant="outline" size="sm" onClick={() => setResetTarget(u)} title="Reset password">
                             <KeyRound className="w-4 h-4" />
                           </Button>
                           <AlertDialog>
@@ -271,6 +352,86 @@ export default function UsersAdmin() {
             <Button variant="outline" onClick={() => setResetTarget(null)}>Cancel</Button>
             <Button onClick={handleResetPassword} disabled={!newPassword || newPassword.length < 8}>
               Update password
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!permsTarget} onOpenChange={(o) => !o && !permsSaving && setPermsTarget(null)}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Permissions — {permsTarget?.email}</DialogTitle>
+            <DialogDescription>
+              Grant per-module access. Read is required for the section to appear in the sidebar.
+              Admins always have full access regardless of these settings.
+            </DialogDescription>
+          </DialogHeader>
+
+          {permsLoading ? (
+            <div className="flex items-center justify-center py-10 text-muted-foreground">
+              <Loader2 className="w-5 h-5 mr-2 animate-spin" /> Loading permissions…
+            </div>
+          ) : (
+            <>
+              <div className="flex flex-wrap gap-2 py-3">
+                <span className="text-sm text-muted-foreground mr-2 self-center">Apply to all:</span>
+                <Button variant="outline" size="sm" onClick={() => applyAllPreset('none')}>No access</Button>
+                <Button variant="outline" size="sm" onClick={() => applyAllPreset('read')}>Read only</Button>
+                <Button variant="outline" size="sm" onClick={() => applyAllPreset('editor')}>Editor (C/R/U)</Button>
+                <Button variant="outline" size="sm" onClick={() => applyAllPreset('full')}>Full (C/R/U/D)</Button>
+              </div>
+
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Module</TableHead>
+                      <TableHead className="text-center w-20">Read</TableHead>
+                      <TableHead className="text-center w-20">Create</TableHead>
+                      <TableHead className="text-center w-20">Update</TableHead>
+                      <TableHead className="text-center w-20">Delete</TableHead>
+                      <TableHead className="text-right w-40">Quick set</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {ADMIN_MODULES.map(m => {
+                      const p = permsMap[m.key] ?? { can_create: false, can_read: false, can_update: false, can_delete: false };
+                      return (
+                        <TableRow key={m.key}>
+                          <TableCell className="font-medium">{m.label}</TableCell>
+                          <TableCell className="text-center">
+                            <Checkbox checked={p.can_read} onCheckedChange={(v) => togglePerm(m.key, 'read', !!v)} />
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <Checkbox checked={p.can_create} onCheckedChange={(v) => togglePerm(m.key, 'create', !!v)} />
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <Checkbox checked={p.can_update} onCheckedChange={(v) => togglePerm(m.key, 'update', !!v)} />
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <Checkbox checked={p.can_delete} onCheckedChange={(v) => togglePerm(m.key, 'delete', !!v)} />
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <div className="inline-flex gap-1">
+                              <Button size="sm" variant="ghost" onClick={() => setRowPreset(m.key, 'none')}>None</Button>
+                              <Button size="sm" variant="ghost" onClick={() => setRowPreset(m.key, 'read')}>R</Button>
+                              <Button size="sm" variant="ghost" onClick={() => setRowPreset(m.key, 'full')}>All</Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
+            </>
+          )}
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setPermsTarget(null)} disabled={permsSaving}>Cancel</Button>
+            <Button onClick={savePermissions} disabled={permsSaving || permsLoading}>
+              {permsSaving && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+              Save permissions
             </Button>
           </DialogFooter>
         </DialogContent>

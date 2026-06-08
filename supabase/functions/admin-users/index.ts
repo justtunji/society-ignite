@@ -8,12 +8,22 @@ const corsHeaders = {
 
 type Role = 'admin' | 'editor';
 
+interface PermissionInput {
+  module: string;
+  can_create?: boolean;
+  can_read?: boolean;
+  can_update?: boolean;
+  can_delete?: boolean;
+}
+
 interface Action {
-  action: 'list' | 'create' | 'update_role' | 'delete' | 'reset_password';
+  action: 'list' | 'create' | 'update_role' | 'delete' | 'reset_password'
+        | 'list_permissions' | 'update_permissions';
   email?: string;
   password?: string;
   role?: Role;
   user_id?: string;
+  permissions?: PermissionInput[];
 }
 
 Deno.serve(async (req) => {
@@ -94,6 +104,38 @@ Deno.serve(async (req) => {
         const { error } = await admin.auth.admin.updateUserById(body.user_id, { password: body.password });
         if (error) throw error;
         return json({ ok: true });
+      }
+      case 'list_permissions': {
+        if (!body.user_id) return json({ error: 'user_id required' }, 400);
+        const { data, error } = await admin
+          .from('user_permissions')
+          .select('module, can_create, can_read, can_update, can_delete')
+          .eq('user_id', body.user_id);
+        if (error) throw error;
+        return json({ permissions: data ?? [] });
+      }
+      case 'update_permissions': {
+        if (!body.user_id || !Array.isArray(body.permissions)) {
+          return json({ error: 'user_id and permissions required' }, 400);
+        }
+        // Replace all permissions for this user atomically.
+        const rows = body.permissions
+          .filter((p) => p && typeof p.module === 'string' && p.module.trim())
+          .map((p) => ({
+            user_id: body.user_id,
+            module: p.module,
+            can_create: !!p.can_create,
+            can_read:   !!p.can_read,
+            can_update: !!p.can_update,
+            can_delete: !!p.can_delete,
+          }));
+        const { error: delErr } = await admin.from('user_permissions').delete().eq('user_id', body.user_id);
+        if (delErr) throw delErr;
+        if (rows.length) {
+          const { error: insErr } = await admin.from('user_permissions').insert(rows);
+          if (insErr) throw insErr;
+        }
+        return json({ ok: true, count: rows.length });
       }
       default:
         return json({ error: 'unknown action' }, 400);
