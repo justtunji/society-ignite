@@ -62,16 +62,6 @@ const Gallery = () => {
   const lastTriggerRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
-    document.title = "Gallery | Society of Black Academics";
-    const desc = 'Photos from Society of Black Academics events, conferences, workshops, and community gatherings.';
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.setAttribute('name', 'description');
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute('content', desc);
-
     setLoading(true);
     supabase
       .from('gallery_items')
