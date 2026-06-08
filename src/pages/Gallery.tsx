@@ -18,8 +18,13 @@ const HERO_DEFAULTS = {
   subheadline: 'Explore moments from our conferences, workshops, and community gatherings.',
   image_url: '',
   cta_label: '', cta_url: '',
+  featured_item_id: null as string | null,
 };
-const PAST_DEFAULTS = { eyebrow: 'Gallery', headline: 'Photos from Past Events' };
+const PAST_DEFAULTS = {
+  eyebrow: 'Gallery',
+  headline: 'Photos from Past Events',
+  curated_items: [] as Array<{ id: string; visible: boolean }>,
+};
 
 interface GalleryItem {
   id: string;
