@@ -41,7 +41,7 @@ export const Footer = ({
   ];
 
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer data-section="footer" className="bg-primary text-primary-foreground">
       {/* Main Footer Content */}
       <div className="container-wide py-16 lg:py-24">
         <div className="grid lg:grid-cols-4 gap-12">

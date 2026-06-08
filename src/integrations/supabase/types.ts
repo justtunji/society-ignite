@@ -122,10 +122,17 @@ export type Database = {
           color_secondary_foreground: string | null
           container_max_width: string | null
           created_at: string
+          eyebrow_color: string | null
+          eyebrow_letter_spacing: string | null
+          eyebrow_line_height: string | null
+          eyebrow_size: string | null
+          eyebrow_text_transform: string | null
+          eyebrow_weight: number | null
           font_body: string | null
           font_body_url: string | null
           font_button: string | null
           font_caption: string | null
+          font_eyebrow: string | null
           font_heading: string | null
           font_url: string | null
           h1_color: string | null
@@ -203,10 +210,17 @@ export type Database = {
           color_secondary_foreground?: string | null
           container_max_width?: string | null
           created_at?: string
+          eyebrow_color?: string | null
+          eyebrow_letter_spacing?: string | null
+          eyebrow_line_height?: string | null
+          eyebrow_size?: string | null
+          eyebrow_text_transform?: string | null
+          eyebrow_weight?: number | null
           font_body?: string | null
           font_body_url?: string | null
           font_button?: string | null
           font_caption?: string | null
+          font_eyebrow?: string | null
           font_heading?: string | null
           font_url?: string | null
           h1_color?: string | null
@@ -284,10 +298,17 @@ export type Database = {
           color_secondary_foreground?: string | null
           container_max_width?: string | null
           created_at?: string
+          eyebrow_color?: string | null
+          eyebrow_letter_spacing?: string | null
+          eyebrow_line_height?: string | null
+          eyebrow_size?: string | null
+          eyebrow_text_transform?: string | null
+          eyebrow_weight?: number | null
           font_body?: string | null
           font_body_url?: string | null
           font_button?: string | null
           font_caption?: string | null
+          font_eyebrow?: string | null
           font_heading?: string | null
           font_url?: string | null
           h1_color?: string | null

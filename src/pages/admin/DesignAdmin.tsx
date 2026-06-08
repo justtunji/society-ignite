@@ -19,7 +19,7 @@ const GOOGLE_FONTS = [
 ];
 
 const HEADING_KEYS = ['h1','h2','h3','h4','h5','h6'] as const;
-const TEXT_GROUPS = ['headline','body','button','caption'] as const;
+const TEXT_GROUPS = ['headline','body','button','caption','eyebrow'] as const;
 
 const COLOR_TOKENS = [
   ['color_background', 'Background'],
@@ -220,6 +220,7 @@ const DesignAdmin = () => {
                   ['font_body','Body font'],
                   ['font_button','Buttons font (optional)'],
                   ['font_caption','Captions font (optional)'],
+                  ['font_eyebrow','Eyebrow font (optional)'],
                 ] as const).map(([k, label]) => (
                   <div key={k}>
                     <Label>{label}</Label>
@@ -250,13 +251,32 @@ const DesignAdmin = () => {
 
             {TEXT_GROUPS.map(g => (
               <Card key={g}>
-                <CardHeader><CardTitle className="capitalize">{g}</CardTitle></CardHeader>
+                <CardHeader>
+                  <CardTitle className="capitalize">{g}</CardTitle>
+                  {g === 'eyebrow' && (
+                    <p className="text-xs text-muted-foreground">Small label text shown above headings. Apply by adding the class <code>eyebrow</code> or <code>data-style-id="eyebrow"</code>.</p>
+                  )}
+                </CardHeader>
                 <CardContent className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   <div><Label>Size</Label><Input value={tokens[`${g}_size`] || ''} onChange={e => update(`${g}_size`, e.target.value)} /></div>
                   <div><Label>Weight</Label><Input type="number" value={tokens[`${g}_weight`] || ''} onChange={e => update(`${g}_weight`, parseInt(e.target.value)||null)} /></div>
                   <div><Label>Line height</Label><Input value={tokens[`${g}_line_height`] || ''} onChange={e => update(`${g}_line_height`, e.target.value)} /></div>
                   <div><Label>Letter spacing</Label><Input value={tokens[`${g}_letter_spacing`] || ''} onChange={e => update(`${g}_letter_spacing`, e.target.value)} /></div>
                   <div><Label>Color</Label><Input value={tokens[`${g}_color`] || ''} onChange={e => update(`${g}_color`, e.target.value)} /></div>
+                  {g === 'eyebrow' && (
+                    <div>
+                      <Label>Text transform</Label>
+                      <Select value={tokens.eyebrow_text_transform || ''} onValueChange={v => update('eyebrow_text_transform', v || null)}>
+                        <SelectTrigger><SelectValue placeholder="None" /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="none">none</SelectItem>
+                          <SelectItem value="uppercase">UPPERCASE</SelectItem>
+                          <SelectItem value="lowercase">lowercase</SelectItem>
+                          <SelectItem value="capitalize">Capitalize</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             ))}
@@ -315,7 +335,7 @@ const DesignAdmin = () => {
           {/* ----- SECTIONS ----- */}
           <TabsContent value="sections" className="space-y-3">
             <div className="flex justify-between items-center">
-              <p className="text-sm text-muted-foreground">Override spacing, background, and alignment per section. Add a section key matching a <code>data-section</code> attribute on the page (e.g. <code>hero</code>, <code>about</code>, <code>programmes</code>, <code>footer</code>).</p>
+              <p className="text-sm text-muted-foreground">Override spacing, background, and alignment per section. Built-in keys: <code>header</code>, <code>footer</code>, <code>navigation</code>, <code>card</code>, <code>form</code>, <code>button</code>, <code>hero</code>, <code>about</code>, <code>programmes</code>. Or use any custom <code>data-section</code> value.</p>
               <Button size="sm" onClick={addSection}><Plus className="h-4 w-4 mr-1" /> Add</Button>
             </div>
             {sections.map((r, idx) => (

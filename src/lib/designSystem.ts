@@ -34,6 +34,7 @@ export function buildTokensCSS(t: DesignTokens): string {
   css += cssVar('font-body', t.font_body ? `'${t.font_body}', sans-serif` : '');
   css += cssVar('font-button', t.font_button ? `'${t.font_button}', sans-serif` : '');
   css += cssVar('font-caption', t.font_caption ? `'${t.font_caption}', sans-serif` : '');
+  css += cssVar('font-eyebrow', t.font_eyebrow ? `'${t.font_eyebrow}', sans-serif` : '');
 
   for (const h of ['h1','h2','h3','h4','h5','h6']) {
     css += cssVar(`${h}-size`, t[`${h}_size`]);
@@ -42,7 +43,7 @@ export function buildTokensCSS(t: DesignTokens): string {
     css += cssVar(`${h}-letter-spacing`, t[`${h}_letter_spacing`]);
     css += cssVar(`${h}-color`, t[`${h}_color`]);
   }
-  for (const k of ['headline','body','button','caption']) {
+  for (const k of ['headline','body','button','caption','eyebrow']) {
     css += cssVar(`${k}-size`, t[`${k}_size`]);
     css += cssVar(`${k}-weight`, t[`${k}_weight`]);
     css += cssVar(`${k}-line-height`, t[`${k}_line_height`]);
@@ -91,12 +92,35 @@ export function buildTokensCSS(t: DesignTokens): string {
   if (t.caption_letter_spacing) capParts.push(`letter-spacing: var(--caption-letter-spacing);`);
   if (capParts.length) css += `.caption, [data-style-id*="caption"] { ${capParts.join(' ')} }\n`;
 
+  // Eyebrow (small label/uppercase text above headings)
+  const ebParts: string[] = [];
+  if (t.font_eyebrow) ebParts.push(`font-family: var(--font-eyebrow);`);
+  if (t.eyebrow_size) ebParts.push(`font-size: var(--eyebrow-size);`);
+  if (t.eyebrow_weight) ebParts.push(`font-weight: var(--eyebrow-weight);`);
+  if (t.eyebrow_line_height) ebParts.push(`line-height: var(--eyebrow-line-height);`);
+  if (t.eyebrow_letter_spacing) ebParts.push(`letter-spacing: var(--eyebrow-letter-spacing);`);
+  if (t.eyebrow_color) ebParts.push(`color: ${t.eyebrow_color};`);
+  if (t.eyebrow_text_transform) ebParts.push(`text-transform: ${t.eyebrow_text_transform};`);
+  if (ebParts.length) css += `.eyebrow, [data-style-id*="eyebrow"] { ${ebParts.join(' ')} }\n`;
+
   // Link colors
   if (t.link_color) css += `a { color: ${t.link_color}; }\n`;
   if (t.link_hover_color) css += `a:hover { color: ${t.link_hover_color}; }\n`;
 
   return css;
 }
+
+// Aliases map well-known section keys to richer CSS selectors so admins can
+// style header, footer, nav, cards, forms, and buttons without touching code.
+// Scoped to `body:not(:has([data-admin]))` so admin UI is never restyled.
+const SECTION_SELECTOR_ALIASES: Record<string, string> = {
+  header: '[data-section="header"], body:not(:has([data-admin])) header',
+  footer: '[data-section="footer"], body:not(:has([data-admin])) footer',
+  navigation: '[data-section="navigation"], [data-section="navigation-mobile"], body:not(:has([data-admin])) nav',
+  card: 'body:not(:has([data-admin])) .rounded-lg.border.bg-card, [data-section="card"]',
+  form: 'body:not(:has([data-admin])) form, [data-section="form"]',
+  button: 'body:not(:has([data-admin])) button:not([data-admin] button), [data-section="button"]',
+};
 
 export function buildSectionsCSS(rows: SectionStyle[]): string {
   let css = '';
@@ -112,7 +136,9 @@ export function buildSectionsCSS(rows: SectionStyle[]): string {
     if (r.text_align) parts.push(`text-align: ${r.text_align};`);
     if (r.max_width) parts.push(`max-width: ${r.max_width}; margin-left: auto; margin-right: auto;`);
     if (r.gap) parts.push(`gap: ${r.gap};`);
-    if (parts.length) css += `[data-section="${r.section_key}"] { ${parts.join(' ')} }\n`;
+    if (!parts.length) continue;
+    const selector = SECTION_SELECTOR_ALIASES[r.section_key] || `[data-section="${r.section_key}"]`;
+    css += `${selector} { ${parts.join(' ')} }\n`;
   }
   return css;
 }
@@ -160,7 +186,7 @@ const GOOGLE_FONT_FALLBACKS = new Set(['Arial','Helvetica','Times New Roman','Ge
 export function buildFontLinks(t: DesignTokens): string[] {
   if (!t) return [];
   const families = new Set<string>();
-  for (const key of ['font_heading','font_body','font_button','font_caption']) {
+  for (const key of ['font_heading','font_body','font_button','font_caption','font_eyebrow']) {
     const v = t[key];
     if (v && !GOOGLE_FONT_FALLBACKS.has(v)) families.add(v);
   }

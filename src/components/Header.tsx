@@ -76,6 +76,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
 
   return (
     <header
+      data-section="header"
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
@@ -99,7 +100,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav data-section="navigation" className="hidden lg:flex items-center space-x-8">
             {regularItems.map((item) => {
               const hasChildren = (item.children?.length ?? 0) > 0;
               const linkClasses = cn(
@@ -191,7 +192,7 @@ export const Header = ({ logoUrl, siteName }: HeaderProps) => {
           isOpen ? "max-h-[700px] overflow-y-auto" : "max-h-0"
         )}
       >
-        <nav className="container-wide py-6 space-y-2">
+        <nav data-section="navigation-mobile" className="container-wide py-6 space-y-2">
           {regularItems.map((item) => (
             <div key={item.id}>
               <a
