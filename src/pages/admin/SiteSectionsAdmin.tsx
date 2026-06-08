@@ -15,6 +15,17 @@ import { ImageUpload } from '@/components/admin/ImageUpload';
 import { GalleryPicker } from '@/components/admin/GalleryPicker';
 import { Loader2, Pencil, Eye, EyeOff, RefreshCw, Monitor, Smartphone, X } from 'lucide-react';
 
+// Embedded collection editors per page (Home → Partners, About → Team, Gallery → Gallery items)
+const PartnersAdmin = lazy(() => import('./PartnersAdmin'));
+const TeamAdmin = lazy(() => import('./TeamAdmin'));
+const GalleryAdmin = lazy(() => import('./GalleryAdmin'));
+
+const PAGE_COLLECTIONS: Record<string, { title: string; description: string; Component: React.LazyExoticComponent<any> }> = {
+  home: { title: 'Partners', description: 'Logos shown in the homepage partner carousel. Reorder, toggle visibility, and edit URLs.', Component: PartnersAdmin },
+  about: { title: 'Team Members', description: 'Photos, titles, and bios shown on the About page team grid.', Component: TeamAdmin },
+  gallery: { title: 'Gallery Items', description: 'Photos shown on the Gallery page. Upload, tag, and order them here.', Component: GalleryAdmin },
+};
+
 type Row = {
   id?: string;
   page_key: string;
