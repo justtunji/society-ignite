@@ -12,6 +12,7 @@ import sbaLogo from "@/assets/logos/sba-logo.png";
 import { cldUrl, cldSrcSet } from '@/lib/cloudinary';
 import { useSectionContent } from "@/hooks/useSectionContent";
 import { SectionSeoTags } from "@/components/SectionSeoTags";
+import { isConferencePast } from "@/components/ConferenceSection";
 
 const HERO_DEFAULTS = {
   eyebrow: 'Our Moments',
