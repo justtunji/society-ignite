@@ -92,21 +92,43 @@ const Gallery = () => {
       .then(({ data }) => { if (data) setUpcomingEvents(data); });
   }, []);
 
+  // Apply curated ordering/visibility (from admin) before any user filters.
+  const curatedBase = useMemo(() => {
+    const curated = pastIntro?.curated_items ?? [];
+    const byId = new Map(galleryImages.map(i => [i.id, i]));
+    if (curated.length > 0) {
+      return curated
+        .filter(c => c.visible)
+        .map(c => byId.get(c.id))
+        .filter((x): x is GalleryItem => !!x);
+    }
+    return galleryImages.filter(i => i.visible !== false);
+  }, [galleryImages, pastIntro]);
+
+  // Hero image: featured gallery item overrides uploaded image.
+  const heroImage = useMemo(() => {
+    if (hero?.featured_item_id) {
+      const found = galleryImages.find(i => i.id === hero.featured_item_id);
+      if (found) return found.image_url;
+    }
+    return hero?.image_url || galleryHero;
+  }, [hero, galleryImages]);
+
   const categories = useMemo(() => {
     const set = new Set<string>();
-    galleryImages.forEach(i => { if (i.category?.trim()) set.add(i.category.trim()); });
+    curatedBase.forEach(i => { if (i.category?.trim()) set.add(i.category.trim()); });
     return [ALL, ...Array.from(set).sort()];
-  }, [galleryImages]);
+  }, [curatedBase]);
 
   const allTags = useMemo(() => {
     const set = new Set<string>();
-    galleryImages.forEach(i => i.tags?.forEach(t => { if (t?.trim()) set.add(t.trim()); }));
+    curatedBase.forEach(i => i.tags?.forEach(t => { if (t?.trim()) set.add(t.trim()); }));
     return Array.from(set).sort();
-  }, [galleryImages]);
+  }, [curatedBase]);
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
-    return galleryImages.filter(i => {
+    return curatedBase.filter(i => {
       if (activeCategory !== ALL && (i.category || '').trim() !== activeCategory) return false;
       if (activeTags.size > 0) {
         const itemTags = new Set((i.tags || []).map(t => t.trim()));
@@ -119,7 +141,7 @@ const Gallery = () => {
       }
       return true;
     });
-  }, [galleryImages, activeCategory, activeTags, search]);
+  }, [curatedBase, activeCategory, activeTags, search]);
 
   const toggleTag = (t: string) => {
     setActiveTags(prev => {
