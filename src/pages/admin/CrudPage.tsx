@@ -359,24 +359,28 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
                             </>
                           )}
                           {customActions?.(item)}
-                          <Button size="icon" variant="ghost" aria-label="Edit" onClick={() => initForm(item)}><Pencil size={16} /></Button>
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <Button size="icon" variant="ghost" className="text-destructive" disabled={deletingId === item.id}>
-                                {deletingId === item.id ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
-                              </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>Delete this item?</AlertDialogTitle>
-                                <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction onClick={() => handleDelete(item.id)}>Delete</AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
+                          {canUpdate && (
+                            <Button size="icon" variant="ghost" aria-label="Edit" onClick={() => initForm(item)}><Pencil size={16} /></Button>
+                          )}
+                          {canDelete && (
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button size="icon" variant="ghost" className="text-destructive" disabled={deletingId === item.id}>
+                                  {deletingId === item.id ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Delete this item?</AlertDialogTitle>
+                                  <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => handleDelete(item.id)}>Delete</AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          )}
                         </div>
                       </TableCell>
                     </TableRow>
