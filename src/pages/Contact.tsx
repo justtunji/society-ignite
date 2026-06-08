@@ -11,8 +11,26 @@ import { supabase } from "@/integrations/supabase/client";
 import { subscribeToMailchimp } from "@/lib/mailchimp";
 import contactHero from "@/assets/images/contact-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
+import { useSectionContent } from "@/hooks/useSectionContent";
+
+const HERO_DEFAULTS = {
+  eyebrow: 'Get in Touch',
+  headline: "We'd Love to Hear From You.",
+  subheadline: "Whether you have questions about membership, partnerships, or want to get involved, we're here to help.",
+  image_url: '', cta_label: '', cta_url: '',
+};
+const INFO_DEFAULTS = {
+  email: 'info@societyofblackacademics.com',
+  phone: 'Available upon request',
+  location: 'United Kingdom',
+  hours_weekday: 'Monday - Friday: 9:00 AM - 5:00 PM (GMT)',
+  hours_weekend: 'Saturday - Sunday: Closed',
+  response_note: 'We aim to respond to all inquiries within 48 hours during business days.',
+};
 
 const Contact = () => {
+  const hero = useSectionContent('contact', 'hero', HERO_DEFAULTS);
+  const info = useSectionContent('contact', 'info', INFO_DEFAULTS);
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
