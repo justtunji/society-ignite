@@ -13,8 +13,32 @@ import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
 import joinUsHero from "@/assets/images/join-us-team.jpeg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 import membershipLevelsImage from "@/assets/images/join-us-team.jpeg";
+import { useSectionContent } from "@/hooks/useSectionContent";
+
+const HERO_DEFAULTS = {
+  eyebrow: 'Join Our Community',
+  headline: 'Become a Member.',
+  subheadline: 'Join our community of scholars, researchers, and educators committed to driving inclusive change in higher education.',
+  image_url: '', cta_label: '', cta_url: '',
+};
+const WHY_DEFAULTS = {
+  eyebrow: 'Why Join', headline: 'Benefits of SBA Membership',
+  benefit_1: 'Exposure to best practices, guidance, information, and a growing professional community',
+  benefit_2: 'Commitment to driving change and promoting Justice, Equity, and Fairness (JEF)',
+  benefit_3: 'Improved career prospects and exposure to exciting opportunities',
+  benefit_4: 'Access to a diverse network of academics at different career stages',
+};
+const LEVELS_DEFAULTS = { eyebrow: 'Membership Levels', headline: 'Choose Your Path' };
+const APPLY_DEFAULTS = {
+  eyebrow: 'Apply Now', headline: 'Support Us',
+  subheadline: "Support us and you'll get to attend our conference for free.",
+};
 
 const JoinUs = () => {
+  const hero = useSectionContent('join-us', 'hero', HERO_DEFAULTS);
+  const why = useSectionContent('join-us', 'why_join', WHY_DEFAULTS);
+  const levelsIntro = useSectionContent('join-us', 'levels_intro', LEVELS_DEFAULTS);
+  const applyIntro = useSectionContent('join-us', 'apply_intro', APPLY_DEFAULTS);
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -152,59 +176,62 @@ const JoinUs = () => {
       
       <main>
         {/* Hero Section - DINN Style */}
-        <section className="relative min-h-[80vh] flex items-center bg-primary">
-          <div className="absolute inset-0">
-            <img 
-              src={joinUsHero} 
-              alt="Join Society of Black Academics"
-              className="w-full h-full object-cover opacity-30"
-            />
-            <div className="absolute inset-0 bg-primary/80"></div>
-          </div>
-          
-          <div className="relative z-10 container-wide py-32">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="text-primary-foreground">
-                <p className="text-accent font-medium text-lg mb-4">Join Our Community</p>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  Become a Member.
-                </h1>
-                <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
-                  Join our community of scholars, researchers, and educators committed to driving inclusive change in higher education.
-                </p>
-              </div>
-              
-              <div className="hidden lg:flex justify-center">
-                <img 
-                  src={membershipLevelsImage}
-                  alt="SBA Membership Levels"
-                  className="max-w-md rounded-lg shadow-2xl"
-                />
-              </div>
+        {hero && (
+          <section className="relative min-h-[80vh] flex items-center bg-primary">
+            <div className="absolute inset-0">
+              <img
+                src={hero.image_url || joinUsHero}
+                alt="Join Society of Black Academics"
+                className="w-full h-full object-cover opacity-30"
+              />
+              <div className="absolute inset-0 bg-primary/80"></div>
             </div>
-          </div>
-        </section>
 
-        {/* Benefits Section */}
-        <section className="py-20 lg:py-32 bg-background">
-          <div className="container-wide">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div>
-                <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Why Join</h4>
-                <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-8">
-                  Benefits of SBA Membership
-                </h2>
-                <div className="space-y-6">
-                  {benefits.map((benefit, index) => (
-                    <div key={index} className="flex items-start gap-4">
-                      <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 mt-1">
-                        <Check className="h-4 w-4 text-accent" />
-                      </div>
-                      <p className="text-muted-foreground text-lg">{benefit}</p>
-                    </div>
-                  ))}
+            <div className="relative z-10 container-wide py-32">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div className="text-primary-foreground">
+                  <p className="text-accent font-medium text-lg mb-4">{hero.eyebrow}</p>
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                    {hero.headline}
+                  </h1>
+                  <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
+                    {hero.subheadline}
+                  </p>
+                </div>
+
+                <div className="hidden lg:flex justify-center">
+                  <img
+                    src={membershipLevelsImage}
+                    alt="SBA Membership Levels"
+                    className="max-w-md rounded-lg shadow-2xl"
+                  />
                 </div>
               </div>
+            </div>
+          </section>
+        )}
+
+        {/* Benefits Section */}
+        {why && (
+          <section className="py-20 lg:py-32 bg-background">
+            <div className="container-wide">
+              <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                  <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">{why.eyebrow}</h4>
+                  <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-8">
+                    {why.headline}
+                  </h2>
+                  <div className="space-y-6">
+                    {[why.benefit_1, why.benefit_2, why.benefit_3, why.benefit_4].filter(Boolean).map((benefit, index) => (
+                      <div key={index} className="flex items-start gap-4">
+                        <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 mt-1">
+                          <Check className="h-4 w-4 text-accent" />
+                        </div>
+                        <p className="text-muted-foreground text-lg">{benefit}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               
               <div className="lg:hidden flex justify-center">
                 <img 
@@ -213,17 +240,19 @@ const JoinUs = () => {
                   className="max-w-sm rounded-lg shadow-xl"
                 />
               </div>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Membership Levels */}
+        {levelsIntro && (
         <section className="py-20 lg:py-32 bg-muted/30">
           <div className="container-wide">
             <div className="text-center mb-16">
-              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Membership Levels</h4>
+              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">{levelsIntro.eyebrow}</h4>
               <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
-                Choose Your Path
+                {levelsIntro.headline}
               </h2>
             </div>
             
@@ -245,18 +274,19 @@ const JoinUs = () => {
             </div>
           </div>
         </section>
+        )}
 
         {/* Membership Form */}
         <section className="py-20 lg:py-32 bg-background" id="b-a-m">
           <div className="container-wide">
             <div className="max-w-2xl mx-auto">
               <div className="text-center mb-12">
-                <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Apply Now</h4>
+                <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">{applyIntro?.eyebrow}</h4>
                 <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                  Support Us
+                  {applyIntro?.headline}
                 </h2>
                 <p className="text-lg text-muted-foreground">
-                  Support us and you'll get to attend our conference for free.
+                  {applyIntro?.subheadline}
                 </p>
               </div>
               

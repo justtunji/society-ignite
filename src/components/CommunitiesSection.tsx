@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { supabase } from '@/integrations/supabase/client';
 import sbaImage from "@/assets/images/gallery/sba5.jpeg";
+import { useSectionContent } from '@/hooks/useSectionContent';
 
 interface Community {
   id: string;
@@ -11,8 +12,15 @@ interface Community {
   link: string | null;
 }
 
+const INTRO_DEFAULTS = {
+  eyebrow: 'Our communities',
+  paragraph: 'We understand the need for nuance and specificity, which is why we have created several communities that you can join. Each with its unique landscape, language, and content, we hope that you find one that works for you.',
+  image_url: '',
+};
+
 export const CommunitiesSection = () => {
   const [communities, setCommunities] = useState<Community[]>([]);
+  const intro = useSectionContent('home', 'communities_intro', INTRO_DEFAULTS);
 
   useEffect(() => {
     const fetchCommunities = async () => {
@@ -26,14 +34,16 @@ export const CommunitiesSection = () => {
     fetchCommunities();
   }, []);
 
+  if (!intro) return null;
+
   return (
     <section className="py-20 lg:py-32 bg-background">
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-0 items-stretch">
           {/* Left - Image */}
           <div className="relative min-h-[300px] lg:min-h-[700px] order-2 lg:order-1 bg-muted flex items-center justify-center">
-            <img 
-              src={sbaImage}
+            <img
+              src={intro.image_url || sbaImage}
               alt="SBA Community"
               className="w-full h-full object-contain"
             />
@@ -41,11 +51,12 @@ export const CommunitiesSection = () => {
           {/* Right - Content */}
           <div className="bg-muted/30 p-8 lg:p-16 flex flex-col justify-center order-1 lg:order-2">
             <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">
-              Our communities
+              {intro.eyebrow}
             </h4>
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              We understand the need for nuance and specificity, which is why we have created several communities that you can join. Each with its unique landscape, language, and content, we hope that you find one that works for you.
+              {intro.paragraph}
             </p>
+
             
             <div className="space-y-6 mb-8">
               {communities.map((community) => (

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import {
   Settings, Users, Image, Calendar, BookOpen, Megaphone, FileText,
   LayoutDashboard, LogOut, Handshake, MessageSquare, Menu, X, UserPlus,
-  Shield, FileStack
+  Shield, FileStack, LayoutTemplate
 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -19,6 +19,7 @@ const navItems: NavItem[] = [
   { label: 'Site Settings', path: '/admin/site-settings', icon: Settings, module: 'site_settings' },
   { label: 'Team Access', path: '/admin/users', icon: Shield, adminOnly: true },
   { label: 'Pages', path: '/admin/pages', icon: FileStack, module: 'pages' },
+  { label: 'Site Sections', path: '/admin/site-sections', icon: LayoutTemplate, module: 'sections' },
   { label: 'Partners', path: '/admin/partners', icon: Handshake, module: 'partners' },
   { label: 'Team Members', path: '/admin/team', icon: Users, module: 'team' },
   { label: 'Gallery', path: '/admin/gallery', icon: Image, module: 'gallery' },

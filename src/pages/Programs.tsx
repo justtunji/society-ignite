@@ -9,6 +9,13 @@ import { ArrowRight, Calendar, MapPin, Filter } from "lucide-react";
 import { supabase } from '@/integrations/supabase/client';
 import { cldUrl, cldSrcSet } from '@/lib/cloudinary';
 import sbaLogo from "@/assets/logos/sba-logo.png";
+import { useSectionContent } from '@/hooks/useSectionContent';
+
+const HERO_DEFAULTS = {
+  eyebrow: 'Our Programmes', headline: 'Our Programs',
+  subheadline: 'Explore our signature programs designed to support and advance Black academics across the UK',
+  image_url: '', cta_label: '', cta_url: '',
+};
 
 interface Program {
   id: string;
@@ -35,6 +42,7 @@ const Programs = () => {
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [programTypes, setProgramTypes] = useState<string[]>([]);
+  const hero = useSectionContent('programs', 'hero', HERO_DEFAULTS);
 
   useEffect(() => {
     const fetchPrograms = async () => {
@@ -63,14 +71,16 @@ const Programs = () => {
       <Header siteName="Society of Black Academics" logoUrl={sbaLogo} />
 
       {/* Hero */}
-      <section className="bg-primary text-primary-foreground py-20 lg:py-28">
-        <div className="container-wide text-center">
-          <h1 className="text-4xl lg:text-5xl font-medium mb-4">Our Programs</h1>
-          <p className="text-lg text-primary-foreground/70 max-w-2xl mx-auto">
-            Explore our signature programs designed to support and advance Black academics across the UK
-          </p>
-        </div>
-      </section>
+      {hero && (
+        <section className="bg-primary text-primary-foreground py-20 lg:py-28">
+          <div className="container-wide text-center">
+            <h1 className="text-4xl lg:text-5xl font-medium mb-4">{hero.headline}</h1>
+            <p className="text-lg text-primary-foreground/70 max-w-2xl mx-auto">
+              {hero.subheadline}
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* Filters */}
       <section className="py-8 border-b border-border">

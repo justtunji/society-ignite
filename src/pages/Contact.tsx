@@ -11,8 +11,26 @@ import { supabase } from "@/integrations/supabase/client";
 import { subscribeToMailchimp } from "@/lib/mailchimp";
 import contactHero from "@/assets/images/contact-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
+import { useSectionContent } from "@/hooks/useSectionContent";
+
+const HERO_DEFAULTS = {
+  eyebrow: 'Get in Touch',
+  headline: "We'd Love to Hear From You.",
+  subheadline: "Whether you have questions about membership, partnerships, or want to get involved, we're here to help.",
+  image_url: '', cta_label: '', cta_url: '',
+};
+const INFO_DEFAULTS = {
+  email: 'info@societyofblackacademics.com',
+  phone: 'Available upon request',
+  location: 'United Kingdom',
+  hours_weekday: 'Monday - Friday: 9:00 AM - 5:00 PM (GMT)',
+  hours_weekend: 'Saturday - Sunday: Closed',
+  response_note: 'We aim to respond to all inquiries within 48 hours during business days.',
+};
 
 const Contact = () => {
+  const hero = useSectionContent('contact', 'hero', HERO_DEFAULTS);
+  const info = useSectionContent('contact', 'info', INFO_DEFAULTS);
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -99,28 +117,30 @@ const Contact = () => {
       
       <main>
         {/* Hero Section - DINN Style */}
-        <section className="relative min-h-[80vh] flex items-center bg-primary">
-          <div className="absolute inset-0">
-            <img 
-              src={contactHero} 
-              alt="Contact Society of Black Academics"
-              className="w-full h-full object-cover opacity-30"
-            />
-            <div className="absolute inset-0 bg-primary/80"></div>
-          </div>
-          
-          <div className="relative z-10 container-wide py-32">
-            <div className="max-w-3xl">
-              <p className="text-accent font-medium text-lg mb-4">Get in Touch</p>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-primary-foreground mb-6">
-                We'd Love to Hear From You.
-              </h1>
-              <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
-                Whether you have questions about membership, partnerships, or want to get involved, we're here to help.
-              </p>
+        {hero && (
+          <section className="relative min-h-[80vh] flex items-center bg-primary">
+            <div className="absolute inset-0">
+              <img
+                src={hero.image_url || contactHero}
+                alt="Contact Society of Black Academics"
+                className="w-full h-full object-cover opacity-30"
+              />
+              <div className="absolute inset-0 bg-primary/80"></div>
             </div>
-          </div>
-        </section>
+
+            <div className="relative z-10 container-wide py-32">
+              <div className="max-w-3xl">
+                <p className="text-accent font-medium text-lg mb-4">{hero.eyebrow}</p>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-primary-foreground mb-6">
+                  {hero.headline}
+                </h1>
+                <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
+                  {hero.subheadline}
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Contact Section - Split Layout */}
         <section className="py-20 lg:py-32 bg-background">
@@ -218,7 +238,7 @@ const Contact = () => {
                       </div>
                       <div>
                         <h3 className="font-bold text-lg mb-1">Email</h3>
-                        <p className="text-muted-foreground">info@societyofblackacademics.com</p>
+                        <p className="text-muted-foreground">{info?.email}</p>
                       </div>
                     </div>
                     
@@ -228,7 +248,7 @@ const Contact = () => {
                       </div>
                       <div>
                         <h3 className="font-bold text-lg mb-1">Phone</h3>
-                        <p className="text-muted-foreground">Available upon request</p>
+                        <p className="text-muted-foreground">{info?.phone}</p>
                       </div>
                     </div>
                     
@@ -238,7 +258,7 @@ const Contact = () => {
                       </div>
                       <div>
                         <h3 className="font-bold text-lg mb-1">Location</h3>
-                        <p className="text-muted-foreground">United Kingdom</p>
+                        <p className="text-muted-foreground">{info?.location}</p>
                       </div>
                     </div>
                   </div>
@@ -276,10 +296,10 @@ const Contact = () => {
                 <div className="border-t border-border pt-12">
                   <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Office Hours</h4>
                   <div className="space-y-2 text-muted-foreground">
-                    <p>Monday - Friday: 9:00 AM - 5:00 PM (GMT)</p>
-                    <p>Saturday - Sunday: Closed</p>
+                    <p>{info?.hours_weekday}</p>
+                    <p>{info?.hours_weekend}</p>
                     <p className="text-sm mt-4">
-                      We aim to respond to all inquiries within 48 hours during business days.
+                      {info?.response_note}
                     </p>
                   </div>
                 </div>
