@@ -2,7 +2,7 @@
 // Adding a new editable field is a one-line change here — the admin UI
 // and `useSectionContent` hook pick it up automatically.
 
-export type FieldType = 'text' | 'textarea' | 'rich_text' | 'image' | 'url' | 'boolean';
+export type FieldType = 'text' | 'textarea' | 'rich_text' | 'image' | 'url' | 'boolean' | 'gallery_item' | 'gallery_items';
 
 export interface SectionField {
   key: string;
@@ -334,18 +334,24 @@ export const PAGE_SCHEMAS: PageSchema[] = [
     key: 'gallery',
     label: 'Gallery',
     sections: [
-      { key: 'hero', label: 'Hero', fields: heroFields(), defaults: {
+      { key: 'hero', label: 'Hero', fields: [
+        ...heroFields(),
+        { key: 'featured_item_id', label: 'Hero image from gallery (overrides Background image)', type: 'gallery_item',
+          help: 'When set, the hero uses this gallery item\'s image instead of the uploaded background image.' },
+      ], defaults: {
         eyebrow: 'Our Moments', headline: 'Capturing Excellence.',
         subheadline: 'Explore moments from our conferences, workshops, and community gatherings.',
-        image_url: '', cta_label: '', cta_url: '',
+        image_url: '', cta_label: '', cta_url: '', featured_item_id: null,
       }},
       { key: 'past_events_intro', label: 'Past events intro',
-        description: 'Heading above the photo grid. Individual photos are managed in Gallery Items.',
+        description: 'Heading above the photo grid. Use the curated list to pick exactly which photos appear, in order; leave it empty to show every visible gallery item.',
         fields: [
           { key: 'eyebrow',  label: 'Eyebrow',  type: 'text' },
           { key: 'headline', label: 'Headline', type: 'text' },
+          { key: 'curated_items', label: 'Curated photos', type: 'gallery_items',
+            help: 'Pick gallery items to feature, drag-order with the arrows, and toggle each one\'s visibility.' },
         ],
-        defaults: { eyebrow: 'Gallery', headline: 'Photos from Past Events' },
+        defaults: { eyebrow: 'Gallery', headline: 'Photos from Past Events', curated_items: [] },
       },
     ],
   },
