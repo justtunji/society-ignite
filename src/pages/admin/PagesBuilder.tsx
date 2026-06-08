@@ -53,7 +53,7 @@ const PagesBuilder = () => {
     const { data, error } = await supabase
       .from('cms_pages').select('*').order('updated_at', { ascending: false });
     if (error) throw error;
-    return (data ?? []) as PageRow[];
+    return (data ?? []) as unknown as PageRow[];
   }, []);
 
   const { data: pages, status, error, refetch } = useAsyncResource<PageRow[]>(loader, [loader], 15000);
@@ -90,11 +90,11 @@ const PagesBuilder = () => {
         seo_description: editing.seo_description || null,
         og_image_url: editing.og_image_url || null,
         status: editing.status,
-        blocks: editing.blocks,
+        blocks: editing.blocks as any,
       };
       const op = editing.id
-        ? supabase.from('cms_pages').update(payload).eq('id', editing.id)
-        : supabase.from('cms_pages').insert(payload);
+        ? supabase.from('cms_pages').update(payload as any).eq('id', editing.id)
+        : supabase.from('cms_pages').insert(payload as any);
       const { error: err } = await withTimeout<any>(op as any, 15000, 'save page');
       if (err) throw err;
       toast({ title: editing.id ? 'Page updated' : 'Page created' });
