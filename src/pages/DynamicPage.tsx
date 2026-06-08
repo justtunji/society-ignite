@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 import PageBlockRenderer from '@/components/PageBlockRenderer';
 import type { PageBlock } from '@/lib/pageBlocks';
 
