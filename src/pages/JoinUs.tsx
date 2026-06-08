@@ -13,8 +13,32 @@ import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
 import joinUsHero from "@/assets/images/join-us-team.jpeg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
 import membershipLevelsImage from "@/assets/images/join-us-team.jpeg";
+import { useSectionContent } from "@/hooks/useSectionContent";
+
+const HERO_DEFAULTS = {
+  eyebrow: 'Join Our Community',
+  headline: 'Become a Member.',
+  subheadline: 'Join our community of scholars, researchers, and educators committed to driving inclusive change in higher education.',
+  image_url: '', cta_label: '', cta_url: '',
+};
+const WHY_DEFAULTS = {
+  eyebrow: 'Why Join', headline: 'Benefits of SBA Membership',
+  benefit_1: 'Exposure to best practices, guidance, information, and a growing professional community',
+  benefit_2: 'Commitment to driving change and promoting Justice, Equity, and Fairness (JEF)',
+  benefit_3: 'Improved career prospects and exposure to exciting opportunities',
+  benefit_4: 'Access to a diverse network of academics at different career stages',
+};
+const LEVELS_DEFAULTS = { eyebrow: 'Membership Levels', headline: 'Choose Your Path' };
+const APPLY_DEFAULTS = {
+  eyebrow: 'Apply Now', headline: 'Support Us',
+  subheadline: "Support us and you'll get to attend our conference for free.",
+};
 
 const JoinUs = () => {
+  const hero = useSectionContent('join-us', 'hero', HERO_DEFAULTS);
+  const why = useSectionContent('join-us', 'why_join', WHY_DEFAULTS);
+  const levelsIntro = useSectionContent('join-us', 'levels_intro', LEVELS_DEFAULTS);
+  const applyIntro = useSectionContent('join-us', 'apply_intro', APPLY_DEFAULTS);
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
