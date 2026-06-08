@@ -2,7 +2,7 @@
 // Adding a new editable field is a one-line change here — the admin UI
 // and `useSectionContent` hook pick it up automatically.
 
-export type FieldType = 'text' | 'textarea' | 'rich_text' | 'image' | 'url' | 'boolean' | 'gallery_item' | 'gallery_items';
+export type FieldType = 'text' | 'textarea' | 'rich_text' | 'image' | 'url' | 'boolean' | 'datetime' | 'gallery_item' | 'gallery_items';
 
 export interface SectionField {
   key: string;
@@ -111,6 +111,14 @@ export const PAGE_SCHEMAS: PageSchema[] = [
           { key: 'primary_cta_url',   label: 'Primary CTA URL',   type: 'url' },
           { key: 'secondary_cta_label', label: 'Secondary CTA label', type: 'text' },
           { key: 'secondary_cta_url',   label: 'Secondary CTA URL',   type: 'url' },
+          { key: 'publish_at',     label: 'Publish at (show from)', type: 'datetime',
+            help: 'Section stays hidden until this time. Leave blank to publish immediately.' },
+          { key: 'start_datetime', label: 'Event start', type: 'datetime',
+            help: 'Used for the countdown and structured data.' },
+          { key: 'end_datetime',   label: 'Event end (auto-archive)', type: 'datetime',
+            help: 'Section is hidden after this time and the event moves into Past Events on the Gallery page.' },
+          { key: 'archive_image',  label: 'Archive image (optional)', type: 'image',
+            help: 'Image used when this event appears in Past Events. Falls back to the flyer.' },
           ...seoFields(),
         ],
         defaults: {
@@ -126,6 +134,7 @@ export const PAGE_SCHEMAS: PageSchema[] = [
           primary_cta_url: '/join-us',
           secondary_cta_label: 'Get Updates',
           secondary_cta_url: '/contact',
+          publish_at: '', start_datetime: '', end_datetime: '', archive_image: '',
           ...seoDefaults,
         },
       },

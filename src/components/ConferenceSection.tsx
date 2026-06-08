@@ -17,11 +17,32 @@ const DEFAULTS = {
   primary_cta_url: '/join-us',
   secondary_cta_label: 'Get Updates',
   secondary_cta_url: '/contact',
+  publish_at: '', start_datetime: '', end_datetime: '', archive_image: '',
+};
+
+/** Parse a datetime-local string ("2026-06-08T10:30") as a Date, or null. */
+const parseDT = (v: string | undefined | null): Date | null => {
+  if (!v) return null;
+  const d = new Date(v);
+  return isNaN(d.getTime()) ? null : d;
+};
+
+/** True when the conference content should be considered "past" and auto-archived. */
+export const isConferencePast = (c: { end_datetime?: string } | null | undefined): boolean => {
+  const end = parseDT(c?.end_datetime);
+  return !!end && end.getTime() < Date.now();
 };
 
 export const ConferenceSection = () => {
   const c = useSectionContent('home', 'conference', DEFAULTS);
   if (!c) return null;
+
+  const now = Date.now();
+  const publishAt = parseDT(c.publish_at);
+  const endAt = parseDT(c.end_datetime);
+  // Hide before publish window opens or after end_datetime (auto-archive).
+  if (publishAt && publishAt.getTime() > now) return null;
+  if (endAt && endAt.getTime() < now) return null;
 
   return (
     <section className="py-20 lg:py-28 bg-muted/30">

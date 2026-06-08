@@ -12,6 +12,7 @@ import sbaLogo from "@/assets/logos/sba-logo.png";
 import { cldUrl, cldSrcSet } from '@/lib/cloudinary';
 import { useSectionContent } from "@/hooks/useSectionContent";
 import { SectionSeoTags } from "@/components/SectionSeoTags";
+import { isConferencePast } from "@/components/ConferenceSection";
 
 const HERO_DEFAULTS = {
   eyebrow: 'Our Moments',
@@ -52,6 +53,11 @@ const ALL = 'All';
 const Gallery = () => {
   const hero = useSectionContent('gallery', 'hero', HERO_DEFAULTS);
   const pastIntro = useSectionContent('gallery', 'past_events_intro', PAST_DEFAULTS);
+  const conference = useSectionContent('home', 'conference', {
+    headline: '', body: '', date_text: '', location_text: '',
+    image_url: '', archive_image: '', end_datetime: '',
+  });
+  const archivedConference = isConferencePast(conference) ? conference : null;
   const [galleryImages, setGalleryImages] = useState<GalleryItem[]>([]);
   const [upcomingEvents, setUpcomingEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -237,6 +243,37 @@ const Gallery = () => {
                   <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-3">{pastIntro.eyebrow}</h4>
                 )}
                 <h2 className="text-3xl lg:text-5xl font-bold text-foreground">{pastIntro.headline}</h2>
+              </div>
+            )}
+
+            {archivedConference && (archivedConference.headline || archivedConference.image_url) && (
+              <div className="mb-12 p-5 sm:p-6 rounded-2xl border border-border bg-muted/30 flex flex-col sm:flex-row gap-5 items-start">
+                {(archivedConference.archive_image || archivedConference.image_url) && (
+                  <img
+                    src={cldUrl(archivedConference.archive_image || archivedConference.image_url, { w: 480, c: 'fit' })}
+                    srcSet={cldSrcSet(archivedConference.archive_image || archivedConference.image_url, [240, 480, 720], { c: 'fit' })}
+                    alt={archivedConference.headline || 'Past event'}
+                    loading="lazy"
+                    className="w-full sm:w-48 aspect-square rounded-lg object-contain bg-background border border-border/40"
+                  />
+                )}
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-accent mb-2">Past event</p>
+                  {archivedConference.headline && (
+                    <h3 className="text-2xl font-bold text-foreground mb-2">{archivedConference.headline}</h3>
+                  )}
+                  <div className="text-sm text-muted-foreground space-y-1 mb-3">
+                    {archivedConference.date_text && (
+                      <p className="flex items-center gap-2"><Calendar className="h-4 w-4 text-accent" /> {archivedConference.date_text}</p>
+                    )}
+                    {archivedConference.location_text && (
+                      <p className="flex items-center gap-2"><MapPin className="h-4 w-4 text-accent" /> {archivedConference.location_text}</p>
+                    )}
+                  </div>
+                  {archivedConference.body && (
+                    <p className="text-sm text-foreground/80 leading-relaxed line-clamp-3">{archivedConference.body}</p>
+                  )}
+                </div>
               </div>
             )}
 
