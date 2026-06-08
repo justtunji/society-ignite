@@ -143,7 +143,7 @@ export const NewsletterSection = () => {
               </Button>
               
               <p className="text-sm text-primary-foreground/60 text-center">
-                We respect your privacy. Unsubscribe at any time.
+                {c.footnote}
               </p>
             </form>
           </div>
