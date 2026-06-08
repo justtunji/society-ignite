@@ -203,8 +203,8 @@ const About = () => {
             )}
 
             {teamMembers.length > 0 ? (() => {
-              const founder = teamMembers.find(m => m.order_index === 0);
-              const others = teamMembers.filter(m => m.order_index !== 0);
+              const founder = teamMembers[0];
+              const others = teamMembers.slice(1);
               const renderMember = (member: TeamMember) => (
                 <div key={member.id} className="group">
                   <div className="relative aspect-square overflow-hidden rounded-lg mb-4 bg-muted">
