@@ -40,11 +40,13 @@ interface CrudPageProps {
   reorderField?: string;
   /** Only swap within rows that share this column's value (e.g. 'category'). */
   groupBy?: string;
+  /** Permission module key (e.g. 'events'). When set, action buttons are hidden if the user lacks the matching permission. */
+  module?: string;
 }
 
 const REQUEST_TIMEOUT = 15_000;
 
-const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc = false, slugField = true, customActions, reorderField, groupBy }: CrudPageProps) => {
+const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc = false, slugField = true, customActions, reorderField, groupBy, module }: CrudPageProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
   const [formData, setFormData] = useState<any>({});
