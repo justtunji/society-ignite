@@ -238,7 +238,7 @@ const Contact = () => {
                       </div>
                       <div>
                         <h3 className="font-bold text-lg mb-1">Email</h3>
-                        <p className="text-muted-foreground">info@societyofblackacademics.com</p>
+                        <p className="text-muted-foreground">{info?.email}</p>
                       </div>
                     </div>
                     
@@ -248,7 +248,7 @@ const Contact = () => {
                       </div>
                       <div>
                         <h3 className="font-bold text-lg mb-1">Phone</h3>
-                        <p className="text-muted-foreground">Available upon request</p>
+                        <p className="text-muted-foreground">{info?.phone}</p>
                       </div>
                     </div>
                     
@@ -258,7 +258,7 @@ const Contact = () => {
                       </div>
                       <div>
                         <h3 className="font-bold text-lg mb-1">Location</h3>
-                        <p className="text-muted-foreground">United Kingdom</p>
+                        <p className="text-muted-foreground">{info?.location}</p>
                       </div>
                     </div>
                   </div>
@@ -296,10 +296,10 @@ const Contact = () => {
                 <div className="border-t border-border pt-12">
                   <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Office Hours</h4>
                   <div className="space-y-2 text-muted-foreground">
-                    <p>Monday - Friday: 9:00 AM - 5:00 PM (GMT)</p>
-                    <p>Saturday - Sunday: Closed</p>
+                    <p>{info?.hours_weekday}</p>
+                    <p>{info?.hours_weekend}</p>
                     <p className="text-sm mt-4">
-                      We aim to respond to all inquiries within 48 hours during business days.
+                      {info?.response_note}
                     </p>
                   </div>
                 </div>
