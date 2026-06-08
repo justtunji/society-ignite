@@ -6,8 +6,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { CheckCircle, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { subscribeToMailchimp } from "@/lib/mailchimp";
+import { useSectionContent } from "@/hooks/useSectionContent";
+
+const DEFAULTS = {
+  headline: 'Stay Connected',
+  subheadline: 'Join our mailing list to receive updates on programmes, events, and resources designed to support Black academics in their journey.',
+  footnote: 'We respect your privacy. Unsubscribe at any time.',
+};
 
 export const NewsletterSection = () => {
+  const c = useSectionContent('home', 'newsletter', DEFAULTS);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
