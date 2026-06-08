@@ -139,6 +139,7 @@ export const PAGE_SCHEMAS: PageSchema[] = [
           { key: 'cta_label', label: 'Button label', type: 'text' },
           { key: 'cta_url',   label: 'Button URL',   type: 'url' },
           { key: 'image_url', label: 'Fallback image (if no featured programme)', type: 'image' },
+          ...seoFields(),
         ],
         defaults: {
           eyebrow: 'Our programmes',
@@ -146,6 +147,7 @@ export const PAGE_SCHEMAS: PageSchema[] = [
           cta_label: 'Learn more',
           cta_url: '/resources',
           image_url: '',
+          ...seoDefaults,
         },
       },
       {
