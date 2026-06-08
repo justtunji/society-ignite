@@ -1,42 +1,39 @@
 import { useEffect } from 'react';
 import { useNavigate, Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { usePermissions } from '@/hooks/usePermissions';
 import { Button } from '@/components/ui/button';
 import {
   Settings, Users, Image, Calendar, BookOpen, Megaphone, FileText,
-  LayoutDashboard, LogOut, Navigation, Handshake, MessageSquare, Menu, X, UserPlus,
-  FileStack, Layers, FolderOpen, CloudUpload, Shield
+  LayoutDashboard, LogOut, Handshake, MessageSquare, Menu, X, UserPlus,
+  Shield
 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import sbaLogo from '@/assets/logos/sba-logo.png';
 import { AdminErrorReport } from '@/components/admin/AdminErrorReport';
 
-type NavItem = { label: string; path: string; icon: any; adminOnly?: boolean };
+type NavItem = { label: string; path: string; icon: any; adminOnly?: boolean; module?: string };
 const navItems: NavItem[] = [
   { label: 'Dashboard', path: '/admin', icon: LayoutDashboard },
-  { label: 'Site Settings', path: '/admin/site-settings', icon: Settings, adminOnly: true },
+  { label: 'Site Settings', path: '/admin/site-settings', icon: Settings, module: 'site_settings' },
   { label: 'Team Access', path: '/admin/users', icon: Shield, adminOnly: true },
-  { label: 'Navigation', path: '/admin/navigation', icon: Navigation },
-  { label: 'Pages', path: '/admin/pages', icon: FileStack },
-  { label: 'Sections', path: '/admin/sections', icon: Layers },
-  { label: 'Media Library', path: '/admin/media', icon: FolderOpen },
-  { label: 'Cloudinary Migration', path: '/admin/cloudinary', icon: CloudUpload, adminOnly: true },
-  { label: 'Partners', path: '/admin/partners', icon: Handshake },
-  { label: 'Team Members', path: '/admin/team', icon: Users },
-  { label: 'Gallery', path: '/admin/gallery', icon: Image },
-  { label: 'Events', path: '/admin/events', icon: Calendar },
-  { label: 'Programs', path: '/admin/programs', icon: BookOpen },
-  { label: 'Promotions', path: '/admin/promotions', icon: Megaphone },
-  { label: 'Resources', path: '/admin/resources', icon: FileText },
-  { label: 'Stories', path: '/admin/stories', icon: MessageSquare },
-  { label: 'Communities', path: '/admin/communities', icon: Users },
-  { label: 'Members', path: '/admin/members', icon: UserPlus, adminOnly: true },
-  { label: 'Contact Submissions', path: '/admin/contacts', icon: MessageSquare, adminOnly: true },
+  { label: 'Partners', path: '/admin/partners', icon: Handshake, module: 'partners' },
+  { label: 'Team Members', path: '/admin/team', icon: Users, module: 'team' },
+  { label: 'Gallery', path: '/admin/gallery', icon: Image, module: 'gallery' },
+  { label: 'Events', path: '/admin/events', icon: Calendar, module: 'events' },
+  { label: 'Programs', path: '/admin/programs', icon: BookOpen, module: 'programs' },
+  { label: 'Promotions', path: '/admin/promotions', icon: Megaphone, module: 'promotions' },
+  { label: 'Resources', path: '/admin/resources', icon: FileText, module: 'resources' },
+  { label: 'Stories', path: '/admin/stories', icon: MessageSquare, module: 'stories' },
+  { label: 'Communities', path: '/admin/communities', icon: Users, module: 'communities' },
+  { label: 'Members', path: '/admin/members', icon: UserPlus, module: 'members' },
+  { label: 'Contact Submissions', path: '/admin/contacts', icon: MessageSquare, module: 'contacts' },
 ];
 
 const AdminLayout = () => {
   const { user, isAdmin, isStaff, loading, signOut } = useAuth();
+  const { can, loading: permsLoading } = usePermissions();
   const navigate = useNavigate();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -47,13 +44,17 @@ const AdminLayout = () => {
     }
   }, [user, isStaff, loading, navigate]);
 
-  if (loading) {
+  if (loading || permsLoading) {
     return <div className="min-h-screen flex items-center justify-center"><p>Loading...</p></div>;
   }
 
   if (!user || !isStaff) return null;
 
-  const visibleNav = navItems.filter(item => !item.adminOnly || isAdmin);
+  const visibleNav = navItems.filter(item => {
+    if (item.adminOnly) return isAdmin;
+    if (item.module) return can(item.module, 'read');
+    return true;
+  });
 
   return (
     <div className="min-h-screen bg-muted/30 flex">
