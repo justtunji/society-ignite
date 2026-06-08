@@ -9,6 +9,7 @@ import { CommunitiesSection } from "@/components/CommunitiesSection";
 import { ImpactSection } from "@/components/ImpactSection";
 import { NewsletterSection } from "@/components/NewsletterSection";
 import { Footer } from "@/components/Footer";
+import { SectionSeoTags } from "@/components/SectionSeoTags";
 import { supabase } from "@/integrations/supabase/client";
 
 interface SiteSettings {
