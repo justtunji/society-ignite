@@ -53,39 +53,6 @@ export type Database = {
         }
         Relationships: []
       }
-      communities: {
-        Row: {
-          created_at: string | null
-          description: string | null
-          id: string
-          link: string | null
-          name: string
-          order_index: number | null
-          updated_at: string | null
-          visible: boolean | null
-        }
-        Insert: {
-          created_at?: string | null
-          description?: string | null
-          id?: string
-          link?: string | null
-          name: string
-          order_index?: number | null
-          updated_at?: string | null
-          visible?: boolean | null
-        }
-        Update: {
-          created_at?: string | null
-          description?: string | null
-          id?: string
-          link?: string | null
-          name?: string
-          order_index?: number | null
-          updated_at?: string | null
-          visible?: boolean | null
-        }
-        Relationships: []
-      }
       contact_submissions: {
         Row: {
           created_at: string | null

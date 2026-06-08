@@ -10,7 +10,7 @@ const PartnerCarousel = lazy(() => import("@/components/PartnerCarousel").then(m
 const ConferenceSection = lazy(() => import("@/components/ConferenceSection").then(m => ({ default: m.ConferenceSection })));
 const AboutSection = lazy(() => import("@/components/AboutSection").then(m => ({ default: m.AboutSection })));
 const ProgrammesSection = lazy(() => import("@/components/ProgrammesSection").then(m => ({ default: m.ProgrammesSection })));
-const CommunitiesSection = lazy(() => import("@/components/CommunitiesSection").then(m => ({ default: m.CommunitiesSection })));
+
 const ImpactSection = lazy(() => import("@/components/ImpactSection").then(m => ({ default: m.ImpactSection })));
 const NewsletterSection = lazy(() => import("@/components/NewsletterSection").then(m => ({ default: m.NewsletterSection })));
 
@@ -111,7 +111,6 @@ const Index = () => {
           <ConferenceSection />
           <AboutSection />
           <ProgrammesSection />
-          <CommunitiesSection />
           <ImpactSection />
           <NewsletterSection />
         </Suspense>

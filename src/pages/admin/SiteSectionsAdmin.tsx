@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, lazy, Suspense } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { PAGE_SCHEMAS, getSectionSchema, type SectionField } from '@/lib/sectionSchemas';
 import { Button } from '@/components/ui/button';
@@ -13,6 +14,17 @@ import { usePermissions } from '@/hooks/usePermissions';
 import { ImageUpload } from '@/components/admin/ImageUpload';
 import { GalleryPicker } from '@/components/admin/GalleryPicker';
 import { Loader2, Pencil, Eye, EyeOff, RefreshCw, Monitor, Smartphone, X } from 'lucide-react';
+
+// Embedded collection editors per page (Home → Partners, About → Team, Gallery → Gallery items)
+const PartnersAdmin = lazy(() => import('./PartnersAdmin'));
+const TeamAdmin = lazy(() => import('./TeamAdmin'));
+const GalleryAdmin = lazy(() => import('./GalleryAdmin'));
+
+const PAGE_COLLECTIONS: Record<string, { title: string; description: string; Component: React.LazyExoticComponent<any> }> = {
+  home: { title: 'Partners', description: 'Logos shown in the homepage partner carousel. Reorder, toggle visibility, and edit URLs.', Component: PartnersAdmin },
+  about: { title: 'Team Members', description: 'Photos, titles, and bios shown on the About page team grid.', Component: TeamAdmin },
+  gallery: { title: 'Gallery Items', description: 'Photos shown on the Gallery page. Upload, tag, and order them here.', Component: GalleryAdmin },
+};
 
 type Row = {
   id?: string;
@@ -37,7 +49,27 @@ const SiteSectionsAdmin = () => {
   const { can } = usePermissions();
   const canUpdate = can('sections', 'update');
 
-  const [activePage, setActivePage] = useState(PAGE_SCHEMAS[0].key);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = searchParams.get('page');
+  const initialPage = PAGE_SCHEMAS.find(p => p.key === pageParam)?.key ?? PAGE_SCHEMAS[0].key;
+  const [activePage, setActivePage] = useState(initialPage);
+
+  // Keep activePage in sync with URL changes (sidebar navigation).
+  useEffect(() => {
+    if (pageParam && pageParam !== activePage && PAGE_SCHEMAS.some(p => p.key === pageParam)) {
+      setActivePage(pageParam);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageParam]);
+
+  const selectPage = (key: string) => {
+    setActivePage(key);
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev);
+      next.set('page', key);
+      return next;
+    }, { replace: true });
+  };
   const [rows, setRows] = useState<Record<string, Row>>({});
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<{ pageKey: string; sectionKey: string } | null>(null);
@@ -188,7 +220,7 @@ const SiteSectionsAdmin = () => {
           {PAGE_SCHEMAS.map(p => (
             <button
               key={p.key}
-              onClick={() => setActivePage(p.key)}
+              onClick={() => selectPage(p.key)}
               className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 activePage === p.key ? 'bg-accent text-accent-foreground' : 'hover:bg-muted'
               }`}
@@ -200,6 +232,22 @@ const SiteSectionsAdmin = () => {
 
         {/* Sections grid */}
         <div className="space-y-4 min-w-0">
+          {PAGE_COLLECTIONS[activePage] && (
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg">{PAGE_COLLECTIONS[activePage].title}</CardTitle>
+                <p className="text-sm text-muted-foreground">{PAGE_COLLECTIONS[activePage].description}</p>
+              </CardHeader>
+              <CardContent>
+                <Suspense fallback={<div className="py-8 text-center text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin inline mr-2" />Loading editor…</div>}>
+                  {(() => {
+                    const C = PAGE_COLLECTIONS[activePage].Component;
+                    return <C />;
+                  })()}
+                </Suspense>
+              </CardContent>
+            </Card>
+          )}
           {page.sections.map(section => {
             const row = rows[`${activePage}::${section.key}`];
             const visible = row?.is_visible ?? true;
