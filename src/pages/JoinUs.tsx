@@ -274,18 +274,19 @@ const JoinUs = () => {
             </div>
           </div>
         </section>
+        )}
 
         {/* Membership Form */}
         <section className="py-20 lg:py-32 bg-background" id="b-a-m">
           <div className="container-wide">
             <div className="max-w-2xl mx-auto">
               <div className="text-center mb-12">
-                <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Apply Now</h4>
+                <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">{applyIntro?.eyebrow}</h4>
                 <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                  Support Us
+                  {applyIntro?.headline}
                 </h2>
                 <p className="text-lg text-muted-foreground">
-                  Support us and you'll get to attend our conference for free.
+                  {applyIntro?.subheadline}
                 </p>
               </div>
               
