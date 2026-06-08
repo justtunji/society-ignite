@@ -63,7 +63,7 @@ const AdminLayout = () => {
   });
 
   return (
-    <div className="min-h-screen bg-muted/30 flex">
+    <div data-admin="true" className="min-h-screen bg-muted/30 flex">
       {/* Sidebar */}
       <aside className={cn(
         "fixed inset-y-0 left-0 z-50 w-64 bg-background border-r border-border transform transition-transform lg:translate-x-0 lg:static lg:inset-auto",
