@@ -130,6 +130,75 @@ export default function UsersAdmin() {
     }
   };
 
+  const openPermissions = async (u: ManagedUser) => {
+    setPermsTarget(u);
+    setPermsLoading(true);
+    setPermsMap({});
+    try {
+      const data = await call('list_permissions', { user_id: u.id });
+      const map: Record<string, any> = {};
+      ((data as any).permissions ?? []).forEach((p: any) => { map[p.module] = p; });
+      // Ensure every known module has an entry
+      ADMIN_MODULES.forEach(m => {
+        map[m.key] = map[m.key] ?? { can_create: false, can_read: false, can_update: false, can_delete: false };
+      });
+      setPermsMap(map);
+    } catch (e: any) {
+      toast({ title: 'Failed to load permissions', description: e.message, variant: 'destructive' });
+      setPermsTarget(null);
+    } finally {
+      setPermsLoading(false);
+    }
+  };
+
+  const togglePerm = (module: string, action: 'create' | 'read' | 'update' | 'delete', value: boolean) => {
+    setPermsMap(prev => ({
+      ...prev,
+      [module]: { ...prev[module], [`can_${action}`]: value, can_read: action === 'read' ? value : (value ? true : prev[module]?.can_read) },
+    }));
+  };
+
+  const setRowPreset = (module: string, preset: 'none' | 'read' | 'editor' | 'full') => {
+    const presets = {
+      none:   { can_create: false, can_read: false, can_update: false, can_delete: false },
+      read:   { can_create: false, can_read: true,  can_update: false, can_delete: false },
+      editor: { can_create: true,  can_read: true,  can_update: true,  can_delete: false },
+      full:   { can_create: true,  can_read: true,  can_update: true,  can_delete: true  },
+    };
+    setPermsMap(prev => ({ ...prev, [module]: presets[preset] }));
+  };
+
+  const applyAllPreset = (preset: 'none' | 'read' | 'editor' | 'full') => {
+    const next: typeof permsMap = {};
+    ADMIN_MODULES.forEach(m => {
+      next[m.key] = ({
+        none:   { can_create: false, can_read: false, can_update: false, can_delete: false },
+        read:   { can_create: false, can_read: true,  can_update: false, can_delete: false },
+        editor: { can_create: true,  can_read: true,  can_update: true,  can_delete: false },
+        full:   { can_create: true,  can_read: true,  can_update: true,  can_delete: true  },
+      })[preset];
+    });
+    setPermsMap(next);
+  };
+
+  const savePermissions = async () => {
+    if (!permsTarget) return;
+    setPermsSaving(true);
+    try {
+      const permissions = ADMIN_MODULES.map(m => ({
+        module: m.key,
+        ...permsMap[m.key],
+      }));
+      await call('update_permissions', { user_id: permsTarget.id, permissions });
+      toast({ title: 'Permissions saved' });
+      setPermsTarget(null);
+    } catch (e: any) {
+      toast({ title: 'Save failed', description: e.message, variant: 'destructive' });
+    } finally {
+      setPermsSaving(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <Card>
