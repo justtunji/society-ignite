@@ -2,7 +2,7 @@
 // Adding a new editable field is a one-line change here — the admin UI
 // and `useSectionContent` hook pick it up automatically.
 
-export type FieldType = 'text' | 'textarea' | 'rich_text' | 'image' | 'url' | 'boolean' | 'gallery_item' | 'gallery_items';
+export type FieldType = 'text' | 'textarea' | 'rich_text' | 'image' | 'url' | 'boolean' | 'datetime' | 'gallery_item' | 'gallery_items';
 
 export interface SectionField {
   key: string;
