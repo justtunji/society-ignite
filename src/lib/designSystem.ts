@@ -92,6 +92,17 @@ export function buildTokensCSS(t: DesignTokens): string {
   if (t.caption_letter_spacing) capParts.push(`letter-spacing: var(--caption-letter-spacing);`);
   if (capParts.length) css += `.caption, [data-style-id*="caption"] { ${capParts.join(' ')} }\n`;
 
+  // Eyebrow (small label/uppercase text above headings)
+  const ebParts: string[] = [];
+  if (t.font_eyebrow) ebParts.push(`font-family: var(--font-eyebrow);`);
+  if (t.eyebrow_size) ebParts.push(`font-size: var(--eyebrow-size);`);
+  if (t.eyebrow_weight) ebParts.push(`font-weight: var(--eyebrow-weight);`);
+  if (t.eyebrow_line_height) ebParts.push(`line-height: var(--eyebrow-line-height);`);
+  if (t.eyebrow_letter_spacing) ebParts.push(`letter-spacing: var(--eyebrow-letter-spacing);`);
+  if (t.eyebrow_color) ebParts.push(`color: ${t.eyebrow_color};`);
+  if (t.eyebrow_text_transform) ebParts.push(`text-transform: ${t.eyebrow_text_transform};`);
+  if (ebParts.length) css += `.eyebrow, [data-style-id*="eyebrow"] { ${ebParts.join(' ')} }\n`;
+
   // Link colors
   if (t.link_color) css += `a { color: ${t.link_color}; }\n`;
   if (t.link_hover_color) css += `a:hover { color: ${t.link_hover_color}; }\n`;
