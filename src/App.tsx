@@ -30,6 +30,8 @@ const CommunitiesAdmin = lazy(() => import("./pages/admin/CommunitiesAdmin"));
 const MembersAdmin = lazy(() => import("./pages/admin/MembersAdmin"));
 const ContactsAdmin = lazy(() => import("./pages/admin/ContactsAdmin"));
 const UsersAdmin = lazy(() => import("./pages/admin/UsersAdmin"));
+const PagesBuilder = lazy(() => import("./pages/admin/PagesBuilder"));
+const DynamicPage = lazy(() => import("./pages/DynamicPage"));
 
 const queryClient = new QueryClient();
 
