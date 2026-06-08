@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
 import conferenceFlyer from "@/assets/sba-2026-conference.jpeg.asset.json";
 import { useSectionContent } from "@/hooks/useSectionContent";
+import { cldUrl, cldSrcSet } from "@/lib/cloudinary";
 
 const DEFAULTS = {
   eyebrow: 'Upcoming Event',
