@@ -71,6 +71,16 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <SectionSeoTags
+        pageUrl="/"
+        fallbackTitle={`${siteSettings.site_name} — Driving Inclusive Change in Higher Education`}
+        fallbackDescription={siteSettings.hero_subheadline}
+        sections={[
+          ['home', 'conference'],
+          ['home', 'programmes_intro'],
+          ['home', 'impact'],
+        ]}
+      />
       <Header 
         logoUrl={siteSettings.logo_url} 
         siteName={siteSettings.site_name}
