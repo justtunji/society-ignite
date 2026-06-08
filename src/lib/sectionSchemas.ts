@@ -164,6 +164,7 @@ export const PAGE_SCHEMAS: PageSchema[] = [
           { key: 'stat_3_number', label: 'Stat 3 — number', type: 'text' },
           { key: 'stat_3_label',  label: 'Stat 3 — label',  type: 'textarea' },
           { key: 'image_url', label: 'Background image', type: 'image' },
+          ...seoFields(),
         ],
         defaults: {
           eyebrow: 'Our impact',
@@ -175,6 +176,7 @@ export const PAGE_SCHEMAS: PageSchema[] = [
           stat_3_number: '1000+',
           stat_3_label: 'Networking opportunities provided to community members across the UK and beyond.',
           image_url: '',
+          ...seoDefaults,
         },
       },
       {
