@@ -8,12 +8,22 @@ const corsHeaders = {
 
 type Role = 'admin' | 'editor';
 
+interface PermissionInput {
+  module: string;
+  can_create?: boolean;
+  can_read?: boolean;
+  can_update?: boolean;
+  can_delete?: boolean;
+}
+
 interface Action {
-  action: 'list' | 'create' | 'update_role' | 'delete' | 'reset_password';
+  action: 'list' | 'create' | 'update_role' | 'delete' | 'reset_password'
+        | 'list_permissions' | 'update_permissions';
   email?: string;
   password?: string;
   role?: Role;
   user_id?: string;
+  permissions?: PermissionInput[];
 }
 
 Deno.serve(async (req) => {
