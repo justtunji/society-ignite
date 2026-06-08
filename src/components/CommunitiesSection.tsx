@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { supabase } from '@/integrations/supabase/client';
 import sbaImage from "@/assets/images/gallery/sba5.jpeg";
+import { useSectionContent } from '@/hooks/useSectionContent';
 
 interface Community {
   id: string;
@@ -11,8 +12,15 @@ interface Community {
   link: string | null;
 }
 
+const INTRO_DEFAULTS = {
+  eyebrow: 'Our communities',
+  paragraph: 'We understand the need for nuance and specificity, which is why we have created several communities that you can join. Each with its unique landscape, language, and content, we hope that you find one that works for you.',
+  image_url: '',
+};
+
 export const CommunitiesSection = () => {
   const [communities, setCommunities] = useState<Community[]>([]);
+  const intro = useSectionContent('home', 'communities_intro', INTRO_DEFAULTS);
 
   useEffect(() => {
     const fetchCommunities = async () => {
