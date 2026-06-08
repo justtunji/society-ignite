@@ -99,23 +99,22 @@ const Index = () => {
         />
 
         {siteSettings.show_partner_carousel && (
-          <PartnerCarousel 
-            speed={siteSettings.partner_carousel_speed}
-            pauseOnHover={siteSettings.partner_carousel_pause_on_hover}
-          />
+          <Suspense fallback={<SectionFallback />}>
+            <PartnerCarousel
+              speed={siteSettings.partner_carousel_speed}
+              pauseOnHover={siteSettings.partner_carousel_pause_on_hover}
+            />
+          </Suspense>
         )}
 
-        <ConferenceSection />
-
-        <AboutSection />
-
-        <ProgrammesSection />
-
-        <CommunitiesSection />
-
-        <ImpactSection />
-
-        <NewsletterSection />
+        <Suspense fallback={<SectionFallback />}>
+          <ConferenceSection />
+          <AboutSection />
+          <ProgrammesSection />
+          <CommunitiesSection />
+          <ImpactSection />
+          <NewsletterSection />
+        </Suspense>
       </main>
 
       <Footer
