@@ -19,6 +19,7 @@ const navItems: NavItem[] = [
   { label: 'Site Settings', path: '/admin/site-settings', icon: Settings, module: 'site_settings' },
   { label: 'Team Access', path: '/admin/users', icon: Shield, adminOnly: true },
   { label: 'Pages', path: '/admin/pages', icon: FileStack, module: 'pages' },
+  { label: 'Navigation Menu', path: '/admin/navigation', icon: Menu, adminOnly: true },
   { label: 'Home Page', path: '/admin/site-sections?page=home', icon: LayoutTemplate, module: 'sections' },
   { label: 'About Page', path: '/admin/site-sections?page=about', icon: LayoutTemplate, module: 'sections' },
   { label: 'Gallery Page', path: '/admin/site-sections?page=gallery', icon: Image, module: 'sections' },
