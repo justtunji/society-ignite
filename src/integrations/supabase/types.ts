@@ -89,6 +89,333 @@ export type Database = {
         }
         Relationships: []
       }
+      design_tokens: {
+        Row: {
+          body_color: string | null
+          body_letter_spacing: string | null
+          body_line_height: string | null
+          body_size: string | null
+          body_weight: number | null
+          button_color: string | null
+          button_letter_spacing: string | null
+          button_line_height: string | null
+          button_size: string | null
+          button_weight: number | null
+          caption_color: string | null
+          caption_letter_spacing: string | null
+          caption_line_height: string | null
+          caption_size: string | null
+          caption_weight: number | null
+          color_accent: string | null
+          color_accent_foreground: string | null
+          color_background: string | null
+          color_border: string | null
+          color_card: string | null
+          color_card_foreground: string | null
+          color_destructive: string | null
+          color_foreground: string | null
+          color_muted: string | null
+          color_muted_foreground: string | null
+          color_primary: string | null
+          color_primary_foreground: string | null
+          color_secondary: string | null
+          color_secondary_foreground: string | null
+          container_max_width: string | null
+          created_at: string
+          font_body: string | null
+          font_body_url: string | null
+          font_button: string | null
+          font_caption: string | null
+          font_heading: string | null
+          font_url: string | null
+          h1_color: string | null
+          h1_letter_spacing: string | null
+          h1_line_height: string | null
+          h1_size: string | null
+          h1_weight: number | null
+          h2_color: string | null
+          h2_letter_spacing: string | null
+          h2_line_height: string | null
+          h2_size: string | null
+          h2_weight: number | null
+          h3_color: string | null
+          h3_letter_spacing: string | null
+          h3_line_height: string | null
+          h3_size: string | null
+          h3_weight: number | null
+          h4_color: string | null
+          h4_letter_spacing: string | null
+          h4_line_height: string | null
+          h4_size: string | null
+          h4_weight: number | null
+          h5_color: string | null
+          h5_letter_spacing: string | null
+          h5_line_height: string | null
+          h5_size: string | null
+          h5_weight: number | null
+          h6_color: string | null
+          h6_letter_spacing: string | null
+          h6_line_height: string | null
+          h6_size: string | null
+          h6_weight: number | null
+          headline_color: string | null
+          headline_letter_spacing: string | null
+          headline_line_height: string | null
+          headline_size: string | null
+          headline_weight: number | null
+          id: string
+          link_color: string | null
+          link_hover_color: string | null
+          radius_base: string | null
+          radius_lg: string | null
+          section_padding_y: string | null
+          updated_at: string
+        }
+        Insert: {
+          body_color?: string | null
+          body_letter_spacing?: string | null
+          body_line_height?: string | null
+          body_size?: string | null
+          body_weight?: number | null
+          button_color?: string | null
+          button_letter_spacing?: string | null
+          button_line_height?: string | null
+          button_size?: string | null
+          button_weight?: number | null
+          caption_color?: string | null
+          caption_letter_spacing?: string | null
+          caption_line_height?: string | null
+          caption_size?: string | null
+          caption_weight?: number | null
+          color_accent?: string | null
+          color_accent_foreground?: string | null
+          color_background?: string | null
+          color_border?: string | null
+          color_card?: string | null
+          color_card_foreground?: string | null
+          color_destructive?: string | null
+          color_foreground?: string | null
+          color_muted?: string | null
+          color_muted_foreground?: string | null
+          color_primary?: string | null
+          color_primary_foreground?: string | null
+          color_secondary?: string | null
+          color_secondary_foreground?: string | null
+          container_max_width?: string | null
+          created_at?: string
+          font_body?: string | null
+          font_body_url?: string | null
+          font_button?: string | null
+          font_caption?: string | null
+          font_heading?: string | null
+          font_url?: string | null
+          h1_color?: string | null
+          h1_letter_spacing?: string | null
+          h1_line_height?: string | null
+          h1_size?: string | null
+          h1_weight?: number | null
+          h2_color?: string | null
+          h2_letter_spacing?: string | null
+          h2_line_height?: string | null
+          h2_size?: string | null
+          h2_weight?: number | null
+          h3_color?: string | null
+          h3_letter_spacing?: string | null
+          h3_line_height?: string | null
+          h3_size?: string | null
+          h3_weight?: number | null
+          h4_color?: string | null
+          h4_letter_spacing?: string | null
+          h4_line_height?: string | null
+          h4_size?: string | null
+          h4_weight?: number | null
+          h5_color?: string | null
+          h5_letter_spacing?: string | null
+          h5_line_height?: string | null
+          h5_size?: string | null
+          h5_weight?: number | null
+          h6_color?: string | null
+          h6_letter_spacing?: string | null
+          h6_line_height?: string | null
+          h6_size?: string | null
+          h6_weight?: number | null
+          headline_color?: string | null
+          headline_letter_spacing?: string | null
+          headline_line_height?: string | null
+          headline_size?: string | null
+          headline_weight?: number | null
+          id?: string
+          link_color?: string | null
+          link_hover_color?: string | null
+          radius_base?: string | null
+          radius_lg?: string | null
+          section_padding_y?: string | null
+          updated_at?: string
+        }
+        Update: {
+          body_color?: string | null
+          body_letter_spacing?: string | null
+          body_line_height?: string | null
+          body_size?: string | null
+          body_weight?: number | null
+          button_color?: string | null
+          button_letter_spacing?: string | null
+          button_line_height?: string | null
+          button_size?: string | null
+          button_weight?: number | null
+          caption_color?: string | null
+          caption_letter_spacing?: string | null
+          caption_line_height?: string | null
+          caption_size?: string | null
+          caption_weight?: number | null
+          color_accent?: string | null
+          color_accent_foreground?: string | null
+          color_background?: string | null
+          color_border?: string | null
+          color_card?: string | null
+          color_card_foreground?: string | null
+          color_destructive?: string | null
+          color_foreground?: string | null
+          color_muted?: string | null
+          color_muted_foreground?: string | null
+          color_primary?: string | null
+          color_primary_foreground?: string | null
+          color_secondary?: string | null
+          color_secondary_foreground?: string | null
+          container_max_width?: string | null
+          created_at?: string
+          font_body?: string | null
+          font_body_url?: string | null
+          font_button?: string | null
+          font_caption?: string | null
+          font_heading?: string | null
+          font_url?: string | null
+          h1_color?: string | null
+          h1_letter_spacing?: string | null
+          h1_line_height?: string | null
+          h1_size?: string | null
+          h1_weight?: number | null
+          h2_color?: string | null
+          h2_letter_spacing?: string | null
+          h2_line_height?: string | null
+          h2_size?: string | null
+          h2_weight?: number | null
+          h3_color?: string | null
+          h3_letter_spacing?: string | null
+          h3_line_height?: string | null
+          h3_size?: string | null
+          h3_weight?: number | null
+          h4_color?: string | null
+          h4_letter_spacing?: string | null
+          h4_line_height?: string | null
+          h4_size?: string | null
+          h4_weight?: number | null
+          h5_color?: string | null
+          h5_letter_spacing?: string | null
+          h5_line_height?: string | null
+          h5_size?: string | null
+          h5_weight?: number | null
+          h6_color?: string | null
+          h6_letter_spacing?: string | null
+          h6_line_height?: string | null
+          h6_size?: string | null
+          h6_weight?: number | null
+          headline_color?: string | null
+          headline_letter_spacing?: string | null
+          headline_line_height?: string | null
+          headline_size?: string | null
+          headline_weight?: number | null
+          id?: string
+          link_color?: string | null
+          link_hover_color?: string | null
+          radius_base?: string | null
+          radius_lg?: string | null
+          section_padding_y?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      element_styles: {
+        Row: {
+          background_color: string | null
+          breakpoint: string
+          created_at: string
+          font_color: string | null
+          font_family: string | null
+          font_size: string | null
+          font_weight: number | null
+          id: string
+          label: string | null
+          letter_spacing: string | null
+          line_height: string | null
+          margin_bottom: string | null
+          margin_left: string | null
+          margin_right: string | null
+          margin_top: string | null
+          padding_bottom: string | null
+          padding_left: string | null
+          padding_right: string | null
+          padding_top: string | null
+          page_route: string
+          style_id: string
+          text_align: string | null
+          text_transform: string | null
+          updated_at: string
+        }
+        Insert: {
+          background_color?: string | null
+          breakpoint?: string
+          created_at?: string
+          font_color?: string | null
+          font_family?: string | null
+          font_size?: string | null
+          font_weight?: number | null
+          id?: string
+          label?: string | null
+          letter_spacing?: string | null
+          line_height?: string | null
+          margin_bottom?: string | null
+          margin_left?: string | null
+          margin_right?: string | null
+          margin_top?: string | null
+          padding_bottom?: string | null
+          padding_left?: string | null
+          padding_right?: string | null
+          padding_top?: string | null
+          page_route?: string
+          style_id: string
+          text_align?: string | null
+          text_transform?: string | null
+          updated_at?: string
+        }
+        Update: {
+          background_color?: string | null
+          breakpoint?: string
+          created_at?: string
+          font_color?: string | null
+          font_family?: string | null
+          font_size?: string | null
+          font_weight?: number | null
+          id?: string
+          label?: string | null
+          letter_spacing?: string | null
+          line_height?: string | null
+          margin_bottom?: string | null
+          margin_left?: string | null
+          margin_right?: string | null
+          margin_top?: string | null
+          padding_bottom?: string | null
+          padding_left?: string | null
+          padding_right?: string | null
+          padding_top?: string | null
+          page_route?: string
+          style_id?: string
+          text_align?: string | null
+          text_transform?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       events: {
         Row: {
           capacity: number | null
@@ -578,6 +905,60 @@ export type Database = {
           order_index?: number
           page_key?: string
           section_key?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      section_styles: {
+        Row: {
+          background_color: string | null
+          background_image: string | null
+          created_at: string
+          gap: string | null
+          id: string
+          label: string | null
+          margin_bottom: string | null
+          margin_top: string | null
+          max_width: string | null
+          padding_bottom: string | null
+          padding_top: string | null
+          padding_x: string | null
+          section_key: string
+          text_align: string | null
+          updated_at: string
+        }
+        Insert: {
+          background_color?: string | null
+          background_image?: string | null
+          created_at?: string
+          gap?: string | null
+          id?: string
+          label?: string | null
+          margin_bottom?: string | null
+          margin_top?: string | null
+          max_width?: string | null
+          padding_bottom?: string | null
+          padding_top?: string | null
+          padding_x?: string | null
+          section_key: string
+          text_align?: string | null
+          updated_at?: string
+        }
+        Update: {
+          background_color?: string | null
+          background_image?: string | null
+          created_at?: string
+          gap?: string | null
+          id?: string
+          label?: string | null
+          margin_bottom?: string | null
+          margin_top?: string | null
+          max_width?: string | null
+          padding_bottom?: string | null
+          padding_top?: string | null
+          padding_x?: string | null
+          section_key?: string
+          text_align?: string | null
           updated_at?: string
         }
         Relationships: []

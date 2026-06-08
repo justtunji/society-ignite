@@ -12,7 +12,7 @@ interface HeroSectionProps {
 
 export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSectionProps) => {
   return (
-    <section className="relative min-h-[100svh] flex items-center overflow-hidden bg-primary">
+    <section data-section="hero" className="relative min-h-[100svh] flex items-center overflow-hidden bg-primary">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img 
@@ -50,17 +50,17 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
           {/* Right - Content */}
           <div className="order-1 lg:order-2 text-primary-foreground max-w-3xl lg:max-w-none">
             {/* Tagline */}
-            <p className="text-accent font-medium text-lg mb-4 animate-fade-in">
+            <p data-style-id="hero-tagline" className="text-accent font-medium text-lg mb-4 animate-fade-in">
               Empowering Black Academics
             </p>
             
             {/* Main Headline */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] mb-6 animate-fade-in stagger-1 break-words">
-              Driving Inclusive Change In Higher Education.
+            <h1 data-style-id="hero-headline" className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] mb-6 animate-fade-in stagger-1 break-words whitespace-pre-line">
+              {headline || "Driving Inclusive Change In Higher Education."}
             </h1>
             
             {/* Subheadline */}
-            <p className="text-lg md:text-xl text-primary-foreground/80 max-w-xl mb-10 leading-relaxed animate-fade-in stagger-2">
+            <p data-style-id="hero-subheadline" className="text-lg md:text-xl text-primary-foreground/80 max-w-xl mb-10 leading-relaxed animate-fade-in stagger-2">
               {subheadline || "Join a community of scholars, researchers, and educators committed to advancing diversity and excellence in academia."}
             </p>
             
