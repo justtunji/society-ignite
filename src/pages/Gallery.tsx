@@ -75,8 +75,7 @@ const Gallery = () => {
     setLoading(true);
     supabase
       .from('gallery_items')
-      .select('id, title, image_url, caption, category, tags, photographer_credit, display_order')
-      .eq('visible', true)
+      .select('id, title, image_url, caption, category, tags, photographer_credit, display_order, visible')
       .order('category', { ascending: true, nullsFirst: false })
       .order('display_order', { ascending: true })
       .then(({ data }) => {
