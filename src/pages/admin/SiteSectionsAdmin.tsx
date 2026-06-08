@@ -49,7 +49,27 @@ const SiteSectionsAdmin = () => {
   const { can } = usePermissions();
   const canUpdate = can('sections', 'update');
 
-  const [activePage, setActivePage] = useState(PAGE_SCHEMAS[0].key);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = searchParams.get('page');
+  const initialPage = PAGE_SCHEMAS.find(p => p.key === pageParam)?.key ?? PAGE_SCHEMAS[0].key;
+  const [activePage, setActivePage] = useState(initialPage);
+
+  // Keep activePage in sync with URL changes (sidebar navigation).
+  useEffect(() => {
+    if (pageParam && pageParam !== activePage && PAGE_SCHEMAS.some(p => p.key === pageParam)) {
+      setActivePage(pageParam);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageParam]);
+
+  const selectPage = (key: string) => {
+    setActivePage(key);
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev);
+      next.set('page', key);
+      return next;
+    }, { replace: true });
+  };
   const [rows, setRows] = useState<Record<string, Row>>({});
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<{ pageKey: string; sectionKey: string } | null>(null);
