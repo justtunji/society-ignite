@@ -17,6 +17,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAsyncResource, withTimeout } from '@/hooks/useAsync';
 import { adminLog } from '@/lib/adminErrorLog';
 import { Plus, Pencil, Trash2, Loader2, RefreshCw, ArrowUp, ArrowDown } from 'lucide-react';
+import { usePermissions } from '@/hooks/usePermissions';
 
 export interface FieldConfig {
   name: string;
