@@ -127,8 +127,7 @@ const SiteSectionsAdmin = () => {
     setEditing({ pageKey: activePage, sectionKey });
     const initial = { ...schema.defaults, ...(row?.content ?? {}) };
     setForm(initial);
-    // Force iframe to refresh to the right route, then overrides replay on ready.
-    setIframeKey(k => k + 1);
+    // No iframe remount here — overrides replay on the existing iframe.
   };
 
   const onFieldChange = (key: string, v: any) => {
@@ -189,7 +188,7 @@ const SiteSectionsAdmin = () => {
           {PAGE_SCHEMAS.map(p => (
             <button
               key={p.key}
-              onClick={() => { setActivePage(p.key); setIframeKey(k => k + 1); }}
+              onClick={() => setActivePage(p.key)}
               className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 activePage === p.key ? 'bg-accent text-accent-foreground' : 'hover:bg-muted'
               }`}
