@@ -8,6 +8,38 @@ import { supabase } from '@/integrations/supabase/client';
 import { cldUrl, cldSrcSet } from '@/lib/cloudinary';
 import aboutHero from "@/assets/images/about-hero.jpg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
+import { useSectionContent } from "@/hooks/useSectionContent";
+
+const HERO_DEFAULTS = {
+  eyebrow: 'About Us',
+  headline: 'Driving Change in Higher Education.',
+  subheadline: 'The Society of Black Academics (SBA) was formed due to the under-representation of Black academics at the Professorial and Senior Leadership levels in UK Universities.',
+  image_url: '', cta_label: '', cta_url: '',
+};
+const WHY_DEFAULTS = {
+  eyebrow: 'Why SBA', headline: 'Building a more inclusive academy.',
+  paragraph_1: 'Since our inception in 2021, we have launched several impactful initiatives and organized numerous events (including Workshops and Conferences) with the goal of promoting Equality, Diversity, and Inclusion (EDI) in the UK\'s Higher Education sector.',
+  paragraph_2: 'Through the development of EDI and career development programmes, safe spaces for learning and knowledge exchange, as well as other progressive campaigns, we are improving the career advancement of Black academics.',
+  callout_title: 'What we are doing currently',
+  callout_body: 'Through the development of EDI and career development programmes, safe spaces for learning and knowledge exchange, as well as other progressive campaigns, we are attempting to improve the career advancement of Black academics. Our goal is to increase the number of Black academics employed at the professorial and senior leadership levels in the UK\'s higher education system.',
+};
+const MVV_DEFAULTS = {
+  mission_title: 'Our Mission',
+  mission_body: 'We continue to identify prevalent issues confronting Black academics in the Higher Education sector and address them by providing a safe space for personal reflection, knowledge sharing and dialogue, collaboration, and networking.',
+  vision_title: 'Our Vision',
+  vision_body: 'Justice, Equity, and Fairness (JEF) are at the heart of SBA\'s values. We aim to see a better level of JEF embedded in the progression opportunities for Black scholars in the UK\'s Higher Education sector.',
+  values_title: 'Our Values',
+  values_body: 'We promote Justice (broader ethical standards), Equity (equal opportunities and inclusivity), and Fairness (specific outcomes and treatment).',
+};
+const TEAM_INTRO_DEFAULTS = {
+  eyebrow: 'Our Team', headline: 'Meet Our Team',
+  subheadline: 'Our team is made up of academics and practitioners from various fields who are enthusiastic about advancing the progression of Black academics.',
+};
+const PARTNERS_CTA_DEFAULTS = {
+  headline: 'Become Our Partner',
+  subheadline: 'Ready to team up with us? Let\'s create impact together and explore exciting sponsorship and partnership possibilities.',
+  button_label: 'Become a Partner / Sponsor',
+};
 
 interface TeamMember {
   id: string;
