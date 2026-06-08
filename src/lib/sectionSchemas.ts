@@ -335,9 +335,18 @@ export const PAGE_SCHEMAS: PageSchema[] = [
     label: 'Gallery',
     sections: [
       { key: 'hero', label: 'Hero', fields: heroFields(), defaults: {
-        eyebrow: 'Gallery', headline: 'Moments from our community.',
-        subheadline: '', image_url: '', cta_label: '', cta_url: '',
+        eyebrow: 'Our Moments', headline: 'Capturing Excellence.',
+        subheadline: 'Explore moments from our conferences, workshops, and community gatherings.',
+        image_url: '', cta_label: '', cta_url: '',
       }},
+      { key: 'past_events_intro', label: 'Past events intro',
+        description: 'Heading above the photo grid. Individual photos are managed in Gallery Items.',
+        fields: [
+          { key: 'eyebrow',  label: 'Eyebrow',  type: 'text' },
+          { key: 'headline', label: 'Headline', type: 'text' },
+        ],
+        defaults: { eyebrow: 'Gallery', headline: 'Photos from Past Events' },
+      },
     ],
   },
 ];
