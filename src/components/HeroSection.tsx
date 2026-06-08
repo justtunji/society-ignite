@@ -30,7 +30,7 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
       <div className="relative z-10 container-wide w-full pt-28 pb-16 md:py-24 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left - Circular Image */}
-          <div className="relative order-2 lg:order-1 hidden sm:flex justify-center lg:justify-start max-w-full overflow-visible">
+          <div className="relative order-2 lg:order-1 hidden lg:flex justify-start max-w-full overflow-visible">
             <div className="relative max-w-[min(22rem,calc(100vw-3rem))] lg:max-w-none">
               {/* Decorative circle behind */}
               <div className="absolute -top-5 -right-5 md:-top-8 md:-right-8 w-full aspect-square rounded-full bg-accent/20 blur-sm"></div>
