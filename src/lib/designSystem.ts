@@ -186,7 +186,7 @@ const GOOGLE_FONT_FALLBACKS = new Set(['Arial','Helvetica','Times New Roman','Ge
 export function buildFontLinks(t: DesignTokens): string[] {
   if (!t) return [];
   const families = new Set<string>();
-  for (const key of ['font_heading','font_body','font_button','font_caption']) {
+  for (const key of ['font_heading','font_body','font_button','font_caption','font_eyebrow']) {
     const v = t[key];
     if (v && !GOOGLE_FONT_FALLBACKS.has(v)) families.add(v);
   }
