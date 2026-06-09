@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { DesignSystemProvider } from "@/components/DesignSystemProvider";
+import { SectionContentStyles } from "@/components/SectionContentStyles";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Resources from "./pages/Resources";
@@ -44,6 +45,7 @@ const AdminFallback = () => <div className="min-h-screen flex items-center justi
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <DesignSystemProvider>
+    <SectionContentStyles />
     <TooltipProvider>
       <Toaster />
       <Sonner />
