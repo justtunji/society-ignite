@@ -50,9 +50,11 @@ interface TeamMember {
   linkedin_url: string | null;
   twitter_url: string | null;
   is_featured: boolean | null;
+  category: string | null;
   order_index: number | null;
   updated_at?: string | null;
 }
+
 
 const About = () => {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
@@ -83,10 +85,14 @@ const About = () => {
         .order('order_index', { ascending: true });
       
       if (data) {
-        // Split: featured members go to advisory board, non-featured to team
-        setTeamMembers(data.filter(m => !m.is_featured));
-        setAdvisoryMembers(data.filter(m => m.is_featured));
+        const rows = data as unknown as TeamMember[];
+        // Prefer explicit category; fall back to is_featured for legacy rows
+        const isAdvisory = (m: TeamMember) =>
+          (m.category ? m.category === 'advisory' : !!m.is_featured);
+        setTeamMembers(rows.filter(m => !isAdvisory(m)));
+        setAdvisoryMembers(rows.filter(isAdvisory));
       }
+
     };
     fetchTeamMembers();
   }, []);
