@@ -212,10 +212,6 @@ const SBAUpdatesSection = () => {
       <section data-section="sba-updates" className="py-20 lg:py-28 bg-gradient-to-b from-background via-muted/20 to-background">
         <div className="container-wide">
           <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-medium mb-5">
-              <Newspaper className="h-4 w-4" />
-              Monthly Updates
-            </div>
             <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
               SBA Updates
             </h2>
