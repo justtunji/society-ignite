@@ -54,7 +54,7 @@ export const PromotionsSection = () => {
   if (featuredPromotions.length === 0) return null;
 
   return (
-    <section className="section-padding bg-secondary/30">
+    <section data-section="promotions" className="section-padding bg-secondary/30">
       <div className="container-wide">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-medium text-foreground mb-4">

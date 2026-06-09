@@ -44,7 +44,7 @@ export const ConferenceSection = () => {
   if (endAt && endAt.getTime() < now) return null;
 
   return (
-    <section className="py-20 lg:py-28 bg-muted/30">
+    <section data-section="conference" className="py-20 lg:py-28 bg-muted/30">
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="relative">

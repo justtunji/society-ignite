@@ -38,7 +38,7 @@ export const FeaturedPrograms = () => {
   if (programs.length === 0) return null;
 
   return (
-    <section className="section-padding">
+    <section data-section="featured-programs" className="section-padding">
       <div className="container-wide">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-medium text-foreground mb-4">

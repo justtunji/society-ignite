@@ -121,7 +121,7 @@ export const ResearchTracksSection = () => {
   };
 
   return (
-    <section className="py-20 lg:py-32 bg-muted/30">
+    <section data-section="research-tracks" className="py-20 lg:py-32 bg-muted/30">
       <div className="container-wide">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">

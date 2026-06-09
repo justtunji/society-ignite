@@ -74,7 +74,7 @@ export const PastEventsSection = () => {
     : pastEvents.filter(event => event.category === selectedCategory).slice(0, 4);
 
   return (
-    <section className="section-padding bg-gradient-to-br from-coral-50 via-background to-indigo-50">
+    <section data-section="past-events" className="section-padding bg-gradient-to-br from-coral-50 via-background to-indigo-50">
       <div className="container-wide">
         {/* Header Section */}
         <div className="text-center mb-16 animate-fade-in">

@@ -46,7 +46,7 @@ export const ProgrammesSection = () => {
   const description = program?.short_description || c.paragraph;
 
   return (
-    <section className="py-20 lg:py-32 bg-muted/30">
+    <section data-section="programmes" className="py-20 lg:py-32 bg-muted/30">
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-0 items-stretch">
           <div className="relative bg-muted min-h-[400px] lg:min-h-[600px] flex items-center justify-center">

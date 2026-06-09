@@ -6,7 +6,7 @@ import nuffieldLogo from "@/assets/logos/nuffield-logo.png";
 
 export const NuffieldAnnouncement = () => {
   return (
-    <section className="section-padding bg-gradient-to-r from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20">
+    <section data-section="nuffield" className="section-padding bg-gradient-to-r from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20">
       <div className="container-wide">
         <Card className="bg-white/90 dark:bg-card/90 backdrop-blur-sm border-green-200 dark:border-green-800 hover-lift animate-fade-in">
           <CardContent className="p-8 lg:p-12">

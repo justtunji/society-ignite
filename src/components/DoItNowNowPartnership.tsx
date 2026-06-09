@@ -6,7 +6,7 @@ import doitnownowLogo from "@/assets/partners/doitnownow-logo.png";
 
 export const DoItNowNowPartnership = () => {
   return (
-    <section className="section-padding bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-900/20">
+    <section data-section="doitnownow" className="section-padding bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-900/20">
       <div className="container-wide">
         <Card className="bg-white/90 dark:bg-card/90 backdrop-blur-sm border-blue-200 dark:border-blue-800 rounded-3xl overflow-hidden hover-lift animate-fade-in">
           <CardContent className="p-8 lg:p-12">

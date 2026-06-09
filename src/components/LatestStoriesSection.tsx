@@ -29,7 +29,7 @@ export const LatestStoriesSection = () => {
   if (stories.length === 0) return null;
 
   return (
-    <section className="py-20 lg:py-32 bg-muted/30">
+    <section data-section="latest-stories" className="py-20 lg:py-32 bg-muted/30">
       <div className="container-wide">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4 md:mb-0">
