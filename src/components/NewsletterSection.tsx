@@ -63,7 +63,7 @@ export const NewsletterSection = () => {
 
   if (isSubscribed) {
     return (
-      <section className="py-20 lg:py-32 bg-primary text-primary-foreground">
+      <section data-section="newsletter" className="py-20 lg:py-32 bg-primary text-primary-foreground">
         <div className="container-wide">
           <div className="max-w-2xl mx-auto text-center">
             <CheckCircle className="mx-auto h-16 w-16 text-accent mb-6" />
@@ -78,7 +78,7 @@ export const NewsletterSection = () => {
   }
 
   return (
-    <section className="py-20 lg:py-32 bg-primary text-primary-foreground">
+    <section data-section="newsletter" className="py-20 lg:py-32 bg-primary text-primary-foreground">
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left - Content */}
