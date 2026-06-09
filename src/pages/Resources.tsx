@@ -122,14 +122,14 @@ const Resources = () => {
         {/* SBA Updates */}
         <SBAUpdatesSection />
 
-        {/* Key Resources - Categorized */}
-        <section className="py-20 lg:py-32 bg-background">
+        {keyIntro && (
+        <section data-section="key-resources" className="py-20 lg:py-32 bg-background">
           <div className="container-wide">
             <div className="text-center mb-16">
-              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Featured</h4>
-              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">Key Resources</h2>
+              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">{keyIntro.eyebrow}</h4>
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">{keyIntro.headline}</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Reports, news, workshops and recordings from across our community.
+                {keyIntro.subheadline}
               </p>
             </div>
 
