@@ -177,14 +177,15 @@ const Resources = () => {
             </div>
           </div>
         </section>
+        )}
 
-        {/* Community Resources */}
-        <section className="py-20 lg:py-32 bg-background">
+        {communityIntro && (
+        <section data-section="community-resources" className="py-20 lg:py-32 bg-background">
           <div className="container-wide">
             <div className="text-center mb-16">
-              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Community</h4>
+              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">{communityIntro.eyebrow}</h4>
               <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
-                Connect With Us
+                {communityIntro.headline}
               </h2>
             </div>
 
@@ -211,6 +212,7 @@ const Resources = () => {
             </div>
           </div>
         </section>
+        )}
       </main>
 
       <Footer
