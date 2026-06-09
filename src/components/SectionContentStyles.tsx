@@ -26,7 +26,25 @@ const PAD: Record<string, string> = {
 
 type Row = { page_key: string; section_key: string; content: any };
 
-const ruleFor = (sectionKey: string, style: SectionStyle): string => {
+/**
+ * Map schema section_key (scoped by page) to the actual `data-section`
+ * attribute values rendered in the DOM. Several components historically used
+ * different names — this alias map bridges them without renaming everywhere.
+ */
+const SECTION_ALIASES: Record<string, string[]> = {
+  'home::programmes_intro': ['programmes'],
+  'about::why_sba': ['about-why'],
+  'about::team_intro': ['about-team'],
+  'about::partners_cta': ['about-partners-cta'],
+  'about::hero': ['about-hero'],
+};
+
+const targetsFor = (pageKey: string, sectionKey: string): string[] => {
+  const aliased = SECTION_ALIASES[`${pageKey}::${sectionKey}`];
+  return aliased && aliased.length ? aliased : [sectionKey];
+};
+
+const ruleFor = (pageKey: string, sectionKey: string, style: SectionStyle): string => {
   const decls: string[] = [];
   if (style.background_color) decls.push(`background-color: ${style.background_color} !important`);
   if (style.text_color) decls.push(`color: ${style.text_color} !important`);
@@ -40,9 +58,10 @@ const ruleFor = (sectionKey: string, style: SectionStyle): string => {
     decls.push(`padding-bottom: ${PAD[style.padding_y]} !important`);
   }
   if (!decls.length) return '';
-  // Escape selector value for attribute selector
-  const safe = sectionKey.replace(/"/g, '\\"');
-  return `[data-section="${safe}"]{${decls.join(';')}}`;
+  const selector = targetsFor(pageKey, sectionKey)
+    .map(t => `[data-section="${t.replace(/"/g, '\\"')}"]`)
+    .join(',');
+  return `${selector}{${decls.join(';')}}`;
 };
 
 const extractStyle = (content: any): SectionStyle | null => {
@@ -52,16 +71,18 @@ const extractStyle = (content: any): SectionStyle | null => {
   return s as SectionStyle;
 };
 
+const keyOf = (pageKey: string, sectionKey: string) => `${pageKey}::${sectionKey}`;
+
 export const SectionContentStyles = () => {
-  // Map of section_key -> CSS rule string
   const [rules, setRules] = useState<Record<string, string>>({});
 
-  const setRule = (sectionKey: string, style: SectionStyle | null) => {
+  const setRule = (pageKey: string, sectionKey: string, style: SectionStyle | null) => {
     setRules(prev => {
       const next = { ...prev };
-      const css = style ? ruleFor(sectionKey, style) : '';
-      if (css) next[sectionKey] = css;
-      else delete next[sectionKey];
+      const k = keyOf(pageKey, sectionKey);
+      const css = style ? ruleFor(pageKey, sectionKey, style) : '';
+      if (css) next[k] = css;
+      else delete next[k];
       return next;
     });
   };
@@ -78,8 +99,8 @@ export const SectionContentStyles = () => {
       (data as Row[]).forEach(r => {
         const style = extractStyle(r.content);
         if (!style) return;
-        const css = ruleFor(r.section_key, style);
-        if (css) next[r.section_key] = css;
+        const css = ruleFor(r.page_key, r.section_key, style);
+        if (css) next[keyOf(r.page_key, r.section_key)] = css;
       });
       setRules(next);
     })();
@@ -91,9 +112,9 @@ export const SectionContentStyles = () => {
     const onMsg = (e: MessageEvent) => {
       const m = e.data;
       if (!m || m.type !== 'lovable-section-preview') return;
-      if (!m.sectionKey) return;
+      if (!m.sectionKey || !m.pageKey) return;
       const style = extractStyle(m.content);
-      setRule(m.sectionKey, style);
+      setRule(m.pageKey, m.sectionKey, style);
     };
     window.addEventListener('message', onMsg);
     return () => window.removeEventListener('message', onMsg);
