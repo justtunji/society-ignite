@@ -15,9 +15,14 @@ const HERO_DEFAULTS = {
   subheadline: 'Access our curated collection of resources designed to support Black academics at every stage of their career journey.',
   image_url: '', cta_label: '', cta_url: '',
 };
+const KEY_DEFAULTS = { eyebrow: 'Featured', headline: 'Key Resources',
+  subheadline: 'Reports, news, workshops and recordings from across our community.' };
+const COMMUNITY_DEFAULTS = { eyebrow: 'Community', headline: 'Connect With Us' };
 
 const Resources = () => {
   const hero = useSectionContent('resources', 'hero', HERO_DEFAULTS);
+  const keyIntro = useSectionContent('resources', 'key_resources', KEY_DEFAULTS);
+  const communityIntro = useSectionContent('resources', 'community_resources', COMMUNITY_DEFAULTS);
   useEffect(() => {
     document.title = "Resources | Society of Black Academics";
     
@@ -117,14 +122,14 @@ const Resources = () => {
         {/* SBA Updates */}
         <SBAUpdatesSection />
 
-        {/* Key Resources - Categorized */}
-        <section className="py-20 lg:py-32 bg-background">
+        {keyIntro && (
+        <section data-section="key-resources" className="py-20 lg:py-32 bg-background">
           <div className="container-wide">
             <div className="text-center mb-16">
-              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Featured</h4>
-              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">Key Resources</h2>
+              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">{keyIntro.eyebrow}</h4>
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">{keyIntro.headline}</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Reports, news, workshops and recordings from across our community.
+                {keyIntro.subheadline}
               </p>
             </div>
 
@@ -172,14 +177,15 @@ const Resources = () => {
             </div>
           </div>
         </section>
+        )}
 
-        {/* Community Resources */}
-        <section className="py-20 lg:py-32 bg-background">
+        {communityIntro && (
+        <section data-section="community-resources" className="py-20 lg:py-32 bg-background">
           <div className="container-wide">
             <div className="text-center mb-16">
-              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Community</h4>
+              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">{communityIntro.eyebrow}</h4>
               <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
-                Connect With Us
+                {communityIntro.headline}
               </h2>
             </div>
 
@@ -206,6 +212,7 @@ const Resources = () => {
             </div>
           </div>
         </section>
+        )}
       </main>
 
       <Footer

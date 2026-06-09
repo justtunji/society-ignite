@@ -37,6 +37,9 @@ const SECTION_ALIASES: Record<string, string[]> = {
   'about::team_intro': ['about-team'],
   'about::partners_cta': ['about-partners-cta'],
   'about::hero': ['about-hero'],
+  'resources::sba_updates': ['sba-updates'],
+  'resources::key_resources': ['key-resources'],
+  'resources::community_resources': ['community-resources'],
 };
 
 const targetsFor = (pageKey: string, sectionKey: string): string[] => {
