@@ -200,10 +200,11 @@ const About = () => {
           <div className="container-wide">
             {teamIntro && (
             <div className="text-center mb-16">
-              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">{teamIntro.eyebrow}</h4>
-              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+              <p data-style-id="about-team-eyebrow" className="eyebrow text-accent font-semibold text-sm uppercase tracking-wider mb-4">{teamIntro.eyebrow}</p>
+              <h2 data-style-id="about-team-headline" className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
                 {teamIntro.headline}
               </h2>
+
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
                 {teamIntro.subheadline}
               </p>
