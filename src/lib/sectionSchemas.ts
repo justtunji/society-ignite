@@ -65,6 +65,7 @@ export const PAGE_SCHEMAS: PageSchema[] = [
         label: 'About intro',
         description: 'Two paragraphs + “Learn more” button on the homepage About strip.',
         fields: [
+          { key: 'eyebrow',     label: 'Eyebrow',      type: 'text' },
           { key: 'paragraph_1', label: 'Paragraph 1', type: 'textarea' },
           { key: 'paragraph_2', label: 'Paragraph 2', type: 'textarea' },
           { key: 'cta_label',   label: 'Button label', type: 'text' },
@@ -72,12 +73,14 @@ export const PAGE_SCHEMAS: PageSchema[] = [
           { key: 'image_url',   label: 'Side image',   type: 'image' },
         ],
         defaults: {
+          eyebrow: '',
           paragraph_1: 'The Society of Black Academics (SBA) is an organisation committed to the empowerment of Black academics through the provision of access to opportunities for career advancement, research excellence, and leadership development.',
           paragraph_2: 'We bring together scholars, researchers, educators, and aspiring academics to address challenges, share insights, and support the development of Black communities in higher education.',
           cta_label: 'Learn more',
           cta_url: '/about',
           image_url: '',
         },
+
       },
       {
         key: 'conference',

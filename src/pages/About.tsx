@@ -50,9 +50,11 @@ interface TeamMember {
   linkedin_url: string | null;
   twitter_url: string | null;
   is_featured: boolean | null;
+  category: string | null;
   order_index: number | null;
   updated_at?: string | null;
 }
+
 
 const About = () => {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
@@ -83,10 +85,14 @@ const About = () => {
         .order('order_index', { ascending: true });
       
       if (data) {
-        // Split: featured members go to advisory board, non-featured to team
-        setTeamMembers(data.filter(m => !m.is_featured));
-        setAdvisoryMembers(data.filter(m => m.is_featured));
+        const rows = data as unknown as TeamMember[];
+        // Prefer explicit category; fall back to is_featured for legacy rows
+        const isAdvisory = (m: TeamMember) =>
+          (m.category ? m.category === 'advisory' : !!m.is_featured);
+        setTeamMembers(rows.filter(m => !isAdvisory(m)));
+        setAdvisoryMembers(rows.filter(isAdvisory));
       }
+
     };
     fetchTeamMembers();
   }, []);
@@ -98,7 +104,7 @@ const About = () => {
       <main>
         {/* Hero Section */}
         {hero && (
-        <section className="relative min-h-[80vh] flex items-center bg-primary">
+        <section data-section="about-hero" className="relative min-h-[80vh] flex items-center bg-primary">
           <div className="absolute inset-0">
             <img
               src={hero.image_url || aboutHero}
@@ -111,10 +117,11 @@ const About = () => {
           <div className="relative z-10 container-wide py-32">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="text-primary-foreground">
-                <p className="text-accent font-medium text-lg mb-4">{hero.eyebrow}</p>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                <p data-style-id="about-hero-eyebrow" className="eyebrow text-accent font-medium text-lg mb-4">{hero.eyebrow}</p>
+                <h1 data-style-id="about-hero-headline" className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                   {hero.headline}
                 </h1>
+
                 <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
                   {hero.subheadline}
                 </p>
@@ -136,15 +143,16 @@ const About = () => {
 
         {/* Why SBA + Mission/Vision/Values side by side */}
         {(why || mvv) && (
-        <section className="py-20 lg:py-32 bg-background">
+        <section data-section="about-why" className="py-20 lg:py-32 bg-background">
           <div className="container-wide">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
               {why && (
               <div>
-                <h4 className="text-accent font-semibold uppercase tracking-wider mb-6 text-5xl md:text-6xl lg:text-7xl font-bold">{why.eyebrow}</h4>
-                <h2 className="text-foreground mb-8 leading-tight text-lg font-semibold">
+                <p data-style-id="about-why-eyebrow" className="eyebrow text-accent font-semibold uppercase tracking-wider mb-6 text-5xl md:text-6xl lg:text-7xl font-bold">{why.eyebrow}</p>
+                <h2 data-style-id="about-why-headline" className="text-foreground mb-8 leading-tight text-lg font-semibold">
                   {why.headline}
                 </h2>
+
                 <p className="text-foreground/80 text-base lg:text-lg leading-relaxed mb-6">
                   {why.paragraph_1}
                 </p>
@@ -188,14 +196,15 @@ const About = () => {
         )}
 
         {/* Team Section */}
-        <section className="py-20 lg:py-32 bg-background" id="our_team">
+        <section data-section="about-team" className="py-20 lg:py-32 bg-background" id="our_team">
           <div className="container-wide">
             {teamIntro && (
             <div className="text-center mb-16">
-              <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">{teamIntro.eyebrow}</h4>
-              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+              <p data-style-id="about-team-eyebrow" className="eyebrow text-accent font-semibold text-sm uppercase tracking-wider mb-4">{teamIntro.eyebrow}</p>
+              <h2 data-style-id="about-team-headline" className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
                 {teamIntro.headline}
               </h2>
+
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
                 {teamIntro.subheadline}
               </p>
@@ -263,7 +272,7 @@ const About = () => {
 
         {/* Advisory Board Section */}
         {advisoryMembers.length > 0 && (
-          <section className="py-20 lg:py-32 bg-muted/30" id="advisory_board">
+          <section data-section="about-advisory" className="py-20 lg:py-32 bg-muted/30" id="advisory_board">
             <div className="container-wide">
               <div className="text-center mb-16">
                 <h4 className="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Leadership</h4>
@@ -311,7 +320,7 @@ const About = () => {
 
         {/* Partners CTA */}
         {partnersCta && (
-        <section className="py-20 lg:py-32 bg-primary text-primary-foreground" id="part_spon">
+        <section data-section="about-partners-cta" className="py-20 lg:py-32 bg-primary text-primary-foreground" id="part_spon">
           <div className="container-wide text-center">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               {partnersCta.headline}

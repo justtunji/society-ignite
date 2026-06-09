@@ -24,7 +24,7 @@ export const ImpactSection = () => {
   ].filter(s => s.number || s.label);
 
   return (
-    <section className="py-20 lg:py-32 bg-primary text-primary-foreground relative overflow-hidden">
+    <section data-section="impact" className="py-20 lg:py-32 bg-primary text-primary-foreground relative overflow-hidden">
       <div className="absolute inset-0">
         <img
           src={c.image_url || sbaImage}

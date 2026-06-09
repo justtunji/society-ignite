@@ -1211,6 +1211,7 @@ export type Database = {
       team_members: {
         Row: {
           bio: string | null
+          category: string
           created_at: string | null
           email: string | null
           id: string
@@ -1225,6 +1226,7 @@ export type Database = {
         }
         Insert: {
           bio?: string | null
+          category?: string
           created_at?: string | null
           email?: string | null
           id?: string
@@ -1239,6 +1241,7 @@ export type Database = {
         }
         Update: {
           bio?: string | null
+          category?: string
           created_at?: string | null
           email?: string | null
           id?: string
@@ -1256,6 +1259,7 @@ export type Database = {
       team_members_public: {
         Row: {
           bio: string | null
+          category: string
           created_at: string | null
           id: string
           image_url: string | null
@@ -1270,6 +1274,7 @@ export type Database = {
         }
         Insert: {
           bio?: string | null
+          category?: string
           created_at?: string | null
           id?: string
           image_url?: string | null
@@ -1284,6 +1289,7 @@ export type Database = {
         }
         Update: {
           bio?: string | null
+          category?: string
           created_at?: string | null
           id?: string
           image_url?: string | null
@@ -1455,6 +1461,7 @@ export type Database = {
         Args: never
         Returns: {
           bio: string | null
+          category: string
           created_at: string | null
           id: string
           image_url: string | null

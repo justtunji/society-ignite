@@ -78,7 +78,7 @@ export const InstagramSection = () => {
   ];
 
   return (
-    <section className="section-padding bg-gradient-to-br from-background via-primary/5 to-background">
+    <section data-section="instagram" className="section-padding bg-gradient-to-br from-background via-primary/5 to-background">
       <div className="container-wide">
         {/* Header Section */}
         <div className="text-center mb-16 animate-fade-in">

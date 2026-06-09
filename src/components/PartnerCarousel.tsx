@@ -38,7 +38,7 @@ export const PartnerCarousel = ({ speed = 60, pauseOnHover = true }: PartnerCaro
   const animationDuration = `${speed}s`;
 
   return (
-    <section className="bg-background border-y border-border" aria-label="Featured In">
+    <section data-section="partner-carousel" className="bg-background border-y border-border" aria-label="Featured In">
       <div className="flex flex-col lg:flex-row">
         <div className="lg:w-64 flex-shrink-0 flex items-center justify-center lg:justify-start border-r border-border px-8 py-6 lg:py-12 bg-muted/30">
           <h3 className="text-2xl lg:text-3xl font-bold text-foreground">

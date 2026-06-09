@@ -188,7 +188,7 @@ const SBAUpdatesSection = () => {
 
   if (loading) {
     return (
-      <section className="py-20 lg:py-28 bg-gradient-to-b from-background via-muted/20 to-background">
+      <section data-section="sba-updates" className="py-20 lg:py-28 bg-gradient-to-b from-background via-muted/20 to-background">
         <div className="container-wide">
           <div className="text-center mb-12">
             <div className="h-6 w-32 bg-muted rounded-full mx-auto mb-4 animate-pulse" />
@@ -209,7 +209,7 @@ const SBAUpdatesSection = () => {
 
   return (
     <>
-      <section className="py-20 lg:py-28 bg-gradient-to-b from-background via-muted/20 to-background">
+      <section data-section="sba-updates" className="py-20 lg:py-28 bg-gradient-to-b from-background via-muted/20 to-background">
         <div className="container-wide">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-medium mb-5">

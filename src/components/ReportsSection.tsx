@@ -24,7 +24,7 @@ export const ReportsSection = () => {
   ];
 
   return (
-    <section className="py-20 lg:py-32 bg-background">
+    <section data-section="reports" className="py-20 lg:py-32 bg-background">
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-0 items-stretch">
           {/* Left - Dark Section with Content */}

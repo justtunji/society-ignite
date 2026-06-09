@@ -5,7 +5,7 @@ import hepiReportCover from "@/assets/images/hepi-report-cover.png";
 
 export const HEPIReportSection = () => {
   return (
-    <section className="section-padding bg-gradient-to-br from-purple-50 via-background to-teal-50">
+    <section data-section="hepi-report" className="section-padding bg-gradient-to-br from-purple-50 via-background to-teal-50">
       <div className="container-wide">
         <div className="text-center mb-12 animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-teal-100 text-purple-700 rounded-full text-sm font-medium mb-6">
