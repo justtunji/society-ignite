@@ -15,9 +15,14 @@ const HERO_DEFAULTS = {
   subheadline: 'Access our curated collection of resources designed to support Black academics at every stage of their career journey.',
   image_url: '', cta_label: '', cta_url: '',
 };
+const KEY_DEFAULTS = { eyebrow: 'Featured', headline: 'Key Resources',
+  subheadline: 'Reports, news, workshops and recordings from across our community.' };
+const COMMUNITY_DEFAULTS = { eyebrow: 'Community', headline: 'Connect With Us' };
 
 const Resources = () => {
   const hero = useSectionContent('resources', 'hero', HERO_DEFAULTS);
+  const keyIntro = useSectionContent('resources', 'key_resources', KEY_DEFAULTS);
+  const communityIntro = useSectionContent('resources', 'community_resources', COMMUNITY_DEFAULTS);
   useEffect(() => {
     document.title = "Resources | Society of Black Academics";
     
