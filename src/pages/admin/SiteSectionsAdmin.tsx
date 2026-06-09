@@ -349,6 +349,10 @@ const SiteSectionsAdmin = () => {
                 onChange={(v) => onFieldChange(field.key, v)}
               />
             ))}
+            <AppearanceEditor
+              value={(form as any)._style ?? {}}
+              onChange={(v) => onFieldChange('_style', v)}
+            />
             {previewOpen && (
               <p className="text-xs text-muted-foreground">Changes appear instantly in the live preview panel. They are only persisted when you click Save.</p>
             )}
@@ -361,6 +365,107 @@ const SiteSectionsAdmin = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+    </div>
+  );
+};
+
+type AppearanceValue = {
+  background_color?: string;
+  text_color?: string;
+  background_image?: string;
+  padding_y?: '' | 'sm' | 'md' | 'lg' | 'xl';
+};
+
+const PAD_OPTIONS: Array<{ value: AppearanceValue['padding_y']; label: string }> = [
+  { value: '', label: 'Default' },
+  { value: 'sm', label: 'Small' },
+  { value: 'md', label: 'Medium' },
+  { value: 'lg', label: 'Large' },
+  { value: 'xl', label: 'Extra large' },
+];
+
+const AppearanceEditor = ({ value, onChange }: { value: AppearanceValue; onChange: (v: AppearanceValue) => void }) => {
+  const update = (patch: Partial<AppearanceValue>) => onChange({ ...value, ...patch });
+  const reset = () => onChange({});
+  const hasAny = !!(value.background_color || value.text_color || value.background_image || value.padding_y);
+
+  return (
+    <div className="border rounded-lg p-4 space-y-4 bg-muted/30">
+      <div className="flex items-center justify-between">
+        <div>
+          <Label className="text-sm font-semibold">Appearance</Label>
+          <p className="text-xs text-muted-foreground">Overrides global Design rules for this section only.</p>
+        </div>
+        {hasAny && (
+          <Button type="button" variant="ghost" size="sm" onClick={reset}>
+            <X className="h-3 w-3 mr-1" /> Reset
+          </Button>
+        )}
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-1">
+          <Label className="text-xs">Background color</Label>
+          <div className="flex items-center gap-2">
+            <Input
+              type="color"
+              className="h-9 w-14 p-1 cursor-pointer"
+              value={value.background_color || '#ffffff'}
+              onChange={(e) => update({ background_color: e.target.value })}
+            />
+            <Input
+              type="text"
+              placeholder="#ffffff or empty"
+              value={value.background_color ?? ''}
+              onChange={(e) => update({ background_color: e.target.value })}
+            />
+          </div>
+        </div>
+
+        <div className="space-y-1">
+          <Label className="text-xs">Text color</Label>
+          <div className="flex items-center gap-2">
+            <Input
+              type="color"
+              className="h-9 w-14 p-1 cursor-pointer"
+              value={value.text_color || '#000000'}
+              onChange={(e) => update({ text_color: e.target.value })}
+            />
+            <Input
+              type="text"
+              placeholder="#000000 or empty"
+              value={value.text_color ?? ''}
+              onChange={(e) => update({ text_color: e.target.value })}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-1">
+        <Label className="text-xs">Background image (optional)</Label>
+        <ImageUpload
+          value={value.background_image ?? ''}
+          onChange={(v) => update({ background_image: v })}
+          folder="sections"
+        />
+      </div>
+
+      <div className="space-y-1">
+        <Label className="text-xs">Vertical padding</Label>
+        <div className="flex gap-2 flex-wrap">
+          {PAD_OPTIONS.map(opt => (
+            <Button
+              key={opt.label}
+              type="button"
+              size="sm"
+              variant={(value.padding_y ?? '') === opt.value ? 'default' : 'outline'}
+              onClick={() => update({ padding_y: opt.value })}
+            >
+              {opt.label}
+            </Button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
