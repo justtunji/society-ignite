@@ -2,6 +2,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Handshake } from "lucide-react";
 import heroImage from "@/assets/images/hero-image.jpg";
 import { PartnerSponsorDialog } from "./PartnerSponsorDialog";
+import { useSectionContent } from "@/hooks/useSectionContent";
+
+const HERO_IMAGE_DEFAULTS = { circle_image_scale: '100' };
 
 interface HeroSectionProps {
   headline: string;
@@ -11,6 +14,9 @@ interface HeroSectionProps {
 }
 
 export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSectionProps) => {
+  const heroImg = useSectionContent('home', 'hero_image', HERO_IMAGE_DEFAULTS);
+  const rawScale = parseFloat(heroImg?.circle_image_scale ?? '100');
+  const scale = Number.isFinite(rawScale) ? Math.min(200, Math.max(50, rawScale)) / 100 : 1;
   return (
     <section data-section="hero" className="relative min-h-[100svh] flex items-center overflow-hidden bg-primary">
       {/* Background Image with Overlay */}
@@ -30,12 +36,15 @@ export const HeroSection = ({ headline, subheadline, ctaLabel, ctaUrl }: HeroSec
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left - Circular Image */}
           <div className="relative order-2 lg:order-1 hidden lg:flex justify-start max-w-full overflow-visible">
-            <div className="relative max-w-[min(22rem,calc(100vw-3rem))] lg:max-w-none">
+            <div
+              className="relative max-w-[min(28rem,calc(100vw-3rem))] lg:max-w-none origin-left transition-transform duration-300"
+              style={{ transform: `scale(${scale})` }}
+            >
               {/* Decorative circle behind */}
               <div className="absolute -top-5 -right-5 md:-top-8 md:-right-8 w-full aspect-square rounded-full bg-accent/20 blur-sm"></div>
               
               {/* Main circular image */}
-              <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 max-w-full rounded-full overflow-hidden border-4 border-primary-foreground/20 shadow-2xl">
+              <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] max-w-full rounded-full overflow-hidden border-4 border-primary-foreground/20 shadow-2xl">
                 <img 
                   src={heroImage} 
                   alt="Black Academics Community"

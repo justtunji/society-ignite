@@ -61,6 +61,16 @@ export const PAGE_SCHEMAS: PageSchema[] = [
         defaults: {},
       },
       {
+        key: 'hero_image',
+        label: 'Hero — Circular image',
+        description: 'Controls the size of the round image on the homepage hero.',
+        fields: [
+          { key: 'circle_image_scale', label: 'Image size (%)', type: 'text',
+            help: 'Percent of default size. 100 = default, 120 = 20% larger, 80 = smaller. Range 50–200.' },
+        ],
+        defaults: { circle_image_scale: '100' },
+      },
+      {
         key: 'about_intro',
         label: 'About intro',
         description: 'Two paragraphs + “Learn more” button on the homepage About strip.',
