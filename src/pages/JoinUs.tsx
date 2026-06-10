@@ -19,7 +19,7 @@ const HERO_DEFAULTS = {
   eyebrow: 'Join Our Community',
   headline: 'Become a Member.',
   subheadline: 'Join our community of scholars, researchers, and educators committed to driving inclusive change in higher education.',
-  image_url: '', cta_label: '', cta_url: '',
+  image_url: '', cta_label: '', cta_url: '', side_image_url: '',
 };
 const WHY_DEFAULTS = {
   eyebrow: 'Why Join', headline: 'Benefits of SBA Membership',
