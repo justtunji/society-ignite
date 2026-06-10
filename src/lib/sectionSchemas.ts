@@ -290,11 +290,15 @@ export const PAGE_SCHEMAS: PageSchema[] = [
     key: 'join-us',
     label: 'Join Us',
     sections: [
-      { key: 'hero', label: 'Hero', fields: heroFields(), defaults: {
+      { key: 'hero', label: 'Hero', fields: [
+        ...heroFields(),
+        { key: 'side_image_url', label: 'Side image (right column)', type: 'image',
+          help: 'Image shown beside the hero copy. Leave blank to use the default membership levels image.' },
+      ], defaults: {
         eyebrow: 'Join Our Community',
         headline: 'Become a Member.',
         subheadline: 'Join our community of scholars, researchers, and educators committed to driving inclusive change in higher education.',
-        image_url: '', cta_label: '', cta_url: '',
+        image_url: '', cta_label: '', cta_url: '', side_image_url: '',
       }},
       { key: 'why_join', label: 'Why join', fields: [
         { key: 'eyebrow', label: 'Eyebrow', type: 'text' },
