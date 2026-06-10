@@ -128,11 +128,13 @@ const About = () => {
               </div>
 
               <div className="hidden lg:flex justify-center items-center">
-                <div className="relative w-80 h-80 mx-auto flex items-center justify-center bg-white rounded-2xl shadow-lg">
+                <div className="relative w-80 h-80 mx-auto flex items-center justify-center bg-white rounded-2xl shadow-lg overflow-hidden">
                   <img
-                    src={sbaLogo}
-                    alt="Society of Black Academics Logo"
-                    className="relative w-full h-full object-contain p-6"
+                    src={hero.side_image_url || sbaLogo}
+                    alt={hero.side_image_url ? 'About hero image' : 'Society of Black Academics Logo'}
+                    className={hero.side_image_url
+                      ? 'relative w-full h-full object-cover'
+                      : 'relative w-full h-full object-contain p-6'}
                   />
                 </div>
               </div>
