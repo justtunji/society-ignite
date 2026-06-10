@@ -14,7 +14,7 @@ const HERO_DEFAULTS = {
   eyebrow: 'About Us',
   headline: 'Driving Change in Higher Education.',
   subheadline: 'The Society of Black Academics (SBA) was formed due to the under-representation of Black academics at the Professorial and Senior Leadership levels in UK Universities.',
-  image_url: '', cta_label: '', cta_url: '',
+  image_url: '', cta_label: '', cta_url: '', side_image_url: '',
 };
 const WHY_DEFAULTS = {
   eyebrow: 'Why SBA', headline: 'Building a more inclusive academy.',
@@ -128,11 +128,13 @@ const About = () => {
               </div>
 
               <div className="hidden lg:flex justify-center items-center">
-                <div className="relative w-80 h-80 mx-auto flex items-center justify-center bg-white rounded-2xl shadow-lg">
+                <div className="relative w-80 h-80 mx-auto flex items-center justify-center bg-white rounded-2xl shadow-lg overflow-hidden">
                   <img
-                    src={sbaLogo}
-                    alt="Society of Black Academics Logo"
-                    className="relative w-full h-full object-contain p-6"
+                    src={hero.side_image_url || sbaLogo}
+                    alt={hero.side_image_url ? 'About hero image' : 'Society of Black Academics Logo'}
+                    className={hero.side_image_url
+                      ? 'relative w-full h-full object-cover'
+                      : 'relative w-full h-full object-contain p-6'}
                   />
                 </div>
               </div>
