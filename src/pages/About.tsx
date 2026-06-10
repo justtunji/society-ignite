@@ -14,7 +14,7 @@ const HERO_DEFAULTS = {
   eyebrow: 'About Us',
   headline: 'Driving Change in Higher Education.',
   subheadline: 'The Society of Black Academics (SBA) was formed due to the under-representation of Black academics at the Professorial and Senior Leadership levels in UK Universities.',
-  image_url: '', cta_label: '', cta_url: '',
+  image_url: '', cta_label: '', cta_url: '', side_image_url: '',
 };
 const WHY_DEFAULTS = {
   eyebrow: 'Why SBA', headline: 'Building a more inclusive academy.',
