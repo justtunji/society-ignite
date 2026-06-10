@@ -197,11 +197,15 @@ export const PAGE_SCHEMAS: PageSchema[] = [
     key: 'about',
     label: 'About',
     sections: [
-      { key: 'hero', label: 'Hero', fields: heroFields(), defaults: {
+      { key: 'hero', label: 'Hero', fields: [
+        ...heroFields(),
+        { key: 'side_image_url', label: 'Side image (right column)', type: 'image',
+          help: 'Image shown on the right of the hero. Leave blank to use the SBA logo.' },
+      ], defaults: {
         eyebrow: 'About Us',
         headline: 'Driving Change in Higher Education.',
         subheadline: 'The Society of Black Academics (SBA) was formed due to the under-representation of Black academics at the Professorial and Senior Leadership levels in UK Universities.',
-        image_url: '', cta_label: '', cta_url: '',
+        image_url: '', cta_label: '', cta_url: '', side_image_url: '',
       }},
       { key: 'why_sba', label: 'Why SBA', fields: [
         { key: 'eyebrow', label: 'Eyebrow', type: 'text' },
