@@ -235,7 +235,7 @@ const JoinUs = () => {
               
               <div className="lg:hidden flex justify-center">
                 <img 
-                  src={membershipLevelsImage}
+                  src={hero.side_image_url || membershipLevelsImage}
                   alt="SBA Membership Levels"
                   className="max-w-sm rounded-lg shadow-xl"
                 />
