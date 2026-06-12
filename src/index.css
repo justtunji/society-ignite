@@ -218,8 +218,14 @@ Clean, minimal, academic aesthetic with generous whitespace
   }
 
   .partner-track {
-    @apply flex items-center;
+    @apply flex items-center flex-nowrap;
+    width: max-content;
+    will-change: transform;
     animation: slide-rtl 30s linear infinite;
+  }
+
+  .partner-track > * {
+    flex-shrink: 0;
   }
 
   .partner-track:hover {
