@@ -41,6 +41,8 @@ const JoinUs = () => {
   const applyIntro = useSectionContent('join-us', 'apply_intro', APPLY_DEFAULTS);
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submittedData, setSubmittedData] = useState<null | typeof formData>(null);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -121,11 +123,12 @@ const JoinUs = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting || submitted) return;
     setIsSubmitting(true);
 
     try {
       const fullName = `${formData.firstName} ${formData.lastName}`;
-      
+
       // Save to members table
       const { error } = await supabase
         .from('members')
@@ -138,26 +141,28 @@ const JoinUs = () => {
 
       if (error) throw error;
 
-      // Subscribe to Mailchimp with membership tags (triggers welcome automation)
+      // Subscribe to Mailchimp with STATUS=Pending — triggers your "Application Received" automation
       await subscribeToMailchimp({
         email: formData.email,
         name: fullName,
         source: 'membership-application',
-        tags: ['New Member', formData.membership, formData.researchTrack].filter(Boolean),
+        tags: ['New Member', 'Pending', formData.membership, formData.researchTrack].filter(Boolean),
         merge_fields: {
           JOBTITLE: formData.jobTitle,
           INSTITUT: formData.institution,
           MEMLEVEL: formData.membership,
           TRACK: formData.researchTrack,
+          STATUS: 'Pending',
         },
       }).catch(err => console.warn('Mailchimp subscription failed (non-blocking):', err));
 
       toast({
         title: "Application submitted!",
-        description: "Thank you for supporting SBA. Check your email for a welcome message — you'll get to attend our conference for free!",
+        description: "We've received your application. Check your inbox for a confirmation email.",
       });
 
-      setFormData({ firstName: '', lastName: '', email: '', jobTitle: '', institution: '', membership: '', researchTrack: '' });
+      setSubmittedData(formData);
+      setSubmitted(true);
     } catch (error) {
       console.error('Error submitting membership:', error);
       toast({
@@ -291,6 +296,33 @@ const JoinUs = () => {
               </div>
               
               <div className="bg-muted/30 rounded-2xl p-8 lg:p-12">
+                {submitted && submittedData ? (
+                  <div className="text-center space-y-6">
+                    <div className="mx-auto w-16 h-16 rounded-full bg-accent/15 flex items-center justify-center">
+                      <Check className="h-8 w-8 text-accent" />
+                    </div>
+                    <div className="space-y-2">
+                      <h3 className="text-2xl font-bold text-foreground">Application received</h3>
+                      <p className="text-muted-foreground">
+                        Thanks, {submittedData.firstName}. We've sent a confirmation to{" "}
+                        <span className="font-semibold text-foreground">{submittedData.email}</span> with the details below.
+                        Our team will review your application and follow up by email with your acceptance.
+                      </p>
+                    </div>
+                    <div className="text-left bg-background rounded-xl p-6 border border-border space-y-2 text-sm">
+                      <p><span className="font-semibold">Name:</span> {submittedData.firstName} {submittedData.lastName}</p>
+                      <p><span className="font-semibold">Email:</span> {submittedData.email}</p>
+                      <p><span className="font-semibold">Job title:</span> {submittedData.jobTitle}</p>
+                      <p><span className="font-semibold">Institution:</span> {submittedData.institution}</p>
+                      <p><span className="font-semibold">Membership level:</span> {submittedData.membership}</p>
+                      <p><span className="font-semibold">Research track:</span> {submittedData.researchTrack}</p>
+                      <p className="pt-2"><span className="font-semibold">Status:</span> <span className="inline-block px-2 py-0.5 rounded-full bg-accent/15 text-accent text-xs font-semibold">Pending review</span></p>
+                    </div>
+                    <Button asChild size="lg" className="rounded-full px-8 bg-accent text-accent-foreground hover:bg-accent/90">
+                      <a href="/">Back to homepage</a>
+                    </Button>
+                  </div>
+                ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
@@ -349,7 +381,7 @@ const JoinUs = () => {
                   
                   <Button 
                     type="submit" 
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || submitted}
                     size="lg"
                     className="w-full rounded-full px-8 py-6 bg-accent text-accent-foreground hover:bg-accent/90"
                   >
@@ -357,6 +389,7 @@ const JoinUs = () => {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </form>
+                )}
               </div>
             </div>
           </div>
