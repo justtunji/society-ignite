@@ -128,20 +128,24 @@ const JoinUs = () => {
 
     try {
       const fullName = `${formData.firstName} ${formData.lastName}`;
+      const memberId = crypto.randomUUID();
 
       // Save to members table
-      const { data: insertedMember, error } = await supabase
+      const { error } = await supabase
         .from('members')
         .insert([{
+          id: memberId,
           name: fullName,
           email: formData.email,
           category: formData.membership,
           preferences: { jobTitle: formData.jobTitle, institution: formData.institution, researchTrack: formData.researchTrack }
-        }])
-        .select('id')
-        .single();
+        }]);
 
-      if (error) throw error;
+      const isDuplicateApplication = error && 'code' in error && error.code === '23505';
+      if (error && !isDuplicateApplication) throw error;
+      if (isDuplicateApplication) {
+        console.warn('Membership application already exists for this email; continuing with confirmation flow.');
+      }
 
       // Subscribe to Mailchimp with STATUS=Pending — triggers your "Application Received" automation
       await subscribeToMailchimp({
@@ -156,7 +160,7 @@ const JoinUs = () => {
           TRACK: formData.researchTrack,
           STATUS: 'Pending',
         },
-        member_id: insertedMember?.id,
+        member_id: isDuplicateApplication ? undefined : memberId,
       }).catch(err => console.warn('Mailchimp subscription failed (non-blocking):', err));
 
 
