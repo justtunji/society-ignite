@@ -130,14 +130,16 @@ const JoinUs = () => {
       const fullName = `${formData.firstName} ${formData.lastName}`;
 
       // Save to members table
-      const { error } = await supabase
+      const { data: insertedMember, error } = await supabase
         .from('members')
         .insert([{
           name: fullName,
           email: formData.email,
           category: formData.membership,
           preferences: { jobTitle: formData.jobTitle, institution: formData.institution, researchTrack: formData.researchTrack }
-        }]);
+        }])
+        .select('id')
+        .single();
 
       if (error) throw error;
 
@@ -154,7 +156,9 @@ const JoinUs = () => {
           TRACK: formData.researchTrack,
           STATUS: 'Pending',
         },
+        member_id: insertedMember?.id,
       }).catch(err => console.warn('Mailchimp subscription failed (non-blocking):', err));
+
 
       toast({
         title: "Application submitted!",

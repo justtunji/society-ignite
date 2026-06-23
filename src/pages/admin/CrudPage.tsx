@@ -36,7 +36,7 @@ interface CrudPageProps {
   orderBy?: string;
   orderAsc?: boolean;
   slugField?: boolean;
-  customActions?: (item: any) => React.ReactNode;
+  customActions?: (item: any, refetch: () => void) => React.ReactNode;
   /** Enables Up/Down reorder buttons that swap this numeric column with the neighbour. Pair with `groupBy` to scope swaps. */
   reorderField?: string;
   /** Only swap within rows that share this column's value (e.g. 'category'). */
@@ -358,7 +358,7 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
                               <Button size="icon" variant="ghost" aria-label="Move down" onClick={() => handleReorder(item, 1)}><ArrowDown size={16} /></Button>
                             </>
                           )}
-                          {customActions?.(item)}
+                          {customActions?.(item, refetch)}
                           {canUpdate && (
                             <Button size="icon" variant="ghost" aria-label="Edit" onClick={() => initForm(item)}><Pencil size={16} /></Button>
                           )}

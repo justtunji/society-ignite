@@ -8,6 +8,7 @@ const BodySchema = z.object({
   source: z.string().optional().default("website"),
   tags: z.array(z.string()).optional().default([]),
   merge_fields: z.record(z.string()).optional().default({}),
+  member_id: z.string().uuid().optional(),
 });
 
 Deno.serve(async (req) => {
@@ -15,22 +16,37 @@ Deno.serve(async (req) => {
     return new Response("ok", { headers: corsHeaders });
   }
 
+  const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+  const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+  const supabase = createClient(supabaseUrl, supabaseKey);
+
+  let memberId: string | undefined;
+
+  const recordSync = async (status: string, errorMsg: string | null, mailchimpId?: string | null) => {
+    if (!memberId) return;
+    try {
+      const update: Record<string, unknown> = {
+        mailchimp_status: status,
+        mailchimp_synced_at: new Date().toISOString(),
+        mailchimp_last_error: errorMsg,
+        mailerlite_subscribed: status === "success",
+      };
+      if (mailchimpId) update.mailerlite_id = mailchimpId;
+      await supabase.from("members").update(update).eq("id", memberId);
+    } catch (e) {
+      console.error("Failed to record sync status:", e);
+    }
+  };
+
   try {
     const MAILCHIMP_API_KEY = Deno.env.get("MAILCHIMP_API_KEY");
-    if (!MAILCHIMP_API_KEY) {
-      throw new Error("MAILCHIMP_API_KEY is not configured");
-    }
+    if (!MAILCHIMP_API_KEY) throw new Error("MAILCHIMP_API_KEY is not configured");
 
     const MAILCHIMP_AUDIENCE_ID = Deno.env.get("MAILCHIMP_AUDIENCE_ID");
-    if (!MAILCHIMP_AUDIENCE_ID) {
-      throw new Error("MAILCHIMP_AUDIENCE_ID is not configured");
-    }
+    if (!MAILCHIMP_AUDIENCE_ID) throw new Error("MAILCHIMP_AUDIENCE_ID is not configured");
 
-    // Extract data center from API key (e.g., "us21" from "xxx-us21")
     const dc = MAILCHIMP_API_KEY.split("-").pop();
-    if (!dc) {
-      throw new Error("Invalid Mailchimp API key format");
-    }
+    if (!dc) throw new Error("Invalid Mailchimp API key format");
 
     const parsed = BodySchema.safeParse(await req.json());
     if (!parsed.success) {
@@ -40,31 +56,16 @@ Deno.serve(async (req) => {
       );
     }
 
-    const { email, name, source, tags, merge_fields } = parsed.data;
+    const { email, name, source, tags, merge_fields, member_id } = parsed.data;
+    memberId = member_id;
 
-    // Split name into first/last
     const nameParts = name.trim().split(/\s+/);
     const firstName = nameParts[0] || "";
     const lastName = nameParts.slice(1).join(" ") || "";
 
-    // Subscribe/update member in Mailchimp
     const mailchimpUrl = `https://${dc}.api.mailchimp.com/3.0/lists/${MAILCHIMP_AUDIENCE_ID}/members`;
-    
-    const mailchimpBody = {
-      email_address: email,
-      status: "subscribed",
-      merge_fields: {
-        FNAME: firstName,
-        LNAME: lastName,
-        SOURCE: source,
-        ...merge_fields,
-      },
-      tags: tags.length > 0 ? tags : undefined,
-    };
-
     const authHeader = btoa(`anystring:${MAILCHIMP_API_KEY}`);
 
-    // Use PUT with subscriber hash for upsert behavior
     const emailHash = await crypto.subtle.digest(
       "MD5",
       new TextEncoder().encode(email.toLowerCase())
@@ -74,10 +75,7 @@ Deno.serve(async (req) => {
 
     const mcResponse = await fetch(`${mailchimpUrl}/${emailHash}`, {
       method: "PUT",
-      headers: {
-        Authorization: `Basic ${authHeader}`,
-        "Content-Type": "application/json",
-      },
+      headers: { Authorization: `Basic ${authHeader}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         email_address: email,
         status_if_new: "subscribed",
@@ -94,27 +92,18 @@ Deno.serve(async (req) => {
 
     if (!mcResponse.ok) {
       console.error("Mailchimp API error:", mcData);
-      throw new Error(`Mailchimp error [${mcResponse.status}]: ${mcData.detail || mcData.title}`);
+      const errMsg = `Mailchimp error [${mcResponse.status}]: ${mcData.detail || mcData.title}`;
+      await recordSync("error", errMsg);
+      throw new Error(errMsg);
     }
 
-    // Add tags separately if provided
     if (tags.length > 0) {
       await fetch(`${mailchimpUrl}/${emailHash}/tags`, {
         method: "POST",
-        headers: {
-          Authorization: `Basic ${authHeader}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          tags: tags.map(tag => ({ name: tag, status: "active" })),
-        }),
+        headers: { Authorization: `Basic ${authHeader}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ tags: tags.map(tag => ({ name: tag, status: "active" })) }),
       });
     }
-
-    // Also save to contact_submissions for CRM tracking
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const supabase = createClient(supabaseUrl, supabaseKey);
 
     await supabase.from("contact_submissions").insert({
       name,
@@ -124,13 +113,16 @@ Deno.serve(async (req) => {
       source_page: source,
     });
 
+    await recordSync("success", null, mcData.id ?? emailHash);
+
     return new Response(
-      JSON.stringify({ success: true, status: mcData.status }),
+      JSON.stringify({ success: true, status: mcData.status, mailchimp_id: mcData.id }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
     console.error("Error:", error);
     const message = error instanceof Error ? error.message : "Unknown error";
+    if (memberId) await recordSync("error", message);
     return new Response(
       JSON.stringify({ error: message }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
