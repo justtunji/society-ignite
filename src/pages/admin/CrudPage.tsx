@@ -36,7 +36,7 @@ interface CrudPageProps {
   orderBy?: string;
   orderAsc?: boolean;
   slugField?: boolean;
-  customActions?: (item: any) => React.ReactNode;
+  customActions?: (item: any, refetch: () => void) => React.ReactNode;
   /** Enables Up/Down reorder buttons that swap this numeric column with the neighbour. Pair with `groupBy` to scope swaps. */
   reorderField?: string;
   /** Only swap within rows that share this column's value (e.g. 'category'). */
