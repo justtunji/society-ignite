@@ -1,6 +1,8 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { corsHeaders } from "https://esm.sh/@supabase/supabase-js@2/cors";
 import { z } from "https://esm.sh/zod@3.23.8";
+import { md5 } from "npm:@noble/hashes@1.4.0/md5";
+import { bytesToHex } from "npm:@noble/hashes@1.4.0/utils";
 
 const BodySchema = z.object({
   email: z.string().email(),
@@ -66,12 +68,7 @@ Deno.serve(async (req) => {
     const mailchimpUrl = `https://${dc}.api.mailchimp.com/3.0/lists/${MAILCHIMP_AUDIENCE_ID}/members`;
     const authHeader = btoa(`anystring:${MAILCHIMP_API_KEY}`);
 
-    const emailHash = await crypto.subtle.digest(
-      "MD5",
-      new TextEncoder().encode(email.toLowerCase())
-    ).then(buf =>
-      Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("")
-    );
+    const emailHash = bytesToHex(md5(new TextEncoder().encode(email.toLowerCase())));
 
     const mcResponse = await fetch(`${mailchimpUrl}/${emailHash}`, {
       method: "PUT",
