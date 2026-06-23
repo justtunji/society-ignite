@@ -358,7 +358,7 @@ const CrudPage = ({ title, tableName, fields, orderBy = 'created_at', orderAsc =
                               <Button size="icon" variant="ghost" aria-label="Move down" onClick={() => handleReorder(item, 1)}><ArrowDown size={16} /></Button>
                             </>
                           )}
-                          {customActions?.(item)}
+                          {customActions?.(item, refetch)}
                           {canUpdate && (
                             <Button size="icon" variant="ghost" aria-label="Edit" onClick={() => initForm(item)}><Pencil size={16} /></Button>
                           )}
