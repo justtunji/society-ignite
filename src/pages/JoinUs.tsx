@@ -41,6 +41,8 @@ const JoinUs = () => {
   const applyIntro = useSectionContent('join-us', 'apply_intro', APPLY_DEFAULTS);
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submittedData, setSubmittedData] = useState<null | typeof formData>(null);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
