@@ -558,12 +558,18 @@ export type Database = {
       }
       members: {
         Row: {
+          acceptance_email_error: string | null
+          acceptance_email_sent_at: string | null
+          acceptance_email_status: string | null
           category: string | null
           created_at: string | null
           email: string
           id: string
           is_verified: boolean | null
           joined_at: string | null
+          mailchimp_last_error: string | null
+          mailchimp_status: string | null
+          mailchimp_synced_at: string | null
           mailerlite_id: string | null
           mailerlite_subscribed: boolean | null
           name: string
@@ -572,12 +578,18 @@ export type Database = {
           user_id: string | null
         }
         Insert: {
+          acceptance_email_error?: string | null
+          acceptance_email_sent_at?: string | null
+          acceptance_email_status?: string | null
           category?: string | null
           created_at?: string | null
           email: string
           id?: string
           is_verified?: boolean | null
           joined_at?: string | null
+          mailchimp_last_error?: string | null
+          mailchimp_status?: string | null
+          mailchimp_synced_at?: string | null
           mailerlite_id?: string | null
           mailerlite_subscribed?: boolean | null
           name: string
@@ -586,12 +598,18 @@ export type Database = {
           user_id?: string | null
         }
         Update: {
+          acceptance_email_error?: string | null
+          acceptance_email_sent_at?: string | null
+          acceptance_email_status?: string | null
           category?: string | null
           created_at?: string | null
           email?: string
           id?: string
           is_verified?: boolean | null
           joined_at?: string | null
+          mailchimp_last_error?: string | null
+          mailchimp_status?: string | null
+          mailchimp_synced_at?: string | null
           mailerlite_id?: string | null
           mailerlite_subscribed?: boolean | null
           name?: string
