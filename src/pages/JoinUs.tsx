@@ -123,11 +123,12 @@ const JoinUs = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting || submitted) return;
     setIsSubmitting(true);
 
     try {
       const fullName = `${formData.firstName} ${formData.lastName}`;
-      
+
       // Save to members table
       const { error } = await supabase
         .from('members')
@@ -140,26 +141,28 @@ const JoinUs = () => {
 
       if (error) throw error;
 
-      // Subscribe to Mailchimp with membership tags (triggers welcome automation)
+      // Subscribe to Mailchimp with STATUS=Pending — triggers your "Application Received" automation
       await subscribeToMailchimp({
         email: formData.email,
         name: fullName,
         source: 'membership-application',
-        tags: ['New Member', formData.membership, formData.researchTrack].filter(Boolean),
+        tags: ['New Member', 'Pending', formData.membership, formData.researchTrack].filter(Boolean),
         merge_fields: {
           JOBTITLE: formData.jobTitle,
           INSTITUT: formData.institution,
           MEMLEVEL: formData.membership,
           TRACK: formData.researchTrack,
+          STATUS: 'Pending',
         },
       }).catch(err => console.warn('Mailchimp subscription failed (non-blocking):', err));
 
       toast({
         title: "Application submitted!",
-        description: "Thank you for supporting SBA. Check your email for a welcome message — you'll get to attend our conference for free!",
+        description: "We've received your application. Check your inbox for a confirmation email.",
       });
 
-      setFormData({ firstName: '', lastName: '', email: '', jobTitle: '', institution: '', membership: '', researchTrack: '' });
+      setSubmittedData(formData);
+      setSubmitted(true);
     } catch (error) {
       console.error('Error submitting membership:', error);
       toast({
