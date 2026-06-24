@@ -170,10 +170,30 @@ const JoinUs = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isSubmitting || submitted) return;
-    setIsSubmitting(true);
 
+    // Bot defences: honeypot + time trap (humans take >2s)
+    if (honeypot.trim().length > 0 || Date.now() - mountedAt < 2000) {
+      console.warn('Spam submission blocked.');
+      toast({
+        title: "Submission blocked",
+        description: "Your submission could not be processed.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate & sanitize
+    const parsed = applicationSchema.safeParse(formData);
+    if (!parsed.success) {
+      const firstError = parsed.error.issues[0]?.message ?? 'Please check your inputs.';
+      toast({ title: "Invalid input", description: firstError, variant: "destructive" });
+      return;
+    }
+    const clean = parsed.data;
+
+    setIsSubmitting(true);
     try {
-      const fullName = `${formData.firstName} ${formData.lastName}`;
+      const fullName = `${clean.firstName} ${clean.lastName}`;
       const memberId = crypto.randomUUID();
 
       // Save to members table — auto-accept on submission
@@ -182,41 +202,51 @@ const JoinUs = () => {
         .insert([{
           id: memberId,
           name: fullName,
-          email: formData.email,
-          category: formData.membership,
+          email: clean.email,
+          category: clean.membership,
           status: 'accepted',
-          preferences: { jobTitle: formData.jobTitle, institution: formData.institution, researchTrack: formData.researchTrack }
+          preferences: {
+            jobTitle: clean.jobTitle,
+            institution: clean.institution,
+            researchTrack: clean.researchTrack,
+          },
         }]);
 
-      const isDuplicateApplication = error && 'code' in error && error.code === '23505';
-      if (error && !isDuplicateApplication) throw error;
-      if (isDuplicateApplication) {
-        console.warn('Membership application already exists for this email; continuing with confirmation flow.');
+      // Hard-block duplicates by email (unique constraint)
+      if (error && 'code' in error && (error as any).code === '23505') {
+        toast({
+          title: "Already a member",
+          description: "An application with this email already exists. Please use a different email or contact us if you need help.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
       }
+      if (error) throw error;
 
-      // Subscribe to Mailchimp with STATUS=Accepted
+      // Subscribe to Mailchimp (non-blocking)
       await subscribeToMailchimp({
-        email: formData.email,
+        email: clean.email,
         name: fullName,
         source: 'membership-application',
-        tags: ['New Member', 'Accepted', formData.membership, formData.researchTrack].filter(Boolean),
+        tags: ['New Member', 'Accepted', clean.membership, clean.researchTrack].filter(Boolean),
         merge_fields: {
-          JOBTITLE: formData.jobTitle,
-          INSTITUT: formData.institution,
-          MEMLEVEL: formData.membership,
-          TRACK: formData.researchTrack,
+          JOBTITLE: clean.jobTitle,
+          INSTITUT: clean.institution,
+          MEMLEVEL: clean.membership,
+          TRACK: clean.researchTrack,
           STATUS: 'Accepted',
         },
-        member_id: isDuplicateApplication ? undefined : memberId,
+        member_id: memberId,
       }).catch(err => console.warn('Mailchimp subscription failed (non-blocking):', err));
 
       // Send welcome / acceptance email immediately
       await supabase.functions.invoke('send-welcome-email', {
         body: {
-          email: formData.email,
+          email: clean.email,
           name: fullName,
-          category: formData.membership,
-          track: formData.researchTrack,
+          category: clean.membership,
+          track: clean.researchTrack,
         },
       }).catch(err => console.warn('Welcome email failed (non-blocking):', err));
 
@@ -225,7 +255,7 @@ const JoinUs = () => {
         description: "Your application has been accepted. Check your inbox for a welcome email.",
       });
 
-      setSubmittedData(formData);
+      setSubmittedData({ ...formData, ...clean });
       setSubmitted(true);
     } catch (error) {
       console.error('Error submitting membership:', error);
