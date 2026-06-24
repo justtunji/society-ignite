@@ -35,6 +35,49 @@ const APPLY_DEFAULTS = {
   subheadline: "Support us and you'll get to attend our conference for free.",
 };
 
+// Strip control chars / null bytes; reject obvious script/SQL injection shapes
+const SAFE_TEXT = /^[^\u0000-\u001F\u007F<>]*$/;
+const NO_SCRIPT = (v: string) =>
+  !/<\s*script|javascript:|on\w+\s*=|<\s*iframe|--\s|;\s*drop\s|union\s+select/i.test(v);
+
+const safeString = (label: string, max: number, min = 1) =>
+  z.string()
+    .trim()
+    .min(min, `${label} is required`)
+    .max(max, `${label} must be under ${max} characters`)
+    .regex(SAFE_TEXT, `${label} contains invalid characters`)
+    .refine(NO_SCRIPT, `${label} contains disallowed content`);
+
+const MEMBERSHIP_OPTIONS = [
+  'Academic and Scholar Membership (ASM)',
+  'Executive Leader Membership (ELM)',
+  'Industry Practitioner Membership (IPM)',
+  'Student Membership (SM)',
+] as const;
+
+const RESEARCH_TRACK_OPTIONS = [
+  'Law and Legal Studies',
+  'Business, Management, and Economics',
+  'Social Sciences',
+  'Arts, Humanities, and Cultural Studies',
+  'Sciences, Technology, Engineering, and Mathematics (STEM)',
+  'Health, Medicine, and Life Sciences',
+  'Education and Pedagogy',
+  'Interdisciplinary and Cross-Cutting Research',
+] as const;
+
+const NAME_REGEX = /^[\p{L}\p{M}'’\-\s.]+$/u;
+
+const applicationSchema = z.object({
+  firstName: safeString('First name', 60).regex(NAME_REGEX, 'First name contains invalid characters'),
+  lastName: safeString('Last name', 60).regex(NAME_REGEX, 'Last name contains invalid characters'),
+  email: z.string().trim().toLowerCase().email('Invalid email address').max(254, 'Email is too long'),
+  jobTitle: safeString('Job title', 120),
+  institution: safeString('Institution', 160),
+  membership: z.enum(MEMBERSHIP_OPTIONS, { errorMap: () => ({ message: 'Select a valid membership level' }) }),
+  researchTrack: z.enum(RESEARCH_TRACK_OPTIONS, { errorMap: () => ({ message: 'Select a valid research track' }) }),
+});
+
 const JoinUs = () => {
   const hero = useSectionContent('join-us', 'hero', HERO_DEFAULTS);
   const why = useSectionContent('join-us', 'why_join', WHY_DEFAULTS);
