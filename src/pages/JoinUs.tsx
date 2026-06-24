@@ -204,7 +204,7 @@ const JoinUs = () => {
           name: fullName,
           email: clean.email,
           category: clean.membership,
-          status: 'accepted',
+          is_verified: true,
           preferences: {
             jobTitle: clean.jobTitle,
             institution: clean.institution,
@@ -400,7 +400,7 @@ const JoinUs = () => {
                       <p className="text-muted-foreground">
                         Thanks, {submittedData.firstName}. We've sent a confirmation to{" "}
                         <span className="font-semibold text-foreground">{submittedData.email}</span> with the details below.
-                        Our team will review your application and follow up by email with your acceptance.
+                        Your SBA membership has been accepted automatically.
                       </p>
                     </div>
                     <div className="text-left bg-background rounded-xl p-6 border border-border space-y-2 text-sm">
@@ -410,7 +410,7 @@ const JoinUs = () => {
                       <p><span className="font-semibold">Institution:</span> {submittedData.institution}</p>
                       <p><span className="font-semibold">Membership level:</span> {submittedData.membership}</p>
                       <p><span className="font-semibold">Research track:</span> {submittedData.researchTrack}</p>
-                      <p className="pt-2"><span className="font-semibold">Status:</span> <span className="inline-block px-2 py-0.5 rounded-full bg-accent/15 text-accent text-xs font-semibold">Pending review</span></p>
+                      <p className="pt-2"><span className="font-semibold">Status:</span> <span className="inline-block px-2 py-0.5 rounded-full bg-accent/15 text-accent text-xs font-semibold">Accepted</span></p>
                     </div>
                     <Button asChild size="lg" className="rounded-full px-8 bg-accent text-accent-foreground hover:bg-accent/90">
                       <a href="/">Back to homepage</a>
