@@ -9,6 +9,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Check, GraduationCap, Briefcase, Users, School, Handshake, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { subscribeToMailchimp } from "@/lib/mailchimp";
+import { z } from "zod";
 import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
 import joinUsHero from "@/assets/images/join-us-team.jpeg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
@@ -34,6 +35,49 @@ const APPLY_DEFAULTS = {
   subheadline: "Support us and you'll get to attend our conference for free.",
 };
 
+// Strip control chars / null bytes; reject obvious script/SQL injection shapes
+const SAFE_TEXT = /^[^\u0000-\u001F\u007F<>]*$/;
+const NO_SCRIPT = (v: string) =>
+  !/<\s*script|javascript:|on\w+\s*=|<\s*iframe|--\s|;\s*drop\s|union\s+select/i.test(v);
+
+const safeString = (label: string, max: number, min = 1) =>
+  z.string()
+    .trim()
+    .min(min, `${label} is required`)
+    .max(max, `${label} must be under ${max} characters`)
+    .regex(SAFE_TEXT, `${label} contains invalid characters`)
+    .refine(NO_SCRIPT, `${label} contains disallowed content`);
+
+const MEMBERSHIP_OPTIONS = [
+  'Academic and Scholar Membership (ASM)',
+  'Executive Leader Membership (ELM)',
+  'Industry Practitioner Membership (IPM)',
+  'Student Membership (SM)',
+] as const;
+
+const RESEARCH_TRACK_OPTIONS = [
+  'Law and Legal Studies',
+  'Business, Management, and Economics',
+  'Social Sciences',
+  'Arts, Humanities, and Cultural Studies',
+  'Sciences, Technology, Engineering, and Mathematics (STEM)',
+  'Health, Medicine, and Life Sciences',
+  'Education and Pedagogy',
+  'Interdisciplinary and Cross-Cutting Research',
+] as const;
+
+const NAME_REGEX = /^[\p{L}\p{M}'’\-\s.]+$/u;
+
+const applicationSchema = z.object({
+  firstName: safeString('First name', 60).refine((v) => NAME_REGEX.test(v), 'First name contains invalid characters'),
+  lastName: safeString('Last name', 60).refine((v) => NAME_REGEX.test(v), 'Last name contains invalid characters'),
+  email: z.string().trim().toLowerCase().email('Invalid email address').max(254, 'Email is too long'),
+  jobTitle: safeString('Job title', 120),
+  institution: safeString('Institution', 160),
+  membership: z.enum(MEMBERSHIP_OPTIONS, { errorMap: () => ({ message: 'Select a valid membership level' }) }),
+  researchTrack: z.enum(RESEARCH_TRACK_OPTIONS, { errorMap: () => ({ message: 'Select a valid research track' }) }),
+});
+
 const JoinUs = () => {
   const hero = useSectionContent('join-us', 'hero', HERO_DEFAULTS);
   const why = useSectionContent('join-us', 'why_join', WHY_DEFAULTS);
@@ -43,6 +87,8 @@ const JoinUs = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submittedData, setSubmittedData] = useState<null | typeof formData>(null);
+  const [honeypot, setHoneypot] = useState('');
+  const [mountedAt] = useState(() => Date.now());
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -124,10 +170,30 @@ const JoinUs = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isSubmitting || submitted) return;
-    setIsSubmitting(true);
 
+    // Bot defences: honeypot + time trap (humans take >2s)
+    if (honeypot.trim().length > 0 || Date.now() - mountedAt < 2000) {
+      console.warn('Spam submission blocked.');
+      toast({
+        title: "Submission blocked",
+        description: "Your submission could not be processed.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate & sanitize
+    const parsed = applicationSchema.safeParse(formData);
+    if (!parsed.success) {
+      const firstError = parsed.error.issues[0]?.message ?? 'Please check your inputs.';
+      toast({ title: "Invalid input", description: firstError, variant: "destructive" });
+      return;
+    }
+    const clean = parsed.data;
+
+    setIsSubmitting(true);
     try {
-      const fullName = `${formData.firstName} ${formData.lastName}`;
+      const fullName = `${clean.firstName} ${clean.lastName}`;
       const memberId = crypto.randomUUID();
 
       // Save to members table — auto-accept on submission
@@ -136,41 +202,51 @@ const JoinUs = () => {
         .insert([{
           id: memberId,
           name: fullName,
-          email: formData.email,
-          category: formData.membership,
+          email: clean.email,
+          category: clean.membership,
           status: 'accepted',
-          preferences: { jobTitle: formData.jobTitle, institution: formData.institution, researchTrack: formData.researchTrack }
+          preferences: {
+            jobTitle: clean.jobTitle,
+            institution: clean.institution,
+            researchTrack: clean.researchTrack,
+          },
         }]);
 
-      const isDuplicateApplication = error && 'code' in error && error.code === '23505';
-      if (error && !isDuplicateApplication) throw error;
-      if (isDuplicateApplication) {
-        console.warn('Membership application already exists for this email; continuing with confirmation flow.');
+      // Hard-block duplicates by email (unique constraint)
+      if (error && 'code' in error && (error as any).code === '23505') {
+        toast({
+          title: "Already a member",
+          description: "An application with this email already exists. Please use a different email or contact us if you need help.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
       }
+      if (error) throw error;
 
-      // Subscribe to Mailchimp with STATUS=Accepted
+      // Subscribe to Mailchimp (non-blocking)
       await subscribeToMailchimp({
-        email: formData.email,
+        email: clean.email,
         name: fullName,
         source: 'membership-application',
-        tags: ['New Member', 'Accepted', formData.membership, formData.researchTrack].filter(Boolean),
+        tags: ['New Member', 'Accepted', clean.membership, clean.researchTrack].filter(Boolean),
         merge_fields: {
-          JOBTITLE: formData.jobTitle,
-          INSTITUT: formData.institution,
-          MEMLEVEL: formData.membership,
-          TRACK: formData.researchTrack,
+          JOBTITLE: clean.jobTitle,
+          INSTITUT: clean.institution,
+          MEMLEVEL: clean.membership,
+          TRACK: clean.researchTrack,
           STATUS: 'Accepted',
         },
-        member_id: isDuplicateApplication ? undefined : memberId,
+        member_id: memberId,
       }).catch(err => console.warn('Mailchimp subscription failed (non-blocking):', err));
 
       // Send welcome / acceptance email immediately
       await supabase.functions.invoke('send-welcome-email', {
         body: {
-          email: formData.email,
+          email: clean.email,
           name: fullName,
-          category: formData.membership,
-          track: formData.researchTrack,
+          category: clean.membership,
+          track: clean.researchTrack,
         },
       }).catch(err => console.warn('Welcome email failed (non-blocking):', err));
 
@@ -179,7 +255,7 @@ const JoinUs = () => {
         description: "Your application has been accepted. Check your inbox for a welcome email.",
       });
 
-      setSubmittedData(formData);
+      setSubmittedData({ ...formData, ...clean });
       setSubmitted(true);
     } catch (error) {
       console.error('Error submitting membership:', error);
@@ -341,7 +417,20 @@ const JoinUs = () => {
                     </Button>
                   </div>
                 ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+                  {/* Honeypot — hidden from humans, attractive to bots */}
+                  <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', top: 'auto', width: 1, height: 1, overflow: 'hidden' }}>
+                    <label htmlFor="company_website">Website</label>
+                    <input
+                      type="text"
+                      id="company_website"
+                      name="company_website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                    />
+                  </div>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="firstName">First Name *</Label>
