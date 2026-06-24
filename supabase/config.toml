@@ -8,3 +8,9 @@ verify_jwt = false
 
 [functions.cloudinary-migrate]
 verify_jwt = false
+
+[functions.send-welcome-email]
+verify_jwt = false
+
+[functions.mailchimp-subscribe]
+verify_jwt = false
