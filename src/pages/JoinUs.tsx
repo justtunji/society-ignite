@@ -69,8 +69,8 @@ const RESEARCH_TRACK_OPTIONS = [
 const NAME_REGEX = /^[\p{L}\p{M}'’\-\s.]+$/u;
 
 const applicationSchema = z.object({
-  firstName: safeString('First name', 60).regex(NAME_REGEX, 'First name contains invalid characters'),
-  lastName: safeString('Last name', 60).regex(NAME_REGEX, 'Last name contains invalid characters'),
+  firstName: safeString('First name', 60).refine((v) => NAME_REGEX.test(v), 'First name contains invalid characters'),
+  lastName: safeString('Last name', 60).refine((v) => NAME_REGEX.test(v), 'Last name contains invalid characters'),
   email: z.string().trim().toLowerCase().email('Invalid email address').max(254, 'Email is too long'),
   jobTitle: safeString('Job title', 120),
   institution: safeString('Institution', 160),
