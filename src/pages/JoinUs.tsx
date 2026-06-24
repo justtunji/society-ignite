@@ -87,6 +87,8 @@ const JoinUs = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submittedData, setSubmittedData] = useState<null | typeof formData>(null);
+  const [honeypot, setHoneypot] = useState('');
+  const [mountedAt] = useState(() => Date.now());
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
