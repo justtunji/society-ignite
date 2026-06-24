@@ -9,6 +9,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Check, GraduationCap, Briefcase, Users, School, Handshake, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { subscribeToMailchimp } from "@/lib/mailchimp";
+import { z } from "zod";
 import { PartnerSponsorDialog } from "@/components/PartnerSponsorDialog";
 import joinUsHero from "@/assets/images/join-us-team.jpeg";
 import sbaLogo from "@/assets/logos/sba-logo.png";
