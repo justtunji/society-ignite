@@ -130,7 +130,7 @@ const JoinUs = () => {
       const fullName = `${formData.firstName} ${formData.lastName}`;
       const memberId = crypto.randomUUID();
 
-      // Save to members table
+      // Save to members table — auto-accept on submission
       const { error } = await supabase
         .from('members')
         .insert([{
@@ -138,6 +138,7 @@ const JoinUs = () => {
           name: fullName,
           email: formData.email,
           category: formData.membership,
+          status: 'accepted',
           preferences: { jobTitle: formData.jobTitle, institution: formData.institution, researchTrack: formData.researchTrack }
         }]);
 
@@ -147,26 +148,35 @@ const JoinUs = () => {
         console.warn('Membership application already exists for this email; continuing with confirmation flow.');
       }
 
-      // Subscribe to Mailchimp with STATUS=Pending — triggers your "Application Received" automation
+      // Subscribe to Mailchimp with STATUS=Accepted
       await subscribeToMailchimp({
         email: formData.email,
         name: fullName,
         source: 'membership-application',
-        tags: ['New Member', 'Pending', formData.membership, formData.researchTrack].filter(Boolean),
+        tags: ['New Member', 'Accepted', formData.membership, formData.researchTrack].filter(Boolean),
         merge_fields: {
           JOBTITLE: formData.jobTitle,
           INSTITUT: formData.institution,
           MEMLEVEL: formData.membership,
           TRACK: formData.researchTrack,
-          STATUS: 'Pending',
+          STATUS: 'Accepted',
         },
         member_id: isDuplicateApplication ? undefined : memberId,
       }).catch(err => console.warn('Mailchimp subscription failed (non-blocking):', err));
 
+      // Send welcome / acceptance email immediately
+      await supabase.functions.invoke('send-welcome-email', {
+        body: {
+          email: formData.email,
+          name: fullName,
+          category: formData.membership,
+          track: formData.researchTrack,
+        },
+      }).catch(err => console.warn('Welcome email failed (non-blocking):', err));
 
       toast({
-        title: "Application submitted!",
-        description: "We've received your application. Check your inbox for a confirmation email.",
+        title: "Welcome to SBA!",
+        description: "Your application has been accepted. Check your inbox for a welcome email.",
       });
 
       setSubmittedData(formData);
